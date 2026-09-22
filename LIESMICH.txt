@@ -1,0 +1,23 @@
+PRINT & CUT Werbetechnik – Website (Haste bei Bad Nenndorf)
+===========================================================
+
+Ansehen:     index.html per Doppelklick im Browser öffnen.
+Hochladen:   Den kompletten Ordnerinhalt zu einem beliebigen Webhoster
+             (z. B. IONOS, Strato, All-Inkl, Netlify) in das Stammverzeichnis
+             hochladen. Es wird keine Datenbank und kein PHP benötigt.
+
+Inhalt
+  index.html   Die Website (alle Inhalte, inkl. Impressum und Datenschutz)
+  style.css    Gestaltung (Farben ganz oben unter :root anpassbar)
+  main.js      Anzeige „Jetzt geöffnet / geschlossen“, sanftes Einblenden
+  assets/      Logo und Referenzbilder
+  fonts/       Lokal eingebundene Schriften (Big Shoulders Display, Work Sans,
+               IBM Plex Mono; SIL Open Font License) – keine Verbindung zu Google
+
+Vor dem Livegang ergänzen
+  - Impressum: USt-IdNr. eintragen (in index.html, Abschnitt "impressum")
+  - Datenschutzerklärung rechtlich prüfen lassen
+  - Öffnungszeiten ändern: Tabelle in index.html UND Liste HOURS in main.js
+  - Weitere Referenzbilder: in assets/ ablegen und im Abschnitt "arbeiten" eintragen
+
+Datenschutz: keine Cookies, kein Tracking, keine externen Einbindungen.
