@@ -54,3 +54,8 @@
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 })();
+
+// Rechtstexte-Overlay mit Escape schließen
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && /^#(impressum|datenschutz)$/.test(location.hash)) location.hash = "footer";
+});
