@@ -1,0 +1,23 @@
+GOLDENE PEKINGENTE – Website (China-Restaurant, Bad Nenndorf)
+=============================================================
+
+Ansehen:     index.html per Doppelklick im Browser öffnen.
+Hochladen:   Den kompletten Ordnerinhalt zu einem beliebigen Webhoster
+             (z. B. IONOS, Strato, All-Inkl, Netlify) in das Stammverzeichnis
+             hochladen. Es wird keine Datenbank und kein PHP benötigt.
+
+Inhalt
+  index.html   Die Website (alle Inhalte, inkl. Impressum und Datenschutz)
+  style.css    Gestaltung (Farben ganz oben unter :root anpassbar)
+  main.js      Anzeige „Jetzt geöffnet / geschlossen“, sanftes Einblenden
+  fonts/       Lokal eingebundene Schriften (Inter, Cormorant Garamond,
+               Noto Serif SC; SIL Open Font License) – keine Verbindung zu Google
+
+Vor dem Livegang prüfen/ergänzen
+  - Öffnungszeiten mit dem Restaurant abgleichen (Online-Angaben weichen
+    voneinander ab). Ändern: Tabelle in index.html UND Liste HOURS in main.js
+  - Impressum: Inhaber, E-Mail, USt-IdNr. (in index.html, Abschnitt "impressum")
+  - Datenschutzerklärung rechtlich prüfen lassen
+  - Optional: echte Fotos (Gastraum, Pekingente) und Speisekarte als PDF
+
+Datenschutz: keine Cookies, kein Tracking, keine externen Einbindungen.
