@@ -1,0 +1,10 @@
+{
+  "name": "bissen",
+  "private": true,
+  "type": "module",
+  "description": "Bissen – minimalistischer Kalorien- und Makro-Tracker als PWA",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -c-1",
+    "test": "node --test tests/*.test.js"
+  }
+}
