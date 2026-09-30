@@ -109,7 +109,7 @@ text(L + 5, ys[0] - 13, "Leistung", "Sans-Bold", 9.5)
 text(cols[1] + 5, ys[0] - 13, "Preis (€)", "Sans-Bold", 9.5)
 rows = [("leistung_1", "[Neubau / Modernisierung]: [Einseitig / Startseite + __ Unterseiten]", "preis_1"),
         ("leistung_2", "Extras", "preis_2"),
-        (None, "Entwurfspauschale (bereits bezahlt, wird angerechnet)", "preis_3")]
+        ("leistung_3", "Entwurfspauschale (bereits bezahlt, wird angerechnet)", "preis_3")]
 for i, (lname, lval, pname) in enumerate(rows, start=1):
     if lname:
         field(lname, L + 3, ys[i + 1] + 2, cols[1] - L - 6, rh - 4, value=lval, tooltip="Leistung")
