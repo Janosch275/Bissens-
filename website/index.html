@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stielsache – Blumen, Mode & Deko in Bad Nenndorf</title>
+<meta name="description" content="Stielsache in Bad Nenndorf: Floristik für jeden Anlass, Hochzeits- und Eventdeko mit Auf- und Abbau, Deko-Verleih, Mode und Accessoires. Hauptstraße 21.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@1&display=swap">
+<style>
+/* Layout: klassische Unternehmensseite mit Abschnitten; Bento-Kacheln für Leistungen und Galerie, grüne Flächen als Anker */
+:root {
+  --bg: #f1f3ee;
+  --tile: #ffffff;
+  --fg: #141d17;
+  --muted: #5d6a61;
+  --green: #1f3d2c;
+  --on-green: #eef3ec;
+  --petal: #f4a6c1;
+  --pink: #d8356f;
+  --sage: #cfdcc9;
+  --line: #dde3d9;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --accent-serif: "Instrument Serif", Georgia, serif;
+  --r: 26px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1310; --tile: #18201b; --fg: #eaf0e8; --muted: #9ba99f;
+    --green: #234633; --on-green: #eef3ec; --petal: #f4a6c1; --pink: #ff6b9a; --sage: #2c3c31; --line: #27322b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1310; --tile: #18201b; --fg: #eaf0e8; --muted: #9ba99f;
+  --green: #234633; --on-green: #eef3ec; --petal: #f4a6c1; --pink: #ff6b9a; --sage: #2c3c31; --line: #27322b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 1rem/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+img { max-width: 100%; }
+:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+.wrap { max-width: 74rem; margin: 0 auto; padding-inline: clamp(1rem, 3vw, 2rem); }
+h1, h2, h3 { font-family: var(--display); letter-spacing: -.035em; margin: 0; text-wrap: balance; }
+em.s { font-family: var(--accent-serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; color: var(--pink); }
+.eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 1rem; }
+section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem 3rem; align-items: end; margin-bottom: 2.5rem; }
+.sec-head h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: .98; font-weight: 800; }
+.sec-head p { margin: 0; color: var(--muted); max-width: 44ch; }
+@media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; } }
+
+.btn { display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 1.35rem; border-radius: 999px; text-decoration: none; font: 600 .95rem/1 var(--body); border: 0; cursor: pointer; transition: transform .15s, background .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn.dark { background: var(--fg); color: var(--bg); }
+.btn.soft { background: var(--tile); color: var(--fg); }
+.btn.light { background: var(--on-green); color: var(--green); }
+.btn.ghost { background: color-mix(in srgb, var(--on-green) 14%, transparent); color: var(--on-green); }
+.cta { display: flex; flex-wrap: wrap; gap: .6rem; }
+
+/* Foto-Platzhalter: gezeichnete Blüten statt echter Fotos, mit Hinweis welches Motiv hierhin gehört */
+.ph {
+  position: relative; overflow: hidden; border-radius: var(--r); min-height: 12rem; background: var(--sage);
+  background-image:
+    radial-gradient(circle at var(--x, 70%) var(--y, 35%), var(--petal) 0 9%, transparent 9.5%),
+    radial-gradient(circle at calc(var(--x, 70%) + 9%) calc(var(--y, 35%) + 6%), var(--pink) 0 7%, transparent 7.5%),
+    radial-gradient(circle at calc(var(--x, 70%) - 12%) calc(var(--y, 35%) + 14%), color-mix(in srgb, var(--green) 55%, var(--sage)) 0 11%, transparent 11.5%),
+    linear-gradient(160deg, var(--sage), color-mix(in srgb, var(--sage) 70%, var(--green)));
+}
+.ph.g { --x: 30%; --y: 60%; } .ph.h { --x: 55%; --y: 25%; } .ph.k { --x: 80%; --y: 70%; }
+.ph span { position: absolute; left: .9rem; bottom: .9rem; font-size: .75rem; font-weight: 600; padding: .3rem .7rem; border-radius: 999px; background: color-mix(in srgb, var(--tile) 85%, transparent); color: var(--fg); }
+
+/* Kopfzeile */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; padding-block: .75rem; }
+.bar .inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: color-mix(in srgb, var(--tile) 82%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--line); border-radius: 999px; padding: .45rem .45rem .45rem 1.25rem; }
+.logo { font: 800 1.2rem/1 var(--display); letter-spacing: -.04em; text-decoration: none; }
+.logo span { color: var(--pink); }
+.menu { display: flex; align-items: center; gap: .15rem; font-size: .92rem; }
+.menu a { text-decoration: none; padding: .55rem .85rem; border-radius: 999px; color: var(--muted); }
+.menu a:hover { color: var(--fg); background: var(--bg); }
+.menu a.call { background: var(--fg); color: var(--bg); font-weight: 600; margin-left: .3rem; }
+.burger { display: none; background: var(--fg); color: var(--bg); border: 0; border-radius: 999px; padding: .6rem 1rem; font: 600 .9rem/1 var(--body); cursor: pointer; }
+@media (max-width: 860px) {
+  .burger { display: inline-block; }
+  .menu { display: none; position: absolute; left: clamp(1rem, 3vw, 2rem); right: clamp(1rem, 3vw, 2rem); top: calc(100% - .25rem); flex-direction: column; align-items: stretch; background: var(--tile); border: 1px solid var(--line); border-radius: var(--r); padding: .6rem; }
+  .menu.open { display: flex; }
+  .menu a { padding: .8rem 1rem; }
+  .menu a.call { margin: .3rem 0 0; text-align: center; }
+}
+
+/* Hero */
+.hero { padding-block: 1rem 3rem; }
+.hero .grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 12px; }
+.hero .lead { background: var(--tile); border-radius: var(--r); padding: clamp(1.5rem, 4vw, 3rem); display: flex; flex-direction: column; justify-content: space-between; gap: 2.5rem; min-width: 0; }
+.hero h1 { font-size: clamp(3rem, 8.5vw, 6.6rem); line-height: .9; font-weight: 800; letter-spacing: -.05em; }
+.hero p.sub { font-size: clamp(1.05rem, 1.6vw, 1.25rem); max-width: 36ch; margin: 1.25rem 0 0; color: var(--muted); }
+.hero .pics { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; min-height: 26rem; }
+.hero .pics .ph:first-child { grid-row: span 2; }
+@media (max-width: 860px) { .hero .grid { grid-template-columns: 1fr; } .hero .pics { min-height: 20rem; } }
+.facts { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 12px; }
+.facts li { list-style: none; padding: .55rem 1rem; border-radius: 999px; background: var(--tile); font-size: .9rem; font-weight: 500; }
+.facts li b { color: var(--pink); }
+.facts { padding: 0; margin-bottom: 0; }
+
+/* Leistungen */
+.services { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 12px; }
+.service { background: var(--tile); border-radius: var(--r); padding: .6rem .6rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.service .ph { min-height: 11rem; border-radius: calc(var(--r) - 8px); }
+.service h3 { font-size: 1.45rem; font-weight: 700; padding-inline: .9rem; }
+.service p { margin: 0; color: var(--muted); padding-inline: .9rem; font-size: .97rem; }
+
+/* Hochzeit */
+.wedding { background: var(--green); color: var(--on-green); border-radius: calc(var(--r) + 6px); padding: clamp(1.5rem, 5vw, 4rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; }
+@media (max-width: 860px) { .wedding { grid-template-columns: 1fr; } }
+.wedding h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: .98; font-weight: 800; }
+.wedding em.s { color: var(--petal); }
+.wedding .eyebrow { color: color-mix(in srgb, var(--on-green) 70%, transparent); }
+.wedding > div > p { color: color-mix(in srgb, var(--on-green) 82%, transparent); max-width: 44ch; }
+.steps { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 0; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: .75rem; padding-block: 1rem; border-top: 1px solid color-mix(in srgb, var(--on-green) 18%, transparent); }
+.steps li::before { content: counter(s); font: 700 1rem/1.6 var(--display); color: var(--petal); }
+.steps b { display: block; font-family: var(--display); font-size: 1.1rem; letter-spacing: -.02em; }
+.steps span { color: color-mix(in srgb, var(--on-green) 75%, transparent); font-size: .95rem; }
+form.ask { background: var(--tile); color: var(--fg); border-radius: var(--r); padding: clamp(1.25rem, 3vw, 2rem); display: grid; gap: .9rem; align-content: start; }
+form.ask h3 { font-size: 1.5rem; font-weight: 700; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+@media (max-width: 520px) { .row { grid-template-columns: 1fr; } }
+label { display: grid; gap: .35rem; font-size: .85rem; font-weight: 600; }
+input, select, textarea { font: 400 1rem/1.4 var(--body); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: .75rem .9rem; width: 100%; }
+textarea { min-height: 6rem; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--pink); outline-offset: 0; border-color: transparent; }
+.note { font-size: .82rem; color: var(--muted); margin: 0; }
+.done { background: color-mix(in srgb, var(--pink) 12%, var(--tile)); border-radius: 14px; padding: .9rem 1rem; font-size: .95rem; margin: 0; }
+
+/* Galerie */
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 12rem; gap: 12px; }
+.gallery .ph:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+@media (max-width: 760px) { .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 10rem; } }
+
+/* Über uns */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
+.about .ph { min-height: 24rem; }
+.about .text { background: var(--tile); border-radius: var(--r); padding: clamp(1.5rem, 4vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: 1rem; min-width: 0; }
+.about h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1; font-weight: 800; }
+.about p { margin: 0; color: var(--muted); max-width: 52ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1rem; }
+.stats div { font: 800 2.2rem/1 var(--display); letter-spacing: -.04em; }
+.stats small { display: block; font: 500 .85rem/1.4 var(--body); color: var(--muted); letter-spacing: 0; margin-top: .35rem; }
+
+/* FAQ */
+.faq { display: grid; gap: 8px; max-width: 52rem; }
+.faq details { background: var(--tile); border-radius: 18px; padding: 1.1rem 1.35rem; }
+.faq summary { cursor: pointer; font: 600 1.1rem/1.4 var(--display); letter-spacing: -.02em; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--pink); font-size: 1.4rem; line-height: 1; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { margin: .75rem 0 0; color: var(--muted); }
+
+/* Besuch */
+.visit { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+@media (max-width: 960px) { .visit { grid-template-columns: 1fr 1fr; } .visit .v-main { grid-column: span 2; } }
+@media (max-width: 600px) { .visit { grid-template-columns: 1fr; } .visit .v-main { grid-column: auto; } }
+.visit > div { background: var(--tile); border-radius: var(--r); padding: clamp(1.25rem, 3vw, 2rem); min-width: 0; }
+.visit .v-main { background: var(--green); color: var(--on-green); display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+.visit .v-main h2 { font-size: clamp(2.2rem, 4.6vw, 3.4rem); line-height: .95; font-weight: 800; }
+.visit .v-main em.s { color: var(--petal); }
+.status { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; padding: .4rem .85rem; border-radius: 999px; background: color-mix(in srgb, var(--on-green) 14%, transparent); width: fit-content; font-size: .9rem; }
+.status i { width: .55rem; height: .55rem; border-radius: 50%; background: color-mix(in srgb, var(--on-green) 55%, transparent); }
+.status.open i { background: #4cc27a; }
+.hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.hours td { padding: .8rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.hours td:last-child { text-align: right; font-weight: 500; }
+.hours tr:last-child td { border-bottom: 0; }
+.hours tr.today td:first-child::after { content: "Heute"; margin-left: .45rem; font-size: .7rem; font-weight: 600; padding: .12rem .5rem; border-radius: 999px; background: var(--pink); color: #fff; vertical-align: .1em; }
+.contact-list { display: grid; gap: .9rem; }
+.contact-list div { display: grid; gap: .1rem; }
+.contact-list small { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.contact-list a { text-decoration: none; font-weight: 500; width: fit-content; border-bottom: 1px solid var(--line); }
+.contact-list a:hover { border-color: var(--pink); }
+
+footer { padding-block: 3rem 2.5rem; font-size: .9rem; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem 2rem; }
+footer nav { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--fg); }
+.draft { padding: .2rem .7rem; border: 1px dashed var(--muted); border-radius: 999px; font-size: .8rem; }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap" style="position: relative;">
+    <div class="inner">
+      <a class="logo" href="#top">stielsache<span>.</span></a>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="menu">Menü</button>
+      <nav class="menu" id="menu" aria-label="Hauptnavigation">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#hochzeit">Hochzeit</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#ueber-uns">Über uns</a>
+        <a href="#besuch">Kontakt</a>
+        <a class="call" href="tel:+4957239088959">05723 9088959</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="grid">
+        <div class="lead">
+          <p class="eyebrow">Blumen · Mode · Deko in Bad Nenndorf</p>
+          <div>
+            <h1>Blumen mit <em class="s">Stil</em> und Stiel.</h1>
+            <p class="sub">Frisch gebundene Sträuße, Floristik für Hochzeiten und Feste, Deko zum Ausleihen und ausgewählte Mode. Alles unter einem Dach an der Hauptstraße.</p>
+          </div>
+          <div class="cta">
+            <a class="btn dark" href="#besuch">Laden besuchen →</a>
+            <a class="btn soft" href="#hochzeit" style="background: var(--bg);">Hochzeit anfragen</a>
+          </div>
+        </div>
+        <div class="pics" aria-label="Bildbereich">
+          <div class="ph"><span>Foto: Ladenfront</span></div>
+          <div class="ph g"><span>Foto: Strauß</span></div>
+          <div class="ph h"><span>Foto: Mode</span></div>
+        </div>
+      </div>
+      <ul class="facts">
+        <li><b>✿</b> Seit 2015</li>
+        <li>Lieferservice</li>
+        <li>Auf- &amp; Abbau bei Events</li>
+        <li>Deko-Verleih</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Leistungen -->
+  <section id="leistungen">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Leistungen</p><h2>Was wir für Sie <em class="s">binden</em>.</h2></div>
+        <p>Von der einzelnen Rose bis zur kompletten Festdeko. Wir beraten persönlich und arbeiten mit saisonalen Blumen.</p>
+      </div>
+      <div class="services">
+        <article class="service">
+          <div class="ph g"><span>Foto: Sträuße</span></div>
+          <h3>Floristik für jeden Anlass</h3>
+          <p>Sträuße, Gestecke und Arrangements für Geburtstag, Jubiläum, Trauer oder einfach so. Auf Wunsch geliefert.</p>
+        </article>
+        <article class="service">
+          <div class="ph h"><span>Foto: Hochzeitsdeko</span></div>
+          <h3>Hochzeit &amp; Events</h3>
+          <p>Brautstrauß, Anstecker, Tisch- und Raumdeko. Wir bauen vor Ort auf und räumen danach wieder ab.</p>
+        </article>
+        <article class="service">
+          <div class="ph k"><span>Foto: Vasen &amp; Deko</span></div>
+          <h3>Deko-Verleih</h3>
+          <p>Vasen, Gefäße, Kerzenhalter und Dekoartikel zum Ausleihen, passend zu Ihrer Feier.</p>
+        </article>
+        <article class="service">
+          <div class="ph"><span>Foto: Mode im Laden</span></div>
+          <h3>Mode &amp; Accessoires</h3>
+          <p>Ausgewählte Damenmode, Accessoires und Wohndeko. Zum Stöbern und Verschenken.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hochzeit -->
+  <section id="hochzeit" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="wedding">
+        <div>
+          <p class="eyebrow">Hochzeitsfloristik</p>
+          <h2>Ihr Tag, <em class="s">unsere</em> Blumen.</h2>
+          <p>Wir planen die Floristik für Ihre Hochzeit gemeinsam mit Ihnen, vom ersten Gespräch bis zum Abbau nach der Feier.</p>
+          <ol class="steps">
+            <li><div><b>Beratung</b><span>Wir lernen Sie, Ihre Location und Ihre Wünsche kennen.</span></div></li>
+            <li><div><b>Konzept &amp; Angebot</b><span>Farben, Blumen und Deko, dazu ein klares Angebot.</span></div></li>
+            <li><div><b>Aufbau am Tag</b><span>Wir dekorieren vor Ort, Sie kümmern sich um nichts.</span></div></li>
+            <li><div><b>Abbau</b><span>Nach der Feier holen wir Leihdeko und Gefäße wieder ab.</span></div></li>
+          </ol>
+        </div>
+        <form class="ask" id="ask" novalidate>
+          <h3>Unverbindlich anfragen</h3>
+          <div class="row">
+            <label for="f-name">Name<input id="f-name" name="name" autocomplete="name" required></label>
+            <label for="f-mail">E-Mail<input id="f-mail" name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <div class="row">
+            <label for="f-date">Datum der Feier<input id="f-date" name="date" type="date"></label>
+            <label for="f-type">Anlass
+              <select id="f-type" name="type"><option>Hochzeit</option><option>Geburtstag</option><option>Firmenfeier</option><option>Anderes</option></select>
+            </label>
+          </div>
+          <label for="f-msg">Ihre Wünsche<textarea id="f-msg" name="message" placeholder="Location, Farben, Anzahl Gäste …"></textarea></label>
+          <button class="btn dark" type="submit" style="justify-self: start;">Anfrage senden →</button>
+          <p class="note" id="ask-note">Oder rufen Sie an: 05723 9088959</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galerie -->
+  <section id="galerie" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Galerie</p><h2>Aus unserer <em class="s">Werkstatt</em>.</h2></div>
+        <p>Hier erscheinen später echte Fotos aus dem Laden, zum Beispiel direkt aus Instagram.</p>
+      </div>
+      <div class="gallery">
+        <div class="ph"><span>Brautstrauß</span></div>
+        <div class="ph g"><span>Tischdeko</span></div>
+        <div class="ph h"><span>Saisonstrauß</span></div>
+        <div class="ph k"><span>Schaufenster</span></div>
+        <div class="ph g"><span>Kranz</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Über uns -->
+  <section id="ueber-uns" style="padding-top: 0;">
+    <div class="wrap about">
+      <div class="ph k"><span>Foto: Team im Laden</span></div>
+      <div class="text">
+        <p class="eyebrow" style="margin: 0;">Über uns</p>
+        <h2>Klein, aber <em class="s">fein</em>.</h2>
+        <p>Seit 2015 gibt es Stielsache mitten in Bad Nenndorf. Bei uns treffen frische Blumen auf Mode und Deko. Wir arbeiten kreativ und mit Sorgfalt, von der Idee bis zum fertigen Strauß, und gestalten am liebsten gemeinsam mit Ihnen.</p>
+        <p>[Hier ein persönlicher Satz der Inhaberin oder des Inhabers, z. B. wie alles angefangen hat.]</p>
+        <div class="stats">
+          <div>2015<small>gegründet</small></div>
+          <div>3<small>Welten: Blumen, Mode, Deko</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="eyebrow">Häufige Fragen</p><h2>Gut zu <em class="s">wissen</em>.</h2></div>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Liefern Sie Blumen auch aus?</summary>
+          <p>Ja. Rufen Sie uns einfach an oder schreiben Sie uns, dann besprechen wir Lieferort und Termin.</p>
+        </details>
+        <details>
+          <summary>Kann ich einen Strauß vorbestellen?</summary>
+          <p>Gern. Telefonisch unter 05723 9088959 oder per E-Mail. So ist Ihr Strauß fertig, wenn Sie ihn abholen.</p>
+        </details>
+        <details>
+          <summary>Welche Deko kann ich ausleihen?</summary>
+          <p>Vasen, Gefäße und viele Dekoartikel. Am besten kommen Sie im Laden vorbei, dann zeigen wir Ihnen die Auswahl.</p>
+        </details>
+        <details>
+          <summary>Wie früh sollte ich für eine Hochzeit anfragen?</summary>
+          <p>Je früher, desto besser, gerade in der Hochzeitssaison. Schicken Sie uns einfach eine Anfrage über das Formular oben.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Besuch -->
+  <section id="besuch" style="padding-top: 0;">
+    <div class="wrap visit">
+      <div class="v-main">
+        <div>
+          <span class="status" id="status"><i></i><span id="status-text">Öffnungszeiten</span></span>
+          <h2 style="margin-top: 1.25rem;">Kommen Sie <em class="s">vorbei</em>.</h2>
+        </div>
+        <div class="cta">
+          <a class="btn light" href="https://www.google.com/maps/search/?api=1&amp;query=Stielsache+Hauptstra%C3%9Fe+21+31542+Bad+Nenndorf" target="_blank" rel="noopener">Route planen →</a>
+          <a class="btn ghost" href="tel:+4957239088959">Anrufen</a>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Öffnungszeiten</p>
+        <table class="hours" id="hours">
+          <tbody>
+            <tr data-days="1,2,3,4,5"><td>Mo – Fr</td><td>9:30 – 13:00<br>14:00 – 18:00</td></tr>
+            <tr data-days="6"><td>Samstag</td><td>9:30 – 14:00</td></tr>
+            <tr data-days="0"><td>Sonntag</td><td>geschlossen</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p class="eyebrow">Kontakt</p>
+        <div class="contact-list">
+          <div><small>Adresse</small>Hauptstraße 21<br>31542 Bad Nenndorf</div>
+          <div><small>Telefon</small><a href="tel:+4957239088959">05723 9088959</a></div>
+          <div><small>E-Mail</small><a href="mailto:info@stielsache.de">info@stielsache.de</a></div>
+          <div><small>Social</small><a href="https://www.facebook.com/Stielsache/" target="_blank" rel="noopener">Facebook</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Stielsache · Hauptstraße 21 · 31542 Bad Nenndorf</span>
+    <nav aria-label="Rechtliches">
+      <a href="#top">Impressum</a>
+      <a href="#top">Datenschutz</a>
+      <a href="https://www.facebook.com/Stielsache/" target="_blank" rel="noopener">Facebook</a>
+    </nav>
+    <span class="draft">Beispiel-Website · Entwurf</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Mobiles Menü
+  var burger = document.getElementById("burger"), menu = document.getElementById("menu");
+  burger.addEventListener("click", function () {
+    var open = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+    burger.textContent = open ? "Schließen" : "Menü";
+  });
+  menu.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") { menu.classList.remove("open"); burger.setAttribute("aria-expanded", false); burger.textContent = "Menü"; }
+  });
+
+  // Anfrageformular: im Entwurf noch nicht angebunden
+  var form = document.getElementById("ask");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var note = document.getElementById("ask-note");
+    note.className = "done";
+    note.textContent = "Danke, " + form.name.value.split(" ")[0] + "! Im fertigen Auftritt geht Ihre Anfrage jetzt per E-Mail an Stielsache. In diesem Entwurf ist das Formular noch nicht angebunden.";
+  });
+
+  // Öffnungszeiten in Minuten seit Mitternacht, Index = Wochentag (0 = Sonntag)
+  var slots = { 0: [], 6: [[570, 840]] };
+  for (var d = 1; d <= 5; d++) slots[d] = [[570, 780], [840, 1080]];
+  var now;
+  try {
+    var parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+    var get = function (t) { return parts.find(function (p) { return p.type === t; }).value; };
+    now = { day: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(get("weekday")), min: (+get("hour") % 24) * 60 + +get("minute") };
+  } catch (e) {
+    var dt = new Date(); now = { day: dt.getDay(), min: dt.getHours() * 60 + dt.getMinutes() };
+  }
+  var fmt = function (m) { return Math.floor(m / 60) + ":" + String(m % 60).padStart(2, "0"); };
+  var today = slots[now.day];
+  var open = today.find(function (s) { return now.min >= s[0] && now.min < s[1]; });
+  var next = today.find(function (s) { return now.min < s[0]; });
+  var st = document.getElementById("status"), txt = document.getElementById("status-text");
+  if (open) { st.classList.add("open"); txt.textContent = "Jetzt geöffnet · bis " + fmt(open[1]) + " Uhr"; }
+  else if (next) { txt.textContent = "Geschlossen · öffnet um " + fmt(next[0]) + " Uhr"; }
+  else { txt.textContent = "Geschlossen · " + (now.day === 6 || now.day === 0 ? "Montag" : "morgen") + " ab 9:30 Uhr"; }
+  document.querySelectorAll("#hours tr").forEach(function (tr) {
+    if (tr.dataset.days.split(",").indexOf(String(now.day)) !== -1) tr.classList.add("today");
+  });
+})();
+</script>
+</body>
+</html>
