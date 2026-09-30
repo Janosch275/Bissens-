@@ -91,20 +91,13 @@ header.bar {
 .stem-art path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
 .stem-art .leaf { fill: currentColor; stroke: none; opacity: .85; }
 @media (prefers-reduced-motion: no-preference) {
-  .stem-art .grow { stroke-dasharray: 700; stroke-dashoffset: 700; animation: grow 2.2s .2s cubic-bezier(.3,.6,.2,1) forwards; }
+  .stem-art .grow { transform-box: fill-box; transform-origin: center bottom; animation: rise 1.4s .1s cubic-bezier(.3,.6,.2,1) both; }
   .stem-art .leaf, .stem-art .bloom { transform-box: fill-box; transform-origin: center bottom; animation: pop .7s ease-out both; }
-  .stem-art .l1 { animation-delay: 1s; } .stem-art .l2 { animation-delay: 1.3s; } .stem-art .bloom { animation-delay: 1.9s; }
+  .stem-art .l1 { animation-delay: .9s; } .stem-art .l2 { animation-delay: 1.1s; } .stem-art .bloom { animation-delay: 1.4s; }
 }
-@keyframes grow { to { stroke-dashoffset: 0; } }
+@keyframes rise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes pop { from { transform: scale(.4); } to { transform: scale(1); } }
 @media (max-width: 560px) { .hero .wrap { grid-template-columns: 1fr; } .stem-art { display: none; } }
-
-/* Laufband */
-.ticker { border-block: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding-block: .9rem; }
-.ticker p { margin: 0; display: inline-block; font: italic 400 1.35rem/1 var(--display); color: var(--muted); }
-.ticker p span { color: var(--bloom); font-style: normal; padding-inline: 1.1rem; }
-@media (prefers-reduced-motion: no-preference) { .ticker p { animation: slide 38s linear infinite; } }
-@keyframes slide { to { transform: translateX(-50%); } }
 
 /* Abschnitte */
 section.block { padding-block: clamp(3.5rem, 8vw, 6rem); }
@@ -119,24 +112,6 @@ section.block { padding-block: clamp(3.5rem, 8vw, 6rem); }
 .offer h3 { font: 500 1.6rem/1.15 var(--display); margin: .6rem 0 .6rem; }
 .offer p { margin: 0; color: var(--muted); font-size: .98rem; }
 .offer .tag { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--bloom); font-weight: 600; }
-
-/* Saison */
-.season { background: var(--surface); }
-.season .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; align-items: center; }
-.season h2 { font: italic 400 clamp(2.4rem, 6vw, 4.2rem)/1 var(--display); margin: 0 0 1rem; letter-spacing: -.02em; }
-.season p { margin: 0; color: var(--muted); max-width: 42ch; }
-.chips { display: flex; flex-wrap: wrap; gap: .6rem; }
-.chips li { list-style: none; padding: .55rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .95rem; }
-.chips { padding: 0; margin: 0; }
-@media (max-width: 760px) { .season .wrap { grid-template-columns: 1fr; } }
-
-/* Über uns */
-.about { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 2rem 4rem; }
-.about .since { font: 400 clamp(5rem, 16vw, 10rem)/.8 var(--display); color: var(--stem); letter-spacing: -.04em; }
-.about .since small { display: block; font: 500 .8rem/1.4 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 1rem; }
-.about blockquote { margin: 0; font: italic 400 clamp(1.5rem, 3.2vw, 2.1rem)/1.3 var(--display); text-wrap: balance; }
-.about p { color: var(--muted); max-width: 55ch; }
-@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
 
 /* Besuch */
 .visit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; border-top: 1px solid var(--fg); padding-top: 2rem; }
@@ -163,7 +138,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <a class="logo" href="#top">Stielsache<span>.</span></a>
     <nav aria-label="Hauptnavigation">
       <a href="#angebot">Angebot</a>
-      <a href="#ueber-uns">Über uns</a>
       <a href="#besuch">Öffnungszeiten</a>
       <a class="cta-small" href="tel:+4957239088959">Anrufen</a>
     </nav>
@@ -174,7 +148,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <section class="hero">
     <div class="wrap">
       <div>
-        <p class="eyebrow">Blumen · Mode · Deko — Bad Nenndorf</p>
+        <p class="eyebrow">Blumen · Mode · Deko — seit 2015 in Bad Nenndorf</p>
         <h1>Stiel<em>sache</em><span class="dot">.</span></h1>
         <p class="lede">Frische Blumen, schöne Mode und liebevolle Deko. <b>Klein, aber fein</b>, mitten in Bad Nenndorf.</p>
         <div class="actions">
@@ -197,61 +171,28 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true">
-    <p>Sträuße<span>✿</span>Hochzeitsfloristik<span>✿</span>Tischdeko<span>✿</span>Mode &amp; Accessoires<span>✿</span>Deko-Verleih<span>✿</span>Lieferservice<span>✿</span>Sträuße<span>✿</span>Hochzeitsfloristik<span>✿</span>Tischdeko<span>✿</span>Mode &amp; Accessoires<span>✿</span>Deko-Verleih<span>✿</span>Lieferservice<span>✿</span></p>
-  </div>
-
   <section class="block" id="angebot">
     <div class="wrap">
       <div class="head">
         <h2>Alles eine Frage des <em>Stiels</em>.</h2>
-        <p>Ob ein Strauß für zwischendurch oder die Blumen für den schönsten Tag: Wir binden von Hand und beraten persönlich, vom ersten Gespräch bis zur letzten Blüte.</p>
+        <p>Von Hand gebunden, persönlich beraten.</p>
       </div>
       <div class="offer">
         <article>
           <span class="tag">Floristik</span>
           <h3>Sträuße &amp; Gestecke</h3>
-          <p>Saisonal, frisch gebunden und ganz nach Ihrem Geschmack. Für jeden Anlass oder einfach so.</p>
+          <p>Saisonal, frisch gebunden und ganz nach Ihrem Geschmack. Auf Wunsch auch geliefert.</p>
         </article>
         <article>
           <span class="tag">Feste</span>
           <h3>Hochzeit &amp; Events</h3>
-          <p>Brautstrauß, Tischdeko und Raumschmuck. Auf Wunsch mit Aufbau und Abbau vor Ort.</p>
+          <p>Brautstrauß, Tischdeko und Raumschmuck, mit Deko-Verleih sowie Auf- und Abbau vor Ort.</p>
         </article>
         <article>
           <span class="tag">Im Laden</span>
           <h3>Mode &amp; Accessoires</h3>
           <p>Ausgewählte Mode und Accessoires. Zum Stöbern, Anprobieren und Verschenken.</p>
         </article>
-        <article>
-          <span class="tag">Service</span>
-          <h3>Deko-Verleih &amp; Lieferung</h3>
-          <p>Vasen, Gefäße und Dekoration zum Ausleihen. Blumen liefern wir auch direkt vor die Tür.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="block season">
-    <div class="wrap">
-      <div>
-        <p class="eyebrow">Gerade in der Saison</p>
-        <h2>Herbst im Laden.</h2>
-        <p>Warme Farben, trockene Gräser und die letzten Dahlien. Kommen Sie vorbei und lassen Sie sich inspirieren.</p>
-      </div>
-      <ul class="chips">
-        <li>Dahlien</li><li>Hortensien</li><li>Chrysanthemen</li><li>Hagebutten</li>
-        <li>Trockenblumen</li><li>Herbstkränze</li><li>Zierkürbisse</li><li>Heide</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="block" id="ueber-uns">
-    <div class="wrap about">
-      <div class="since">2015<small>Seit über zehn Jahren in Bad Nenndorf</small></div>
-      <div>
-        <blockquote>„Blumen, Mode und Deko unter einem Dach: frisch, jung und kreativ.“</blockquote>
-        <p>Stielsache ist ein kleiner Laden mit großer Leidenschaft für Blumen. Wir arbeiten kreativ und mit Sorgfalt, von der Idee bis zum fertigen Strauß, und gestalten gern gemeinsam mit Ihnen.</p>
       </div>
     </div>
   </section>
@@ -260,7 +201,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap">
       <div class="head">
         <h2>Kommen Sie <em>vorbei</em>.</h2>
-        <p>Mitten in Bad Nenndorf, direkt an der Hauptstraße.</p>
       </div>
       <div class="visit">
         <div>
