@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stielsache Bad Nenndorf</title>
+<meta name="description" content="Stielsache – Blumen, Mode und Deko im Herzen von Bad Nenndorf. Hauptstraße 21, 31542 Bad Nenndorf.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: schmale Modeseiten-Spalte, ein wachsender Stiel als Leitlinie, der sich durch die Seite zieht */
+:root {
+  --bg: #f4f6f1;          /* Blattweiß, leicht grünstichig */
+  --surface: #e7ece2;
+  --fg: #1d2a22;          /* tiefes Stielgrün */
+  --muted: #5b6a60;
+  --stem: #3f6b4f;
+  --bloom: #b8456a;       /* Ranunkel */
+  --line: #cfd8cb;
+  --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131a15; --surface: #1b241e; --fg: #e8eee6; --muted: #a2b1a6;
+    --stem: #86b495; --bloom: #e58aa8; --line: #2c3a31; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131a15; --surface: #1b241e; --fg: #e8eee6; --muted: #a2b1a6;
+  --stem: #86b495; --bloom: #e58aa8; --line: #2c3a31; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 400 1.0625rem/1.65 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--bloom); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 68rem; margin: 0 auto; padding-inline: clamp(1rem, 4vw, 2.5rem); }
+
+/* Kopfzeile */
+header.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .8rem; }
+.logo { font: italic 500 1.45rem/1 var(--display); text-decoration: none; letter-spacing: -.01em; }
+.logo span { color: var(--bloom); }
+.bar nav { display: flex; gap: 1.5rem; font-size: .9rem; }
+.bar nav a { text-decoration: none; color: var(--muted); }
+.bar nav a:hover { color: var(--fg); }
+@media (max-width: 640px) { .bar nav a:not(.cta-small) { display: none; } }
+.cta-small { color: var(--fg) !important; font-weight: 600; border-bottom: 1.5px solid var(--bloom); }
+
+/* Hero */
+.hero { position: relative; padding-block: clamp(3rem, 9vw, 7rem) clamp(3rem, 7vw, 5rem); overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: end; }
+.eyebrow { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 0 0 1.25rem; }
+.hero h1 {
+  font: 400 clamp(3.4rem, 13vw, 9.5rem)/.88 var(--display);
+  letter-spacing: -.035em; margin: 0; text-wrap: balance;
+}
+.hero h1 em { font-style: italic; color: var(--stem); }
+.hero h1 .dot { color: var(--bloom); }
+.lede { max-width: 34ch; font-size: clamp(1.1rem, 2.2vw, 1.35rem); line-height: 1.5; margin: 2rem 0 2.25rem; }
+.lede b { font-weight: 600; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .85rem 1.4rem; border-radius: 999px; text-decoration: none;
+  font-weight: 600; font-size: .95rem; border: 1.5px solid var(--fg);
+  transition: background .2s, color .2s;
+}
+.btn.primary { background: var(--fg); color: var(--bg); }
+.btn.primary:hover { background: var(--stem); border-color: var(--stem); }
+.btn:not(.primary):hover { background: var(--fg); color: var(--bg); }
+.status { display: inline-flex; align-items: center; gap: .5rem; font-size: .9rem; color: var(--muted); margin-left: .25rem; }
+.status i { width: .55rem; height: .55rem; border-radius: 50%; background: var(--muted); flex: none; }
+.status.open i { background: #3f9a5c; box-shadow: 0 0 0 4px color-mix(in srgb, #3f9a5c 22%, transparent); }
+
+.stem-art { width: clamp(90px, 16vw, 170px); height: auto; color: var(--stem); align-self: stretch; }
+.stem-art .bloom { fill: var(--bloom); }
+.stem-art path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
+.stem-art .leaf { fill: currentColor; stroke: none; opacity: .85; }
+@media (prefers-reduced-motion: no-preference) {
+  .stem-art .grow { stroke-dasharray: 700; stroke-dashoffset: 700; animation: grow 2.2s .2s cubic-bezier(.3,.6,.2,1) forwards; }
+  .stem-art .leaf, .stem-art .bloom { transform-box: fill-box; transform-origin: center bottom; animation: pop .7s ease-out both; }
+  .stem-art .l1 { animation-delay: 1s; } .stem-art .l2 { animation-delay: 1.3s; } .stem-art .bloom { animation-delay: 1.9s; }
+}
+@keyframes grow { to { stroke-dashoffset: 0; } }
+@keyframes pop { from { transform: scale(.4); } to { transform: scale(1); } }
+@media (max-width: 560px) { .hero .wrap { grid-template-columns: 1fr; } .stem-art { display: none; } }
+
+/* Laufband */
+.ticker { border-block: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding-block: .9rem; }
+.ticker p { margin: 0; display: inline-block; font: italic 400 1.35rem/1 var(--display); color: var(--muted); }
+.ticker p span { color: var(--bloom); font-style: normal; padding-inline: 1.1rem; }
+@media (prefers-reduced-motion: no-preference) { .ticker p { animation: slide 38s linear infinite; } }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* Abschnitte */
+section.block { padding-block: clamp(3.5rem, 8vw, 6rem); }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 1rem 3rem; align-items: end; margin-bottom: 2.75rem; }
+.head h2 { font: 400 clamp(2.2rem, 5.5vw, 3.6rem)/1 var(--display); letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+.head h2 em { color: var(--stem); }
+.head p { margin: 0; color: var(--muted); max-width: 46ch; }
+@media (max-width: 760px) { .head { grid-template-columns: 1fr; } }
+
+.offer { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); border-top: 1px solid var(--fg); }
+.offer article { padding: 1.75rem 1.5rem 2rem 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.offer h3 { font: 500 1.6rem/1.15 var(--display); margin: .6rem 0 .6rem; }
+.offer p { margin: 0; color: var(--muted); font-size: .98rem; }
+.offer .tag { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--bloom); font-weight: 600; }
+
+/* Saison */
+.season { background: var(--surface); }
+.season .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.5rem; align-items: center; }
+.season h2 { font: italic 400 clamp(2.4rem, 6vw, 4.2rem)/1 var(--display); margin: 0 0 1rem; letter-spacing: -.02em; }
+.season p { margin: 0; color: var(--muted); max-width: 42ch; }
+.chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.chips li { list-style: none; padding: .55rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); font-size: .95rem; }
+.chips { padding: 0; margin: 0; }
+@media (max-width: 760px) { .season .wrap { grid-template-columns: 1fr; } }
+
+/* Über uns */
+.about { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 2rem 4rem; }
+.about .since { font: 400 clamp(5rem, 16vw, 10rem)/.8 var(--display); color: var(--stem); letter-spacing: -.04em; }
+.about .since small { display: block; font: 500 .8rem/1.4 var(--body); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 1rem; }
+.about blockquote { margin: 0; font: italic 400 clamp(1.5rem, 3.2vw, 2.1rem)/1.3 var(--display); text-wrap: balance; }
+.about p { color: var(--muted); max-width: 55ch; }
+@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+
+/* Besuch */
+.visit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; border-top: 1px solid var(--fg); padding-top: 2rem; }
+@media (max-width: 760px) { .visit { grid-template-columns: 1fr; } }
+.visit h3 { font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 1rem; }
+.hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.hours td { padding: .7rem 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.hours td:last-child { text-align: right; }
+.hours tr.today td { color: var(--bloom); font-weight: 600; }
+.addr { font: 400 clamp(1.6rem, 3.4vw, 2.2rem)/1.2 var(--display); margin: 0 0 1.5rem; font-style: normal; }
+.contact { display: grid; gap: .35rem; margin-bottom: 1.75rem; }
+.contact a { text-decoration: none; border-bottom: 1px solid var(--line); width: fit-content; }
+.contact a:hover { border-color: var(--bloom); }
+
+footer { padding-block: 2.5rem; border-top: 1px solid var(--line); margin-top: clamp(3rem, 7vw, 5rem); font-size: .88rem; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+.draft { display: inline-block; padding: .2rem .6rem; border: 1px dashed var(--muted); border-radius: 999px; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#top">Stielsache<span>.</span></a>
+    <nav aria-label="Hauptnavigation">
+      <a href="#angebot">Angebot</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#besuch">Öffnungszeiten</a>
+      <a class="cta-small" href="tel:+4957239088959">Anrufen</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Blumen · Mode · Deko — Bad Nenndorf</p>
+        <h1>Stiel<em>sache</em><span class="dot">.</span></h1>
+        <p class="lede">Frische Blumen, schöne Mode und liebevolle Deko. <b>Klein, aber fein</b>, mitten in Bad Nenndorf.</p>
+        <div class="actions">
+          <a class="btn primary" href="#besuch">Besuch planen</a>
+          <a class="btn" href="#angebot">Unser Angebot</a>
+          <span class="status" id="status" aria-live="polite"><i></i><span>Hauptstraße 21</span></span>
+        </div>
+      </div>
+      <svg class="stem-art" viewBox="0 0 120 420" aria-hidden="true">
+        <path class="grow" d="M62 418 C 58 330, 70 260, 60 190 S 52 90, 64 48"/>
+        <path class="leaf l1" d="M61 300 C 30 290, 18 262, 22 244 C 44 252, 58 272, 61 300 Z"/>
+        <path class="leaf l2" d="M60 215 C 90 206, 104 178, 100 160 C 78 168, 63 188, 60 215 Z"/>
+        <g class="bloom">
+          <circle cx="64" cy="40" r="11"/>
+          <circle cx="50" cy="30" r="10" opacity=".75"/>
+          <circle cx="78" cy="30" r="10" opacity=".75"/>
+          <circle cx="64" cy="18" r="10" opacity=".6"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <p>Sträuße<span>✿</span>Hochzeitsfloristik<span>✿</span>Tischdeko<span>✿</span>Mode &amp; Accessoires<span>✿</span>Deko-Verleih<span>✿</span>Lieferservice<span>✿</span>Sträuße<span>✿</span>Hochzeitsfloristik<span>✿</span>Tischdeko<span>✿</span>Mode &amp; Accessoires<span>✿</span>Deko-Verleih<span>✿</span>Lieferservice<span>✿</span></p>
+  </div>
+
+  <section class="block" id="angebot">
+    <div class="wrap">
+      <div class="head">
+        <h2>Alles eine Frage des <em>Stiels</em>.</h2>
+        <p>Ob ein Strauß für zwischendurch oder die Blumen für den schönsten Tag: Wir binden von Hand und beraten persönlich, vom ersten Gespräch bis zur letzten Blüte.</p>
+      </div>
+      <div class="offer">
+        <article>
+          <span class="tag">Floristik</span>
+          <h3>Sträuße &amp; Gestecke</h3>
+          <p>Saisonal, frisch gebunden und ganz nach Ihrem Geschmack. Für jeden Anlass oder einfach so.</p>
+        </article>
+        <article>
+          <span class="tag">Feste</span>
+          <h3>Hochzeit &amp; Events</h3>
+          <p>Brautstrauß, Tischdeko und Raumschmuck. Auf Wunsch mit Aufbau und Abbau vor Ort.</p>
+        </article>
+        <article>
+          <span class="tag">Im Laden</span>
+          <h3>Mode &amp; Accessoires</h3>
+          <p>Ausgewählte Mode und Accessoires. Zum Stöbern, Anprobieren und Verschenken.</p>
+        </article>
+        <article>
+          <span class="tag">Service</span>
+          <h3>Deko-Verleih &amp; Lieferung</h3>
+          <p>Vasen, Gefäße und Dekoration zum Ausleihen. Blumen liefern wir auch direkt vor die Tür.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block season">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Gerade in der Saison</p>
+        <h2>Herbst im Laden.</h2>
+        <p>Warme Farben, trockene Gräser und die letzten Dahlien. Kommen Sie vorbei und lassen Sie sich inspirieren.</p>
+      </div>
+      <ul class="chips">
+        <li>Dahlien</li><li>Hortensien</li><li>Chrysanthemen</li><li>Hagebutten</li>
+        <li>Trockenblumen</li><li>Herbstkränze</li><li>Zierkürbisse</li><li>Heide</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block" id="ueber-uns">
+    <div class="wrap about">
+      <div class="since">2015<small>Seit über zehn Jahren in Bad Nenndorf</small></div>
+      <div>
+        <blockquote>„Blumen, Mode und Deko unter einem Dach: frisch, jung und kreativ.“</blockquote>
+        <p>Stielsache ist ein kleiner Laden mit großer Leidenschaft für Blumen. Wir arbeiten kreativ und mit Sorgfalt, von der Idee bis zum fertigen Strauß, und gestalten gern gemeinsam mit Ihnen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="besuch">
+    <div class="wrap">
+      <div class="head">
+        <h2>Kommen Sie <em>vorbei</em>.</h2>
+        <p>Mitten in Bad Nenndorf, direkt an der Hauptstraße.</p>
+      </div>
+      <div class="visit">
+        <div>
+          <h3>Öffnungszeiten</h3>
+          <table class="hours" id="hours">
+            <tbody>
+              <tr data-days="1,2,3,4,5"><td>Montag – Freitag</td><td>9:30 – 13:00<br>14:00 – 18:00</td></tr>
+              <tr data-days="6"><td>Samstag</td><td>9:30 – 14:00</td></tr>
+              <tr data-days="0"><td>Sonntag</td><td>geschlossen</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Adresse &amp; Kontakt</h3>
+          <address class="addr">Hauptstraße 21<br>31542 Bad Nenndorf</address>
+          <div class="contact">
+            <a href="tel:+4957239088959">05723 9088959</a>
+            <a href="mailto:info@stielsache.de">info@stielsache.de</a>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="https://www.google.com/maps/search/?api=1&amp;query=Stielsache+Hauptstra%C3%9Fe+21+31542+Bad+Nenndorf" target="_blank" rel="noopener">Route planen</a>
+            <a class="btn" href="https://www.facebook.com/Stielsache/" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Stielsache · Hauptstraße 21 · 31542 Bad Nenndorf</span>
+    <span class="draft">Entwurf zur Vorschau</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Öffnungszeiten in Minuten seit Mitternacht, Index = Wochentag (0 = Sonntag)
+  var slots = { 0: [], 6: [[570, 840]] };
+  for (var d = 1; d <= 5; d++) slots[d] = [[570, 780], [840, 1080]];
+
+  var now;
+  try {
+    var parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+    var get = function (t) { return parts.find(function (p) { return p.type === t; }).value; };
+    var day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(get("weekday"));
+    now = { day: day, min: (+get("hour") % 24) * 60 + +get("minute") };
+  } catch (e) {
+    var dt = new Date(); now = { day: dt.getDay(), min: dt.getHours() * 60 + dt.getMinutes() };
+  }
+
+  var fmt = function (m) { return Math.floor(m / 60) + ":" + String(m % 60).padStart(2, "0"); };
+  var today = slots[now.day];
+  var open = today.find(function (s) { return now.min >= s[0] && now.min < s[1]; });
+  var next = today.find(function (s) { return now.min < s[0]; });
+
+  var el = document.getElementById("status");
+  var text = el.querySelector("span");
+  if (open) { el.classList.add("open"); text.textContent = "Jetzt geöffnet · bis " + fmt(open[1]) + " Uhr"; }
+  else if (next) { text.textContent = "Geschlossen · öffnet um " + fmt(next[0]) + " Uhr"; }
+  else { text.textContent = "Gerade geschlossen · Hauptstraße 21"; }
+
+  document.querySelectorAll("#hours tr").forEach(function (tr) {
+    if (tr.dataset.days.split(",").indexOf(String(now.day)) !== -1) tr.classList.add("today");
+  });
+})();
+</script>
+</body>
+</html>
