@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stilsache Blumen Bremen</title>
+<title>Stielsache Bad Nenndorf</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Figtree:wght@400;500;600&display=swap">
 <style>
-  /* Layout: eine kompakte Infoseite. Kopf mit Strauß, darunter alle wichtigen Angaben auf einen Blick */
+  /* Layout: kompakte Infoseite. Kopf mit Strauß, Infokasten, drei Bereiche (Blumen, Mode, Deko), Hochzeiten, Über uns */
   :root {
     --bg: #f6f5f1;
     --surface: #ffffff;
@@ -30,72 +30,86 @@
   body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
   a:focus-visible { outline: 2px solid var(--bloom); outline-offset: 3px; }
-  .wrap { max-width: 980px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 32px); }
+  .wrap { max-width: 1000px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 32px); }
   h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: -.015em; }
 
   .draft { background: var(--leaf); color: #f6f5f1; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; text-align: center; padding: 8px 16px; }
 
   /* Kopf */
-  .top { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; align-items: end; padding-block: clamp(28px, 5vw, 56px) 0; }
-  .logo { font-family: var(--display); font-size: 22px; margin: 0 0 clamp(28px, 5vw, 56px); }
-  .logo i { color: var(--bloom); }
+  .top { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; align-items: end; padding-block: clamp(28px, 5vw, 52px) 0; }
+  .logo { font-family: var(--display); font-size: 26px; margin: 0 0 clamp(28px, 5vw, 52px); line-height: 1; }
+  .logo .e { color: var(--bloom); font-style: italic; }
   .logo small { font-family: var(--body); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-left: 10px; }
-  h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.04; font-weight: 350; }
+  .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--bloom); font-weight: 600; margin: 0 0 14px; }
+  h1 { font-size: clamp(40px, 6vw, 66px); line-height: 1.04; font-weight: 350; }
   h1 em { color: var(--bloom); font-weight: 300; }
-  .lead { color: var(--muted); font-size: 18px; max-width: 40ch; margin: 18px 0 24px; }
+  .lead { color: var(--muted); font-size: 18px; max-width: 42ch; margin: 18px 0 24px; }
   .status { display: inline-flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px 8px 12px; font-size: 14px; margin-bottom: clamp(28px, 5vw, 48px); }
-  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex: none; }
   .status.open .dot { background: var(--ok); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 20%, transparent); }
+  .status.pause .dot { background: var(--sun); }
   .status b { font-weight: 600; }
   .stage { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border-radius: 50% 50% 0 0 / 44% 44% 0 0; background: radial-gradient(120% 90% at 50% 100%, var(--leaf-soft), var(--bloom-soft) 70%, var(--bg)); overflow: hidden; }
   .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 
   /* Auf einen Blick */
-  .facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
-  .fact { padding: 28px clamp(20px, 3vw, 32px); min-width: 0; }
+  .facts { display: grid; grid-template-columns: 1.15fr 1fr 1fr; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+  .fact { padding: 28px clamp(20px, 3vw, 30px); min-width: 0; }
   .fact + .fact { border-left: 1px solid var(--line); }
   .label { font-size: 12px; letter-spacing: .13em; text-transform: uppercase; color: var(--bloom); font-weight: 600; margin: 0 0 14px; }
   .hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 15px; }
-  .hours td { padding: 5px 0; }
+  .hours td { padding: 5px 0; vertical-align: top; }
   .hours td:last-child { text-align: right; color: var(--muted); }
   .hours tr.today td { font-weight: 600; color: var(--ink); }
   .fact address, .fact p { font-style: normal; margin: 0; font-size: 15px; }
-  .fact .muted { color: var(--muted); }
   .fact ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
   .fact ul span { display: block; font-size: 12px; color: var(--muted); }
+  .fact ul li { overflow-wrap: anywhere; }
 
-  section { padding-block: clamp(48px, 7vw, 80px) 0; }
-  h2 { font-size: clamp(30px, 3.6vw, 40px); line-height: 1.1; font-weight: 350; margin-bottom: 20px; }
+  section { padding-block: clamp(52px, 7vw, 84px) 0; }
+  h2 { font-size: clamp(30px, 3.8vw, 42px); line-height: 1.1; font-weight: 350; }
   h2 em { color: var(--bloom); }
+  .sub { color: var(--muted); max-width: 52ch; margin: 12px 0 28px; }
 
-  /* Angebot */
-  .offer { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; border-top: 1px solid var(--line); }
-  .offer > div { display: flex; gap: 16px; align-items: baseline; padding-block: 16px; border-bottom: 1px solid var(--line); min-width: 0; }
-  .offer i { flex: none; width: 10px; height: 10px; border-radius: 50%; transform: translateY(-1px); }
-  .offer h3 { font-size: 21px; }
-  .offer p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  /* Drei Bereiche */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .pillar { border-radius: 10px; padding: 26px 24px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .pillar:nth-child(1) { background: var(--bloom-soft); }
+  .pillar:nth-child(2) { background: #f3ead9; }
+  .pillar:nth-child(3) { background: var(--leaf-soft); }
+  .pillar .mark { font-family: var(--display); font-style: italic; font-size: 15px; color: var(--muted); }
+  .pillar h3 { font-size: 28px; }
+  .pillar p { margin: 0; color: var(--muted); font-size: 15px; }
 
-  /* Saison */
-  .season { display: flex; align-items: center; gap: 14px 20px; flex-wrap: wrap; background: var(--leaf); color: #eef2ec; border-radius: 10px; padding: 22px clamp(20px, 3vw, 32px); }
-  .season .label { color: #f3b6c6; margin: 0; }
-  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
-  .chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 6px 14px 6px 8px; font-size: 14px; }
-  .chip i { width: 16px; height: 16px; border-radius: 50%; }
+  /* Hochzeiten */
+  .wedding { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 5vw, 56px); background: var(--leaf); color: #eef2ec; border-radius: 12px; padding: clamp(28px, 5vw, 48px); }
+  .wedding h2 em { color: #f3b6c6; }
+  .wedding .sub { color: #c9d5cd; margin-bottom: 20px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags span { border: 1px solid rgba(238,242,236,.25); border-radius: 999px; padding: 5px 13px; font-size: 13px; }
+  .numbers { display: grid; gap: 18px; align-content: center; }
+  .num { display: flex; align-items: baseline; gap: 14px; border-bottom: 1px solid rgba(238,242,236,.18); padding-bottom: 14px; }
+  .num:last-child { border-bottom: 0; padding-bottom: 0; }
+  .num b { font-family: var(--display); font-weight: 350; font-size: clamp(38px, 4.5vw, 52px); line-height: 1; color: #f3b6c6; font-variant-numeric: tabular-nums; min-width: 4.2ch; }
+  .num span { color: #c9d5cd; font-size: 15px; }
 
-  .about { max-width: 62ch; }
-  .about p { color: var(--muted); margin: 0; }
+  /* Service + Über uns */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 56px); }
+  .duo p { color: var(--muted); margin: 14px 0 0; max-width: 48ch; }
+  .service { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .service li { display: flex; gap: 14px; align-items: center; padding-block: 13px; border-bottom: 1px solid var(--line); }
+  .service i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
 
-  footer { margin-top: clamp(48px, 7vw, 80px); border-top: 1px solid var(--line); padding-block: 24px; font-size: 13px; color: var(--muted); }
+  footer { margin-top: clamp(52px, 7vw, 84px); border-top: 1px solid var(--line); padding-block: 24px; font-size: 13px; color: var(--muted); }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   footer nav { display: flex; gap: 20px; }
   footer a { text-decoration: none; }
 
-  @media (max-width: 760px) {
-    .top { grid-template-columns: 1fr; }
+  @media (max-width: 800px) {
+    .top, .wedding, .duo { grid-template-columns: 1fr; }
     .stage { width: 100%; max-width: 380px; margin-inline: auto; }
-    .facts { grid-template-columns: 1fr; }
+    .facts, .pillars { grid-template-columns: 1fr; }
     .fact + .fact { border-left: 0; border-top: 1px solid var(--line); }
-    .offer { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -106,9 +120,10 @@
 <main class="wrap">
   <div class="top">
     <div>
-      <p class="logo">Stil<i>sache</i><small>Blumen · Bremen</small></p>
-      <h1>Frische Blumen, <em>von Hand</em> gebunden.</h1>
-      <p class="lead">Ihr Blumenladen in Bremen. Hier finden Sie alles Wichtige auf einen Blick.</p>
+      <p class="logo">Sti<span class="e">(e)</span>lsache<small>Bad Nenndorf</small></p>
+      <p class="eyebrow">Blumen · Mode · Deko</p>
+      <h1>Klein, aber <em>fein</em>. Mitten in Bad Nenndorf.</h1>
+      <p class="lead">Floristik für jeden Anlass, ausgewählte Damenmode und Dekoration für Haus und Garten. Mit viel Herz und Kreativität beraten.</p>
       <div class="status" id="status"><span class="dot"></span><span id="status-text">Öffnungszeiten</span></div>
     </div>
     <div class="stage"><canvas id="bouquet" role="img" aria-label="Illustrierter Blumenstrauß"></canvas></div>
@@ -118,91 +133,97 @@
     <div class="fact">
       <p class="label">Öffnungszeiten</p>
       <table class="hours" id="hours">
-        <tr data-days="1,2,3,4,5"><td>Mo – Fr</td><td>09:00 – 18:30</td></tr>
-        <tr data-days="6"><td>Samstag</td><td>09:00 – 15:00</td></tr>
+        <tr data-days="1,2,3,4,5"><td>Mo – Fr</td><td>09:30 – 13:00<br>14:00 – 18:00</td></tr>
+        <tr data-days="6"><td>Samstag</td><td>09:30 – 14:00</td></tr>
         <tr data-days="0"><td>Sonntag</td><td>geschlossen</td></tr>
       </table>
     </div>
     <div class="fact">
       <p class="label">Adresse</p>
-      <address>Stilsache Blumen<br>Straße und Hausnummer<br>28XXX Bremen</address>
-      <p class="muted" style="margin-top:10px;font-size:14px">Haltestelle und Parkmöglichkeiten</p>
+      <address>Stielsache<br>Hauptstraße 21<br>31542 Bad Nenndorf</address>
     </div>
     <div class="fact">
       <p class="label">Kontakt</p>
       <ul>
-        <li><span>Telefon</span>0421 000 000</li>
-        <li><span>E-Mail</span>hallo@stilsache.de</li>
-        <li><span>Instagram</span>@stilsache</li>
+        <li><span>Telefon</span>05723 / 9088959</li>
+        <li><span>E-Mail</span>info@stielsache.de</li>
+        <li><span>Facebook</span>facebook.com/Stielsache</li>
       </ul>
     </div>
   </div>
 
   <section>
-    <h2>Das bieten <em>wir</em></h2>
-    <div class="offer">
-      <div><i style="background:var(--bloom)"></i><div><h3>Sträuße</h3><p>Täglich frisch, auch nach Ihren Wünschen.</p></div></div>
-      <div><i style="background:var(--sun)"></i><div><h3>Hochzeiten &amp; Feste</h3><p>Brautstrauß, Anstecker und Tischschmuck.</p></div></div>
-      <div><i style="background:var(--sky)"></i><div><h3>Trauerfloristik</h3><p>Kränze und Gestecke, würdevoll gestaltet.</p></div></div>
-      <div><i style="background:var(--leaf)"></i><div><h3>Pflanzen</h3><p>Grünes für Wohnung, Balkon und Büro.</p></div></div>
+    <h2>Stil und <em>Stiel</em> unter einem Dach.</h2>
+    <p class="sub">Drei Bereiche, ein Laden. Schauen Sie vorbei und lassen Sie sich inspirieren.</p>
+    <div class="pillars">
+      <div class="pillar"><span class="mark">Stiel</span><h3>Blumen</h3><p>Frische Sträuße, Trockenblumen und Floristik für jeden Anlass.</p></div>
+      <div class="pillar"><span class="mark">Stil</span><h3>Mode</h3><p>Sorgfältig ausgewählte Damenmode.</p></div>
+      <div class="pillar"><span class="mark">Zuhause</span><h3>Deko</h3><p>Dekoration für Haus und Garten, Vasen und schöne Kleinigkeiten.</p></div>
     </div>
   </section>
 
   <section>
-    <div class="season">
-      <p class="label" id="season-label">Gerade in Saison</p>
-      <div class="chips" id="chips"></div>
+    <div class="wedding">
+      <div>
+        <p class="eyebrow" style="color:#f3b6c6">Hochzeiten</p>
+        <h2>Blumen für den <em>großen Tag</em>.</h2>
+        <p class="sub">Von der Beratung vor der Hochzeit bis zum Aufbau vor Ort: Brautstrauß, Tischdekoration und alles, was den Tag besonders macht.</p>
+        <div class="tags">
+          <span>Brautstrauß</span><span>Anstecker &amp; Corsagen</span><span>Tischdekoration</span><span>Blumenkränze</span><span>Hochzeitsbögen</span><span>Streukörbchen</span>
+        </div>
+      </div>
+      <div class="numbers">
+        <div class="num"><b>50+</b><span>Hochzeiten pro Jahr</span></div>
+        <div class="num"><b>2015</b><span>gegründet</span></div>
+        <div class="num"><b>4</b><span>Menschen im Team</span></div>
+      </div>
     </div>
   </section>
 
-  <section class="about">
-    <h2>Über uns</h2>
-    <p>Hier ist Platz für ein paar Sätze über den Laden: wer ihn führt, seit wann es ihn gibt und was die Sträuße besonders macht.</p>
+  <section>
+    <div class="duo">
+      <div>
+        <h2>Über <em>uns</em></h2>
+        <p>Seit 2015 führt Julia die Stielsache, Floristik war schon immer der Traumberuf. Hier wird mit viel Herz und Kreativität beraten, und jeder Blumenwunsch wird individuell umgesetzt.</p>
+      </div>
+      <div>
+        <h2>Service</h2>
+        <ul class="service">
+          <li><i style="background:var(--bloom)"></i>Lieferung</li>
+          <li><i style="background:var(--sun)"></i>Auf- und Abbau bei Veranstaltungen</li>
+          <li><i style="background:var(--sky)"></i>Verleih von Deko-Artikeln</li>
+          <li><i style="background:var(--leaf)"></i>Persönliche Beratung</li>
+        </ul>
+      </div>
+    </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <span>© Stilsache Blumen Bremen</span>
+    <span>© Stielsache · Hauptstraße 21 · 31542 Bad Nenndorf</span>
     <nav aria-label="Rechtliches"><a href="#">Impressum</a><a href="#">Datenschutz</a></nav>
   </div>
 </footer>
 
 <script>
-/* ---------- Geöffnet / geschlossen ---------- */
+/* ---------- Geöffnet / Mittagspause / geschlossen ---------- */
 (() => {
-  const OPEN = { 1: [9, 18.5], 2: [9, 18.5], 3: [9, 18.5], 4: [9, 18.5], 5: [9, 18.5], 6: [9, 15] };
+  const WEEK = [[9.5, 13], [14, 18]];
+  const OPEN = { 1: WEEK, 2: WEEK, 3: WEEK, 4: WEEK, 5: WEEK, 6: [[9.5, 14]] };
   const now = new Date(), d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
   document.querySelectorAll("#hours tr").forEach(tr => {
     if (tr.dataset.days.split(",").map(Number).includes(d)) tr.classList.add("today");
   });
-  const t = OPEN[d], el = document.getElementById("status"), txt = document.getElementById("status-text");
   const fmt = x => String(Math.floor(x)).padStart(2, "0") + ":" + String(Math.round((x % 1) * 60)).padStart(2, "0");
-  if (t && h >= t[0] && h < t[1]) { el.classList.add("open"); txt.innerHTML = `<b>Jetzt geöffnet</b> · bis ${fmt(t[1])} Uhr`; }
-  else if (t && h < t[0]) txt.innerHTML = `<b>Geschlossen</b> · öffnet heute um ${fmt(t[0])} Uhr`;
+  const el = document.getElementById("status"), txt = document.getElementById("status-text");
+  const slots = OPEN[d] || [];
+  const cur = slots.find(([a, b]) => h >= a && h < b);
+  const next = slots.find(([a]) => h < a);
+  if (cur) { el.classList.add("open"); txt.innerHTML = `<b>Jetzt geöffnet</b> · bis ${fmt(cur[1])} Uhr`; }
+  else if (next && slots.indexOf(next) > 0) { el.classList.add("pause"); txt.innerHTML = `<b>Mittagspause</b> · ab ${fmt(next[0])} Uhr wieder geöffnet`; }
+  else if (next) txt.innerHTML = `<b>Geschlossen</b> · öffnet heute um ${fmt(next[0])} Uhr`;
   else txt.innerHTML = `<b>Gerade geschlossen</b>`;
-})();
-
-/* ---------- Gerade in Saison ---------- */
-(() => {
-  const M = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
-  const S = [
-    [["Amaryllis","#b8283f"],["Ranunkeln","#f1a7a0"],["Christrosen","#f2efe6"]],
-    [["Tulpen","#e0567a"],["Anemonen","#6b4c9a"],["Ranunkeln","#f4c27a"]],
-    [["Narzissen","#f2cf3a"],["Tulpen","#f08aa6"],["Mimosen","#e8c42f"]],
-    [["Hyazinthen","#8d8fd6"],["Kirschzweige","#f5c9d4"],["Tulpen","#e25b4b"]],
-    [["Pfingstrosen","#e79ab0"],["Flieder","#b69ad6"],["Maiglöckchen","#eef0e2"]],
-    [["Pfingstrosen","#d9577d"],["Rittersporn","#4f6fc4"],["Gartenrosen","#f2b8a2"]],
-    [["Sonnenblumen","#f0b429"],["Lavendel","#8e7cc3"],["Zinnien","#f07a4a"]],
-    [["Dahlien","#c24a6e"],["Sonnenblumen","#e8a93b"],["Zinnien","#e2604c"]],
-    [["Dahlien","#d0527a"],["Astern","#9b7bc8"],["Hortensien","#9fb6d6"]],
-    [["Chrysanthemen","#d98b3a"],["Dahlien","#b8405e"],["Hagebutten","#d0503a"]],
-    [["Chrysanthemen","#c9a34a"],["Eukalyptus","#8fa89a"],["Zweige & Zapfen","#9a7656"]],
-    [["Amaryllis","#c62c3f"],["Christrosen","#f4f1ea"],["Tannengrün","#5f8a6f"]]
-  ];
-  const m = new Date().getMonth();
-  document.getElementById("season-label").textContent = "Gerade in Saison · " + M[m];
-  document.getElementById("chips").innerHTML = S[m].map(([n, c]) => `<span class="chip"><i style="background:${c}"></i>${n}</span>`).join("");
 })();
 
 /* ---------- Strauß ---------- */
