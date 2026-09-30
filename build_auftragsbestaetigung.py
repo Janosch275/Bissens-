@@ -109,7 +109,7 @@ text(L + 5, ys[0] - 13, "Leistung", "Sans-Bold", 9.5)
 text(cols[1] + 5, ys[0] - 13, "Preis (€)", "Sans-Bold", 9.5)
 rows = [("leistung_1", "[Neubau / Modernisierung]: [Einseitig / Startseite + __ Unterseiten]", "preis_1"),
         ("leistung_2", "Extras", "preis_2"),
-        ("leistung_3", "Entwurfspauschale (bereits bezahlt, wird angerechnet)", "preis_3")]
+        (None, "Entwurfspauschale", "preis_3")]
 for i, (lname, lval, pname) in enumerate(rows, start=1):
     if lname:
         field(lname, L + 3, ys[i + 1] + 2, cols[1] - L - 6, rh - 4, value=lval, tooltip="Leistung")
@@ -196,18 +196,20 @@ def js(code):
 
 
 fmt = 'AFNumber_Format(2, 2, 0, 0, "", false);'
-keystroke = 'AFNumber_Keystroke(2, 2, 0, 0, "", false);'
 calc_order = []
 for a in page["/Annots"]:
     a = a.get_object()
     name = a.get("/T")
     if name in num_fields + ["gesamt"]:
         a[NameObject("/Q")] = NumberObject(2)  # rechtsbündig
-        aa = DictionaryObject({NameObject("/F"): js(fmt), NameObject("/K"): js(keystroke)})
+        # Nur das Gesamtfeld bekommt Skripte; Preisfelder bleiben reine Textfelder,
+        # damit sie auch in der macOS-Vorschau ohne JavaScript beschreibbar sind.
         if name == "gesamt":
-            aa[NameObject("/C")] = js('AFSimple_Calculate("SUM", new Array("%s"));' % '", "'.join(num_fields))
+            a[NameObject("/AA")] = DictionaryObject({
+                NameObject("/F"): js(fmt),
+                NameObject("/C"): js('AFSimple_Calculate("SUM", new Array("%s"));' % '", "'.join(num_fields)),
+            })
             calc_order.append(a.indirect_reference)
-        a[NameObject("/AA")] = aa
 
 if calc_order:
     acro[NameObject("/CO")] = ArrayObject(calc_order)
