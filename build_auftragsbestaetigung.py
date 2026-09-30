@@ -5,6 +5,13 @@ from pypdf import PdfReader, PdfWriter
 from pypdf.generic import (NameObject, TextStringObject, DictionaryObject, ArrayObject,
                            FloatObject, NumberObject, BooleanObject)
 import sys
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
+# Schrift einbetten, damit Sonderzeichen wie € überall gleich aussehen
+FONT_DIR = "/usr/share/fonts/truetype/liberation/"
+pdfmetrics.registerFont(TTFont("Sans", FONT_DIR + "LiberationSans-Regular.ttf"))
+pdfmetrics.registerFont(TTFont("Sans-Bold", FONT_DIR + "LiberationSans-Bold.ttf"))
 
 OUT = sys.argv[1]
 TMP = OUT + ".tmp.pdf"
@@ -25,7 +32,7 @@ sig_fields = []   # (name, rect)
 num_fields = []   # price fields
 
 
-def text(x, y, s, font="Helvetica", size=9.5, color=black, right=False):
+def text(x, y, s, font="Sans", size=9.5, color=black, right=False):
     c.setFont(font, size)
     c.setFillColor(color)
     (c.drawRightString if right else c.drawString)(x, y, s)
@@ -64,7 +71,7 @@ def table(top, cols, rows, heights, header=False):
 
 # --- Briefkopf ---
 y = H - 58
-text(L, y, "Webdesign Janosch Krause", "Helvetica-Bold", 14, BLUE)
+text(L, y, "Webdesign Janosch Krause", "Sans-Bold", 14, BLUE)
 y -= 12
 text(L, y, "Janosch Krause · Wilhelm-Busch-Weg 18 · 31542 Bad Nenndorf", size=8, color=GRAY)
 y -= 10
@@ -80,7 +87,7 @@ for name, tip in [("empf_firma", "Name des Unternehmens"), ("empf_ansprechpartne
 
 # --- Titel + Kopfdaten ---
 y -= 14
-text(L, y, "Auftragsbestätigung", "Helvetica-Bold", 16)
+text(L, y, "Auftragsbestätigung", "Sans-Bold", 16)
 y -= 8
 cols = [L, L + 175, R]
 rh = 19
@@ -88,7 +95,7 @@ ys = table(y, cols, 3, [rh] * 3)
 for i, (lab, name, val) in enumerate([("Auftragsnummer", "auftragsnummer", "A-2026-001"),
                                       ("Datum", "datum", ""),
                                       ("Voraussichtliche Fertigstellung", "fertigstellung", "")]):
-    text(L + 5, ys[i] - 13, lab, "Helvetica-Bold", 9.5)
+    text(L + 5, ys[i] - 13, lab, "Sans-Bold", 9.5)
     field(name, cols[1] + 3, ys[i + 1] + 2, cols[2] - cols[1] - 6, rh - 4, value=val, tooltip=lab)
 y = ys[-1]
 
@@ -98,8 +105,8 @@ text(L, y, "Vielen Dank für Ihren Auftrag. Hiermit bestätige ich folgende Vere
 y -= 5
 cols = [L, R - 95, R]
 ys = table(y, cols, 5, [rh] * 5, header=True)
-text(L + 5, ys[0] - 13, "Leistung", "Helvetica-Bold", 9.5)
-text(cols[1] + 5, ys[0] - 13, "Preis (€)", "Helvetica-Bold", 9.5)
+text(L + 5, ys[0] - 13, "Leistung", "Sans-Bold", 9.5)
+text(cols[1] + 5, ys[0] - 13, "Preis (€)", "Sans-Bold", 9.5)
 rows = [("leistung_1", "[Neubau / Modernisierung]: [Einseitig / Startseite + __ Unterseiten]", "preis_1"),
         ("leistung_2", "Extras", "preis_2"),
         (None, "Entwurfspauschale (bereits bezahlt, wird angerechnet)", "preis_3")]
@@ -111,7 +118,7 @@ for i, (lname, lval, pname) in enumerate(rows, start=1):
     field(pname, cols[1] + 3, ys[i + 1] + 2, cols[2] - cols[1] - 6, rh - 4, value="0,00",
           tooltip="Preis in Euro", align=2)
     num_fields.append(pname)
-text(L + 5, ys[4] - 13, "Gesamt", "Helvetica-Bold", 9.5)
+text(L + 5, ys[4] - 13, "Gesamt", "Sans-Bold", 9.5)
 field("gesamt", cols[1] + 3, ys[5] + 2, cols[2] - cols[1] - 6, rh - 4, value="0,00",
       tooltip="Gesamtbetrag (wird automatisch berechnet)", bold=True)
 y = ys[-1] - 10
@@ -119,10 +126,10 @@ text(L, y, "Endpreise, gemäß § 19 UStG ohne Umsatzsteuer.", size=7.5, color=G
 
 # --- Lieferumfang ---
 y -= 22
-c.setFont("Helvetica-Bold", 9.5); c.setFillColor(black)
+c.setFont("Sans-Bold", 9.5); c.setFillColor(black)
 t = c.beginText(L, y); t.setLeading(12.5)
-t.setFont("Helvetica-Bold", 9.5); t.textOut("Lieferumfang: ")
-t.setFont("Helvetica", 9.5)
+t.setFont("Sans-Bold", 9.5); t.textOut("Lieferumfang: ")
+t.setFont("Sans", 9.5)
 t.textLine("Website-Dateien als ZIP inklusive Bearbeitungsdatei und leeren Seiten für")
 t.textLine("Impressum und Datenschutz. Nicht enthalten: Hosting, Domain, Hochladen, Pflege sowie die")
 t.textLine("Inhalte von Impressum und Datenschutzerklärung.")
@@ -130,7 +137,7 @@ c.drawText(t)
 y -= 3 * 12.5 + 10
 
 # --- Vereinbarungen ---
-text(L, y, "Vereinbarungen:", "Helvetica-Bold", 9.5)
+text(L, y, "Vereinbarungen:", "Sans-Bold", 9.5)
 bullets = [["Der Auftraggeber liefert Texte, Fotos und Logo und besitzt die Rechte daran."],
            ["Zahlung innerhalb von 14 Tagen nach Abnahme. Die ZIP-Datei wird nach Zahlungseingang",
             "übergeben."],
@@ -143,24 +150,24 @@ for b in bullets:
         text(L + 16, y, ln); y -= 12.5
 text(L + 5, y, "•")
 text(L + 16, y, "Nutzung als Referenz erlaubt:")
-bx = L + 16 + c.stringWidth("Nutzung als Referenz erlaubt:", "Helvetica", 9.5) + 10
+bx = L + 16 + c.stringWidth("Nutzung als Referenz erlaubt:", "Sans", 9.5) + 10
 for val, label in [("ja", "ja"), ("nein", "nein")]:
     form.radio(name="referenz", tooltip="Nutzung als Referenz erlaubt", value=val, selected=False,
                x=bx, y=y - 2, size=10, buttonStyle="cross", shape="square",
                borderColor=GRAY, fillColor=white, textColor=black, borderWidth=0.8, forceBorder=True)
     text(bx + 14, y, label)
-    bx += 14 + c.stringWidth(label, "Helvetica", 9.5) + 16
+    bx += 14 + c.stringWidth(label, "Sans", 9.5) + 16
 
 # --- Unterschriften ---
 y -= 26
 cols = [L, L + 105, L + 105 + (CW - 105) / 2, R]
 hs = [24, 22, 62, 22]
 ys = table(y, cols, 4, hs, header=True)
-text(cols[1] + 5, ys[0] - 15, "Auftragnehmer", "Helvetica-Bold", 9.5)
-text(cols[2] + 5, ys[0] - 15, "Auftraggeber", "Helvetica-Bold", 9.5)
-text(L + 5, ys[1] - 14, "Ort, Datum", "Helvetica-Bold", 9.5)
-text(L + 5, ys[2] - 14, "Unterschrift", "Helvetica-Bold", 9.5)
-text(L + 5, ys[3] - 14, "Name", "Helvetica-Bold", 9.5)
+text(cols[1] + 5, ys[0] - 15, "Auftragnehmer", "Sans-Bold", 9.5)
+text(cols[2] + 5, ys[0] - 15, "Auftraggeber", "Sans-Bold", 9.5)
+text(L + 5, ys[1] - 14, "Ort, Datum", "Sans-Bold", 9.5)
+text(L + 5, ys[2] - 14, "Unterschrift", "Sans-Bold", 9.5)
+text(L + 5, ys[3] - 14, "Name", "Sans-Bold", 9.5)
 cw = cols[2] - cols[1]
 field("an_ort_datum", cols[1] + 3, ys[2] + 2, cw - 6, hs[1] - 4, value="Bad Nenndorf, ", tooltip="Ort, Datum")
 field("ag_ort_datum", cols[2] + 3, ys[2] + 2, cw - 6, hs[1] - 4, tooltip="Ort, Datum")
