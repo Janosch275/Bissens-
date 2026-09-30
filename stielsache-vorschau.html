@@ -36,7 +36,7 @@
   .draft { background: var(--leaf); color: #f6f5f1; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; text-align: center; padding: 8px 16px; }
 
   /* Kopf */
-  .top { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; align-items: end; padding-block: clamp(28px, 5vw, 52px) 0; }
+  .top { display: grid; grid-template-columns: 1.15fr .85fr; gap: 24px; align-items: end; padding-block: 0; }
   .logo { font-family: var(--display); font-size: 26px; margin: 0 0 clamp(28px, 5vw, 52px); line-height: 1; }
   .logo small { font-family: var(--body); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-left: 10px; }
   .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--bloom); font-weight: 600; margin: 0 0 14px; }
@@ -110,48 +110,52 @@
     .facts, .pillars { grid-template-columns: 1fr; }
     .fact + .fact { border-left: 0; border-top: 1px solid var(--line); }
   }
+  /* Navigation + Unterseiten */
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding-block: 22px; }
+  .bar .logo { margin: 0; text-decoration: none; }
+  .bar nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .bar nav a { text-decoration: none; font-size: 14px; color: var(--muted); padding: 8px 14px; border-radius: 999px; transition: background .2s, color .2s; }
+  .bar nav a:hover { color: var(--ink); background: var(--surface); }
+  .bar nav a[aria-current="page"] { background: var(--leaf); color: #fff; }
+  .js .page { display: none; }
+  .js .page.on { display: block; animation: fade .35s ease; }
+  @keyframes fade { from { opacity: .3; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .js .page.on { animation: none; } }
+  .page { padding-block: clamp(24px, 5vw, 56px) clamp(40px, 6vw, 72px); }
+  .page#start { padding-bottom: 0; }
+  .wedding { display: block; }
+  .wedding .sub { max-width: 56ch; }
+  @media (max-width: 520px) { .bar nav a { padding: 7px 10px; } }
 </style>
 </head>
 <body>
 
 <div class="draft">Entwurf · Vorschau einer möglichen Website</div>
 
+<header class="wrap bar">
+  <a class="logo" href="#start">Stielsache<small>Bad Nenndorf</small></a>
+  <nav aria-label="Hauptnavigation">
+    <a href="#start">Start</a>
+    <a href="#angebot">Angebot</a>
+    <a href="#hochzeiten">Hochzeiten</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
 <main class="wrap">
-  <div class="top">
-    <div>
-      <p class="logo">Stielsache<small>Bad Nenndorf</small></p>
-      <p class="eyebrow">Blumen · Mode · Deko</p>
-      <h1>Klein, aber <em>fein</em>. Mitten in Bad Nenndorf.</h1>
-      <p class="lead">Floristik für jeden Anlass, ausgewählte Damenmode und Dekoration für Haus und Garten. Mit viel Herz und Kreativität beraten.</p>
-      <div class="status" id="status"><span class="dot"></span><span id="status-text">Öffnungszeiten</span></div>
+  <section class="page" id="start">
+    <div class="top">
+      <div>
+        <p class="eyebrow">Blumen · Mode · Deko</p>
+        <h1>Klein, aber <em>fein</em>. Mitten in Bad Nenndorf.</h1>
+        <p class="lead">Floristik für jeden Anlass, ausgewählte Damenmode und Dekoration für Haus und Garten.</p>
+        <div class="status" id="status"><span class="dot"></span><span id="status-text">Öffnungszeiten</span></div>
+      </div>
+      <div class="stage"><canvas id="bouquet" role="img" aria-label="Illustrierter Blumenstrauß"></canvas></div>
     </div>
-    <div class="stage"><canvas id="bouquet" role="img" aria-label="Illustrierter Blumenstrauß"></canvas></div>
-  </div>
+  </section>
 
-  <div class="facts">
-    <div class="fact">
-      <p class="label">Öffnungszeiten</p>
-      <table class="hours" id="hours">
-        <tr data-days="1,2,3,4,5"><td>Mo – Fr</td><td>09:30 – 13:00<br>14:00 – 18:00</td></tr>
-        <tr data-days="6"><td>Samstag</td><td>09:30 – 14:00</td></tr>
-        <tr data-days="0"><td>Sonntag</td><td>geschlossen</td></tr>
-      </table>
-    </div>
-    <div class="fact">
-      <p class="label">Adresse</p>
-      <address>Stielsache<br>Hauptstraße 21<br>31542 Bad Nenndorf</address>
-    </div>
-    <div class="fact">
-      <p class="label">Kontakt</p>
-      <ul>
-        <li><span>Telefon</span>05723 / 9088959</li>
-        <li><span>E-Mail</span>info@stielsache.de</li>
-        <li><span>Facebook</span>facebook.com/Stielsache</li>
-      </ul>
-    </div>
-  </div>
-
-  <section>
+  <section class="page" id="angebot">
     <h2>Stil und <em>Stiel</em> unter einem Dach.</h2>
     <p class="sub">Drei Bereiche, ein Laden. Schauen Sie vorbei und lassen Sie sich inspirieren.</p>
     <div class="pillars">
@@ -161,37 +165,39 @@
     </div>
   </section>
 
-  <section>
+  <section class="page" id="hochzeiten">
     <div class="wedding">
-      <div>
-        <p class="eyebrow" style="color:#f3b6c6">Hochzeiten</p>
-        <h2>Blumen für den <em>großen Tag</em>.</h2>
-        <p class="sub">Von der Beratung vor der Hochzeit bis zum Aufbau vor Ort: Brautstrauß, Tischdekoration und alles, was den Tag besonders macht.</p>
-        <div class="tags">
-          <span>Brautstrauß</span><span>Anstecker &amp; Corsagen</span><span>Tischdekoration</span><span>Blumenkränze</span><span>Hochzeitsbögen</span><span>Streukörbchen</span>
-        </div>
-      </div>
-      <div class="numbers">
-        <div class="num"><b>50+</b><span>Hochzeiten pro Jahr</span></div>
-        <div class="num"><b>2015</b><span>gegründet</span></div>
-        <div class="num"><b>4</b><span>Menschen im Team</span></div>
+      <p class="eyebrow" style="color:#f3b6c6">Hochzeiten</p>
+      <h2>Blumen für den <em>großen Tag</em>.</h2>
+      <p class="sub">Von der Beratung bis zum Aufbau vor Ort: Brautstrauß, Tischdekoration und alles, was den Tag besonders macht.</p>
+      <div class="tags">
+        <span>Brautstrauß</span><span>Anstecker &amp; Corsagen</span><span>Tischdekoration</span><span>Blumenkränze</span><span>Hochzeitsbögen</span><span>Streukörbchen</span>
       </div>
     </div>
   </section>
 
-  <section>
-    <div class="duo">
-      <div>
-        <h2>Über <em>uns</em></h2>
-        <p>Seit 2015 führt Julia die Stielsache, Floristik war schon immer der Traumberuf. Hier wird mit viel Herz und Kreativität beraten, und jeder Blumenwunsch wird individuell umgesetzt.</p>
+  <section class="page" id="kontakt">
+    <h2>Besuchen Sie <em>uns</em>.</h2>
+    <p class="sub">Wir freuen uns auf Sie im Laden.</p>
+    <div class="facts">
+      <div class="fact">
+        <p class="label">Öffnungszeiten</p>
+        <table class="hours" id="hours">
+          <tr data-days="1,2,3,4,5"><td>Mo – Fr</td><td>09:30 – 13:00<br>14:00 – 18:00</td></tr>
+          <tr data-days="6"><td>Samstag</td><td>09:30 – 14:00</td></tr>
+          <tr data-days="0"><td>Sonntag</td><td>geschlossen</td></tr>
+        </table>
       </div>
-      <div>
-        <h2>Service</h2>
-        <ul class="service">
-          <li><i style="background:var(--bloom)"></i>Lieferung</li>
-          <li><i style="background:var(--sun)"></i>Auf- und Abbau bei Veranstaltungen</li>
-          <li><i style="background:var(--sky)"></i>Verleih von Deko-Artikeln</li>
-          <li><i style="background:var(--leaf)"></i>Persönliche Beratung</li>
+      <div class="fact">
+        <p class="label">Adresse</p>
+        <address>Stielsache<br>Hauptstraße 21<br>31542 Bad Nenndorf</address>
+      </div>
+      <div class="fact">
+        <p class="label">Kontakt</p>
+        <ul>
+          <li><span>Telefon</span>05723 / 9088959</li>
+          <li><span>E-Mail</span>info@stielsache.de</li>
+          <li><span>Facebook</span>facebook.com/Stielsache</li>
         </ul>
       </div>
     </div>
@@ -206,6 +212,20 @@
 </footer>
 
 <script>
+/* ---------- Unterseiten ---------- */
+(() => {
+  document.documentElement.classList.add("js");
+  const pages = [...document.querySelectorAll(".page")], links = [...document.querySelectorAll(".bar nav a")];
+  function show() {
+    const id = (location.hash || "#start").slice(1);
+    const target = pages.find(p => p.id === id) || pages[0];
+    pages.forEach(p => p.classList.toggle("on", p === target));
+    links.forEach(a => a.getAttribute("href") === "#" + target.id ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+    window.scrollTo(0, 0);
+    dispatchEvent(new Event("resize"));
+  }
+  addEventListener("hashchange", show); show();
+})();
 /* ---------- Geöffnet / Mittagspause / geschlossen ---------- */
 (() => {
   const WEEK = [[9.5, 13], [14, 18]];
