@@ -134,11 +134,13 @@
   if (range) {
     var countEl = document.getElementById("calc-count");
     var totalEl = document.getElementById("calc-total");
-    var START = 270, PER_PAGE = 90;
+    var expressEl = document.getElementById("calc-express");
+    var START = 270, PER_PAGE = 90, EXPRESS = 390;
     var updateCalc = function () {
       var n = parseInt(range.value, 10);
+      var total = START + n * PER_PAGE + (expressEl && expressEl.checked ? EXPRESS : 0);
       countEl.textContent = n;
-      totalEl.textContent = (START + n * PER_PAGE).toLocaleString("de-DE");
+      totalEl.textContent = total.toLocaleString("de-DE");
       var fill = (n - range.min) / (range.max - range.min) * 100;
       range.style.setProperty("--fill", fill + "%");
       totalEl.classList.add("bump");
@@ -146,6 +148,7 @@
       updateCalc.t = setTimeout(function () { totalEl.classList.remove("bump"); }, 180);
     };
     range.addEventListener("input", updateCalc);
+    if (expressEl) expressEl.addEventListener("change", updateCalc);
     updateCalc();
   }
 
@@ -160,6 +163,9 @@
       var chip = document.querySelector('.chip input[value="' + value + '"]');
       if (chip) chip.checked = true;
       if (packageSelect && value === "Onepager") packageSelect.value = "Nur eine Seite (Onepager)";
+      var express = document.getElementById("calc-express");
+      var expressChip = document.querySelector('.chip input[value="Express-Paket"]');
+      if (value === "Mehrpager" && express && express.checked && expressChip) expressChip.checked = true;
     });
   });
 

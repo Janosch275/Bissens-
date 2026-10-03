@@ -108,7 +108,7 @@ p { margin: 0 0 1em; }
 .brand img { transition: transform .5s var(--ease); }
 .brand:hover img { transform: rotate(-8deg) scale(1.05); }
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand__text strong { font: 700 1.05rem var(--font-head); letter-spacing: -.01em; }
+.brand__text strong { font: 700 1.08rem var(--font-body); letter-spacing: -.015em; }
 .brand__text small { font-size: .72rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--mint); }
 
 .nav__links { display: flex; align-items: center; gap: 30px; }
@@ -128,8 +128,9 @@ p { margin: 0 0 1em; }
 .hero {
   position: relative; overflow: hidden; isolation: isolate;
   background: radial-gradient(120% 90% at 80% 0%, #134a35 0%, var(--ink) 55%);
-  color: #fff; padding: 150px 0 110px;
+  color: #fff; padding: 150px 0 150px;
 }
+.hero__curve { position: absolute; left: 0; bottom: -1px; width: 100%; height: clamp(36px, 5.5vw, 80px); fill: var(--bg); pointer-events: none; }
 .hero__bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; animation: float 18s ease-in-out infinite; }
 .blob--1 { width: 520px; height: 520px; background: #0E9F6E; top: -160px; right: -120px; }
@@ -214,20 +215,12 @@ p { margin: 0 0 1em; }
 .ring-bg { stroke: var(--mint-soft); }
 .ring { stroke: var(--green); stroke-linecap: round; stroke-dasharray: 97.4; stroke-dashoffset: 97.4; transition: stroke-dashoffset 1.8s var(--ease) .6s; }
 .is-visible .ring { stroke-dashoffset: 2; }
-.float-card--lead { right: -20px; top: -24px; animation-delay: -3s; }
-.float-card--lead .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 5px var(--mint-soft); }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
-/* ---------- Marquee ---------- */
-.marquee-wrap { overflow: hidden; margin-top: -14px; padding: 14px 0; position: relative; z-index: 2; }
-.marquee { background: var(--mint); color: var(--ink); overflow: hidden; padding: 16px 0; transform: rotate(-1.2deg) scale(1.03); }
-.marquee__track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
-.marquee span { font: 600 1.05rem var(--font-head); padding: 0 26px; display: inline-flex; align-items: center; gap: 52px; }
-.marquee span::after { content: "✦"; font-size: .8rem; opacity: .6; margin-left: 26px; }
-@keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(80px, 10vw, 130px) 0; position: relative; }
+.hero + .section { padding-top: clamp(56px, 7vw, 90px); }
 .section--tint { background: var(--tint); }
 .section--dark { background: var(--ink); color: rgba(255, 255, 255, .75); overflow: hidden; isolation: isolate; }
 .section--dark h2 { color: #fff; }
@@ -461,9 +454,23 @@ p { margin: 0 0 1em; }
 .calc__result span { display: inline-block; transition: transform .25s var(--ease); }
 .calc__result span.bump { transform: scale(1.12); }
 
-.addons:has(.addon--wide) { grid-template-columns: 1fr; }
-.addon--wide { padding: 24px 28px; }
-.addon--wide .addon__price { font-size: 1.3rem !important; }
+.addons { grid-template-columns: 1fr 1fr; }
+.addon { justify-content: flex-start; padding: 24px 26px; }
+.addon > div { flex: 1; }
+.addon__price { font-size: 1.25rem !important; text-align: right; }
+.addon__price small { display: block; }
+.addon__icon { flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--surface); color: var(--green-600); border: 1px solid var(--line); }
+.addon__icon svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.addon--express { background: linear-gradient(120deg, #F7FEE7, var(--mint-soft)); border-color: rgba(14, 159, 110, .3); }
+.addon--express .addon__icon { background: var(--ink); color: var(--lime); border-color: var(--ink); }
+.addon--express .addon__icon svg { fill: currentColor; stroke: none; }
+.addon__tag { display: inline-block; margin-left: 6px; padding: 2px 9px; border-radius: 999px; background: var(--ink); color: var(--lime); font: 600 .68rem var(--font-body); letter-spacing: .03em; vertical-align: 2px; }
+.plan__list li.plan__express { color: var(--green-600); font-weight: 600; }
+.plan__list li.plan__express::before { background-color: #ECFCCB; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230B8A5F'%3E%3Cpath d='M13 2 4 14h7l-1 8 9-12h-7l1-8Z'/%3E%3C/svg%3E"); }
+.calc__express { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: .84rem; color: rgba(255, 255, 255, .8); cursor: pointer; }
+.calc__express input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--mint); flex: none; cursor: pointer; }
+.chip--express span::before { content: "⚡"; }
+.chip--express input:checked + span::before { content: "⚡"; }
 
 /* ---------- Scroll-Animationen ---------- */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
@@ -496,6 +503,7 @@ p { margin: 0 0 1em; }
   .steps { grid-template-columns: 1fr 1fr; gap: 40px 22px; }
   .steps::before { display: none; }
   .addons { grid-template-columns: 1fr; }
+  .addon__price { text-align: left; }
   .about { grid-template-columns: 1fr; gap: 50px; }
   .contact { grid-template-columns: 1fr; gap: 40px; }
   .contact__intro { position: static; }
@@ -517,14 +525,13 @@ p { margin: 0 0 1em; }
 
 @media (max-width: 640px) {
   body { font-size: 1rem; }
-  .hero { padding: 120px 0 90px; }
+  .hero { padding: 120px 0 110px; }
   .hero__actions .btn { flex: 1 1 100%; }
   .services, .pricing, .steps, .values, .form__row { grid-template-columns: 1fr; }
   .form__row { gap: 0; }
   .mock { transform: none; }
   .mock__body { padding: 18px; }
   .float-card--score { left: -6px; bottom: -26px; }
-  .float-card--lead { right: -6px; top: -30px; }
   .float-card { padding: 10px 13px; }
   .addon { flex-direction: column; align-items: flex-start; }
   .service-strip { grid-template-columns: 1fr; padding: 26px 22px; }

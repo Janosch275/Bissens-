@@ -37,4 +37,4 @@ Dann http://localhost:8080 öffnen.
 
 ## Preise anpassen
 
-Die Preise (Onepager ab 310 €, Mehrpager ab 270 € + ab 90 € je Unterseite, Änderungen ab 35 €) stehen in `index.html` im Abschnitt `<!-- Preise -->`. Ändert sich der Mehrpager-Preis, auch `START` und `PER_PAGE` im Preisrechner in `ressourcen/skripte/funktionen.js` anpassen.
+Die Preise (Onepager ab 310 €, Mehrpager ab 270 € + ab 90 € je Unterseite, Express-Paket + 390 €, Änderungen ab 35 €) stehen in `index.html` im Abschnitt `<!-- Preise -->`. Ändert sich der Mehrpager-Preis, auch `START`, `PER_PAGE` und `EXPRESS` im Preisrechner in `ressourcen/skripte/funktionen.js` anpassen.
