@@ -6,7 +6,7 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 
 | Datei | Zweck |
 | --- | --- |
-| `index.html` | Startseite: Hero, Leistungen, Ablauf, Preise (Spannen), Über mich, FAQ, Kontaktformular |
+| `index.html` | Startseite: Hero, Leistungen, Ablauf, Preise mit Rechner, Über mich, FAQ, Kontaktformular |
 | `impressum.html`, `datenschutz.html` | Rechtliche Seiten – **gelb markierte Platzhalter vor dem Livegang ausfüllen** |
 | `kontakt.php` | Nimmt Formular-Anfragen entgegen, speichert sie in `/anfragen` und schickt sie per E-Mail |
 | `assets/css/style.css` | Design: grüne Farbpalette, Schriften, Animationen, Responsive |
@@ -35,4 +35,4 @@ Dann http://localhost:8080 öffnen.
 
 ## Preise anpassen
 
-Die Preisspannen stehen in `index.html` im Abschnitt `<!-- Preise -->` und können dort direkt geändert werden.
+Die Preise (Onepager ab 310 €, Mehrpager ab 270 € + ab 90 € je Unterseite, Änderungen ab 35 €) stehen in `index.html` im Abschnitt `<!-- Preise -->`. Ändert sich der Mehrpager-Preis, auch `START` und `PER_PAGE` im Preisrechner in `assets/js/main.js` anpassen.

@@ -129,14 +129,37 @@
     });
   });
 
+  /* ---------- Mehrpager-Preisrechner ---------- */
+  var range = document.getElementById("calc-pages");
+  if (range) {
+    var countEl = document.getElementById("calc-count");
+    var totalEl = document.getElementById("calc-total");
+    var START = 270, PER_PAGE = 90;
+    var updateCalc = function () {
+      var n = parseInt(range.value, 10);
+      countEl.textContent = n;
+      totalEl.textContent = (START + n * PER_PAGE).toLocaleString("de-DE");
+      var fill = (n - range.min) / (range.max - range.min) * 100;
+      range.style.setProperty("--fill", fill + "%");
+      totalEl.classList.add("bump");
+      clearTimeout(updateCalc.t);
+      updateCalc.t = setTimeout(function () { totalEl.classList.remove("bump"); }, 180);
+    };
+    range.addEventListener("input", updateCalc);
+    updateCalc();
+  }
+
   /* ---------- Kontaktformular ---------- */
   var form = document.getElementById("contact-form");
   var packageSelect = document.getElementById("f-package");
 
-  /* Paket aus der Preistabelle vorauswählen */
+  /* Leistung aus der Preistabelle im Formular vorauswählen */
   document.querySelectorAll("[data-package]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      if (packageSelect) packageSelect.value = btn.getAttribute("data-package");
+      var value = btn.getAttribute("data-package");
+      var chip = document.querySelector('.chip input[value="' + value + '"]');
+      if (chip) chip.checked = true;
+      if (packageSelect && value === "Onepager") packageSelect.value = "Nur eine Seite (Onepager)";
     });
   });
 
