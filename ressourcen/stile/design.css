@@ -108,7 +108,7 @@ p { margin: 0 0 1em; }
 .brand img { transition: transform .5s var(--ease); }
 .brand:hover img { transform: rotate(-8deg) scale(1.05); }
 .brand__text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand__text strong { font: 700 1.08rem var(--font-body); letter-spacing: -.015em; }
+.brand__text strong { font: 700 1.05rem var(--font-head); letter-spacing: -.01em; }
 .brand__text small { font-size: .72rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--mint); }
 
 .nav__links { display: flex; align-items: center; gap: 30px; }
