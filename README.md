@@ -1,1 +1,38 @@
-# Geschäftlich
+# Webdesign Janosch Krause – Website
+
+Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
+
+## Inhalt
+
+| Datei | Zweck |
+| --- | --- |
+| `index.html` | Startseite: Hero, Leistungen, Ablauf, Preise (Spannen), Über mich, FAQ, Kontaktformular |
+| `impressum.html`, `datenschutz.html` | Rechtliche Seiten – **gelb markierte Platzhalter vor dem Livegang ausfüllen** |
+| `kontakt.php` | Nimmt Formular-Anfragen entgegen, speichert sie in `/anfragen` und schickt sie per E-Mail |
+| `assets/css/style.css` | Design: grüne Farbpalette, Schriften, Animationen, Responsive |
+| `assets/js/main.js` | Scroll-Animationen, Menü, Zähler, Formular-Validierung & -Versand |
+| `assets/img/logo.svg`, `favicon.svg` | Logo (JK-Monogramm) |
+| `assets/fonts/` | Sora & Plus Jakarta Sans, lokal eingebunden (DSGVO-freundlich, kein Google-CDN) |
+
+## Kontaktformular einrichten
+
+Kunden schicken ihre Anfrage direkt über die Website – ohne Anruf oder eigenes E-Mail-Programm.
+
+1. In `kontakt.php` oben `EMPFAENGER` (Ihre E-Mail) und `ABSENDER` (eine Adresse Ihrer Domain) eintragen.
+2. Alle Dateien per FTP/Dateimanager zu einem Webhoster mit PHP hochladen (z. B. IONOS, Strato, All-Inkl).
+3. Jede Anfrage landet als E-Mail in Ihrem Postfach und zusätzlich als Sicherung im Ordner `anfragen/` (per `.htaccess` vor Zugriff geschützt).
+
+Eingebaut: Pflichtfeld-Prüfung, Honeypot-Spamschutz, Sperre gegen Mehrfachsenden, Schutz gegen Header-Injection.
+
+**Ohne PHP-Hosting** (z. B. GitHub Pages, Netlify): Im `<form>`-Tag in `index.html` das `action="kontakt.php"` durch die URL eines Formular-Dienstes wie Formspree oder Web3Forms ersetzen – das JavaScript funktioniert damit ebenfalls.
+
+## Lokal ansehen
+
+```bash
+php -S localhost:8080
+```
+Dann http://localhost:8080 öffnen.
+
+## Preise anpassen
+
+Die Preisspannen stehen in `index.html` im Abschnitt `<!-- Preise -->` und können dort direkt geändert werden.
