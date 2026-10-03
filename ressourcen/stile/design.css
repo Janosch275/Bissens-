@@ -322,7 +322,9 @@ p { margin: 0 0 1em; }
 .values { list-style: none; padding: 0; margin: 34px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .values li { display: flex; gap: 14px; padding: 18px; border-radius: 16px; background: rgba(255, 255, 255, .04); border: 1px solid rgba(255, 255, 255, .08); transition: border-color .3s, background-color .3s; }
 .values li:hover { border-color: rgba(52, 211, 153, .4); background: rgba(52, 211, 153, .06); }
-.values span { font-size: 1.4rem; line-height: 1; }
+.values__icon { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: rgba(52, 211, 153, .12); color: var(--mint); transition: transform .4s var(--ease); }
+.values__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.values li:hover .values__icon { transform: rotate(-6deg) scale(1.06); }
 .values strong { color: #fff; font-family: var(--font-head); }
 .values p { margin: 4px 0 0; font-size: .9rem; color: rgba(255, 255, 255, .6); }
 
