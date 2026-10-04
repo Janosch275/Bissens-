@@ -577,25 +577,13 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
             <input type="text" name="z5" maxlength="40" placeholder="Zeile 5 (optional)" aria-label="Zeile 5">
           </fieldset>
           <fieldset>
-            <legend>2 · Modell &amp; Schrift</legend>
-            <div class="row2">
-              <label>Stempel
-                <select name="modell" id="modell">
-                  <option value="38/14">Printy 38 × 14 mm · 3 Zeilen</option>
-                  <option value="47/18" selected>Printy 47 × 18 mm · 4 Zeilen</option>
-                  <option value="58/22">Printy 58 × 22 mm · 5 Zeilen</option>
-                  <option value="70/25">Printy 70 × 25 mm · 6 Zeilen</option>
-                  <option value="60/40">Holzstempel nach Maß</option>
-                </select>
-              </label>
-              <label>Schrift
-                <select name="schrift" id="schrift">
-                  <option value="sans">Grotesk (klar)</option>
-                  <option value="serif">Antiqua (klassisch)</option>
-                  <option value="mono">Schreibmaschine</option>
-                </select>
-              </label>
-            </div>
+            <legend>2 · Schrift</legend>
+            <label class="sr" for="schrift">Schrift</label>
+            <select name="schrift" id="schrift">
+              <option value="sans">Grotesk (klar)</option>
+              <option value="serif">Antiqua (klassisch)</option>
+              <option value="mono">Schreibmaschine</option>
+            </select>
           </fieldset>
           <fieldset>
             <legend>3 · Stempelfarbe</legend>
@@ -620,7 +608,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
           </div>
           <div class="arrow-down" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M6 14l6 6 6-6"/></svg>aufdrücken</div>
           <div class="pv-panel" style="position:relative">
-            <div class="cap"><span>Abdruck</span><span id="pvSize">47 × 18 mm</span></div>
+            <div class="cap"><span>Abdruck</span><span>Beispiel</span></div>
             <div class="pv-box" id="pvbox2"><div class="pv-imp" id="pvImpBox"><div class="txt" id="pvImp"></div></div></div>
           </div>
         </div>
@@ -841,15 +829,14 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 
   /* Ausprobieren: Live-Vorschau, sendet nichts */
   var play = $("#play"), pvPlate = $("#pvPlate"), pvImp = $("#pvImp"), pvImpBox = $("#pvImpBox");
-  var box1 = $("#pvbox1"), box2 = $("#pvbox2"), sizeLbl = $("#pvSize");
+  var box1 = $("#pvbox1"), box2 = $("#pvbox2");
   var defaults = ["z1","z2","z3","z4","z5"].map(function(n){ return play.elements[n].value; });
   function lines(){ return ["z1","z2","z3","z4","z5"].map(function(n){ return play.elements[n].value.trim(); }).filter(Boolean); }
   function render(){
     var L = lines(); if (!L.length) L = ["Ihr Text"];
-    var size = play.elements.modell.value.split("/"), w = +size[0], hh = +size[1];
+    var w = 58, hh = 22; // ein festes Beispielformat
     var ratio = w + "/" + hh;
     box1.style.aspectRatio = ratio; box2.style.aspectRatio = ratio;
-    sizeLbl.textContent = play.elements.modell.value === "60/40" ? "nach Maß" : w + " × " + hh + " mm";
     var html = L.map(function(t, k){ var s = document.createElement("span"); s.textContent = t; return k === 0 ? '<span class="l1">' + s.innerHTML + "</span>" : s.innerHTML; }).join("\n");
     var font = "f-" + play.elements.schrift.value;
     [pvPlate, pvImp].forEach(function(el){ el.innerHTML = html; el.className = "txt " + font; });
@@ -868,7 +855,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
   $("#stampIt").addEventListener("click", function(){ render(); pressStamp(); });
   $("#resetPlay").addEventListener("click", function(){
     ["z1","z2","z3","z4","z5"].forEach(function(n, k){ play.elements[n].value = defaults[k]; });
-    play.elements.modell.value = "47/18"; play.elements.schrift.value = "sans";
+    play.elements.schrift.value = "sans";
     play.querySelector("input[name=farbe][value=Grün]").checked = true;
     render(); pressStamp();
   });
