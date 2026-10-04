@@ -20,7 +20,8 @@ Jeder Stempel wird spiegelverkehrt gefertigt und erst im Abdruck lesbar. Daraus 
 - Adressänderung: alte Adresse wird durchgestrichen, „Neue Adresse“ wird aufgestempelt.
 - Geschichte: Jahreszahl 1924 rollt wie ein Paginierstempel.
 - Sortiment als Setzkasten (Hommage an den Schriftsetzer Ortwin Pestka).
-- Stempel-Gestalter mit Live-Vorschau von Gummiplatte und Abdruck.
+- „Ausprobieren“: Live-Vorschau von Gummiplatte und Abdruck, sendet keine Daten.
+- „Anfrage“: eigenständiges Anfrageformular (öffnet das E-Mail-Programm).
 - Öffnungszeiten als Datumsstempel (GEÖFFNET/GESCHLOSSEN).
 Farbpalette: Hellgrün (#a6dc7e) und Grautöne, dunkleres Grün (#33702a) für lesbaren Text.
 Alle Animationen nutzen eine gemeinsame Bewegungskurve, laufen einmalig ab und werden bei „Bewegung reduzieren“ abgeschaltet.

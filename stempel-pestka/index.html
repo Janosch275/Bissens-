@@ -226,8 +226,25 @@ p{margin:0 0 1em}
 .arrow-down{display:flex;align-items:center;justify-content:center;gap:10px;font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .arrow-down svg{width:18px;height:18px;animation:nudge 2.4s var(--ease) infinite}
 @keyframes nudge{0%,60%,100%{transform:none}30%{transform:translateY(4px)}}
-.done-stamp{position:absolute;right:10px;top:-14px;transform-origin:100% 0;font:600 .9rem/1.1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue);border:2.5px solid currentColor;padding:8px 12px;transform:rotate(9deg) scale(1.7);opacity:0;filter:url(#ink);pointer-events:none;background:rgba(250,251,250,.7)}
+.done-stamp{position:absolute;right:18px;top:-18px;transform-origin:100% 0;font:600 .9rem/1.1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue);border:2.5px solid currentColor;padding:8px 12px;transform:rotate(9deg) scale(1.7);opacity:0;filter:url(#ink);pointer-events:none;background:rgba(250,251,250,.7)}
 .done-stamp.on{opacity:.92;transform:rotate(9deg) scale(1);transition:transform .32s cubic-bezier(.5,1.6,.6,1),opacity .15s}
+
+.play-actions{display:flex;flex-wrap:wrap;gap:12px}
+.pv-imp.press{animation:press .55s var(--ease)}
+.pv-plate.press{animation:platePress .55s var(--ease)}
+@keyframes press{0%{opacity:0;transform:scale(1.06)}35%{opacity:0}60%{opacity:1;transform:scale(.99)}100%{opacity:1;transform:none}}
+@keyframes platePress{0%{transform:none}40%{transform:translateY(10px) scale(.98)}100%{transform:none}}
+
+/* ---------- Anfrage ---------- */
+.order-sec{border-top:1px solid var(--rule)}
+.order-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,88px);align-items:start}
+.order-card{position:relative;background:var(--sheet);border:1px solid var(--rule);padding:clamp(22px,4vw,40px);box-shadow:0 24px 48px -32px rgba(20,30,25,.35)}
+.order-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--lime)}
+.steps{list-style:none;margin:28px 0;padding:0;border-top:1px solid var(--ink)}
+.steps li{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.steps b{font:600 .85rem/1.6 var(--mono);color:var(--blue)}
+.steps span{color:var(--ink-2)}
+.steps strong{display:block;color:var(--ink);font-weight:600}
 
 /* ---------- Kontakt ---------- */
 .contact{background:var(--paper-2)}
@@ -269,7 +286,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 
 /* ---------- Responsive ---------- */
 @media (max-width:980px){
-  .hero .wrap,.split,.conf,.cgrid,.case-head{grid-template-columns:1fr}
+  .hero .wrap,.split,.conf,.cgrid,.case-head,.order-grid{grid-template-columns:1fr}
   .stage{max-width:560px;width:100%;margin:0 auto 40px}
   .preview{position:static;order:-1}
   .case{grid-template-columns:1fr 1fr;grid-template-areas:"holz holz" "printy stativ" "pagin praeg" "schild schild" "mehr mehr"}
@@ -325,7 +342,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
     <nav class="nav" id="nav">
       <a href="#geschichte">Geschichte</a>
       <a href="#sortiment">Sortiment</a>
-      <a href="#gestalten">Stempel gestalten</a>
+      <a href="#ausprobieren">Ausprobieren</a>
+      <a href="#anfrage">Anfrage</a>
       <a href="#kontakt">Kontakt</a>
       <a class="btn btn-sm" href="tel:+4957239569222">05723 9569222</a>
     </nav>
@@ -344,8 +362,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
         </h1>
         <p class="lead rv" style="--d:2">Jeder Stempel wird <strong>spiegelverkehrt</strong> gefertigt, damit Ihr Abdruck <strong>perfekt</strong> sitzt. Seit über hundert Jahren fertigen wir Stempel und Schilder mit Sorgfalt, jetzt in der <strong>Hauptstraße 29 in Haste</strong>.</p>
         <div class="cta rv" style="--d:3">
-          <a class="btn" href="#gestalten">Stempel gestalten <span class="arr">→</span></a>
-          <a class="btn btn-line" href="#sortiment">Sortiment ansehen</a>
+          <a class="btn" href="#anfrage">Anfrage stellen <span class="arr">→</span></a>
+          <a class="btn btn-line" href="#ausprobieren">Stempel ausprobieren</a>
         </div>
         <div class="facts rv" style="--d:4">
           <div><b>1924</b>gegründet</div>
@@ -447,15 +465,15 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
     </div>
   </section>
 
-  <!-- KONFIGURATOR -->
-  <section class="sec" id="gestalten">
+  <!-- AUSPROBIEREN -->
+  <section class="sec" id="ausprobieren">
     <div class="wrap">
-      <p class="label rv"><b>Nº 004</b> Stempel gestalten</p>
+      <p class="label rv"><b>Nº 004</b> Ausprobieren</p>
       <h2 class="rv" style="--d:1">Tippen Sie. Wir stempeln.</h2>
-      <p class="rv" style="--d:2;color:var(--ink-2);max-width:40em">Geben Sie Ihren Stempeltext ein und sehen Sie live, wie die Gummiplatte aussieht und wie Ihr Abdruck wird. Mit „Anfrage erstellen“ öffnet sich Ihr E-Mail-Programm mit allen Angaben. Wir melden uns mit Angebot und Korrekturabzug.</p>
+      <p class="rv" style="--d:2;color:var(--ink-2);max-width:40em">Probieren Sie aus, wie aus Ihrem Text ein Stempel wird: oben die spiegelverkehrte Gummiplatte, darunter der fertige Abdruck. Ganz unverbindlich, es werden keine Daten gesendet.</p>
 
       <div class="conf">
-        <form class="form rv" id="form" novalidate>
+        <form class="form rv" id="play" onsubmit="return false">
           <fieldset class="lines">
             <legend>1 · Stempeltext</legend>
             <input type="text" name="z1" maxlength="40" value="Muster GmbH" aria-label="Zeile 1">
@@ -495,18 +513,10 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
               <label><input type="radio" name="farbe" value="Violett" data-c="#5b3a8e"><i style="--c:#5b3a8e"></i>Violett</label>
             </div>
           </fieldset>
-          <fieldset>
-            <legend>4 · Ihre Kontaktdaten</legend>
-            <div class="row2">
-              <label>Name*<input type="text" name="name" required autocomplete="name"></label>
-              <label>Telefon<input type="tel" name="telefon" autocomplete="tel"></label>
-            </div>
-            <label>E-Mail*<input type="email" name="email" required autocomplete="email"></label>
-            <label>Anmerkungen (Menge, Logo, Wunschtermin …)<textarea name="anmerkung" rows="3"></textarea></label>
-            <label class="check"><input type="checkbox" name="ds" required> <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.*</span></label>
-          </fieldset>
-          <div><button class="btn" type="submit">Anfrage erstellen <span class="arr">→</span></button></div>
-          <p class="hint" id="hint" role="status"></p>
+          <div class="play-actions">
+            <button class="btn" type="button" id="stampIt">Abstempeln <span class="arr">↓</span></button>
+            <button class="btn btn-line" type="button" id="resetPlay">Zurücksetzen</button>
+          </div>
         </form>
 
         <div class="preview rv" style="--d:1" aria-label="Vorschau des Stempels">
@@ -516,11 +526,55 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
           </div>
           <div class="arrow-down" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M6 14l6 6 6-6"/></svg>aufdrücken</div>
           <div class="pv-panel" style="position:relative">
-            <div class="cap"><span>Ihr Abdruck</span><span id="pvSize">47 × 18 mm</span></div>
+            <div class="cap"><span>Abdruck</span><span id="pvSize">47 × 18 mm</span></div>
             <div class="pv-box" id="pvbox2"><div class="pv-imp" id="pvImpBox"><div class="txt" id="pvImp"></div></div></div>
-            <div class="done-stamp" id="done">Anfrage<br>erstellt</div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANFRAGE -->
+  <section class="sec order-sec" id="anfrage">
+    <div class="wrap order-grid">
+      <div>
+        <p class="label rv"><b>Nº 005</b> Anfrage</p>
+        <h2 class="rv" style="--d:1">Ihr Stempel, Ihr Schild. Fragen Sie uns.</h2>
+        <p class="rv" style="--d:2;color:var(--ink-2)">Schreiben Sie uns, was Sie brauchen: Stempel, Schild, Ersatzplatte oder einfach eine Beratung. Wir melden uns schnellstmöglich bei Ihnen.</p>
+        <ol class="steps rv" style="--d:3">
+          <li><b>01</b><span><strong>Anfrage senden</strong>mit Text, Menge und Wünschen</span></li>
+          <li><b>02</b><span><strong>Angebot &amp; Korrekturabzug</strong>von uns erhalten und freigeben</span></li>
+          <li><b>03</b><span><strong>Abholen oder liefern lassen</strong>in der Hauptstraße 29, Haste</span></li>
+        </ol>
+        <p class="small rv" style="--d:4">Lieber persönlich? Rufen Sie an unter <a href="tel:+4957239569222">05723 9569222</a> oder kommen Sie vorbei. Logos und Vorlagen gern per E-Mail an <a href="mailto:stempel-pestka@web.de">stempel-pestka@web.de</a>.</p>
+      </div>
+
+      <div class="order-card rv" style="--d:1">
+        <form class="form" id="order" novalidate>
+          <div class="row2">
+            <label>Name*<input type="text" name="name" required autocomplete="name"></label>
+            <label>Telefon<input type="tel" name="telefon" autocomplete="tel"></label>
+          </div>
+          <label>E-Mail*<input type="email" name="email" required autocomplete="email"></label>
+          <div class="row2">
+            <label>Anliegen
+              <select name="anliegen">
+                <option>Stempel</option>
+                <option>Schild</option>
+                <option>Prägestempel</option>
+                <option>Ersatzplatte / Stempelkissen</option>
+                <option>Beratung</option>
+                <option>Sonstiges</option>
+              </select>
+            </label>
+            <label>Menge<input type="text" name="menge" inputmode="numeric" placeholder="z. B. 1"></label>
+          </div>
+          <label>Ihre Nachricht / gewünschter Text*<textarea name="nachricht" rows="5" required placeholder="Was soll auf Ihrem Stempel oder Schild stehen? Größe, Farbe, Wunschtermin …"></textarea></label>
+          <label class="check"><input type="checkbox" name="ds" required> <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.*</span></label>
+          <div><button class="btn" type="submit">Anfrage senden <span class="arr">→</span></button></div>
+          <p class="hint" id="hint" role="status"></p>
+        </form>
+        <div class="done-stamp" id="done" aria-hidden="true">Anfrage<br>erstellt</div>
       </div>
     </div>
   </section>
@@ -530,7 +584,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
     <div class="wrap">
       <div class="cgrid">
         <div>
-          <p class="label rv"><b>Nº 005</b> Besuch &amp; Kontakt</p>
+          <p class="label rv"><b>Nº 006</b> Besuch &amp; Kontakt</p>
           <h2 class="rv" style="--d:1">Kommen Sie vorbei.</h2>
           <address class="rv" style="--d:2"><small>Stempel Pestka · Inh. Nadine Rieboldt</small>Hauptstraße 29<br>31559 Haste</address>
           <div class="clinks rv" style="--d:3">
@@ -691,49 +745,62 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
     rollCounter();
   }
 
-  /* Konfigurator mit Live-Vorschau */
-  var form = $("#form"), pvPlate = $("#pvPlate"), pvImp = $("#pvImp"), pvImpBox = $("#pvImpBox");
-  var box1 = $("#pvbox1"), box2 = $("#pvbox2"), sizeLbl = $("#pvSize"), done = $("#done");
-  function lines(){ return ["z1","z2","z3","z4","z5"].map(function(n){ return form.elements[n].value.trim(); }).filter(Boolean); }
+  /* Ausprobieren: Live-Vorschau, sendet nichts */
+  var play = $("#play"), pvPlate = $("#pvPlate"), pvImp = $("#pvImp"), pvImpBox = $("#pvImpBox");
+  var box1 = $("#pvbox1"), box2 = $("#pvbox2"), sizeLbl = $("#pvSize");
+  var defaults = ["z1","z2","z3","z4","z5"].map(function(n){ return play.elements[n].value; });
+  function lines(){ return ["z1","z2","z3","z4","z5"].map(function(n){ return play.elements[n].value.trim(); }).filter(Boolean); }
   function render(){
     var L = lines(); if (!L.length) L = ["Ihr Text"];
-    var size = form.elements.modell.value.split("/"), w = +size[0], hh = +size[1];
+    var size = play.elements.modell.value.split("/"), w = +size[0], hh = +size[1];
     var ratio = w + "/" + hh;
     box1.style.aspectRatio = ratio; box2.style.aspectRatio = ratio;
-    sizeLbl.textContent = form.elements.modell.value === "60/40" ? "nach Maß" : w + " × " + hh + " mm";
+    sizeLbl.textContent = play.elements.modell.value === "60/40" ? "nach Maß" : w + " × " + hh + " mm";
     var html = L.map(function(t, k){ var s = document.createElement("span"); s.textContent = t; return k === 0 ? '<span class="l1">' + s.innerHTML + "</span>" : s.innerHTML; }).join("\n");
-    var font = "f-" + form.elements.schrift.value;
+    var font = "f-" + play.elements.schrift.value;
     [pvPlate, pvImp].forEach(function(el){ el.innerHTML = html; el.className = "txt " + font; });
     var bw = box2.clientWidth || 400, bh = bw * hh / w;
     var longest = Math.max.apply(null, L.map(function(t){ return t.length; }));
     var fs = Math.min(bh * .78 / (L.length * 1.25 + .15), bw * .86 / (Math.max(longest, 8) * .62 * 1.1));
     [pvPlate, pvImp].forEach(function(el){ el.style.setProperty("--fs", Math.max(9, fs).toFixed(1) + "px"); });
-    var c = form.querySelector("input[name=farbe]:checked");
-    pvImpBox.style.setProperty("--ink-c", c.dataset.c);
-    done.classList.remove("on");
+    pvImpBox.style.setProperty("--ink-c", play.querySelector("input[name=farbe]:checked").dataset.c);
   }
-  form.addEventListener("input", render);
+  function pressStamp(){
+    if (reduce) return;
+    [pvImpBox, pvPlate.parentNode].forEach(function(el){ el.classList.remove("press"); void el.offsetWidth; el.classList.add("press"); });
+  }
+  play.addEventListener("input", render);
+  play.addEventListener("change", function(e){ if (e.target.name === "farbe" || e.target.tagName === "SELECT") pressStamp(); });
+  $("#stampIt").addEventListener("click", function(){ render(); pressStamp(); });
+  $("#resetPlay").addEventListener("click", function(){
+    ["z1","z2","z3","z4","z5"].forEach(function(n, k){ play.elements[n].value = defaults[k]; });
+    play.elements.modell.value = "47/18"; play.elements.schrift.value = "sans";
+    play.querySelector("input[name=farbe][value=Grün]").checked = true;
+    render(); pressStamp();
+  });
   window.addEventListener("resize", render);
   document.fonts && document.fonts.ready.then(render);
   render();
 
-  form.addEventListener("submit", function(e){
+  /* Anfrage: eigenständiges Formular → E-Mail-Programm */
+  var order = $("#order"), done = $("#done");
+  order.addEventListener("input", function(){ done.classList.remove("on"); });
+  order.addEventListener("submit", function(e){
     e.preventDefault();
     var hint = $("#hint"), bad = [];
-    $$("[required]", form).forEach(function(el){
+    $$("[required]", order).forEach(function(el){
       var ok = el.type === "checkbox" ? el.checked : el.value.trim() !== "" && el.checkValidity();
       el.setAttribute("aria-invalid", ok ? "false" : "true"); if (!ok) bad.push(el);
     });
     if (bad.length) { hint.textContent = "Bitte füllen Sie die Pflichtfelder (*) aus."; hint.className = "hint err"; bad[0].focus(); return; }
-    var f = form.elements, opt = f.modell.options[f.modell.selectedIndex].text, sch = f.schrift.options[f.schrift.selectedIndex].text;
-    var body = "Stempeltext:\n" + lines().join("\n") + "\n\nModell: " + opt + "\nSchrift: " + sch +
-      "\nFarbe: " + form.querySelector("input[name=farbe]:checked").value +
-      "\n\nName: " + f.name.value + "\nTelefon: " + (f.telefon.value || "-") + "\nE-Mail: " + f.email.value +
-      "\n\nAnmerkungen:\n" + (f.anmerkung.value || "-") + "\n";
+    var f = order.elements;
+    var body = "Anliegen: " + f.anliegen.value + "\nMenge: " + (f.menge.value || "-") +
+      "\n\nNachricht:\n" + f.nachricht.value +
+      "\n\nName: " + f.name.value + "\nTelefon: " + (f.telefon.value || "-") + "\nE-Mail: " + f.email.value + "\n";
     done.classList.remove("on"); void done.offsetWidth; done.classList.add("on");
     hint.textContent = "Ihr E-Mail-Programm öffnet sich. Bitte senden Sie die Nachricht dort ab."; hint.className = "hint";
     setTimeout(function(){
-      window.location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Stempelanfrage von " + f.name.value) + "&body=" + encodeURIComponent(body);
+      window.location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Anfrage (" + f.anliegen.value + ") von " + f.name.value) + "&body=" + encodeURIComponent(body);
     }, reduce ? 0 : 600);
   });
 
