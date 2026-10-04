@@ -39,7 +39,8 @@
   --lime:#a6dc7e; --lime-2:#c9ecb0; --lime-soft:#e4f5d8;
   --blue:#33702a; --red:#c0322b;
   --rubber:#4f5552; --rubber-hi:#8d9490;
-  --wood:#173222; --wood-2:#1f3d2a; --wood-line:#2c5139; --wood-text:#e3efe5;
+  --wood:#cdeab6; --wood-2:#e6f6da; --wood-line:#a8d68a; --wood-text:#1c1f1e;
+  --green-2:#4a9a34;
   --ease:cubic-bezier(.22,.8,.24,1);
   --serif:"DM Serif Display",Georgia,serif;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -107,9 +108,9 @@ p{margin:0 0 1em}
 .hero h1 .ch{display:inline-block;transform:scaleX(-1);opacity:.18;color:var(--rubber);transition:transform .7s var(--ease),opacity .5s,color .7s;transition-delay:calc(var(--i)*45ms + 150ms)}
 .hero h1.go .ch{transform:none;opacity:1;color:var(--ink)}
 .hero h1 .ch.sp{width:.25em}
-.hero h1 em{font-style:italic;color:var(--blue);background:linear-gradient(transparent 72%,var(--lime-2) 72%,var(--lime-2) 90%,transparent 90%) no-repeat;background-size:0% 100%;transition:background-size .9s var(--ease) 1.1s;padding-right:.08em}
+.hero h1 em{font-style:italic;color:var(--green-2);background:linear-gradient(transparent 72%,var(--lime-2) 72%,var(--lime-2) 90%,transparent 90%) no-repeat;background-size:0% 100%;transition:background-size .9s var(--ease) 1.1s;padding-right:.08em}
 .hero h1.go em{background-size:100% 100%}
-.hero h1.go em .ch{color:var(--blue)}
+.hero h1.go em .ch{color:var(--green-2)}
 .hero .lead{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink-2);max-width:34em}
 .hero .lead strong{color:var(--ink);font-weight:600}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 36px}
@@ -163,7 +164,7 @@ p{margin:0 0 1em}
 .prose p{color:var(--ink-2);font-size:1.06rem}
 .prose strong{color:var(--ink);font-weight:600}
 .counter{display:flex;align-items:flex-end;gap:18px;margin:6px 0 28px}
-.digits{display:flex;font:500 clamp(4rem,9vw,7rem)/1 var(--mono);color:var(--blue);letter-spacing:-.02em}
+.digits{display:flex;font:500 clamp(4rem,9vw,7rem)/1 var(--mono);color:var(--green-2);letter-spacing:-.02em}
 .digit{display:block;height:1em;overflow:hidden;position:relative;border-right:1px solid var(--rule);padding:0 .06em;background:linear-gradient(180deg,rgba(0,0,0,.035),transparent 30%,transparent 70%,rgba(0,0,0,.035))}
 .digit:last-child{border-right:0}
 .digit .reel{display:block;transition:transform 1.6s var(--ease);transition-delay:calc(var(--i)*120ms)}
@@ -177,16 +178,16 @@ p{margin:0 0 1em}
 
 /* ---------- Setzkasten ---------- */
 .case-sec{background:var(--wood);color:var(--wood-text);position:relative}
-.case-sec .label{color:#93b39c}
-.case-sec .label b{color:var(--lime)}
+.case-sec .label{color:#55704a}
+.case-sec .label b{color:var(--blue)}
 .case-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:48px}
-.case-head p{color:#a9c2b0;margin:0}
-.case{display:grid;grid-template-columns:repeat(4,1fr);grid-template-areas:"holz holz printy stativ" "holz holz pagin praeg" "schild schild schild mehr";background:var(--wood-line);gap:6px;padding:6px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),0 40px 80px -40px rgba(0,0,0,.8)}
-.cell{position:relative;background:linear-gradient(160deg,var(--wood-2),#1a3624);padding:44px 24px 24px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.65),inset 0 -1px 0 rgba(255,255,255,.04);outline:none}
-.cell h3{font-size:1.5rem;margin:0 0 .3em;color:#f4f7f5;position:relative}
-.cell p{font-size:.93rem;color:#a9c2b0;margin:0;position:relative;max-width:30em}
-.cell .no{position:absolute;top:18px;left:22px;font:500 .72rem/1 var(--mono);letter-spacing:.12em;color:#7fa08a;transition:color .4s}
-.cell:hover .no,.cell.flip .no{color:var(--lime)}
+.case-head p{color:var(--ink-2);margin:0}
+.case{display:grid;grid-template-columns:repeat(4,1fr);grid-template-areas:"holz holz printy stativ" "holz holz pagin praeg" "schild schild schild mehr";background:var(--wood-line);gap:6px;padding:6px;border-radius:4px;box-shadow:0 30px 60px -36px rgba(40,90,30,.45)}
+.cell{position:relative;background:linear-gradient(160deg,var(--wood-2),#d8efc6);padding:44px 24px 24px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;overflow:hidden;box-shadow:inset 0 8px 14px -8px rgba(50,100,35,.35),inset 0 -1px 0 rgba(255,255,255,.6);outline:none}
+.cell h3{font-size:1.5rem;margin:0 0 .3em;color:var(--ink);position:relative}
+.cell p{font-size:.93rem;color:var(--ink-2);margin:0;position:relative;max-width:30em}
+.cell .no{position:absolute;top:18px;left:22px;font:500 .72rem/1 var(--mono);letter-spacing:.12em;color:#5f8350;transition:color .4s}
+.cell:hover .no,.cell.flip .no{color:var(--blue)}
 .illu{display:block;width:min(100%,210px);height:auto;margin:0 auto;overflow:visible}
 .cell.big .illu{width:min(100%,330px);margin:auto}
 .c-schild{flex-direction:row-reverse;align-items:center}
@@ -203,10 +204,10 @@ p{margin:0 0 1em}
 @keyframes squeeze{0%{transform:none}35%,55%{transform:rotate(7deg)}100%{transform:none}}
 @keyframes shine{from{transform:translateX(0) skewX(-20deg)}to{transform:translateX(440px) skewX(-20deg)}}
 .c-holz{grid-area:holz}.c-printy{grid-area:printy}.c-stativ{grid-area:stativ}.c-pagin{grid-area:pagin}.c-praeg{grid-area:praeg}.c-schild{grid-area:schild}.c-mehr{grid-area:mehr}
-.c-mehr{background:#12281a;justify-content:center}
-.c-mehr p{color:#e6ebe7;font-size:1rem}
-.brands{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font:500 .8rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7fa08a}
-.brands b{color:var(--lime);font-weight:500}
+.c-mehr{background:var(--lime);justify-content:center}
+.c-mehr p{color:var(--ink);font-size:1rem}
+.brands{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font:500 .8rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#55704a}
+.brands b{color:var(--blue);font-weight:600}
 
 /* ---------- Konfigurator ---------- */
 .conf{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,5vw,64px);align-items:start;margin-top:12px}
@@ -292,13 +293,13 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 .small{font-size:.9rem;color:var(--ink-3)}
 
 /* ---------- Footer ---------- */
-.foot{background:#14281b;color:#9fb5a5;font-size:.9rem;padding:40px 0}
+.foot{background:var(--lime);color:var(--ink-2);font-size:.9rem;padding:40px 0}
 .foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;align-items:center}
 .foot p{margin:0}
 .foot nav{display:flex;gap:24px}
-.foot a{color:#e3efe5;text-decoration:none}
+.foot a{color:var(--ink);font-weight:500;text-decoration:none}
 .foot a:hover{text-decoration:underline}
-.foot .sig{font:400 1.5rem/1 var(--serif);color:var(--lime)}
+.foot .sig{font:400 1.5rem/1 var(--serif);color:var(--ink)}
 
 /* ---------- Reveal: "Tinte setzt sich" ---------- */
 .rv{opacity:0;transform:translateY(14px) scale(1.015);filter:blur(4px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
@@ -478,8 +479,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
       </div>
       <div class="case">
         <article class="cell big c-holz rv" tabindex="0"><span class="no">01</span><svg class="illu" viewBox="0 0 240 220" aria-hidden="true">
-<ellipse cx="120" cy="208" rx="96" ry="7" fill="rgba(0,0,0,.28)"/>
-<path d="M22 172 L216 162 L220 200 L26 208 Z" fill="#eef3ec"/>
+<ellipse cx="120" cy="208" rx="96" ry="7" fill="rgba(40,90,30,.22)"/>
+<path d="M22 172 L216 162 L220 200 L26 208 Z" fill="#ffffff"/>
 <g class="imp" transform="rotate(-3 120 184)"><rect x="70" y="171" width="100" height="27" rx="2" fill="none" stroke="#33702a" stroke-width="2.5"/><rect x="84" y="178" width="72" height="4.5" rx="1" fill="#33702a"/><rect x="94" y="187" width="52" height="3.5" rx="1" fill="#33702a"/></g>
 <g class="tool" style="--press:24px">
 <ellipse cx="120" cy="34" rx="28" ry="24" fill="url(#gWood)"/><ellipse cx="110" cy="25" rx="10" ry="6" fill="#f6e7cc" opacity=".55"/>
@@ -490,8 +491,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 <rect x="64" y="132" width="112" height="9" rx="2" fill="#4f5552"/>
 </g></svg><div class="ct"><h3>Holzstempel</h3><p>Der Klassiker: langlebig, vielseitig und in vielen Größen gefertigt, für Text, Logo oder Motiv. Mit Stempelkissen ein Leben lang im Einsatz.</p></div></article>
         <article class="cell c-printy rv" style="--d:1" tabindex="0"><span class="no">02</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
-<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
-<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#eef3ec"/>
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(40,90,30,.22)"/>
+<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#ffffff"/>
 <g class="imp" transform="rotate(-3 100 140)"><rect x="62" y="130" width="76" height="20" rx="2" fill="none" stroke="#33702a" stroke-width="2.2"/><rect x="72" y="135" width="56" height="3.5" rx="1" fill="#33702a"/><rect x="80" y="142" width="40" height="3" rx="1" fill="#33702a"/></g>
 <g class="tool" style="--press:14px">
 <rect x="66" y="10" width="68" height="28" rx="12" fill="#a6dc7e"/><rect x="74" y="14" width="40" height="5" rx="2.5" fill="#d3f0bd"/>
@@ -500,8 +501,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 <rect x="52" y="96" width="96" height="12" rx="3" fill="#3a3f3c"/><rect x="58" y="108" width="84" height="5" rx="1" fill="#262a28"/>
 </g></svg><div class="ct"><h3>Printies</h3><p>Selbstfärbend, schnell und sauber. Ideal fürs Büro.</p></div></article>
         <article class="cell c-stativ rv" style="--d:2" tabindex="0"><span class="no">03</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
-<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
-<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#eef3ec"/>
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(40,90,30,.22)"/>
+<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#ffffff"/>
 <g class="imp" transform="rotate(-3 100 140)"><rect x="58" y="129" width="84" height="22" rx="3" fill="none" stroke="#33702a" stroke-width="2.2"/><text x="100" y="144" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="9.5" fill="#33702a" data-today>04 OKT 2026</text></g>
 <g class="tool" style="--press:12px">
 <rect x="70" y="8" width="60" height="16" rx="8" fill="#a6dc7e"/>
@@ -511,8 +512,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 <rect x="58" y="100" width="84" height="10" rx="3" fill="#3a3f3c"/>
 </g></svg><div class="ct"><h3>Stativstempel</h3><p>Robust für den täglichen Dauereinsatz.</p></div></article>
         <article class="cell c-pagin rv" style="--d:1" tabindex="0"><span class="no">04</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
-<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
-<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#eef3ec"/>
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(40,90,30,.22)"/>
+<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#ffffff"/>
 <g class="imp" transform="rotate(-3 100 140)"><text x="100" y="146" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="16" letter-spacing="2" fill="#33702a">001925</text></g>
 <g class="tool" style="--press:12px">
 <ellipse cx="100" cy="14" rx="15" ry="8" fill="#a6dc7e"/>
@@ -523,8 +524,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 <rect x="56" y="96" width="88" height="12" rx="3" fill="#3a3f3c"/>
 </g></svg><div class="ct"><h3>Paginierstempel</h3><p>Zählen automatisch weiter, für Belege und Akten.</p></div></article>
         <article class="cell c-praeg rv" style="--d:2" tabindex="0"><span class="no">05</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
-<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
-<path d="M22 124 L178 116 L182 152 L26 158 Z" fill="#eef3ec"/>
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(40,90,30,.22)"/>
+<path d="M22 124 L178 116 L182 152 L26 158 Z" fill="#ffffff"/>
 <g class="imp"><circle cx="139" cy="139" r="15" fill="none" stroke="#fff" stroke-width="2.4"/><circle cx="141" cy="141" r="15" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="2.4"/><circle cx="140" cy="140" r="9" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="1.5" stroke-dasharray="2 2"/></g>
 <path d="M64 92 L176 114 Q186 116 186 106 L186 102 Q186 96 178 94 L70 78Z" fill="#9aa29d"/>
 <path d="M140 100 L176 114 Q186 116 186 106 L186 102 Q186 96 178 94 L142 87Z" fill="#a6dc7e"/>
@@ -535,7 +536,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 </svg><div class="ct"><h3>Prägestempel</h3><p>Fühlbare Prägung für Urkunden und Briefpapier.</p></div></article>
         <article class="cell c-schild rv" style="--d:1" tabindex="0"><span class="no">06</span><svg class="illu" viewBox="0 0 360 150" aria-hidden="true">
 <defs><clipPath id="clipSchild"><rect x="30" y="18" width="300" height="112" rx="8"/></clipPath></defs>
-<rect x="36" y="26" width="300" height="112" rx="8" fill="rgba(0,0,0,.3)"/>
+<rect x="36" y="26" width="300" height="112" rx="8" fill="rgba(40,90,30,.25)"/>
 <rect x="30" y="18" width="300" height="112" rx="8" fill="url(#gMetal)"/>
 <rect x="40" y="28" width="280" height="92" rx="4" fill="none" stroke="rgba(0,0,0,.12)"/>
 <rect x="58" y="40" width="6" height="68" rx="2" fill="#a6dc7e"/>
@@ -547,7 +548,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 <g clip-path="url(#clipSchild)"><rect class="shine" x="-40" y="0" width="34" height="150" fill="#fff" opacity=".45"/></g>
 </svg><div class="ct"><h3>Schilder</h3><p>Tür-, Firmen-, Praxis- und Briefkastenschilder, individuell nach Ihren Wünschen gestaltet.</p></div></article>
         <article class="cell c-mehr rv" style="--d:2"><svg class="illu" viewBox="0 0 200 110" aria-hidden="true">
-<ellipse cx="100" cy="102" rx="70" ry="5" fill="rgba(0,0,0,.3)"/>
+<ellipse cx="100" cy="102" rx="70" ry="5" fill="rgba(40,90,30,.25)"/>
 <path d="M50 12 L150 12 L162 50 L38 50Z" fill="#3a3f3c"/>
 <rect x="34" y="50" width="132" height="46" rx="6" fill="#4f5552"/>
 <rect x="44" y="56" width="112" height="32" rx="3" fill="#33702a"/>
