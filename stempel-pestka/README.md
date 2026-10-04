@@ -19,7 +19,8 @@ Jeder Stempel wird spiegelverkehrt gefertigt und erst im Abdruck lesbar. Daraus 
 - Startseite: Buchstaben drehen sich von spiegelverkehrt zu lesbar; eine Gummiplatte wird gewendet, aufgedrückt und hinterlässt einen Abdruck mit Tagesdatum.
 - Adressänderung: alte Adresse wird durchgestrichen, „Neue Adresse“ wird aufgestempelt.
 - Geschichte: Jahreszahl 1924 rollt wie ein Paginierstempel.
-- Sortiment als Setzkasten (Hommage an den Schriftsetzer Ortwin Pestka).
+- Sortiment als Setzkasten (Hommage an den Schriftsetzer Ortwin Pestka) mit gezeichneten Produkt-Illustrationen; beim Darüberfahren stempelt das Werkzeug und der Abdruck erscheint.
+- Logo: kleines Stempel-Symbol, das beim Darüberfahren „drückt“.
 - „Ausprobieren“: Live-Vorschau von Gummiplatte und Abdruck, sendet keine Daten.
 - „Anfrage“: eigenständiges Anfrageformular (öffnet das E-Mail-Programm).
 - Öffnungszeiten als Datumsstempel (GEÖFFNET/GESCHLOSSEN).

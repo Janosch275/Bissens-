@@ -11,7 +11,7 @@
 <meta property="og:description" content="Jetzt in der Hauptstraße 29, 31559 Haste.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='6' fill='%23a6dc7e' stroke='%231c1f1e' stroke-width='5'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%231c1f1e'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='%23a6dc7e' stroke='%231c1f1e' stroke-width='2' stroke-linejoin='round'%3E%3Ccircle cx='20' cy='8.5' r='5.5'/%3E%3Cpath d='M17 14h6v6.5h-6z'/%3E%3Cpath d='M8 20.5h24l2 7.5H6z'/%3E%3Crect x='5' y='28' width='30' height='4' rx='1' fill='%231c1f1e'/%3E%3C/g%3E%3Cpath d='M8 37h24' stroke='%2333702a' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
   --lime:#a6dc7e; --lime-2:#c9ecb0; --lime-soft:#e4f5d8;
   --blue:#33702a; --red:#c0322b;
   --rubber:#4f5552; --rubber-hi:#8d9490;
-  --wood:#1f2321; --wood-2:#2a2f2c; --wood-line:#3c433f; --wood-text:#e6ebe7;
+  --wood:#173222; --wood-2:#1f3d2a; --wood-line:#2c5139; --wood-text:#e3efe5;
   --ease:cubic-bezier(.22,.8,.24,1);
   --serif:"DM Serif Display",Georgia,serif;
   --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -63,14 +63,22 @@ p{margin:0 0 1em}
 .skip:focus{left:8px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+/* ---------- Hinweis ---------- */
+.notice{background:var(--lime);color:var(--ink);font-size:.9rem;text-align:center}
+.notice .wrap{padding:9px 0}
+.notice a{color:var(--ink);font-weight:600}
+
 /* ---------- Header ---------- */
 .top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
 .top.scrolled{border-color:var(--rule)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:72px;gap:16px}
 .brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}
-.logo{width:42px;height:42px;background:var(--lime);border:2.5px solid var(--ink);border-radius:6px;display:grid;place-items:center;font:400 1.6rem/1 var(--serif);color:var(--ink);perspective:200px}
-.logo span{display:block;transition:transform .6s var(--ease)}
-.brand:hover .logo span{transform:rotateY(180deg) scaleX(-1)}
+.logo{width:42px;height:42px;display:block;flex:none}
+.logo svg{width:100%;height:100%;overflow:visible}
+.logo-tool{transition:transform .35s var(--ease)}
+.logo-imp{transition:opacity .35s;opacity:.85}
+.brand:hover .logo-tool{transform:translateY(2.5px)}
+.brand:hover .logo-imp{opacity:1}
 .brand-name{font:400 1.35rem/1 var(--serif)}
 .brand-name small{display:block;font:500 .66rem/1.6 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
 .nav{display:flex;align-items:center;gap:30px}
@@ -110,6 +118,7 @@ p{margin:0 0 1em}
 
 /* stamp stage */
 .stage{position:relative;aspect-ratio:5/4.2;perspective:1400px}
+.stage::before{content:"";position:absolute;inset:11% 2% 1% 9%;background:var(--lime-2);transform:rotate(-3deg);border-radius:6px}
 .sheet{position:absolute;inset:6% 4% 4% 6%;background:var(--sheet);box-shadow:0 1px 0 var(--rule),0 30px 60px -30px rgba(20,30,25,.3);transform:rotate(1.5deg);
   background-image:repeating-linear-gradient(0deg,transparent 0 31px,rgba(51,112,42,.07) 31px 32px)}
 .sheet::before{content:"";position:absolute;left:12%;top:0;bottom:0;width:1px;background:var(--lime)}
@@ -137,7 +146,7 @@ p{margin:0 0 1em}
 /* ---------- Address change ---------- */
 .move{padding:0 0 clamp(64px,9vw,120px)}
 .card-move{position:relative;display:grid;grid-template-columns:auto 1fr 1fr auto;gap:clamp(20px,4vw,56px);align-items:center;background:var(--sheet);border:1px solid var(--rule);padding:clamp(24px,4vw,40px) clamp(24px,4vw,48px);box-shadow:0 20px 40px -30px rgba(20,30,25,.35)}
-.card-move::before{content:"";position:absolute;inset:8px;border:1px dashed var(--rule);pointer-events:none}
+.card-move::before{content:"";position:absolute;inset:8px;border:1.5px dashed rgba(51,112,42,.4);pointer-events:none}
 .card-move .tag{font:600 .74rem/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);color:var(--ink-3)}
 .addr small{display:block;font:500 .72rem/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
 .addr p{margin:0;font:400 clamp(1.25rem,2.2vw,1.7rem)/1.2 var(--serif)}
@@ -168,24 +177,35 @@ p{margin:0 0 1em}
 
 /* ---------- Setzkasten ---------- */
 .case-sec{background:var(--wood);color:var(--wood-text);position:relative}
-.case-sec .label{color:#98a29c}
+.case-sec .label{color:#93b39c}
 .case-sec .label b{color:var(--lime)}
 .case-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:48px}
-.case-head p{color:#aab3ad;margin:0}
+.case-head p{color:#a9c2b0;margin:0}
 .case{display:grid;grid-template-columns:repeat(4,1fr);grid-template-areas:"holz holz printy stativ" "holz holz pagin praeg" "schild schild schild mehr";background:var(--wood-line);gap:6px;padding:6px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),0 40px 80px -40px rgba(0,0,0,.8)}
-.cell{position:relative;background:linear-gradient(160deg,var(--wood-2),#232725);padding:26px 24px 24px;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.65),inset 0 -1px 0 rgba(255,255,255,.04);outline:none}
+.cell{position:relative;background:linear-gradient(160deg,var(--wood-2),#1a3624);padding:44px 24px 24px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.65),inset 0 -1px 0 rgba(255,255,255,.04);outline:none}
 .cell h3{font-size:1.5rem;margin:0 0 .3em;color:#f4f7f5;position:relative}
-.cell p{font-size:.93rem;color:#aab3ad;margin:0;position:relative;max-width:30em}
-.cell .no{position:absolute;top:18px;left:22px;font:500 .72rem/1 var(--mono);letter-spacing:.12em;color:#7d8781;transition:color .4s}
+.cell p{font-size:.93rem;color:#a9c2b0;margin:0;position:relative;max-width:30em}
+.cell .no{position:absolute;top:18px;left:22px;font:500 .72rem/1 var(--mono);letter-spacing:.12em;color:#7fa08a;transition:color .4s}
 .cell:hover .no,.cell.flip .no{color:var(--lime)}
-.glyph{position:absolute;top:8px;right:18px;font:400 7.5rem/1 var(--serif);color:#363d39;transform:scaleX(-1);transition:transform .8s var(--ease),color .6s;text-shadow:0 1px 0 rgba(255,255,255,.04),0 -1px 0 rgba(0,0,0,.6);user-select:none}
-.cell:hover .glyph,.cell:focus-visible .glyph,.cell.flip .glyph{transform:none;color:var(--lime)}
-.cell.big .glyph{font-size:15rem;top:-6px}
-.cell.big{min-height:460px}
+.illu{display:block;width:min(100%,210px);height:auto;margin:0 auto;overflow:visible}
+.cell.big .illu{width:min(100%,330px);margin:auto}
+.c-schild{flex-direction:row-reverse;align-items:center}
+.c-schild .illu{width:min(52%,380px);margin:0}
+.c-mehr .illu{width:min(100%,150px);margin:0 0 4px}
+.illu .tool,.illu .squeeze,.illu .shine{transform-box:view-box}
+.illu .imp{opacity:0;transition:opacity .25s ease-out}
+.cell:hover .imp,.cell:focus-visible .imp,.cell.flip .imp{opacity:.95;transition-delay:.3s}
+.cell:hover .tool,.cell:focus-visible .tool,.cell.flip .tool{animation:toolPress .9s var(--ease)}
+.illu .squeeze{transform-origin:66px 66px}
+.cell:hover .squeeze,.cell:focus-visible .squeeze,.cell.flip .squeeze{animation:squeeze .9s var(--ease)}
+.cell:hover .shine,.cell:focus-visible .shine,.cell.flip .shine{animation:shine 1.2s var(--ease)}
+@keyframes toolPress{0%{transform:none}35%,55%{transform:translateY(var(--press,14px))}100%{transform:none}}
+@keyframes squeeze{0%{transform:none}35%,55%{transform:rotate(7deg)}100%{transform:none}}
+@keyframes shine{from{transform:translateX(0) skewX(-20deg)}to{transform:translateX(440px) skewX(-20deg)}}
 .c-holz{grid-area:holz}.c-printy{grid-area:printy}.c-stativ{grid-area:stativ}.c-pagin{grid-area:pagin}.c-praeg{grid-area:praeg}.c-schild{grid-area:schild}.c-mehr{grid-area:mehr}
-.c-mehr{background:#181b1a;justify-content:center}
+.c-mehr{background:#12281a;justify-content:center}
 .c-mehr p{color:#e6ebe7;font-size:1rem}
-.brands{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font:500 .8rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7d8781}
+.brands{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font:500 .8rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7fa08a}
 .brands b{color:var(--lime);font-weight:500}
 
 /* ---------- Konfigurator ---------- */
@@ -247,7 +267,7 @@ p{margin:0 0 1em}
 .steps strong{display:block;color:var(--ink);font-weight:600}
 
 /* ---------- Kontakt ---------- */
-.contact{background:var(--paper-2)}
+.contact{background:var(--lime-soft);--rule:#c3dcb4}
 .cgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,6vw,88px);align-items:start}
 .datestamp{display:inline-grid;justify-items:center;gap:6px;color:var(--blue);border:3px solid currentColor;border-radius:14px;padding:18px 28px 16px;font-family:var(--mono);text-align:center;filter:url(#ink);transform:rotate(-4deg) scale(1.4);opacity:0;margin:8px 0 36px}
 .datestamp.in{transform:rotate(-4deg) scale(1);opacity:.92;transition:transform .35s cubic-bezier(.5,1.6,.6,1) .2s,opacity .15s ease-out .2s}
@@ -258,7 +278,7 @@ p{margin:0 0 1em}
 .hours{width:100%;border-collapse:collapse;font-size:1rem}
 .hours th,.hours td{padding:14px 0;border-bottom:1px solid var(--rule);text-align:left;font-weight:400}
 .hours td{text-align:right;font-family:var(--mono);font-size:.95rem}
-.hours tr.today th,.hours tr.today td{font-weight:600;color:var(--ink);background:var(--lime-soft)}
+.hours tr.today th,.hours tr.today td{font-weight:600;color:var(--ink);background:var(--lime-2)}
 .hours tr.today th{padding-left:10px}.hours tr.today td{padding-right:10px}
 .hours tr.today th::before{content:"▸ ";}
 address{font-style:normal;font:400 clamp(1.5rem,2.6vw,2rem)/1.25 var(--serif);margin:0 0 20px}
@@ -272,11 +292,11 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 .small{font-size:.9rem;color:var(--ink-3)}
 
 /* ---------- Footer ---------- */
-.foot{background:var(--ink);color:#9aa29d;font-size:.9rem;padding:40px 0}
+.foot{background:#14281b;color:#9fb5a5;font-size:.9rem;padding:40px 0}
 .foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;align-items:center}
 .foot p{margin:0}
 .foot nav{display:flex;gap:24px}
-.foot a{color:#e6ebe7;text-decoration:none}
+.foot a{color:#e3efe5;text-decoration:none}
 .foot a:hover{text-decoration:underline}
 .foot .sig{font:400 1.5rem/1 var(--serif);color:var(--lime)}
 
@@ -291,7 +311,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
   .preview{position:static;order:-1}
   .case{grid-template-columns:1fr 1fr;grid-template-areas:"holz holz" "printy stativ" "pagin praeg" "schild schild" "mehr mehr"}
   .cell.big{min-height:320px}
-  .cell.big .glyph{font-size:10rem}
+  .c-schild{flex-direction:column;align-items:stretch}.c-schild .illu{width:min(100%,380px);margin:0 auto}
   .card-move{grid-template-columns:1fr 1fr}
   .card-move .tag{display:none}
   .newstamp{grid-column:1/-1;justify-self:start}
@@ -306,7 +326,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
   .burger[aria-expanded=true] span:nth-child(2){opacity:0}
   .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .case{grid-template-columns:1fr;grid-template-areas:"holz" "printy" "stativ" "pagin" "praeg" "schild" "mehr"}
-  .cell{min-height:180px}
+  .cell{min-height:0}
   .card-move,.row2{grid-template-columns:1fr}
   .gens li{grid-template-columns:1fr;gap:2px}
   .hero h1{font-size:clamp(3rem,15vw,4.4rem)}
@@ -323,6 +343,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 
 <!-- Tinten-Filter: unregelmäßige Kanten und Fehlstellen wie bei einem echten Stempelabdruck -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <linearGradient id="gWood" x1="0" x2="1"><stop offset="0" stop-color="#c99d68"/><stop offset=".45" stop-color="#e8cb9a"/><stop offset="1" stop-color="#c39662"/></linearGradient>
+  <linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6eae7"/><stop offset=".5" stop-color="#c3c9c5"/><stop offset="1" stop-color="#dde2de"/></linearGradient>
   <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
     <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="rough"/>
@@ -332,10 +354,12 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
   </filter>
 </svg>
 
+<div class="notice"><div class="wrap"><b>Neu:</b> Wir sind umgezogen – Sie finden uns jetzt in der <a href="#kontakt">Hauptstraße 29, 31559 Haste</a>.</div></div>
+
 <header class="top" id="top">
   <div class="wrap">
     <a class="brand" href="#main" aria-label="Stempel Pestka – nach oben">
-      <span class="logo" aria-hidden="true"><span>P</span></span>
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 40 40"><g class="logo-tool" fill="#a6dc7e" stroke="#1c1f1e" stroke-width="2" stroke-linejoin="round"><circle cx="20" cy="8.5" r="5.5"/><path d="M17 14h6v6.5h-6z"/><path d="M8 20.5h24l2 7.5H6z"/><rect x="5" y="28" width="30" height="4" rx="1" fill="#1c1f1e"/></g><path class="logo-imp" d="M8 37h24" stroke="#33702a" stroke-width="2.6" stroke-linecap="round"/></svg></span>
       <span class="brand-name">Stempel Pestka<small>seit 1924 · Haste</small></span>
     </a>
     <button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
@@ -450,16 +474,85 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
           <p class="label rv"><b>Nº 003</b> Sortiment</p>
           <h2 class="rv" style="--d:1">Aus dem Setzkasten.</h2>
         </div>
-        <p class="rv" style="--d:2">Jedes Fach ein Werkzeug. Wir fertigen Ihren Stempel nach Ihren Vorgaben, mit Text, Logo oder Unterschrift. Fahren Sie über ein Fach: Erst im Abdruck wird alles lesbar.</p>
+        <p class="rv" style="--d:2">Jedes Fach ein Werkzeug. Wir fertigen Ihren Stempel nach Ihren Vorgaben, mit Text, Logo oder Unterschrift. Fahren Sie über ein Fach, und das Werkzeug zeigt seinen Abdruck.</p>
       </div>
       <div class="case">
-        <article class="cell big c-holz rv" tabindex="0"><span class="no">01</span><span class="glyph" aria-hidden="true">H</span><h3>Holzstempel</h3><p>Der Klassiker: langlebig, vielseitig und in vielen Größen gefertigt, für Text, Logo oder Motiv. Mit Stempelkissen ein Leben lang im Einsatz.</p></article>
-        <article class="cell c-printy rv" style="--d:1" tabindex="0"><span class="no">02</span><span class="glyph" aria-hidden="true">P</span><h3>Printies</h3><p>Selbstfärbend, schnell und sauber. Ideal fürs Büro.</p></article>
-        <article class="cell c-stativ rv" style="--d:2" tabindex="0"><span class="no">03</span><span class="glyph" aria-hidden="true">S</span><h3>Stativstempel</h3><p>Robust für den täglichen Dauereinsatz.</p></article>
-        <article class="cell c-pagin rv" style="--d:1" tabindex="0"><span class="no">04</span><span class="glyph" aria-hidden="true">7</span><h3>Paginierstempel</h3><p>Zählen automatisch weiter, für Belege und Akten.</p></article>
-        <article class="cell c-praeg rv" style="--d:2" tabindex="0"><span class="no">05</span><span class="glyph" aria-hidden="true">R</span><h3>Prägestempel</h3><p>Fühlbare Prägung für Urkunden und Briefpapier.</p></article>
-        <article class="cell c-schild rv" style="--d:1" tabindex="0"><span class="no">06</span><span class="glyph" aria-hidden="true">K</span><h3>Schilder</h3><p>Tür-, Firmen-, Praxis- und Briefkastenschilder, individuell nach Ihren Wünschen gestaltet.</p></article>
-        <article class="cell c-mehr rv" style="--d:2"><p>… und vieles mehr: Datumsstempel, Adressstempel, Ersatzplatten, Stempelkissen und Farbe. Fragen Sie uns einfach!</p></article>
+        <article class="cell big c-holz rv" tabindex="0"><span class="no">01</span><svg class="illu" viewBox="0 0 240 220" aria-hidden="true">
+<ellipse cx="120" cy="208" rx="96" ry="7" fill="rgba(0,0,0,.28)"/>
+<path d="M22 172 L216 162 L220 200 L26 208 Z" fill="#eef3ec"/>
+<g class="imp" transform="rotate(-3 120 184)"><rect x="70" y="171" width="100" height="27" rx="2" fill="none" stroke="#33702a" stroke-width="2.5"/><rect x="84" y="178" width="72" height="4.5" rx="1" fill="#33702a"/><rect x="94" y="187" width="52" height="3.5" rx="1" fill="#33702a"/></g>
+<g class="tool" style="--press:24px">
+<ellipse cx="120" cy="34" rx="28" ry="24" fill="url(#gWood)"/><ellipse cx="110" cy="25" rx="10" ry="6" fill="#f6e7cc" opacity=".55"/>
+<path d="M106 54 h28 l4 40 h-36z" fill="#c69d6b"/>
+<rect x="62" y="92" width="116" height="40" rx="5" fill="url(#gWood)"/>
+<rect x="62" y="122" width="116" height="10" rx="3" fill="#b0864f"/>
+<rect x="98" y="100" width="44" height="14" rx="2" fill="#a6dc7e"/>
+<rect x="64" y="132" width="112" height="9" rx="2" fill="#4f5552"/>
+</g></svg><div class="ct"><h3>Holzstempel</h3><p>Der Klassiker: langlebig, vielseitig und in vielen Größen gefertigt, für Text, Logo oder Motiv. Mit Stempelkissen ein Leben lang im Einsatz.</p></div></article>
+        <article class="cell c-printy rv" style="--d:1" tabindex="0"><span class="no">02</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
+<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#eef3ec"/>
+<g class="imp" transform="rotate(-3 100 140)"><rect x="62" y="130" width="76" height="20" rx="2" fill="none" stroke="#33702a" stroke-width="2.2"/><rect x="72" y="135" width="56" height="3.5" rx="1" fill="#33702a"/><rect x="80" y="142" width="40" height="3" rx="1" fill="#33702a"/></g>
+<g class="tool" style="--press:14px">
+<rect x="66" y="10" width="68" height="28" rx="12" fill="#a6dc7e"/><rect x="74" y="14" width="40" height="5" rx="2.5" fill="#d3f0bd"/>
+<path d="M60 38 h80 l6 60 h-92z" fill="#4f5552"/>
+<rect x="78" y="52" width="44" height="22" rx="3" fill="#eef3ec"/><rect x="84" y="58" width="32" height="3" rx="1" fill="#9aa29d"/><rect x="88" y="65" width="24" height="3" rx="1" fill="#9aa29d"/>
+<rect x="52" y="96" width="96" height="12" rx="3" fill="#3a3f3c"/><rect x="58" y="108" width="84" height="5" rx="1" fill="#262a28"/>
+</g></svg><div class="ct"><h3>Printies</h3><p>Selbstfärbend, schnell und sauber. Ideal fürs Büro.</p></div></article>
+        <article class="cell c-stativ rv" style="--d:2" tabindex="0"><span class="no">03</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
+<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#eef3ec"/>
+<g class="imp" transform="rotate(-3 100 140)"><rect x="58" y="129" width="84" height="22" rx="3" fill="none" stroke="#33702a" stroke-width="2.2"/><text x="100" y="144" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="9.5" fill="#33702a" data-today>04 OKT 2026</text></g>
+<g class="tool" style="--press:12px">
+<rect x="70" y="8" width="60" height="16" rx="8" fill="#a6dc7e"/>
+<rect x="64" y="20" width="6" height="84" rx="2" fill="#c4cac6"/><rect x="130" y="20" width="6" height="84" rx="2" fill="#c4cac6"/>
+<rect x="74" y="34" width="52" height="58" rx="4" fill="#4f5552"/>
+<rect x="76" y="50" width="48" height="15" rx="2" fill="#eef3ec"/><text x="100" y="60.5" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="6.6" fill="#1c1f1e" data-today>04 OKT 2026</text>
+<rect x="58" y="100" width="84" height="10" rx="3" fill="#3a3f3c"/>
+</g></svg><div class="ct"><h3>Stativstempel</h3><p>Robust für den täglichen Dauereinsatz.</p></div></article>
+        <article class="cell c-pagin rv" style="--d:1" tabindex="0"><span class="no">04</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
+<path d="M22 130 L178 122 L182 152 L26 158 Z" fill="#eef3ec"/>
+<g class="imp" transform="rotate(-3 100 140)"><text x="100" y="146" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="16" letter-spacing="2" fill="#33702a">001925</text></g>
+<g class="tool" style="--press:12px">
+<ellipse cx="100" cy="14" rx="15" ry="8" fill="#a6dc7e"/>
+<rect x="95" y="17" width="10" height="26" fill="#9aa29d"/>
+<rect x="62" y="40" width="76" height="56" rx="6" fill="url(#gMetal)"/>
+<rect x="70" y="56" width="60" height="20" rx="2" fill="#1c1f1e"/>
+<text x="100" y="71" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="600" font-size="13" letter-spacing="1" fill="#eef3ec">001924</text>
+<rect x="56" y="96" width="88" height="12" rx="3" fill="#3a3f3c"/>
+</g></svg><div class="ct"><h3>Paginierstempel</h3><p>Zählen automatisch weiter, für Belege und Akten.</p></div></article>
+        <article class="cell c-praeg rv" style="--d:2" tabindex="0"><span class="no">05</span><svg class="illu" viewBox="0 0 200 170" aria-hidden="true">
+<ellipse cx="100" cy="162" rx="76" ry="5" fill="rgba(0,0,0,.28)"/>
+<path d="M22 124 L178 116 L182 152 L26 158 Z" fill="#eef3ec"/>
+<g class="imp"><circle cx="139" cy="139" r="15" fill="none" stroke="#fff" stroke-width="2.4"/><circle cx="141" cy="141" r="15" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="2.4"/><circle cx="140" cy="140" r="9" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="1.5" stroke-dasharray="2 2"/></g>
+<path d="M64 92 L176 114 Q186 116 186 106 L186 102 Q186 96 178 94 L70 78Z" fill="#9aa29d"/>
+<path d="M140 100 L176 114 Q186 116 186 106 L186 102 Q186 96 178 94 L142 87Z" fill="#a6dc7e"/>
+<rect x="30" y="54" width="44" height="46" rx="8" fill="#4f5552"/>
+<rect x="24" y="96" width="56" height="8" rx="2" fill="#3a3f3c"/>
+<circle cx="52" cy="70" r="7" fill="#3a3f3c"/><circle cx="52" cy="70" r="3" fill="#9aa29d"/>
+<g class="squeeze"><path d="M64 56 L176 34 Q186 32 186 42 L186 46 Q186 52 178 54 L70 74Z" fill="#b5bcb7"/><path d="M140 41 L176 34 Q186 32 186 42 L186 46 Q186 52 178 54 L142 61Z" fill="#a6dc7e"/></g>
+</svg><div class="ct"><h3>Prägestempel</h3><p>Fühlbare Prägung für Urkunden und Briefpapier.</p></div></article>
+        <article class="cell c-schild rv" style="--d:1" tabindex="0"><span class="no">06</span><svg class="illu" viewBox="0 0 360 150" aria-hidden="true">
+<defs><clipPath id="clipSchild"><rect x="30" y="18" width="300" height="112" rx="8"/></clipPath></defs>
+<rect x="36" y="26" width="300" height="112" rx="8" fill="rgba(0,0,0,.3)"/>
+<rect x="30" y="18" width="300" height="112" rx="8" fill="url(#gMetal)"/>
+<rect x="40" y="28" width="280" height="92" rx="4" fill="none" stroke="rgba(0,0,0,.12)"/>
+<rect x="58" y="40" width="6" height="68" rx="2" fill="#a6dc7e"/>
+<text x="78" y="54" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="3" fill="#4a504d">PRAXIS</text>
+<text x="78" y="82" font-family="DM Serif Display,Georgia,serif" font-size="25" fill="#1c1f1e">Dr. med. Muster</text>
+<rect x="78" y="91" width="150" height="1.5" fill="#7e8581"/>
+<text x="78" y="106" font-family="Inter,sans-serif" font-size="9" fill="#4a504d">Sprechzeiten nach Vereinbarung</text>
+<g fill="#8d9490"><circle cx="44" cy="32" r="4"/><circle cx="316" cy="32" r="4"/><circle cx="44" cy="116" r="4"/><circle cx="316" cy="116" r="4"/></g>
+<g clip-path="url(#clipSchild)"><rect class="shine" x="-40" y="0" width="34" height="150" fill="#fff" opacity=".45"/></g>
+</svg><div class="ct"><h3>Schilder</h3><p>Tür-, Firmen-, Praxis- und Briefkastenschilder, individuell nach Ihren Wünschen gestaltet.</p></div></article>
+        <article class="cell c-mehr rv" style="--d:2"><svg class="illu" viewBox="0 0 200 110" aria-hidden="true">
+<ellipse cx="100" cy="102" rx="70" ry="5" fill="rgba(0,0,0,.3)"/>
+<path d="M50 12 L150 12 L162 50 L38 50Z" fill="#3a3f3c"/>
+<rect x="34" y="50" width="132" height="46" rx="6" fill="#4f5552"/>
+<rect x="44" y="56" width="112" height="32" rx="3" fill="#33702a"/>
+<rect x="50" y="60" width="60" height="4" rx="2" fill="#a6dc7e" opacity=".5"/>
+</svg><div class="ct"><p>… und vieles mehr: Datumsstempel, Adressstempel, Ersatzplatten, Stempelkissen und Farbe. Fragen Sie uns einfach!</p></div></article>
       </div>
       <div class="brands rv"><span>Wir führen</span><b>Trodat</b><b>Colop</b><b>Justrite</b><span>und weitere</span></div>
     </div>
