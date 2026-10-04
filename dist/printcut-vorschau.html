@@ -299,7 +299,20 @@ p { margin: 0 0 1em; }
   display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; padding: 26px;
 }
 .bizcard__front { background: #fff; color: #221d16; overflow: hidden; gap: 12px; }
-.bizcard__front > span { position: relative; z-index: 1; }
+.bizcard__front > span { position: relative; }
+/* Abgewandte Seite sicher ausblenden – Safari zeigt Inhalte mit eigener Ebene sonst spiegelverkehrt durch.
+   Der Wechsel passiert nach 0,16 s, wenn die Karte bei der Drehung hochkant steht. */
+.bizcard__face, .bizcard__face * { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.bizcard__front { transform: rotateY(0deg) translateZ(1px); visibility: visible; transition: visibility 0s .16s; }
+.bizcard__back { visibility: hidden; transition: visibility 0s .16s; }
+.bizcard[aria-pressed="true"] .bizcard__front { visibility: hidden; }
+.bizcard[aria-pressed="true"] .bizcard__back { visibility: visible; }
+@media (hover: hover) {
+  .studio__card:hover .bizcard .bizcard__front { visibility: hidden; }
+  .studio__card:hover .bizcard .bizcard__back { visibility: visible; }
+  .studio__card:hover .bizcard[aria-pressed="true"] .bizcard__front { visibility: visible; }
+  .studio__card:hover .bizcard[aria-pressed="true"] .bizcard__back { visibility: hidden; }
+}
 /* Logo-Schleife groß und hell im Hintergrund */
 .bizcard__mark {
   position: absolute; z-index: 0; height: 135%; width: auto; right: -7%; top: 50%;
@@ -308,7 +321,7 @@ p { margin: 0 0 1em; }
 .bizcard__kicker { font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--brand); }
 .bizcard__name { font-family: var(--display); font-weight: 800; font-size: clamp(2.6rem, 5.4vw, 3.8rem); text-transform: uppercase; line-height: .9; text-align: center; }
 .bizcard__role { font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; color: #6b5f4e; padding-top: 10px; border-top: 2px solid var(--brand); }
-.bizcard__back { background: var(--brand); color: #fff; transform: rotateY(180deg); align-items: flex-start; text-align: left; gap: 6px; }
+.bizcard__back { background: var(--brand); color: #fff; transform: rotateY(180deg) translateZ(1px); align-items: flex-start; text-align: left; gap: 6px; }
 .bizcard__back .mono { font-size: .8rem; }
 .bizcard__brand { font-family: var(--display); font-weight: 800; font-size: 2.4rem; text-transform: uppercase; line-height: 1; margin-bottom: 10px; }
 .studio__hint { margin-top: 26px; font-size: .7rem; text-transform: uppercase; color: var(--faint); }
