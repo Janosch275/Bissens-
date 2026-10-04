@@ -1,270 +1,741 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Stempel Pestka – Stempel &amp; Schilder in Haste</title>
-  <meta name="description" content="Stempel Pestka in Haste: Holzstempel, Printies, Stativstempel, Paginierstempel, Prägestempel und Schilder. Seit 1924 – Inhaberin Nadine Rieboldt, Hauptstraße 29, 31559 Haste.">
-  <meta name="theme-color" content="#b3261e">
-  <link rel="canonical" href="https://www.stempel-pestka.de/">
-  <meta property="og:title" content="Stempel Pestka – Stempel &amp; Schilder in Haste">
-  <meta property="og:description" content="Stempel und Schilder seit 1924. Jetzt in der Hauptstraße 29, 31559 Haste.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="de_DE">
-  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Store",
-    "name": "Stempel Pestka",
-    "description": "Stempel und Schilder seit 1924",
-    "foundingDate": "1924",
-    "employee": { "@type": "Person", "name": "Nadine Rieboldt", "jobTitle": "Inhaberin" },
-    "url": "https://www.stempel-pestka.de/",
-    "telephone": "+49 5723 9569222",
-    "email": "stempel-pestka@web.de",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Hauptstraße 29",
-      "postalCode": "31559",
-      "addressLocality": "Haste",
-      "addressRegion": "Niedersachsen",
-      "addressCountry": "DE"
-    },
-    "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"], "opens": "09:00", "closes": "17:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "14:00" }
-    ]
-  }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stempel Pestka – Stempel &amp; Schilder in Haste · seit 1924</title>
+<meta name="description" content="Stempel Pestka in Haste: Holzstempel, Printies, Stativstempel, Paginierstempel, Prägestempel und Schilder – individuell gefertigt seit 1924. Inhaberin Nadine Rieboldt, Hauptstraße 29, 31559 Haste.">
+<meta name="theme-color" content="#f4efe4">
+<link rel="canonical" href="https://www.stempel-pestka.de/">
+<meta property="og:title" content="Stempel Pestka – Stempel &amp; Schilder seit 1924">
+<meta property="og:description" content="Jetzt in der Hauptstraße 29, 31559 Haste.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='4' y='4' width='56' height='56' rx='6' fill='%23f4efe4' stroke='%231f3a93' stroke-width='5'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='36' fill='%231f3a93'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "Stempel Pestka",
+  "description": "Stempel und Schilder – individuell gefertigt seit 1924",
+  "foundingDate": "1924",
+  "url": "https://www.stempel-pestka.de/",
+  "telephone": "+49 5723 9569222",
+  "email": "stempel-pestka@web.de",
+  "address": { "@type": "PostalAddress", "streetAddress": "Hauptstraße 29", "postalCode": "31559", "addressLocality": "Haste", "addressRegion": "Niedersachsen", "addressCountry": "DE" },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"], "opens": "09:00", "closes": "17:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "14:00" }
+  ]
+}
+</script>
+<style>
+:root{
+  --paper:#f4efe4; --paper-2:#ebe4d4; --sheet:#fbf8f1;
+  --ink:#16130f; --ink-2:#4d463d; --ink-3:#8a8173; --rule:#d9cfbc;
+  --blue:#1f3a93; --red:#c0322b;
+  --rubber:#7b3a2c; --rubber-hi:#b3604c;
+  --wood:#231c17; --wood-2:#2e251e; --wood-line:#4a3c30; --wood-text:#e9dfcd;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --serif:"DM Serif Display",Georgia,serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:var(--blue)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.05;margin:0 0 .45em;letter-spacing:-.01em}
+h2{font-size:clamp(2.1rem,4.6vw,3.6rem)}
+h3{font-size:1.5rem}
+p{margin:0 0 1em}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.mono{font-family:var(--mono)}
+.label{font:500 .78rem/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.label::after{content:"";height:1px;width:48px;background:currentColor;opacity:.5}
+.label b{color:var(--blue);font-weight:600}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:8px 14px;z-index:99}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Header ---------- */
+.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.top.scrolled{border-color:var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:72px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}
+.logo{width:42px;height:42px;border:2.5px solid var(--blue);border-radius:6px;display:grid;place-items:center;font:400 1.6rem/1 var(--serif);color:var(--blue);perspective:200px}
+.logo span{display:block;transition:transform .6s var(--ease)}
+.brand:hover .logo span{transform:rotateY(180deg) scaleX(-1)}
+.brand-name{font:400 1.35rem/1 var(--serif)}
+.brand-name small{display:block;font:500 .66rem/1.6 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.nav{display:flex;align-items:center;gap:30px}
+.nav a{color:var(--ink);text-decoration:none;font-weight:500;font-size:.96rem;position:relative}
+.nav a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--blue);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav a:not(.btn):hover::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:0;padding:10px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px 0;transition:transform .3s var(--ease),opacity .2s}
+
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink);padding:14px 24px;font:600 .95rem/1 var(--sans);text-decoration:none;cursor:pointer;border-radius:4px;transition:background .25s,color .25s,transform .25s var(--ease)}
+.btn:hover{background:var(--blue);border-color:var(--blue);transform:translateY(-2px)}
+.btn:active{transform:translateY(1px) scale(.98)}
+.btn .arr{transition:transform .3s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-line{background:transparent;color:var(--ink)}
+.btn-line:hover{color:var(--paper)}
+.btn-sm{padding:10px 16px;font-size:.88rem}
+.nav a.btn{color:var(--paper)}
+.nav a.btn:hover{color:#fff}
+
+/* ---------- Hero ---------- */
+.hero{padding:clamp(40px,7vw,96px) 0 clamp(56px,8vw,112px)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(3.6rem,10vw,8.4rem);line-height:.92;margin-bottom:.32em;perspective:600px}
+.hero h1 .line{display:block;white-space:nowrap}
+.hero h1 .ch{display:inline-block;transform:scaleX(-1);opacity:.18;color:var(--rubber);transition:transform .7s var(--ease),opacity .5s,color .7s;transition-delay:calc(var(--i)*45ms + 150ms)}
+.hero h1.go .ch{transform:none;opacity:1;color:var(--ink)}
+.hero h1 .ch.sp{width:.25em}
+.hero h1 em{font-style:italic;color:var(--blue)}
+.hero h1.go em .ch{color:var(--blue)}
+.hero .lead{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink-2);max-width:34em}
+.hero .lead strong{color:var(--ink);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 36px}
+.facts{display:flex;flex-wrap:wrap;gap:12px 36px;padding-top:24px;border-top:1px solid var(--rule);font-size:.92rem;color:var(--ink-2)}
+.facts b{display:block;font:400 1.6rem/1.1 var(--serif);color:var(--ink)}
+
+/* stamp stage */
+.stage{position:relative;aspect-ratio:5/4.2;perspective:1400px}
+.sheet{position:absolute;inset:6% 4% 4% 6%;background:var(--sheet);box-shadow:0 1px 0 var(--rule),0 30px 60px -30px rgba(40,30,20,.35);transform:rotate(1.5deg);
+  background-image:repeating-linear-gradient(0deg,transparent 0 31px,rgba(31,58,147,.06) 31px 32px)}
+.sheet::before{content:"";position:absolute;left:12%;top:0;bottom:0;width:1px;background:rgba(192,50,43,.25)}
+.imp-wrap{position:absolute;left:50%;top:52%;width:74%;transform:translate(-50%,-50%) rotate(-2.5deg)}
+.impression{color:var(--blue);border:3px solid currentColor;outline:1.5px solid currentColor;outline-offset:4px;padding:5% 6%;text-align:center;font-family:var(--mono);filter:url(#ink);opacity:0;transform:scale(1.04)}
+.impression.on{opacity:.9;transform:none;transition:opacity .25s ease-out,transform .4s var(--ease)}
+.impression .i1{font:600 clamp(1.05rem,2.3vw,1.6rem)/1.15 var(--mono);letter-spacing:.06em}
+.impression .i2{font-size:clamp(.72rem,1.2vw,.88rem);letter-spacing:.04em;margin:.3em 0 .55em}
+.impression .i3{display:inline-block;border-top:1.5px solid currentColor;padding-top:.35em;font:600 clamp(.95rem,1.8vw,1.25rem)/1 var(--mono);letter-spacing:.14em}
+.plate{position:absolute;left:50%;top:52%;width:74%;aspect-ratio:2.25/1;transform-style:preserve-3d;transform:translate(-50%,-50%) rotate(-2.5deg);pointer-events:none}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:6px;display:grid;place-items:center}
+.face.rubber{background:radial-gradient(120% 140% at 30% 20%,#8d4535,var(--rubber));box-shadow:inset 0 0 0 6px #5e2b20,inset 0 2px 10px rgba(0,0,0,.35),0 30px 50px -20px rgba(30,15,10,.55)}
+.face.rubber .mirror{transform:scaleX(-1);text-align:center;color:var(--rubber-hi);text-shadow:0 1px 0 rgba(255,220,200,.25),0 -1px 1px rgba(0,0,0,.45);font-family:var(--mono);width:100%;padding:0 8%}
+.face.rubber .mirror .i1{font:600 clamp(1.05rem,2.3vw,1.6rem)/1.15 var(--mono);letter-spacing:.06em}
+.face.rubber .mirror .i2{font-size:clamp(.72rem,1.2vw,.88rem);margin:.3em 0 .55em}
+.face.rubber .mirror .i3{font:600 clamp(.95rem,1.8vw,1.25rem)/1 var(--mono);letter-spacing:.14em}
+.face.wood{transform:rotateY(180deg);background:linear-gradient(100deg,#6b4a32 0%,#8a6243 22%,#6f4d35 45%,#93694a 70%,#6a4831 100%);box-shadow:inset 0 0 0 2px rgba(0,0,0,.25),inset 0 -8px 16px rgba(0,0,0,.25),0 40px 60px -24px rgba(30,15,10,.6)}
+.face.wood span{font:400 clamp(1.4rem,3vw,2.2rem)/1 var(--serif);color:rgba(35,20,10,.55);text-shadow:0 1px 0 rgba(255,230,200,.25)}
+.stage-caption{position:absolute;left:6%;bottom:-6px;transform:translateY(100%);display:flex;gap:16px;align-items:center;font:500 .75rem/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.again{background:none;border:1px solid var(--rule);padding:6px 10px;font:inherit;color:var(--ink-2);cursor:pointer;border-radius:3px;opacity:0;transition:opacity .4s,border-color .2s}
+.again.show{opacity:1}
+.again:hover{border-color:var(--ink)}
+
+/* ---------- Address change ---------- */
+.move{padding:0 0 clamp(64px,9vw,120px)}
+.card-move{position:relative;display:grid;grid-template-columns:auto 1fr 1fr auto;gap:clamp(20px,4vw,56px);align-items:center;background:var(--sheet);border:1px solid var(--rule);padding:clamp(24px,4vw,40px) clamp(24px,4vw,48px);box-shadow:0 20px 40px -30px rgba(40,30,20,.4)}
+.card-move::before{content:"";position:absolute;inset:8px;border:1px dashed var(--rule);pointer-events:none}
+.card-move .tag{font:600 .74rem/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);color:var(--ink-3)}
+.addr small{display:block;font:500 .72rem/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.addr p{margin:0;font:400 clamp(1.25rem,2.2vw,1.7rem)/1.2 var(--serif)}
+.old{position:relative;color:var(--ink-3)}
+.old .strike{position:absolute;left:-4%;top:58%;width:108%;height:2px;background:var(--red);transform:scaleX(0) rotate(-3deg);transform-origin:left;transition:transform .7s var(--ease) .3s}
+.card-move.in .old .strike{transform:scaleX(1) rotate(-3deg)}
+.new p{color:var(--ink)}
+.newstamp{font:600 clamp(.85rem,1.4vw,1rem)/1.15 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:2.5px solid currentColor;padding:10px 14px;text-align:center;transform:rotate(-8deg) scale(1.6);opacity:0;filter:url(#ink);transition:transform .35s cubic-bezier(.5,1.6,.6,1) 1s,opacity .2s ease-out 1s}
+.card-move.in .newstamp{transform:rotate(-8deg) scale(1);opacity:.9}
+
+/* ---------- Sections ---------- */
+.sec{padding:clamp(72px,10vw,136px) 0}
+.split{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,6vw,96px);align-items:start}
+.prose p{color:var(--ink-2);font-size:1.06rem}
+.prose strong{color:var(--ink);font-weight:600}
+.counter{display:flex;align-items:flex-end;gap:18px;margin:6px 0 28px}
+.digits{display:flex;font:500 clamp(4rem,9vw,7rem)/1 var(--mono);color:var(--blue);letter-spacing:-.02em}
+.digit{display:block;height:1em;overflow:hidden;position:relative;border-right:1px solid var(--rule);padding:0 .06em;background:linear-gradient(180deg,rgba(0,0,0,.035),transparent 30%,transparent 70%,rgba(0,0,0,.035))}
+.digit:last-child{border-right:0}
+.digit .reel{display:block;transition:transform 1.6s var(--ease);transition-delay:calc(var(--i)*120ms)}
+.digit .reel span{display:block;height:1em}
+.counter-cap{font:500 .78rem/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding-bottom:.9em}
+.gens{list-style:none;margin:40px 0 0;padding:0;border-top:1px solid var(--ink)}
+.gens li{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--rule)}
+.gens b{font:600 .82rem/1.6 var(--mono);letter-spacing:.08em;color:var(--blue)}
+.gens span{color:var(--ink-2)}
+.gens li:last-child span{color:var(--ink)}
+
+/* ---------- Setzkasten ---------- */
+.case-sec{background:var(--wood);color:var(--wood-text);position:relative}
+.case-sec .label{color:#a8987f}
+.case-sec .label b{color:#e9dfcd}
+.case-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:48px}
+.case-head p{color:#bfb19b;margin:0}
+.case{display:grid;grid-template-columns:repeat(4,1fr);grid-template-areas:"holz holz printy stativ" "holz holz pagin praeg" "schild schild schild mehr";background:var(--wood-line);gap:6px;padding:6px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),0 40px 80px -40px rgba(0,0,0,.8)}
+.cell{position:relative;background:linear-gradient(160deg,var(--wood-2),#251e19);padding:26px 24px 24px;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;box-shadow:inset 0 10px 18px -8px rgba(0,0,0,.65),inset 0 -1px 0 rgba(255,255,255,.04);outline:none}
+.cell h3{font-size:1.5rem;margin:0 0 .3em;color:#fff6e8;position:relative}
+.cell p{font-size:.93rem;color:#bfb19b;margin:0;position:relative;max-width:30em}
+.cell .no{position:absolute;top:18px;left:22px;font:500 .72rem/1 var(--mono);letter-spacing:.12em;color:#8c7c66}
+.glyph{position:absolute;top:8px;right:18px;font:400 7.5rem/1 var(--serif);color:#3c3129;transform:scaleX(-1);transition:transform .8s var(--ease),color .6s;text-shadow:0 1px 0 rgba(255,255,255,.04),0 -1px 0 rgba(0,0,0,.6);user-select:none}
+.cell:hover .glyph,.cell:focus-visible .glyph,.cell.flip .glyph{transform:none;color:#9fb0e8}
+.cell.big .glyph{font-size:15rem;top:-6px}
+.cell.big{min-height:460px}
+.c-holz{grid-area:holz}.c-printy{grid-area:printy}.c-stativ{grid-area:stativ}.c-pagin{grid-area:pagin}.c-praeg{grid-area:praeg}.c-schild{grid-area:schild}.c-mehr{grid-area:mehr}
+.c-mehr{background:#1a1511;justify-content:center}
+.c-mehr p{color:#e9dfcd;font-size:1rem}
+.brands{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:36px;font:500 .8rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#8c7c66}
+.brands b{color:#e9dfcd;font-weight:500}
+
+/* ---------- Konfigurator ---------- */
+.conf{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,5vw,64px);align-items:start;margin-top:12px}
+.form{display:grid;gap:18px}
+.form fieldset{border:0;margin:0;padding:0;display:grid;gap:10px}
+.form legend{font:600 .74rem/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;padding:0}
+.form label{display:grid;gap:6px;font-size:.92rem;font-weight:500}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form input[type=text],.form input[type=email],.form input[type=tel],.form select,.form textarea{width:100%;font:inherit;font-weight:400;font-size:1rem;color:var(--ink);background:var(--sheet);border:1px solid var(--rule);border-radius:3px;padding:12px 14px;transition:border-color .2s,box-shadow .2s}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(31,58,147,.14)}
+.lines input{font-family:var(--mono)!important;font-size:.95rem!important}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatches label{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:400;border:1px solid var(--rule);padding:8px 12px 8px 8px;border-radius:999px;background:var(--sheet);transition:border-color .2s}
+.swatches input{position:absolute;opacity:0;pointer-events:none}
+.swatches i{width:20px;height:20px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.4)}
+.swatches label:has(input:checked){border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.swatches label:has(input:focus-visible){box-shadow:0 0 0 3px rgba(31,58,147,.3)}
+.check{display:flex!important;grid-template-columns:none;align-items:flex-start;gap:10px!important;font-weight:400!important}
+.check input{margin-top:5px}
+.form [aria-invalid=true]{border-color:var(--red)!important;background:#fff6f4!important}
+.hint{min-height:1.4em;margin:0;font-size:.9rem;color:var(--ink-2)}
+.hint.err{color:var(--red)}
+.preview{position:sticky;top:96px;display:grid;gap:18px}
+.preview,.pv-panel{min-width:0}
+.pv-panel{background:var(--sheet);border:1px solid var(--rule);padding:22px 22px 26px}
+.pv-panel .cap{display:flex;justify-content:space-between;font:500 .72rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.pv-box{position:relative;margin:auto;width:100%;max-width:440px;display:grid;place-items:center;transition:aspect-ratio .5s var(--ease)}
+.pv-plate,.pv-imp{width:100%;height:100%;display:grid;place-content:center;text-align:center;padding:5% 7%;overflow:hidden;transition:color .4s,border-color .4s}
+.pv-plate{background:radial-gradient(120% 140% at 30% 20%,#8d4535,var(--rubber));border-radius:4px;box-shadow:inset 0 0 0 5px #5e2b20,inset 0 2px 8px rgba(0,0,0,.35)}
+.pv-plate .txt{transform:scaleX(-1);color:var(--rubber-hi);text-shadow:0 1px 0 rgba(255,220,200,.22),0 -1px 1px rgba(0,0,0,.45)}
+.pv-imp{color:var(--ink-c,#1f3a93);border:2.5px solid currentColor;filter:url(#ink)}
+.txt{white-space:pre;line-height:1.22;font-size:var(--fs,1.1rem)}
+.txt.f-mono{font-family:var(--mono);font-weight:500}
+.txt.f-sans{font-family:var(--sans);font-weight:600}
+.txt.f-serif{font-family:Georgia,"Times New Roman",serif;font-weight:700}
+.txt .l1{font-weight:700;font-size:1.12em}
+.arrow-down{display:flex;align-items:center;justify-content:center;gap:10px;font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.arrow-down svg{width:18px;height:18px;animation:nudge 2.4s var(--ease) infinite}
+@keyframes nudge{0%,60%,100%{transform:none}30%{transform:translateY(4px)}}
+.done-stamp{position:absolute;right:10px;top:-14px;transform-origin:100% 0;font:600 .9rem/1.1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--red);border:2.5px solid currentColor;padding:8px 12px;transform:rotate(9deg) scale(1.7);opacity:0;filter:url(#ink);pointer-events:none;background:rgba(251,248,241,.6)}
+.done-stamp.on{opacity:.92;transform:rotate(9deg) scale(1);transition:transform .32s cubic-bezier(.5,1.6,.6,1),opacity .15s}
+
+/* ---------- Kontakt ---------- */
+.contact{background:var(--paper-2)}
+.cgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,6vw,88px);align-items:start}
+.datestamp{display:inline-grid;justify-items:center;gap:6px;color:var(--blue);border:3px solid currentColor;border-radius:14px;padding:18px 28px 16px;font-family:var(--mono);text-align:center;filter:url(#ink);transform:rotate(-4deg) scale(1.4);opacity:0;margin:8px 0 36px}
+.datestamp.in{transform:rotate(-4deg) scale(1);opacity:.92;transition:transform .35s cubic-bezier(.5,1.6,.6,1) .2s,opacity .15s ease-out .2s}
+.datestamp.closed{color:var(--red)}
+.ds-top{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase}
+.ds-date{font-weight:600;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:.08em;line-height:1;padding:8px 0;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor}
+.ds-state{font-weight:600;font-size:1rem;letter-spacing:.24em;text-transform:uppercase}
+.hours{width:100%;border-collapse:collapse;font-size:1rem}
+.hours th,.hours td{padding:14px 0;border-bottom:1px solid var(--rule);text-align:left;font-weight:400}
+.hours td{text-align:right;font-family:var(--mono);font-size:.95rem}
+.hours tr.today th,.hours tr.today td{font-weight:600;color:var(--blue)}
+.hours tr.today th::before{content:"▸ ";}
+address{font-style:normal;font:400 clamp(1.5rem,2.6vw,2rem)/1.25 var(--serif);margin:0 0 20px}
+address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.clinks{display:grid;gap:4px;margin-bottom:26px;font-size:1.05rem}
+.clinks a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);width:max-content;transition:border-color .2s,color .2s}
+.clinks a:hover{color:var(--blue);border-color:var(--blue)}
+.map{margin-top:48px;border:1px solid var(--rule);background:var(--sheet);min-height:320px;display:grid}
+.map iframe{width:100%;height:100%;min-height:360px;border:0;filter:grayscale(.3) sepia(.15)}
+.map-c{margin:auto;text-align:center;max-width:440px;padding:28px;color:var(--ink-2);font-size:.93rem}
+.small{font-size:.9rem;color:var(--ink-3)}
+
+/* ---------- Footer ---------- */
+.foot{background:var(--ink);color:#a59c8e;font-size:.9rem;padding:40px 0}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;align-items:center}
+.foot p{margin:0}
+.foot nav{display:flex;gap:24px}
+.foot a{color:#efe8dc;text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot .sig{font:400 1.5rem/1 var(--serif);color:#efe8dc}
+
+/* ---------- Reveal: "Tinte setzt sich" ---------- */
+.rv{opacity:0;transform:translateY(14px) scale(1.015);filter:blur(4px);transition:opacity .8s var(--ease),transform .8s var(--ease),filter .8s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
+.rv.in{opacity:1;transform:none;filter:none}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .hero .wrap,.split,.conf,.cgrid,.case-head{grid-template-columns:1fr}
+  .stage{max-width:560px;width:100%;margin:0 auto 40px}
+  .preview{position:static;order:-1}
+  .case{grid-template-columns:1fr 1fr;grid-template-areas:"holz holz" "printy stativ" "pagin praeg" "schild schild" "mehr mehr"}
+  .cell.big{min-height:320px}
+  .cell.big .glyph{font-size:10rem}
+  .card-move{grid-template-columns:1fr 1fr}
+  .card-move .tag{display:none}
+  .newstamp{grid-column:1/-1;justify-self:start}
+}
+@media (max-width:720px){
+  .burger{display:block}
+  .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 16px 20px;display:none}
+  .nav.open{display:flex}
+  .nav a{padding:13px 0;border-bottom:1px solid var(--rule)}
+  .nav a.btn{margin-top:14px;justify-content:center;border-bottom:1.5px solid var(--ink)}
+  .burger[aria-expanded=true] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger[aria-expanded=true] span:nth-child(2){opacity:0}
+  .burger[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .case{grid-template-columns:1fr;grid-template-areas:"holz" "printy" "stativ" "pagin" "praeg" "schild" "mehr"}
+  .cell{min-height:180px}
+  .card-move,.row2{grid-template-columns:1fr}
+  .gens li{grid-template-columns:1fr;gap:2px}
+  .hero h1{font-size:clamp(3rem,15vw,4.4rem)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .rv{opacity:1;transform:none;filter:none}
+}
+</style>
 </head>
 <body>
-  <a class="skip" href="#main">Zum Inhalt springen</a>
+<a class="skip" href="#main">Zum Inhalt springen</a>
 
-  <div class="notice">
-    <p><strong>Neu:</strong> Wir sind umgezogen – Sie finden uns jetzt in der <a href="#anfahrt">Hauptstraße 29 in 31559 Haste</a>.</p>
+<!-- Tinten-Filter: unregelmäßige Kanten und Fehlstellen wie bei einem echten Stempelabdruck -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.42" numOctaves="3" seed="11" result="spots"/>
+    <feColorMatrix in="spots" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3.2 0 0 0 2.35" result="mask"/>
+    <feComposite in="rough" in2="mask" operator="in"/>
+  </filter>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#main" aria-label="Stempel Pestka – nach oben">
+      <span class="logo" aria-hidden="true"><span>P</span></span>
+      <span class="brand-name">Stempel Pestka<small>seit 1924 · Haste</small></span>
+    </a>
+    <button class="burger" aria-expanded="false" aria-controls="nav" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="#geschichte">Geschichte</a>
+      <a href="#sortiment">Sortiment</a>
+      <a href="#gestalten">Stempel gestalten</a>
+      <a href="#kontakt">Kontakt</a>
+      <a class="btn btn-sm" href="tel:+4957239569222">05723 9569222</a>
+    </nav>
   </div>
+</header>
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Stempel Pestka – Startseite">
-        <span class="brand-mark" aria-hidden="true">P</span>
-        <span class="brand-text">Stempel Pestka<small>seit 1924</small></span>
-      </a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menü öffnen">
-        <span></span><span></span><span></span>
-      </button>
-      <nav id="nav" class="nav">
-        <a href="#ueber-uns">Über uns</a>
-        <a href="#produkte">Produkte</a>
-        <a href="#bestellen">Bestellen</a>
-        <a href="#anfahrt">Anfahrt</a>
-        <a class="btn btn-small" href="tel:+4957239569222">05723&nbsp;9569222</a>
-      </nav>
+<main id="main">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="label rv"><b>Nº 001</b> Stempel &amp; Schilder · seit 1924</p>
+        <h1 id="h1" aria-label="Stempel Pestka">
+          <span class="line" data-split>Stempel</span>
+          <span class="line" data-split><em>Pestka</em></span>
+        </h1>
+        <p class="lead rv" style="--d:2">Jeder Stempel wird <strong>spiegelverkehrt</strong> gefertigt, damit Ihr Abdruck <strong>perfekt</strong> sitzt. Seit über hundert Jahren fertigen wir Stempel und Schilder mit Sorgfalt, jetzt in der <strong>Hauptstraße 29 in Haste</strong>.</p>
+        <div class="cta rv" style="--d:3">
+          <a class="btn" href="#gestalten">Stempel gestalten <span class="arr">→</span></a>
+          <a class="btn btn-line" href="#sortiment">Sortiment ansehen</a>
+        </div>
+        <div class="facts rv" style="--d:4">
+          <div><b>1924</b>gegründet</div>
+          <div><b>3 Generationen</b>Familie Pestka</div>
+          <div><b>Trodat · Colop</b>alle gängigen Hersteller</div>
+        </div>
+      </div>
+
+      <div class="stage" id="stage" aria-hidden="true">
+        <div class="sheet"></div>
+        <div class="imp-wrap">
+          <div class="impression" id="impression">
+            <div class="i1">STEMPEL PESTKA</div>
+            <div class="i2">Hauptstraße 29 · 31559 Haste</div>
+            <div class="i3" data-today>—</div>
+          </div>
+        </div>
+        <div class="plate" id="plate">
+          <div class="face rubber">
+            <div class="mirror">
+              <div class="i1">STEMPEL PESTKA</div>
+              <div class="i2">Hauptstraße 29 · 31559 Haste</div>
+              <div class="i3" data-today>—</div>
+            </div>
+          </div>
+          <div class="face wood"><span>Pestka</span></div>
+        </div>
+        <div class="stage-caption"><span>Gummi spiegelverkehrt · Abdruck lesbar</span><button class="again" id="again" tabindex="-1">↻ nochmal</button></div>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main id="main">
-    <!-- Hero -->
-    <section class="hero" id="top">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <p class="eyebrow">Stempel &amp; Schilder · Haste</p>
-          <h1>Ihr Stempel.<br><span class="accent">Seit 1924</span> mit Sorgfalt gemacht.</h1>
-          <p class="lead">Ob Holzstempel, selbstfärbender Printy, Datumsstempel oder Prägestempel: Bei Stempel Pestka bekommen Sie Ihren Stempel individuell angefertigt, zuverlässig, sauber gearbeitet und zu fairen Preisen.</p>
-          <div class="hero-actions">
-            <a class="btn" href="#bestellen">Stempel anfragen</a>
-            <a class="btn btn-ghost" href="#produkte">Produkte ansehen</a>
-          </div>
-          <ul class="hero-facts">
-            <li><strong>100+</strong> Jahre Erfahrung</li>
-            <li><strong>Trodat · Colop · Justrite</strong> alle gängigen Hersteller</li>
-          </ul>
+  <!-- UMZUG -->
+  <section class="move" aria-labelledby="move-title">
+    <div class="wrap">
+      <h2 class="sr" id="move-title">Neue Adresse und neue Inhaberin</h2>
+      <div class="card-move rv" id="move">
+        <span class="tag">Adressänderung</span>
+        <div class="addr old">
+          <small>Bisher</small>
+          <p>Wedekindplatz 2<br>30161 Hannover</p>
+          <span class="strike" aria-hidden="true"></span>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <svg viewBox="0 0 320 320" class="stamp-seal">
-            <defs>
-              <path id="circle" d="M160,160 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/>
-            </defs>
-            <circle cx="160" cy="160" r="150" fill="none" stroke="currentColor" stroke-width="6"/>
-            <circle cx="160" cy="160" r="138" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="160" cy="160" r="92" fill="none" stroke="currentColor" stroke-width="2"/>
-            <text font-family="Inter, sans-serif" font-weight="600" font-size="21" letter-spacing="5" fill="currentColor">
-              <textPath href="#circle">STEMPEL PESTKA · STEMPEL &amp; SCHILDER · HASTE ·</textPath>
-            </text>
-            <text x="160" y="150" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="54" fill="currentColor">seit</text>
-            <text x="160" y="205" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="58" fill="currentColor">1924</text>
-          </svg>
+        <div class="addr new">
+          <small>Jetzt · Inh. Nadine Rieboldt</small>
+          <p>Hauptstraße 29<br>31559 Haste</p>
         </div>
+        <div class="newstamp" aria-hidden="true">Neue<br>Adresse</div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Über uns -->
-    <section class="section" id="ueber-uns">
-      <div class="container two-col">
+  <!-- GESCHICHTE -->
+  <section class="sec" id="geschichte">
+    <div class="wrap split">
+      <div>
+        <p class="label rv"><b>Nº 002</b> Geschichte</p>
+        <div class="counter rv" style="--d:1" id="counter" aria-label="Gegründet 1924">
+          <div class="digits" aria-hidden="true" data-target="1924"></div>
+          <div class="counter-cap">gegründet<br>in Hannover</div>
+        </div>
+        <h2 class="rv" style="--d:2">Ein Handwerk, das man im Abdruck sieht.</h2>
+      </div>
+      <div class="prose">
+        <p class="rv">Seit 1924 steht der Name <strong>Stempel Pestka</strong> für individuell gefertigte Stempel und Schilder. Drei Generationen lang führte die Familie Pestka das Geschäft und machte es in Hannover und Umgebung bekannt: für <strong>Zuverlässigkeit, gute Arbeit und faire Preise</strong>.</p>
+        <p class="rv" style="--d:1">Zuletzt lag der Betrieb in den Händen von Ortwin Pestka, einem gelernten Schriftsetzer. Sein Gespür für Schrift, Satz und saubere Abdrücke prägt den Anspruch bis heute.</p>
+        <p class="rv" style="--d:2">Heute führt <strong>Nadine Rieboldt</strong> Stempel Pestka als Inhaberin weiter, mit demselben Sortiment, derselben Sorgfalt und einem neuen Zuhause in der <strong>Hauptstraße 29 in Haste</strong>.</p>
+        <ul class="gens rv" style="--d:3">
+          <li><b>1924</b><span>Gründung von Stempel Pestka</span></li>
+          <li><b>1. – 3. Gen.</b><span>In Familienhand, bis zuletzt geführt von Ortwin Pestka</span></li>
+          <li><b>Heute</b><span>Inhaberin Nadine Rieboldt · Hauptstraße 29, 31559 Haste</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SORTIMENT / SETZKASTEN -->
+  <section class="sec case-sec" id="sortiment">
+    <div class="wrap">
+      <div class="case-head">
         <div>
-          <p class="eyebrow">Über uns</p>
-          <h2>Ein Traditionsbetrieb mit neuer Adresse</h2>
+          <p class="label rv"><b>Nº 003</b> Sortiment</p>
+          <h2 class="rv" style="--d:1">Aus dem Setzkasten.</h2>
         </div>
-        <div class="prose">
-          <p>Seit 1924 steht der Name <strong>Stempel Pestka</strong> für individuell gefertigte Stempel und Schilder. Über drei Generationen wurde das Geschäft von der Familie Pestka geführt und hat sich in Hannover und Umgebung einen Namen gemacht: für Zuverlässigkeit, gute Arbeit und faire Preise.</p>
-          <p>Heute führt <strong>Nadine Rieboldt</strong> Stempel Pestka als Inhaberin weiter, mit derselben Sorgfalt, demselben Sortiment und neuem Standort in der <strong>Hauptstraße 29 in Haste</strong>.</p>
-          <p>Wir führen Stempel aller gängigen Hersteller wie <strong>Trodat</strong>, <strong>Colop</strong> und <strong>Justrite</strong> und beraten Sie gern persönlich, welcher Stempel am besten zu Ihnen passt.</p>
-        </div>
+        <p class="rv" style="--d:2">Jedes Fach ein Werkzeug. Wir fertigen Ihren Stempel nach Ihren Vorgaben, mit Text, Logo oder Unterschrift. Fahren Sie über ein Fach: Erst im Abdruck wird alles lesbar.</p>
       </div>
-      <div class="container">
-        <ol class="timeline">
-          <li><span>1924</span>Gründung von Stempel Pestka</li>
-          <li><span>3 Generationen</span>in Familienhand bei Familie Pestka</li>
-          <li><span>Heute</span>Inhaberin Nadine Rieboldt, Hauptstraße 29, Haste</li>
-        </ol>
+      <div class="case">
+        <article class="cell big c-holz rv" tabindex="0"><span class="no">01</span><span class="glyph" aria-hidden="true">H</span><h3>Holzstempel</h3><p>Der Klassiker: langlebig, vielseitig und in vielen Größen gefertigt, für Text, Logo oder Motiv. Mit Stempelkissen ein Leben lang im Einsatz.</p></article>
+        <article class="cell c-printy rv" style="--d:1" tabindex="0"><span class="no">02</span><span class="glyph" aria-hidden="true">P</span><h3>Printies</h3><p>Selbstfärbend, schnell und sauber. Ideal fürs Büro.</p></article>
+        <article class="cell c-stativ rv" style="--d:2" tabindex="0"><span class="no">03</span><span class="glyph" aria-hidden="true">S</span><h3>Stativstempel</h3><p>Robust für den täglichen Dauereinsatz.</p></article>
+        <article class="cell c-pagin rv" style="--d:1" tabindex="0"><span class="no">04</span><span class="glyph" aria-hidden="true">7</span><h3>Paginierstempel</h3><p>Zählen automatisch weiter, für Belege und Akten.</p></article>
+        <article class="cell c-praeg rv" style="--d:2" tabindex="0"><span class="no">05</span><span class="glyph" aria-hidden="true">R</span><h3>Prägestempel</h3><p>Fühlbare Prägung für Urkunden und Briefpapier.</p></article>
+        <article class="cell c-schild rv" style="--d:1" tabindex="0"><span class="no">06</span><span class="glyph" aria-hidden="true">K</span><h3>Schilder</h3><p>Tür-, Firmen-, Praxis- und Briefkastenschilder, individuell nach Ihren Wünschen gestaltet.</p></article>
+        <article class="cell c-mehr rv" style="--d:2"><p>… und vieles mehr: Datumsstempel, Adressstempel, Ersatzplatten, Stempelkissen und Farbe. Fragen Sie uns einfach!</p></article>
       </div>
-    </section>
+      <div class="brands rv"><span>Wir führen</span><b>Trodat</b><b>Colop</b><b>Justrite</b><span>und weitere</span></div>
+    </div>
+  </section>
 
-    <!-- Produkte -->
-    <section class="section section-alt" id="produkte">
-      <div class="container">
-        <p class="eyebrow">Produkte</p>
-        <h2>Unser Sortiment</h2>
-        <p class="section-lead">Wir fertigen Ihren Stempel nach Ihren Vorgaben, mit Text, Logo oder Unterschrift.</p>
-        <div class="cards">
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><rect x="18" y="4" width="12" height="20" rx="5"/><rect x="8" y="24" width="32" height="10" rx="2"/><rect x="6" y="36" width="36" height="6" rx="1"/></svg>
-            </div>
-            <h3>Holzstempel</h3>
-            <p>Der Klassiker: langlebig und vielseitig, in vielen Größen erhältlich, für Text, Logo oder Motiv.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><rect x="12" y="4" width="24" height="16" rx="4"/><path d="M10 20h28l-3 14H13z"/><rect x="8" y="36" width="32" height="6" rx="1"/></svg>
-            </div>
-            <h3>Printies</h3>
-            <p>Selbstfärbende Kunststoffstempel, die schnell, sauber und ohne extra Stempelkissen funktionieren. Ideal fürs Büro.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M8 42h32M12 42V14h24v28M18 8h12v6H18z"/><circle cx="24" cy="28" r="6"/></svg>
-            </div>
-            <h3>Stativstempel</h3>
-            <p>Robuste Stempel für den Dauereinsatz, wenn täglich viel gestempelt wird.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="20" rx="3"/><path d="M14 20v8M20 20v8M26 20v8M32 20v8"/></svg>
-            </div>
-            <h3>Paginierstempel</h3>
-            <p>Nummerierstempel, die automatisch weiterzählen, für Belege, Rechnungen und Akten.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="10"/><path d="M24 4v4M24 40v4"/></svg>
-            </div>
-            <h3>Prägestempel</h3>
-            <p>Prägezangen und Siegelprägungen für einen edlen, fühlbaren Abdruck auf Papier.</p>
-          </article>
-          <article class="card">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><rect x="4" y="12" width="40" height="24" rx="3"/><path d="M12 22h24M12 28h16"/></svg>
-            </div>
-            <h3>Schilder</h3>
-            <p>Tür-, Firmen-, Praxis- und Briefkastenschilder, individuell nach Ihren Wünschen gestaltet.</p>
-          </article>
-        </div>
-        <p class="more">… und vieles mehr: Datumsstempel, Adressstempel, Stempelkissen und Ersatzfarbe. Fragen Sie uns einfach!</p>
-      </div>
-    </section>
+  <!-- KONFIGURATOR -->
+  <section class="sec" id="gestalten">
+    <div class="wrap">
+      <p class="label rv"><b>Nº 004</b> Stempel gestalten</p>
+      <h2 class="rv" style="--d:1">Tippen Sie. Wir stempeln.</h2>
+      <p class="rv" style="--d:2;color:var(--ink-2);max-width:40em">Geben Sie Ihren Stempeltext ein und sehen Sie live, wie die Gummiplatte aussieht und wie Ihr Abdruck wird. Mit „Anfrage erstellen“ öffnet sich Ihr E-Mail-Programm mit allen Angaben. Wir melden uns mit Angebot und Korrekturabzug.</p>
 
-    <!-- Bestellen -->
-    <section class="section" id="bestellen">
-      <div class="container two-col">
-        <div>
-          <p class="eyebrow">Bestellen</p>
-          <h2>Stempel online anfragen</h2>
-          <p>Tragen Sie einfach Ihren gewünschten Stempeltext ein. Wir melden uns mit einem Angebot und gegebenenfalls einem Korrekturabzug bei Ihnen.</p>
-          <ol class="steps">
-            <li><strong>Text &amp; Wunsch</strong> eintragen</li>
-            <li><strong>Angebot</strong> &amp; Korrekturabzug erhalten</li>
-            <li><strong>Abholen</strong> in Haste oder liefern lassen</li>
-          </ol>
-          <p class="small">Logo oder Vorlage? Senden Sie die Datei einfach per E-Mail an <a href="mailto:stempel-pestka@web.de">stempel-pestka@web.de</a>.</p>
-        </div>
-        <form class="order-form" id="order-form" novalidate>
-          <div class="field-row">
-            <label>Name*<input name="name" required autocomplete="name"></label>
-            <label>Telefon<input name="telefon" type="tel" autocomplete="tel"></label>
-          </div>
-          <label>E-Mail*<input name="email" type="email" required autocomplete="email"></label>
-          <label>Stempelart
-            <select name="art">
-              <option>Bitte wählen</option>
-              <option>Holzstempel</option>
-              <option>Printy (selbstfärbend)</option>
-              <option>Stativstempel</option>
-              <option>Paginierstempel</option>
-              <option>Prägestempel</option>
-              <option>Schild</option>
-              <option>Sonstiges / Beratung</option>
-            </select>
-          </label>
-          <label>Stempeltext*<textarea name="text" rows="5" required placeholder="Zeile 1&#10;Zeile 2&#10;Zeile 3"></textarea></label>
-          <label>Anmerkungen (Größe, Farbe, Menge …)<textarea name="anmerkung" rows="3"></textarea></label>
-          <label class="check"><input type="checkbox" name="datenschutz" required> Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.*</label>
-          <button class="btn" type="submit">Anfrage per E-Mail senden</button>
-          <p class="form-hint" id="form-hint" role="status"></p>
+      <div class="conf">
+        <form class="form rv" id="form" novalidate>
+          <fieldset class="lines">
+            <legend>1 · Stempeltext</legend>
+            <input type="text" name="z1" maxlength="40" value="Muster GmbH" aria-label="Zeile 1">
+            <input type="text" name="z2" maxlength="40" value="Musterstraße 1" aria-label="Zeile 2">
+            <input type="text" name="z3" maxlength="40" value="31559 Haste" aria-label="Zeile 3">
+            <input type="text" name="z4" maxlength="40" value="Tel. 05723 000000" aria-label="Zeile 4">
+            <input type="text" name="z5" maxlength="40" placeholder="Zeile 5 (optional)" aria-label="Zeile 5">
+          </fieldset>
+          <fieldset>
+            <legend>2 · Modell &amp; Schrift</legend>
+            <div class="row2">
+              <label>Stempel
+                <select name="modell" id="modell">
+                  <option value="38/14">Printy 38 × 14 mm · 3 Zeilen</option>
+                  <option value="47/18" selected>Printy 47 × 18 mm · 4 Zeilen</option>
+                  <option value="58/22">Printy 58 × 22 mm · 5 Zeilen</option>
+                  <option value="70/25">Printy 70 × 25 mm · 6 Zeilen</option>
+                  <option value="60/40">Holzstempel nach Maß</option>
+                </select>
+              </label>
+              <label>Schrift
+                <select name="schrift" id="schrift">
+                  <option value="sans">Grotesk (klar)</option>
+                  <option value="serif">Antiqua (klassisch)</option>
+                  <option value="mono">Schreibmaschine</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>3 · Stempelfarbe</legend>
+            <div class="swatches">
+              <label><input type="radio" name="farbe" value="Blau" data-c="#1f3a93" checked><i style="--c:#1f3a93"></i>Blau</label>
+              <label><input type="radio" name="farbe" value="Schwarz" data-c="#1b1b1b"><i style="--c:#1b1b1b"></i>Schwarz</label>
+              <label><input type="radio" name="farbe" value="Rot" data-c="#c0322b"><i style="--c:#c0322b"></i>Rot</label>
+              <label><input type="radio" name="farbe" value="Grün" data-c="#2c6b3f"><i style="--c:#2c6b3f"></i>Grün</label>
+              <label><input type="radio" name="farbe" value="Violett" data-c="#5b3a8e"><i style="--c:#5b3a8e"></i>Violett</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>4 · Ihre Kontaktdaten</legend>
+            <div class="row2">
+              <label>Name*<input type="text" name="name" required autocomplete="name"></label>
+              <label>Telefon<input type="tel" name="telefon" autocomplete="tel"></label>
+            </div>
+            <label>E-Mail*<input type="email" name="email" required autocomplete="email"></label>
+            <label>Anmerkungen (Menge, Logo, Wunschtermin …)<textarea name="anmerkung" rows="3"></textarea></label>
+            <label class="check"><input type="checkbox" name="ds" required> <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.*</span></label>
+          </fieldset>
+          <div><button class="btn" type="submit">Anfrage erstellen <span class="arr">→</span></button></div>
+          <p class="hint" id="hint" role="status"></p>
         </form>
-      </div>
-    </section>
 
-    <!-- Anfahrt & Kontakt -->
-    <section class="section section-dark" id="anfahrt">
-      <div class="container contact-grid">
+        <div class="preview rv" style="--d:1" aria-label="Vorschau des Stempels">
+          <div class="pv-panel">
+            <div class="cap"><span>Gummiplatte</span><span>spiegelverkehrt</span></div>
+            <div class="pv-box" id="pvbox1"><div class="pv-plate"><div class="txt" id="pvPlate"></div></div></div>
+          </div>
+          <div class="arrow-down" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v16M6 14l6 6 6-6"/></svg>aufdrücken</div>
+          <div class="pv-panel" style="position:relative">
+            <div class="cap"><span>Ihr Abdruck</span><span id="pvSize">47 × 18 mm</span></div>
+            <div class="pv-box" id="pvbox2"><div class="pv-imp" id="pvImpBox"><div class="txt" id="pvImp"></div></div></div>
+            <div class="done-stamp" id="done">Anfrage<br>erstellt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAKT -->
+  <section class="sec contact" id="kontakt">
+    <div class="wrap">
+      <div class="cgrid">
         <div>
-          <p class="eyebrow">Anfahrt &amp; Kontakt</p>
-          <h2>So finden Sie uns</h2>
-          <address>
-            <strong>Stempel Pestka</strong><br>
-            Inh. Nadine Rieboldt<br>
-            Hauptstraße 29<br>
-            31559 Haste
-          </address>
-          <p>
-            <a href="tel:+4957239569222">Tel. 05723&nbsp;9569222</a><br>
+          <p class="label rv"><b>Nº 005</b> Besuch &amp; Kontakt</p>
+          <h2 class="rv" style="--d:1">Kommen Sie vorbei.</h2>
+          <address class="rv" style="--d:2"><small>Stempel Pestka · Inh. Nadine Rieboldt</small>Hauptstraße 29<br>31559 Haste</address>
+          <div class="clinks rv" style="--d:3">
+            <a href="tel:+4957239569222">Tel. 05723 9569222</a>
             <a href="mailto:stempel-pestka@web.de">stempel-pestka@web.de</a>
-          </p>
-          <a class="btn btn-light" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hauptstra%C3%9Fe+29%2C+31559+Haste">Route planen</a>
-          <p class="small">Der Bahnhof Haste (Han) liegt ganz in der Nähe und ist mit der S-Bahn Hannover gut zu erreichen.</p>
+          </div>
+          <div class="rv" style="--d:4">
+            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hauptstra%C3%9Fe+29%2C+31559+Haste">Route planen <span class="arr">→</span></a>
+            <p class="small" style="margin-top:14px">Der Bahnhof Haste (Han) mit S-Bahn-Anschluss nach Hannover liegt ganz in der Nähe.</p>
+          </div>
         </div>
         <div>
-          <h3>Öffnungszeiten</h3>
-          <table class="hours" id="hours">
-            <tr data-days="1,2,3,4"><th>Montag – Donnerstag</th><td>09:00 – 17:00 Uhr</td></tr>
-            <tr data-days="5"><th>Freitag</th><td>09:00 – 14:00 Uhr</td></tr>
+          <div class="datestamp" id="datestamp" aria-live="polite">
+            <span class="ds-top">Stempel Pestka · Haste</span>
+            <span class="ds-date" data-today>—</span>
+            <span class="ds-state" id="dsState">—</span>
+          </div>
+          <table class="hours rv" id="hours">
+            <caption class="sr">Öffnungszeiten</caption>
+            <tr data-days="1,2,3,4"><th>Montag – Donnerstag</th><td>09:00 – 17:00</td></tr>
+            <tr data-days="5"><th>Freitag</th><td>09:00 – 14:00</td></tr>
             <tr data-days="6,0"><th>Samstag &amp; Sonntag</th><td>geschlossen</td></tr>
           </table>
-          <p class="open-state" id="open-state" aria-live="polite"></p>
-        </div>
-        <div class="map" id="map">
-          <div class="map-consent">
-            <p>Mit dem Laden der Karte werden Daten an Google übertragen. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
-            <button class="btn btn-light" type="button" id="load-map">Karte anzeigen</button>
-          </div>
         </div>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year">2026</span> Stempel Pestka · Inh. Nadine Rieboldt · Hauptstraße 29 · 31559 Haste</p>
-      <nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+      <div class="map rv" id="map">
+        <div class="map-c">
+          <p>Beim Laden der Karte werden Daten an Google übertragen (<a href="datenschutz.html">Datenschutz</a>).</p>
+          <button class="btn btn-line btn-sm" type="button" id="loadMap">Karte anzeigen</button>
+        </div>
+      </div>
     </div>
-  </footer>
+  </section>
+</main>
 
-  <script src="script.js"></script>
+<footer class="foot">
+  <div class="wrap">
+    <span class="sig">Stempel Pestka</span>
+    <p>© <span id="year">2026</span> · Inh. Nadine Rieboldt · Hauptstraße 29 · 31559 Haste</p>
+    <nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var EMAIL = "stempel-pestka@web.de";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function(s, c){ return (c || document).querySelector(s); };
+  var $$ = function(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* Datum & Zeit in Haste (Europe/Berlin) */
+  var MONTHS = ["JAN","FEB","MÄR","APR","MAI","JUN","JUL","AUG","SEP","OKT","NOV","DEZ"];
+  function berlinNow(){
+    var d = new Date();
+    try {
+      var p = {};
+      new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Berlin",year:"numeric",month:"numeric",day:"numeric",weekday:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"})
+        .formatToParts(d).forEach(function(x){ p[x.type] = x.value; });
+      return {y:+p.year, m:+p.month-1, d:+p.day, wd:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(p.weekday), t:+p.hour + (+p.minute)/60};
+    } catch(e){
+      return {y:d.getFullYear(), m:d.getMonth(), d:d.getDate(), wd:d.getDay(), t:d.getHours()+d.getMinutes()/60};
+    }
+  }
+  var now = berlinNow();
+  var dateStr = ("0"+now.d).slice(-2) + " " + MONTHS[now.m] + " " + now.y;
+  $$("[data-today]").forEach(function(el){ el.textContent = dateStr; });
+  $("#year").textContent = now.y;
+
+  /* Header-Linie beim Scrollen, mobiles Menü */
+  var top = $("#top");
+  window.addEventListener("scroll", function(){ top.classList.toggle("scrolled", window.scrollY > 8); }, {passive:true});
+  var burger = $(".burger"), nav = $("#nav");
+  burger.addEventListener("click", function(){
+    var o = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(o));
+    burger.setAttribute("aria-label", o ? "Menü schließen" : "Menü öffnen");
+  });
+  nav.addEventListener("click", function(e){ if (e.target.closest("a")) { nav.classList.remove("open"); burger.setAttribute("aria-expanded","false"); } });
+
+  /* H1: Buchstaben drehen sich von spiegelverkehrt zu lesbar */
+  var i = 0;
+  $$("[data-split]").forEach(function(line){
+    var host = line.querySelector("em") || line;
+    var text = host.textContent; host.textContent = "";
+    text.split("").forEach(function(c){
+      var s = document.createElement("span");
+      s.className = "ch" + (c === " " ? " sp" : "");
+      s.textContent = c; s.setAttribute("aria-hidden","true");
+      s.style.setProperty("--i", i++);
+      host.appendChild(s);
+    });
+  });
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ $("#h1").classList.add("go"); }); });
+
+  /* Hero-Stempel: Platte zeigen → wenden → aufdrücken → abheben */
+  var plate = $("#plate"), imp = $("#impression"), again = $("#again");
+  var base = "translate(-50%,-50%) rotate(-2.5deg)";
+  function stampSequence(){
+    if (reduce || !plate.animate) { plate.style.opacity = 0; imp.classList.add("on"); return; }
+    again.classList.remove("show");
+    imp.classList.remove("on");
+    plate.style.opacity = 1;
+    var a = plate.animate([
+      {transform: base + " translateY(8%) rotateY(0deg) scale(.96)", opacity:0, offset:0},
+      {transform: base + " rotateY(0deg) scale(1)", opacity:1, offset:.14},
+      {transform: base + " rotateY(0deg) scale(1)", opacity:1, offset:.36},
+      {transform: base + " rotateY(180deg) scale(1.08) translateZ(60px)", opacity:1, offset:.6},
+      {transform: base + " rotateY(180deg) scale(.985) translateZ(0)", opacity:1, offset:.7},
+      {transform: base + " rotateY(180deg) scale(1)", opacity:1, offset:.74},
+      {transform: base + " rotateY(180deg) translate(-18%,-34%) rotate(-6deg) scale(1.1)", opacity:0, offset:1}
+    ], {duration:3000, easing:"cubic-bezier(.45,0,.25,1)", fill:"forwards"});
+    setTimeout(function(){ imp.classList.add("on"); }, 2100);
+    a.onfinish = function(){ again.classList.add("show"); again.tabIndex = 0; };
+  }
+  setTimeout(stampSequence, reduce ? 0 : 700);
+  again.addEventListener("click", stampSequence);
+
+  /* Zähler wie ein Paginierstempel: 0000 → 1924 */
+  var digits = $(".digits");
+  digits.dataset.target.split("").forEach(function(n, k){
+    var d = document.createElement("span"); d.className = "digit";
+    var reel = document.createElement("span"); reel.className = "reel"; reel.style.setProperty("--i", k);
+    for (var r = 0; r < 20; r++) { var s = document.createElement("span"); s.textContent = r % 10; reel.appendChild(s); }
+    reel.dataset.n = 10 + (+n);
+    d.appendChild(reel); digits.appendChild(d);
+  });
+  function rollCounter(){ $$(".reel", digits).forEach(function(r){ r.style.transform = "translateY(-" + r.dataset.n + "em)"; }); }
+
+  /* Öffnungszeiten & Datumsstempel */
+  var hours = {1:[9,17],2:[9,17],3:[9,17],4:[9,17],5:[9,14]};
+  $$("#hours tr").forEach(function(r){ if (r.dataset.days.split(",").indexOf(String(now.wd)) > -1) r.classList.add("today"); });
+  var h = hours[now.wd], open = !!(h && now.t >= h[0] && now.t < h[1]);
+  $("#dsState").textContent = open ? "Geöffnet bis " + h[1] + " Uhr" : "Geschlossen";
+  if (!open) $("#datestamp").classList.add("closed");
+
+  /* Reveal: "Tinte setzt sich" */
+  var hooks = {
+    counter: rollCounter
+  };
+  if ("IntersectionObserver" in window && !reduce) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add("in");
+        if (e.target.id && hooks[e.target.id]) hooks[e.target.id]();
+        if (e.target.classList.contains("cell") && window.matchMedia("(hover: none)").matches) {
+          setTimeout(function(){ e.target.classList.add("flip"); }, 500);
+        }
+        io.unobserve(e.target);
+      });
+    }, {threshold:.18, rootMargin:"0px 0px -6% 0px"});
+    $$(".rv, #datestamp").forEach(function(el){ io.observe(el); });
+  } else {
+    $$(".rv, #datestamp").forEach(function(el){ el.classList.add("in"); });
+    rollCounter();
+  }
+
+  /* Konfigurator mit Live-Vorschau */
+  var form = $("#form"), pvPlate = $("#pvPlate"), pvImp = $("#pvImp"), pvImpBox = $("#pvImpBox");
+  var box1 = $("#pvbox1"), box2 = $("#pvbox2"), sizeLbl = $("#pvSize"), done = $("#done");
+  function lines(){ return ["z1","z2","z3","z4","z5"].map(function(n){ return form.elements[n].value.trim(); }).filter(Boolean); }
+  function render(){
+    var L = lines(); if (!L.length) L = ["Ihr Text"];
+    var size = form.elements.modell.value.split("/"), w = +size[0], hh = +size[1];
+    var ratio = w + "/" + hh;
+    box1.style.aspectRatio = ratio; box2.style.aspectRatio = ratio;
+    sizeLbl.textContent = form.elements.modell.value === "60/40" ? "nach Maß" : w + " × " + hh + " mm";
+    var html = L.map(function(t, k){ var s = document.createElement("span"); s.textContent = t; return k === 0 ? '<span class="l1">' + s.innerHTML + "</span>" : s.innerHTML; }).join("\n");
+    var font = "f-" + form.elements.schrift.value;
+    [pvPlate, pvImp].forEach(function(el){ el.innerHTML = html; el.className = "txt " + font; });
+    var bw = box2.clientWidth || 400, bh = bw * hh / w;
+    var longest = Math.max.apply(null, L.map(function(t){ return t.length; }));
+    var fs = Math.min(bh * .78 / (L.length * 1.25 + .15), bw * .86 / (Math.max(longest, 8) * .62 * 1.1));
+    [pvPlate, pvImp].forEach(function(el){ el.style.setProperty("--fs", Math.max(9, fs).toFixed(1) + "px"); });
+    var c = form.querySelector("input[name=farbe]:checked");
+    pvImpBox.style.setProperty("--ink-c", c.dataset.c);
+    done.classList.remove("on");
+  }
+  form.addEventListener("input", render);
+  window.addEventListener("resize", render);
+  document.fonts && document.fonts.ready.then(render);
+  render();
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var hint = $("#hint"), bad = [];
+    $$("[required]", form).forEach(function(el){
+      var ok = el.type === "checkbox" ? el.checked : el.value.trim() !== "" && el.checkValidity();
+      el.setAttribute("aria-invalid", ok ? "false" : "true"); if (!ok) bad.push(el);
+    });
+    if (bad.length) { hint.textContent = "Bitte füllen Sie die Pflichtfelder (*) aus."; hint.className = "hint err"; bad[0].focus(); return; }
+    var f = form.elements, opt = f.modell.options[f.modell.selectedIndex].text, sch = f.schrift.options[f.schrift.selectedIndex].text;
+    var body = "Stempeltext:\n" + lines().join("\n") + "\n\nModell: " + opt + "\nSchrift: " + sch +
+      "\nFarbe: " + form.querySelector("input[name=farbe]:checked").value +
+      "\n\nName: " + f.name.value + "\nTelefon: " + (f.telefon.value || "-") + "\nE-Mail: " + f.email.value +
+      "\n\nAnmerkungen:\n" + (f.anmerkung.value || "-") + "\n";
+    done.classList.remove("on"); void done.offsetWidth; done.classList.add("on");
+    hint.textContent = "Ihr E-Mail-Programm öffnet sich. Bitte senden Sie die Nachricht dort ab."; hint.className = "hint";
+    setTimeout(function(){
+      window.location.href = "mailto:" + EMAIL + "?subject=" + encodeURIComponent("Stempelanfrage von " + f.name.value) + "&body=" + encodeURIComponent(body);
+    }, reduce ? 0 : 600);
+  });
+
+  /* Karte erst nach Einwilligung */
+  $("#loadMap").addEventListener("click", function(){
+    var fr = document.createElement("iframe");
+    fr.src = "https://www.google.com/maps?q=" + encodeURIComponent("Hauptstraße 29, 31559 Haste") + "&output=embed";
+    fr.title = "Karte: Stempel Pestka, Hauptstraße 29, 31559 Haste"; fr.loading = "lazy";
+    var m = $("#map"); m.innerHTML = ""; m.appendChild(fr);
+  });
+})();
+</script>
 </body>
 </html>

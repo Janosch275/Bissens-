@@ -11,8 +11,18 @@ Moderne, statische Website für **Stempel Pestka** (www.stempel-pestka.de).
 **Dateien**
 - `index.html` – Startseite (Über uns, Produkte, Bestellformular, Anfahrt/Öffnungszeiten)
 - `impressum.html`, `datenschutz.html` – Rechtstexte
-- `styles.css`, `script.js` – Design und Funktionen (mobiles Menü, „Jetzt geöffnet“-Anzeige, Bestellformular per E-Mail, Google-Karte erst nach Klick)
-- `img/` – Favicon; hier können Fotos der alten Seite abgelegt werden
+- `legal.css` – Gestaltung der Rechtstexte
+- `index.html` ist komplett eigenständig (CSS und JavaScript eingebettet) und lässt sich direkt per Doppelklick im Browser öffnen.
+
+**Gestaltungsprinzip „Spiegelbild → Abdruck“**
+Jeder Stempel wird spiegelverkehrt gefertigt und erst im Abdruck lesbar. Daraus folgen alle Elemente:
+- Startseite: Buchstaben drehen sich von spiegelverkehrt zu lesbar; eine Gummiplatte wird gewendet, aufgedrückt und hinterlässt einen Abdruck mit Tagesdatum.
+- Adressänderung: alte Adresse wird durchgestrichen, „Neue Adresse“ wird aufgestempelt.
+- Geschichte: Jahreszahl 1924 rollt wie ein Paginierstempel.
+- Sortiment als Setzkasten (Hommage an den Schriftsetzer Ortwin Pestka).
+- Stempel-Gestalter mit Live-Vorschau von Gummiplatte und Abdruck.
+- Öffnungszeiten als Datumsstempel (GEÖFFNET/GESCHLOSSEN).
+Alle Animationen nutzen eine gemeinsame Bewegungskurve, laufen einmalig ab und werden bei „Bewegung reduzieren“ abgeschaltet.
 
 **Veröffentlichen:** Alle Dateien dieses Ordners per FTP in das Webverzeichnis von stempel-pestka.de hochladen. Kein Build-Schritt nötig.
 
