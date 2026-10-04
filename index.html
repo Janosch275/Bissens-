@@ -6,6 +6,7 @@
   <title>PRINT &amp; CUT Werbetechnik – Haste bei Bad Nenndorf</title>
   <meta name="description" content="PRINT &amp; CUT Werbetechnik in Haste bei Bad Nenndorf – Beschriftungen, Schilder, Digitaldruck, Werbemittel, Drucksachen und Textildruck aus eigener Werkstatt. Telefon 05723 / 78 89 99 9.">
   <meta name="theme-color" content="#df5218">
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("anim");</script>
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="assets/PuC_logo_SPLASH.gif">
@@ -36,6 +37,8 @@
 </head>
 <body>
 
+<div class="progress" aria-hidden="true"></div>
+
 <header class="nav">
   <div class="wrap nav__inner">
     <a href="#top" class="brand" aria-label="PRINT &amp; CUT Werbetechnik – Startseite">
@@ -60,16 +63,17 @@
   <section class="hero">
     <div class="wrap hero__inner">
       <div class="hero__text">
-        <p class="eyebrow">Werkstatt für Werbetechnik · Haste bei Bad Nenndorf</p>
-        <h1>Wo Ihre Marke <em>Form</em> annimmt.</h1>
-        <p class="hero__lead">Wir entwerfen, drucken und schneiden alles, was ein Unternehmen sichtbar macht – von der Fahrzeugbeschriftung bis zum Briefbogen. Ein fester Ansprechpartner, von der Idee bis zur Montage.</p>
-        <div class="hero__actions">
+        <p class="eyebrow intro" style="--d:.1s">Werkstatt für Werbetechnik · Haste bei Bad Nenndorf</p>
+        <h1><span class="line"><span style="--d:.25s">Wo Ihre Marke</span></span> <span class="line"><span style="--d:.4s"><em>Form</em> annimmt.</span></span></h1>
+        <p class="hero__lead intro" style="--d:.65s">Wir entwerfen, drucken und schneiden alles, was ein Unternehmen sichtbar macht – von der Fahrzeugbeschriftung bis zum Briefbogen. Ein fester Ansprechpartner, von der Idee bis zur Montage.</p>
+        <div class="hero__actions intro" style="--d:.8s">
           <a href="#kontakt" class="btn">Projekt besprechen</a>
           <a href="#leistungen" class="btn btn--ghost">Leistungen ansehen</a>
         </div>
-        <p class="today" id="today" aria-live="polite"></p>
+        <p class="today intro" id="today" style="--d:.95s" aria-live="polite"></p>
       </div>
       <figure class="hero__photo">
+        <span class="hero__slot" aria-hidden="true"></span>
         <span class="crop crop--tl" aria-hidden="true"></span>
         <span class="crop crop--tr" aria-hidden="true"></span>
         <span class="crop crop--bl" aria-hidden="true"></span>
@@ -83,10 +87,10 @@
 
   <section class="facts" aria-label="Auf einen Blick">
     <div class="wrap facts__grid">
-      <div class="fact"><span class="fact__num">6</span><span class="fact__label">Gewerke unter einem Dach</span></div>
-      <div class="fact"><span class="fact__num">1</span><span class="fact__label">fester Ansprechpartner</span></div>
-      <div class="fact"><span class="fact__num">XXL</span><span class="fact__label">Digitaldruck bis Fassadengröße</span></div>
-      <div class="fact"><span class="fact__num">1+</span><span class="fact__label">vom Einzelstück bis zur Serie</span></div>
+      <div class="fact"><span class="fact__num" data-count="6">6</span><span class="fact__label">Gewerke unter einem Dach</span></div>
+      <div class="fact"><span class="fact__num" data-count="1">1</span><span class="fact__label">fester Ansprechpartner</span></div>
+      <div class="fact"><span class="fact__num fact__num--pop">XXL</span><span class="fact__label">Digitaldruck bis Fassadengröße</span></div>
+      <div class="fact"><span class="fact__num" data-count="1" data-suffix="+">1+</span><span class="fact__label">vom Einzelstück bis zur Serie</span></div>
     </div>
   </section>
 
@@ -168,6 +172,13 @@
       </ol>
     </div>
   </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <div class="marquee__group"><span class="marquee__item">Beschriftungen</span><span class="marquee__sep">✂</span><span class="marquee__item marquee__item--outline">Schilder</span><span class="marquee__sep">✂</span><span class="marquee__item">Digitaldruck</span><span class="marquee__sep">✂</span><span class="marquee__item marquee__item--outline">Werbemittel</span><span class="marquee__sep">✂</span><span class="marquee__item">Drucksachen</span><span class="marquee__sep">✂</span><span class="marquee__item marquee__item--outline">Textildruck</span><span class="marquee__sep">✂</span></div>
+      <div class="marquee__group"><span class="marquee__item">Beschriftungen</span><span class="marquee__sep">✂</span><span class="marquee__item marquee__item--outline">Schilder</span><span class="marquee__sep">✂</span><span class="marquee__item">Digitaldruck</span><span class="marquee__sep">✂</span><span class="marquee__item marquee__item--outline">Werbemittel</span><span class="marquee__sep">✂</span><span class="marquee__item">Drucksachen</span><span class="marquee__sep">✂</span><span class="marquee__item marquee__item--outline">Textildruck</span><span class="marquee__sep">✂</span></div>
+    </div>
+  </div>
 
   <section id="arbeiten" class="section">
     <div class="wrap">
@@ -271,9 +282,11 @@
           <path d="M230 -10 C 215 90, 205 160, 250 330" stroke="var(--map-road)" stroke-width="10" fill="none"/>
           <path d="M290 330 L 410 250" stroke="var(--map-road)" stroke-width="6" fill="none"/>
           <path d="M-10 280 L 410 300" stroke="var(--map-rail)" stroke-width="3" stroke-dasharray="10 7" fill="none"/>
-          <circle cx="212" cy="168" r="40" fill="var(--accent)" opacity=".13"/>
+          <circle class="map__ring" cx="212" cy="188" r="40" fill="var(--accent)" opacity=".13"/>
+          <g class="map__pin">
           <path d="M212 108 c-17 0 -30 13 -30 30 c0 22 30 50 30 50 s30 -28 30 -50 c0 -17 -13 -30 -30 -30z" fill="var(--accent)"/>
           <circle cx="212" cy="138" r="10" fill="#fff"/>
+          </g>
         </svg>
         <span class="map__label">Hauptstraße 29 · Haste</span>
       </div>

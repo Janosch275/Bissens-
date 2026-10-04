@@ -78,11 +78,18 @@ p { margin: 0 0 1em; }
 
 /* Buttons */
 .btn {
+  position: relative; overflow: hidden; isolation: isolate;
   display: inline-block; padding: .85em 1.6em; border-radius: 999px;
   background: var(--accent); color: #fff; text-decoration: none;
   font-weight: 500; border: 1.5px solid var(--accent);
   transition: background .2s, color .2s, border-color .2s, transform .2s;
 }
+.btn::after { /* Glanz beim Darüberfahren */
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, .35) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform .7s ease;
+}
+.btn:hover::after { transform: translateX(120%); }
 .btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); transform: translateY(-1px); }
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn--ghost:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
@@ -96,7 +103,10 @@ p { margin: 0 0 1em; }
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
-.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; }
+.nav { transition: box-shadow .3s, background-color .3s; }
+.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 24px; transition: height .3s; }
+.nav.is-scrolled { box-shadow: 0 6px 24px rgba(34, 29, 22, .08); }
+.nav.is-scrolled .nav__inner { height: 60px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
 .brand img, .footer__brand img {
   width: 42px; height: auto; background: #fff; border-radius: 9px; padding: 3px;
@@ -113,8 +123,13 @@ p { margin: 0 0 1em; }
 .brand__word--light, .brand__word--light small { color: #fff; }
 .brand__word--light small { opacity: .6; }
 .nav__links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
-.nav__links a { color: var(--ink); text-decoration: none; font-size: .95rem; font-weight: 500; }
-.nav__links a:hover { color: var(--accent); }
+.nav__links a { position: relative; color: var(--ink); text-decoration: none; font-size: .95rem; font-weight: 500; transition: color .2s; }
+.nav__links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px; border-radius: 2px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+}
+.nav__links a:hover, .nav__links a.is-active { color: var(--accent); }
+.nav__links a:hover::after, .nav__links a.is-active::after { transform: scaleX(1); }
 
 /* Hero */
 .hero {
@@ -157,16 +172,16 @@ p { margin: 0 0 1em; }
 .crop--bl { bottom: 38px; left: 0; border-bottom-width: 1.5px; border-left-width: 1.5px; }
 .crop--br { bottom: 38px; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
 
-.cutline {
-  position: relative; height: 20px;
+.cutline { position: relative; height: 20px; margin-left: 44px; }
+.cutline::after { /* gestrichelte Linie */
+  content: ""; position: absolute; inset: 0;
   background: var(--cut) repeat-x center; opacity: .6;
-  margin-left: 44px;
 }
-.cutline::before {
-  content: ""; position: absolute; left: -32px; top: 0; width: 22px; height: 20px;
+.cutline::before { /* Schere */
+  content: ""; position: absolute; left: -32px; top: 0; width: 22px; height: 20px; z-index: 1;
   background: var(--scissors) no-repeat center;
 }
-.cutline--light { background-image: var(--cut-light); opacity: 1; }
+.cutline--light::after { background-image: var(--cut-light); opacity: 1; }
 .cutline--light::before { opacity: .5; }
 
 /* Live-Status */
@@ -211,15 +226,27 @@ p { margin: 0 0 1em; }
 
 /* Ablauf */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
-.step { position: relative; padding-top: 22px; border-top: 2px solid var(--ink); }
+.step { position: relative; padding-top: 22px; }
+.step::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--ink); transform-origin: left; }
 .step__num { display: block; font-family: var(--display); font-weight: 800; font-size: 3.2rem; line-height: 1; color: var(--accent); margin-bottom: 14px; }
 .step p { color: var(--muted); font-size: .96rem; margin: 0; }
+
+/* Laufband mit Leistungen */
+.marquee { background: var(--footer); color: #fff; overflow: hidden; padding: 22px 0; }
+.marquee__track { display: flex; width: max-content; }
+.marquee__group { display: flex; align-items: center; flex: none; }
+.marquee__item {
+  font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(2rem, 4.5vw, 3.2rem);
+  line-height: 1; letter-spacing: .01em; padding: 0 .45em; white-space: nowrap;
+}
+.marquee__item--outline { color: transparent; -webkit-text-stroke: 1.3px rgba(255, 255, 255, .75); }
+.marquee__sep { color: var(--brand); font-size: 1.5rem; }
 
 /* Galerie */
 .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 300px; gap: 16px; }
 .shot { position: relative; margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--paper-alt); }
 .shot--wide { grid-column: span 2; }
-.shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
 .shot:hover img { transform: scale(1.04); }
 .shot figcaption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 36px 16px 14px;
@@ -306,8 +333,105 @@ p { margin: 0 0 1em; }
 .legal__close:hover { color: var(--accent); }
 
 /* Einblenden beim Scrollen */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
 .reveal.in { opacity: 1; transform: none; }
+
+/* ---------- Animationen (nur aktiv mit html.anim, d. h. JavaScript an und keine reduzierte Bewegung) ---------- */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60; pointer-events: none;
+  background: var(--brand); transform-origin: left; transform: scaleX(var(--p, 0));
+}
+
+/* Hero: Text gleitet herein */
+h1 .line { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+h1 .line > span { display: inline-block; }
+h1 em { position: relative; }
+h1 em::after {
+  content: ""; position: absolute; left: .02em; right: .02em; bottom: .02em; height: .07em; border-radius: 1em;
+  background: currentColor; opacity: .35; transform-origin: left;
+}
+.anim h1 .line > span { animation: line-up 1s cubic-bezier(.2, .8, .2, 1) both; animation-delay: var(--d); }
+.anim h1 em::after { animation: draw-x .8s cubic-bezier(.6, 0, .2, 1) 1.1s both; }
+.anim .intro { animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; animation-delay: var(--d); }
+
+/* Hero: Schild wird „ausgedruckt“ */
+.hero__slot {
+  position: absolute; left: 6px; right: 6px; top: 12px; height: 10px; border-radius: 6px; z-index: 2;
+  background: var(--ink); opacity: 0; pointer-events: none;
+}
+.anim .hero__slot { animation: slot 2.6s ease .3s both; }
+.anim .hero__photo img { animation: print-out 1.6s cubic-bezier(.5, 0, .2, 1) .6s both; }
+.anim .hero__photo { animation: float 7s ease-in-out 2.4s infinite; }
+.anim .hero__photo figcaption { animation: rise .8s ease 2s both; }
+.crop { transition: transform .3s; }
+.anim .crop { animation: crop-in .7s cubic-bezier(.2, .8, .2, 1) 1.9s both; }
+.crop--tl { --x: -14px; --y: -14px; } .crop--tr { --x: 14px; --y: -14px; }
+.crop--bl { --x: -14px; --y: 14px; }  .crop--br { --x: 14px; --y: 14px; }
+.anim .hero::after { animation: breathe 9s ease-in-out infinite; }
+
+/* Schneidelinie: Schere schneidet einmal durch */
+.anim .cutline::after { clip-path: inset(0 100% 0 0); }
+.anim .cutline::before { opacity: 0; }
+.anim .cutline.in::after { animation: cut-draw 2.4s cubic-bezier(.45, 0, .55, 1) both; }
+.anim .cutline.in::before { animation: scissors-run 2.4s cubic-bezier(.45, 0, .55, 1) both, snip .22s ease-in-out 11 alternate; }
+.anim .cutline--light.in::before { animation-name: scissors-run-light, snip; }
+
+/* Kennzahlen */
+.anim .fact__num--pop { transform: scale(.4); opacity: 0; }
+.anim .facts.in .fact__num--pop { animation: pop .8s cubic-bezier(.3, 1.6, .5, 1) .3s both; }
+
+/* Leistungs-Icons wackeln beim Darüberfahren */
+.anim .card:hover .card__icon svg { animation: wiggle .6s ease; }
+.card__icon { transition: background-color .25s, color .25s, transform .25s; }
+.card:hover .card__icon { background: var(--accent); color: #fff; transform: rotate(-6deg); }
+
+/* Ablauf: Linie zeichnet sich */
+.anim .step.reveal::before { transform: scaleX(0); transition: transform 1s cubic-bezier(.6, 0, .2, 1) .15s; }
+.anim .step.reveal.in::before { transform: scaleX(1); }
+.anim .step.reveal .step__num { display: inline-block; transition: transform .8s cubic-bezier(.3, 1.5, .5, 1) .3s; transform: translateY(20px); }
+.anim .step.reveal.in .step__num { transform: none; }
+
+/* Laufband */
+.anim .marquee__track { animation: marquee 32s linear infinite; }
+.anim .marquee:hover .marquee__track { animation-play-state: paused; }
+
+/* Galerie: Bilder werden wie beim Druck von oben aufgedeckt */
+.anim .shot.reveal { opacity: 1; transform: none; clip-path: inset(0 0 100% 0 round var(--radius)); transition: clip-path 1.1s cubic-bezier(.7, 0, .2, 1); }
+.anim .shot.reveal.in { clip-path: inset(0 0 0 0 round var(--radius)); }
+.anim .shot.reveal:not(.in) img { transform: scale(1.18); }
+
+/* Karte: Pin fällt, Boden pulsiert */
+.map__pin, .map__ring { transform-box: fill-box; transform-origin: 50% 100%; }
+.map__ring { transform-origin: 50% 50%; }
+.anim .map:not(.in) .map__pin { opacity: 0; }
+.anim .map.in .map__pin { animation: pin-drop .9s cubic-bezier(.3, 1.4, .5, 1) .4s both; }
+.anim .map.in .map__ring { animation: ring 2.4s ease-out 1.2s infinite; }
+
+/* Live-Status pulsiert, wenn geöffnet */
+.anim .today.is-open .dot { animation: pulse 2s ease-out infinite; }
+
+@keyframes line-up { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes draw-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes slot { 0% { opacity: 0; transform: scaleX(.6); } 12%, 70% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes print-out {
+  from { clip-path: inset(0 0 100% 0); transform: translateY(-24px) rotate(0deg); }
+  70% { clip-path: inset(0 0 0 0); transform: translateY(0) rotate(0deg); }
+  to { clip-path: inset(0 0 0 0); transform: rotate(-2deg); }
+}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes crop-in { from { opacity: 0; transform: translate(var(--x), var(--y)); } to { opacity: .7; transform: none; } }
+@keyframes breathe { 0%, 100% { transform: translateY(-50%) scale(1); } 50% { transform: translateY(-50%) scale(1.06); } }
+@keyframes cut-draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes scissors-run { 0% { left: -32px; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: calc(100% - 22px); opacity: 1; } }
+@keyframes scissors-run-light { 0% { left: -32px; opacity: 0; } 8% { opacity: .5; } 100% { left: calc(100% - 22px); opacity: .5; } }
+@keyframes snip { from { transform: rotate(-14deg); } to { transform: rotate(6deg); } }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes wiggle { 0%, 100% { transform: none; } 25% { transform: rotate(-12deg) scale(1.1); } 60% { transform: rotate(10deg) scale(1.1); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes pin-drop { 0% { opacity: 0; transform: translateY(-70px); } 60% { opacity: 1; transform: translateY(0) scaleY(.85); } 80% { transform: translateY(-6px); } 100% { opacity: 1; transform: none; } }
+@keyframes ring { 0% { transform: scale(.4); opacity: .35; } 100% { transform: scale(1.6); opacity: 0; } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--petrol) 55%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
 
 /* Responsive */
 @media (max-width: 960px) {
@@ -339,6 +463,7 @@ p { margin: 0 0 1em; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .progress { display: none; }
   * { transition: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
