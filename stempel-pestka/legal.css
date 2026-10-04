@@ -1,4 +1,4 @@
-:root{--paper:#f4efe4;--ink:#16130f;--ink-2:#4d463d;--ink-3:#8a8173;--rule:#d9cfbc;--blue:#1f3a93}
+:root{--paper:#eef0ee;--ink:#1c1f1e;--ink-2:#4a504d;--ink-3:#7e8581;--rule:#d2d7d3;--blue:#33702a;--lime:#a6dc7e}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.7 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--blue)}
@@ -6,14 +6,14 @@ a{color:var(--blue)}
 .top{border-bottom:1px solid var(--rule)}
 .top .wrap{display:flex;justify-content:space-between;align-items:center;min-height:72px;gap:16px;width:min(1180px,100% - 32px)}
 .brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;font:400 1.35rem/1 "DM Serif Display",Georgia,serif}
-.logo{width:42px;height:42px;border:2.5px solid var(--blue);border-radius:6px;display:grid;place-items:center;color:var(--blue);font-size:1.6rem}
+.logo{width:42px;height:42px;background:var(--lime);border:2.5px solid var(--ink);border-radius:6px;display:grid;place-items:center;color:var(--ink);font-size:1.6rem}
 .back{font:500 .8rem/1 "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;border:1.5px solid var(--ink);padding:10px 14px;border-radius:4px}
-.back:hover{background:var(--ink);color:var(--paper)}
+.back:hover{background:var(--lime);border-color:var(--lime)}
 main{padding:clamp(48px,8vw,96px) 0}
 h1{font:400 clamp(2.4rem,6vw,3.6rem)/1.05 "DM Serif Display",Georgia,serif;margin:0 0 .6em}
 h2{font:600 .8rem/1.4 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:2.4em 0 .6em}
 p{color:var(--ink-2);margin:0 0 1em}
-footer{background:var(--ink);color:#a59c8e;font-size:.9rem;padding:32px 0}
+footer{background:var(--ink);color:#9aa29d;font-size:.9rem;padding:32px 0}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;width:min(1180px,100% - 32px)}
 footer p{margin:0;color:inherit}
-footer a{color:#efe8dc;text-decoration:none;margin-left:20px}
+footer a{color:#e6ebe7;text-decoration:none;margin-left:20px}

@@ -22,6 +22,7 @@ Jeder Stempel wird spiegelverkehrt gefertigt und erst im Abdruck lesbar. Daraus 
 - Sortiment als Setzkasten (Hommage an den Schriftsetzer Ortwin Pestka).
 - Stempel-Gestalter mit Live-Vorschau von Gummiplatte und Abdruck.
 - Öffnungszeiten als Datumsstempel (GEÖFFNET/GESCHLOSSEN).
+Farbpalette: Hellgrün (#a6dc7e) und Grautöne, dunkleres Grün (#33702a) für lesbaren Text.
 Alle Animationen nutzen eine gemeinsame Bewegungskurve, laufen einmalig ab und werden bei „Bewegung reduzieren“ abgeschaltet.
 
 **Veröffentlichen:** Alle Dateien dieses Ordners per FTP in das Webverzeichnis von stempel-pestka.de hochladen. Kein Build-Schritt nötig.
