@@ -37,9 +37,9 @@ html = html.replace('<link rel="stylesheet" href="style.css">', "<style>\n" + (r
 html = html.replace('<script src="main.js"></script>', "<script>\n" + (root / "main.js").read_text() + "</script>")
 html = re.sub(r'(src|href)="(assets/[^"]+)"', lambda m: '%s="%s"' % (m.group(1), data_uri(root / m.group(2))), html)
 html = html.replace('<meta name="viewport"', '<meta name="robots" content="noindex, nofollow">\n  <meta name="viewport"', 1)
-badge = ('<div style="position:fixed;left:16px;bottom:16px;z-index:40;background:#221d16;color:#fff;'
-         'font:500 12px/1 \'IBM Plex Mono\',monospace;letter-spacing:.1em;text-transform:uppercase;'
-         'padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);box-shadow:0 6px 18px rgba(0,0,0,.25);pointer-events:none;opacity:.9">'
+badge = ('<div style="position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:40;background:#221d16;color:#fff;'
+         'font:500 11px/1 \'IBM Plex Mono\',monospace;letter-spacing:.12em;text-transform:uppercase;writing-mode:vertical-rl;'
+         'padding:14px 8px;border-radius:8px 0 0 8px;box-shadow:0 6px 18px rgba(0,0,0,.25);pointer-events:none;opacity:.85">'
          'Vorschau · Entwurf</div>\n')
 html = html.replace("<script>\n", badge + "<script>\n", 1)
 assert 'href="style.css"' not in html and 'src="main.js"' not in html and '"assets/' not in html

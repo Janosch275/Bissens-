@@ -1,7 +1,7 @@
 # PRINT & CUT Werbetechnik – Haste
 
 Statische One-Page-Website (HTML/CSS/JS) für PRINT & CUT Werbetechnik, Florian Krause.
-Modernisierte Fassung im Stil der Astoria-Seite; Farben, Logo und Schriften des bisherigen Auftritts bleiben erhalten.
+Eigenständiger Aufbau im Werkstatt-Look (Druckbogen, Sortimentsliste, Pinnwand, Visitenkarte, Auftragszettel); Farben, Logo und Schriften des bisherigen Auftritts bleiben erhalten.
 
 ## Auslieferung
 

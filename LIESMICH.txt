@@ -9,7 +9,7 @@ Hochladen:   Den kompletten Ordnerinhalt zu einem beliebigen Webhoster
 Inhalt
   index.html   Die Website (alle Inhalte, inkl. Impressum und Datenschutz)
   style.css    Gestaltung (Farben ganz oben unter :root anpassbar)
-  main.js      Anzeige „Jetzt geöffnet / geschlossen“, Animationen
+  main.js      Öffnungszeiten-Stempel, Auftragszettel (öffnet E-Mail), Animationen
                (werden bei „Bewegung reduzieren“ automatisch abgeschaltet)
   assets/      Logo und Referenzbilder
   fonts/       Lokal eingebundene Schriften (Big Shoulders Display, Work Sans,
