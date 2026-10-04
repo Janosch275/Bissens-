@@ -102,33 +102,6 @@ document.querySelectorAll(".bizcard").forEach(function (card) {
   });
 });
 
-// Auftragszettel: fertige E-Mail im Mailprogramm öffnen (es werden keine Daten über die Website gesendet)
-(function () {
-  var form = document.getElementById("ticket");
-  if (!form) return;
-  var no = document.getElementById("ticket-no");
-  var d = new Date();
-  var nr = String(d.getFullYear()).slice(2) + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0") + String(d.getHours()).padStart(2, "0") + String(d.getMinutes()).padStart(2, "0");
-  if (no) no.textContent = "Nr. " + nr;
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var f = form.elements;
-    var services = [].slice.call(form.querySelectorAll('input[name="Leistung"]:checked')).map(function (i) { return i.value; });
-    var lines = [
-      "Auftragszettel Nr. " + nr,
-      "",
-      "Gewünscht: " + (services.length ? services.join(", ") : "–"),
-      "Name / Firma: " + (f.Name.value || "–"),
-      "Rückruf unter: " + (f.Telefon.value || "–"),
-      "",
-      f.Nachricht.value || ""
-    ];
-    var subject = "Anfrage über die Website" + (services.length ? ": " + services.join(", ") : "");
-    location.href = "mailto:info@printundcut.de?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
-  });
-})();
-
 // Animationen beim Scrollen (nur mit html.anim – ohne JavaScript oder bei reduzierter Bewegung bleibt alles statisch sichtbar)
 (function () {
   var root = document.documentElement;
@@ -147,7 +120,7 @@ document.querySelectorAll(".bizcard").forEach(function (card) {
     });
   }, { threshold: 0.15 });
 
-  [".label-row", ".row", ".pin", ".bizcard", ".studio__text > *", ".ticket", ".desk"].forEach(function (sel) {
+  [".label-row", ".row", ".pin", ".bizcard", ".studio__text > *", ".callout", ".desk"].forEach(function (sel) {
     document.querySelectorAll(sel).forEach(function (el, i) {
       el.classList.add("reveal");
       el.style.transitionDelay = (i % 6) * 80 + "ms";

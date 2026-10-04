@@ -46,15 +46,6 @@
   <span class="mark mark--bl" aria-hidden="true"></span>
   <span class="mark mark--br" aria-hidden="true"></span>
 
-  <ul class="colorbar" aria-hidden="true">
-    <li style="--c:var(--brand)"><span>PC 01</span></li>
-    <li style="--c:var(--logo-orange)"><span>PC 02</span></li>
-    <li style="--c:var(--petrol)"><span>PC 03</span></li>
-    <li style="--c:var(--logo-grey)"><span>PC 04</span></li>
-    <li style="--c:var(--ink)"><span>PC 05</span></li>
-    <li style="--c:var(--paper-alt)"><span>PC 06</span></li>
-  </ul>
-
   <div class="topbar">
     <a href="#top" class="brand" aria-label="PRINT &amp; CUT Werbetechnik – Startseite">
       <img src="assets/PuC_logo_SPLASH.gif" alt="" width="188" height="217">
@@ -62,7 +53,7 @@
     </a>
     <div class="topbar__right">
       <a class="topbar__tel" href="tel:+4957237889999">05723 / 78 89 99 9</a>
-      <a class="btn" href="#auftrag">Auftrag aufgeben</a>
+      <a class="btn" href="#kontakt">Anfrage stellen</a>
     </div>
   </div>
 
@@ -100,7 +91,7 @@
   <a href="#sortiment">Sortiment</a>
   <a href="#arbeiten">Arbeiten</a>
   <a href="#werkstatt">Werkstatt</a>
-  <a href="#auftrag" class="dock__cta">Auftrag</a>
+  <a href="#kontakt" class="dock__cta">Kontakt</a>
   <a href="tel:+4957237889999" class="dock__tel" aria-label="Anrufen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></a>
   <span class="dock__progress" aria-hidden="true"></span>
 </nav>
@@ -186,11 +177,11 @@
         <figure class="pin" style="--r:2.5deg"><span class="tape" aria-hidden="true"></span><img src="assets/Werbemittel-Textilien-3_f.jpg" alt="Bedrucktes blaues Poloshirt" width="375" height="500" loading="lazy"><figcaption class="mono">Textildruck · Poloshirt</figcaption></figure>
         <figure class="pin" style="--r:-1.5deg"><span class="tape" aria-hidden="true"></span><img src="assets/Werbemittel-Textilien-2_f.jpg" alt="Bedrucktes dunkelgrünes Poloshirt" width="375" height="500" loading="lazy"><figcaption class="mono">Textildruck · Teambekleidung</figcaption></figure>
         <figure class="pin" style="--r:1.8deg"><span class="tape" aria-hidden="true"></span><img src="assets/Geschaeftspapiere_f.jpg" alt="Visitenkarten und Briefpapier" width="500" height="335" loading="lazy"><figcaption class="mono">Geschäftsausstattung</figcaption></figure>
-        <a class="pin pin--note" style="--r:-4deg" href="#auftrag">
+        <a class="pin pin--note" style="--r:-4deg" href="#kontakt">
           <span class="pin__head" aria-hidden="true"></span>
           <strong>Ihr Projekt hier?</strong>
           <span>Schild, Wagen, Shirt oder Fassade – erzählen Sie uns davon.</span>
-          <span class="pin__more mono">Zum Auftragszettel →</span>
+          <span class="pin__more mono">Jetzt anfragen →</span>
         </a>
       </div>
     </div>
@@ -233,45 +224,26 @@
     </div>
   </section>
 
-  <!-- ============ AUFTRAGSZETTEL ============ -->
-  <section id="auftrag" class="block block--desk">
+  <!-- ============ KONTAKT ============ -->
+  <section id="kontakt" class="block block--desk">
     <div class="wrap order">
-      <form class="ticket" id="ticket" action="mailto:info@printundcut.de" method="post" enctype="text/plain">
-        <div class="ticket__head">
-          <span class="label mono">Auftragszettel</span>
-          <span class="ticket__no mono" id="ticket-no">Nr. ____</span>
-        </div>
+      <div class="callout">
+        <span class="label mono">Kontakt</span>
         <h2 class="big">Lassen Sie uns reden.</h2>
-        <p class="ticket__intro">Kreuzen Sie an, worum es geht – der Zettel wird als fertige E-Mail in Ihrem Mailprogramm geöffnet. Lieber persönlich? Rufen Sie einfach an.</p>
-
-        <fieldset class="ticket__choices">
-          <legend class="mono">Was dürfen wir fertigen?</legend>
-          <label><input type="checkbox" name="Leistung" value="Beschriftung"><span>Beschriftung</span></label>
-          <label><input type="checkbox" name="Leistung" value="Schild"><span>Schild</span></label>
-          <label><input type="checkbox" name="Leistung" value="Digitaldruck"><span>Digitaldruck</span></label>
-          <label><input type="checkbox" name="Leistung" value="Werbemittel"><span>Werbemittel</span></label>
-          <label><input type="checkbox" name="Leistung" value="Drucksachen"><span>Drucksachen</span></label>
-          <label><input type="checkbox" name="Leistung" value="Textildruck"><span>Textildruck</span></label>
-        </fieldset>
-
-        <div class="ticket__fields">
-          <label class="field"><span class="mono">Name / Firma</span><input type="text" name="Name" autocomplete="name"></label>
-          <label class="field"><span class="mono">Rückruf unter</span><input type="tel" name="Telefon" autocomplete="tel"></label>
-          <label class="field field--wide"><span class="mono">Ihr Anliegen</span><textarea name="Nachricht" rows="4" placeholder="z. B. Beschriftung für zwei Transporter, Logo vorhanden …"></textarea></label>
+        <p class="callout__intro">Ob erste Idee oder konkrete Anfrage – rufen Sie an oder schreiben Sie uns. Ein Besuch in der Werkstatt ist nicht nötig, vieles klären wir bequem am Telefon oder per E-Mail.</p>
+        <a class="desk__phone" href="tel:+4957237889999"><span class="mono">Telefon</span>05723 / 78 89 99 9</a>
+        <div class="actions">
+          <a class="btn" href="mailto:info@printundcut.de?subject=Anfrage%20%C3%BCber%20die%20Website">E-Mail schreiben</a>
+          <a class="btn btn--line" href="https://www.google.com/maps/search/?api=1&amp;query=Hauptstra%C3%9Fe+29%2C+31559+Haste" target="_blank" rel="noopener">Route planen ↗</a>
         </div>
-        <div class="ticket__send">
-          <button class="btn" type="submit">Auftragszettel abschicken</button>
-          <span class="ticket__note">Öffnet Ihr E-Mail-Programm. Über die Website selbst werden keine Daten übertragen.</span>
-        </div>
-      </form>
+      </div>
 
       <aside class="desk" aria-label="Kontakt und Öffnungszeiten">
-        <a class="desk__phone" href="tel:+4957237889999"><span class="mono">Telefon</span>05723 / 78 89 99 9</a>
         <dl class="desk__list">
           <dt class="mono">Mobil</dt><dd><a href="tel:+491736248008">0173 / 624 80 08</a></dd>
           <dt class="mono">Fax</dt><dd>05723 / 90 80 354</dd>
           <dt class="mono">E-Mail</dt><dd><a href="mailto:info@printundcut.de">info@printundcut.de</a></dd>
-          <dt class="mono">Adresse</dt><dd><address>Hauptstraße 29<br>31559 Haste</address><a class="desk__route" href="https://www.google.com/maps/search/?api=1&amp;query=Hauptstra%C3%9Fe+29%2C+31559+Haste" target="_blank" rel="noopener">Route planen ↗</a></dd>
+          <dt class="mono">Adresse</dt><dd><address>PRINT &amp; CUT Werbetechnik<br>Florian Krause<br>Hauptstraße 29<br>31559 Haste</address></dd>
         </dl>
         <div class="desk__hours">
           <span class="mono desk__hours-title">Werkstattzeiten</span>
@@ -331,8 +303,8 @@
     <p>PRINT &amp; CUT Werbetechnik, Florian Krause, Hauptstraße 29, 31559 Haste, Telefon 05723 / 78 89 99 9, E-Mail info@printundcut.de.</p>
     <h3>Server-Logfiles</h3>
     <p>Beim Aufruf dieser Website verarbeitet der Hosting-Anbieter technisch notwendige Daten (z.&nbsp;B. IP-Adresse, Datum und Uhrzeit, aufgerufene Seite). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.</p>
-    <h3>Kontakt per E-Mail, Telefon oder Auftragszettel</h3>
-    <p>Wenn Sie uns kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Der Auftragszettel auf dieser Seite überträgt selbst keine Daten, sondern öffnet lediglich Ihr eigenes E-Mail-Programm mit einer vorausgefüllten Nachricht.</p>
+    <h3>Kontakt per E-Mail oder Telefon</h3>
+    <p>Wenn Sie uns kontaktieren, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b DSGVO).</p>
     <h3>Schriftarten und externe Inhalte</h3>
     <p>Alle Schriftarten sind lokal eingebunden. Es werden keine Cookies gesetzt und keine Tracking- oder Analysedienste verwendet. Erst beim Klick auf „Route planen“ wird Google Maps in einem neuen Fenster geöffnet.</p>
     <h3>Ihre Rechte</h3>
