@@ -11,8 +11,10 @@ Moderne, statische Website für **Stempel Pestka** (www.stempel-pestka.de).
 
 **Dateien**
 - `index.html` – Startseite (Über uns, Produkte, Bestellformular, Anfahrt/Öffnungszeiten)
-- `impressum.html`, `datenschutz.html` – Rechtstexte
+- `impressum.html` – Impressum
+- `datenschutz.html` – bewusst leer: Hier wird die eigene Datenschutzerklärung eingefügt (Hinweise im HTML-Kommentar der Datei)
 - `legal.css` – Gestaltung der Rechtstexte
+- `fonts/` – lokal eingebundene Schriften (Inter, DM Serif Display, IBM Plex Mono; SIL Open Font License). Es werden keine Google Fonts geladen.
 - `img/logo.svg` – Wortmarke „seit 1924 Stempel Pestka“ (aus der Anzeige), `img/stempel-logo.svg` – Stempel-Logo „STEMPEL-PESTKA“, `img/flyer-uebernahme.webp` – Aushang zur Übernahme
 - `index.html` ist komplett eigenständig (CSS und JavaScript eingebettet) und lässt sich direkt per Doppelklick im Browser öffnen.
 
@@ -35,3 +37,9 @@ Alle Animationen nutzen eine gemeinsame Bewegungskurve, laufen einmalig ab und w
 - Umsatzsteuer-ID im Impressum ergänzen (falls vorhanden, siehe Kommentar in `impressum.html`)
 - Ob die Siegelerlaubnis für Dienstsiegel (Land Niedersachsen) auf die neue Inhaberin übergegangen ist – dann kann sie wieder erwähnt werden
 - Öffnungszeiten und E-Mail-Adresse bestätigen
+
+**Datenschutz-relevante Technik**
+- Keine Cookies, kein Tracking, keine externen Schriften, keine eingebettete Karte.
+- „Route planen“ ist ein normaler Link zu Google Maps.
+- Das Anfrageformular sendet nichts an einen Server, es öffnet nur das E-Mail-Programm.
+- PRINT & CUT Werbetechnik und Stempel Pestka sind unabhängige Unternehmen; „im Hause PRINT & CUT“ beschreibt nur den Standort.
