@@ -3,15 +3,17 @@
 Moderne, statische Website für **Stempel Pestka** (www.stempel-pestka.de).
 
 **Aktualisierte Angaben**
-- Inhaberin: Nadine Rieboldt (vorher Ortwin Pestka)
+- Inhaberin: Nadine Rieboldt (vorher Ortwin Pestka), im Hause PRINT & CUT Werbetechnik
+- Ladengeschäft in Hannover seit 31.08.2024 geschlossen
 - Neuer Standort: Hauptstraße 29, 31559 Haste (vorher Wedekindplatz 2, 30161 Hannover)
-- Telefon: 05723 9569222 · E-Mail: stempel-pestka@web.de
+- Telefon: 05723 - 95 69 222 · E-Mail: stempel-pestka@web.de
 - Öffnungszeiten: Mo–Do 09–17 Uhr, Fr 09–14 Uhr
 
 **Dateien**
 - `index.html` – Startseite (Über uns, Produkte, Bestellformular, Anfahrt/Öffnungszeiten)
 - `impressum.html`, `datenschutz.html` – Rechtstexte
 - `legal.css` – Gestaltung der Rechtstexte
+- `img/logo.svg` – Wortmarke „seit 1924 Stempel Pestka“ (aus der Anzeige), `img/stempel-logo.svg` – Stempel-Logo „STEMPEL-PESTKA“, `img/flyer-uebernahme.webp` – Aushang zur Übernahme
 - `index.html` ist komplett eigenständig (CSS und JavaScript eingebettet) und lässt sich direkt per Doppelklick im Browser öffnen.
 
 **Gestaltungsprinzip „Spiegelbild → Abdruck“**
@@ -24,7 +26,7 @@ Jeder Stempel wird spiegelverkehrt gefertigt und erst im Abdruck lesbar. Daraus 
 - „Ausprobieren“: Live-Vorschau von Gummiplatte und Abdruck in einem festen Beispielformat (Text, Schrift, Farbe wählbar), sendet keine Daten.
 - „Anfrage“: eigenständiges Anfrageformular (öffnet das E-Mail-Programm).
 - Öffnungszeiten als Datumsstempel (GEÖFFNET/GESCHLOSSEN).
-Farbpalette: Hellgrün (#a6dc7e) und Grautöne, dunkleres Grün (#33702a) für lesbaren Text.
+Farbpalette nach den Firmenunterlagen: grüner Verlauf (#3dad3c → #9ee04f → Hellgrau), Rot #e3192a für „seit 1924“, Orange #f47216 für „im Hause PRINT & CUT Werbetechnik“, Magenta #e3087c für „Ortwin, wir übernehmen!“. Schriftarten der Unterlagen wurden bewusst nicht übernommen.
 Alle Animationen nutzen eine gemeinsame Bewegungskurve, laufen einmalig ab und werden bei „Bewegung reduzieren“ abgeschaltet.
 
 **Veröffentlichen:** Alle Dateien dieses Ordners per FTP in das Webverzeichnis von stempel-pestka.de hochladen. Kein Build-Schritt nötig.
