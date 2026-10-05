@@ -1,23 +1,21 @@
-# E-Mail-Vorlage: Vorstellung & Anfrage
+# E-Mail-Vorlage: Praxis Rupprecht
 
 Platzhalter in [eckigen Klammern] vor dem Versand ersetzen.
 
 ---
 
-**Betreff:** Ein ehemaliges [Einrichtung]-Kind mit einer Idee für Ihre Website
+**Betreff:** Kurze Anfrage zu Ihrer Praxis-Website
 
 ---
 
 Sehr geehrte Damen und Herren,
-<!-- oder: Sehr geehrte/r Frau/Herr [Nachname], -->
+<!-- oder: Sehr geehrte/r Frau/Herr Dr. Rupprecht, -->
 
-mein Name ist Janosch Krause, und ich war selbst als Kind bei [Name der Einrichtung]. Ich habe bis heute schöne Erinnerungen an diese Zeit.
+mein Name ist Janosch Krause. Ich bin Schüler und baue mir neben der Schule mein eigenes Unternehmen [Firmenname] auf. Ich modernisiere und erstelle Websites.
 
-Inzwischen bin ich Schüler und baue mir neben der Schule mein eigenes Unternehmen [Firmenname] auf. Ich modernisiere bestehende Websites und erstelle neue.
+Die heutige Elterngeneration informiert sich vor allem online, meist über das Smartphone. Eine moderne Website ist für viele Eltern daher der erste Eindruck Ihrer Praxis. Ich würde Ihnen gerne zeigen, wie Ihre Website noch übersichtlicher und zeitgemäßer werden kann.
 
-Die heutige Elterngeneration informiert sich vor allem online, oft zuerst über das Smartphone. Eine moderne Website ist deshalb häufig der erste Eindruck, den Eltern von Ihnen bekommen. Dabei würde ich Sie gerne unterstützen.
-
-Hätten Sie Interesse? Dann freue ich mich über eine kurze Rückmeldung. Gerne stelle ich Ihnen in einem unverbindlichen Termin meine Arbeit vor, und wir besprechen alles Weitere.
+Haben Sie Interesse? Dann freue ich mich über eine kurze Rückmeldung für einen unverbindlichen Termin.
 
 Mit freundlichen Grüßen
 
