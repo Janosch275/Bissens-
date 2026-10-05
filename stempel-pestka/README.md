@@ -20,7 +20,7 @@ Moderne, statische Website für **Stempel Pestka** (www.stempel-pestka.de).
 
 **Gestaltungsprinzip „Spiegelbild → Abdruck“**
 Jeder Stempel wird spiegelverkehrt gefertigt und erst im Abdruck lesbar. Daraus folgen alle Elemente:
-- Startseite: Buchstaben drehen sich von spiegelverkehrt zu lesbar; eine Gummiplatte wird gewendet, aufgedrückt und hinterlässt einen Abdruck mit Tagesdatum.
+- Startseite: Firmenname in Logo-Schrift steht ruhig, Stempel-Symbol drückt auf, „seit 1924“ wird aufgestempelt, ein Farbstrich rollt unter „Pestka“; eine Gummiplatte wird gewendet, aufgedrückt und hinterlässt einen Abdruck mit Tagesdatum.
 - Adressänderung: alte Adresse wird durchgestrichen, „Neue Adresse“ wird aufgestempelt.
 - Geschichte: Jahreszahl 1924 rollt wie ein Paginierstempel.
 - Sortiment als Setzkasten (Hommage an den Schriftsetzer Ortwin Pestka) mit gezeichneten Produkt-Illustrationen; beim Darüberfahren stempelt das Werkzeug und der Abdruck erscheint.

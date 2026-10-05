@@ -114,38 +114,27 @@ p{margin:0 0 1em}
 
 /* ---------- Hero ---------- */
 .hero{padding:clamp(40px,7vw,96px) 0 clamp(72px,9vw,128px);background:radial-gradient(130% 120% at 92% 4%,#dcdedb 0%,#d3e2bd 26%,#b4e06c 52%,#79c94a 78%,#3dad3c 100%)}
-.hero .lead{color:var(--ink)!important}
-.hero .facts{border-color:rgba(0,0,0,.18)}
-.hero .facts div{color:var(--ink)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
 .hero .label{color:var(--ink-2)}
 .hero .label::after{background:var(--ink)}
-.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
+.hero .lead{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink);max-width:34em}
+.hero .lead strong{color:var(--ink);font-weight:600}
+.hero .facts{border-color:rgba(0,0,0,.18)}
+.hero .facts div{color:var(--ink)}
+
+/* Firmenname in Logo-Schrift: Buchstaben stehen ruhig, das Logo wird "aufgestempelt" */
 .hero h1{margin:0 0 .9em;line-height:1}
 .wordmark{display:block;width:min(100%,600px);height:auto;overflow:visible}
 .wm-letters{fill:var(--ink)}
-.wordmark .ch{transform-box:fill-box;transform-origin:50% 50%;transform:scaleX(-1);opacity:.25;fill:var(--rubber);transition:transform .7s var(--ease),opacity .5s,fill .7s;transition-delay:calc(var(--i)*55ms + 150ms)}
-.hero h1.go .ch{transform:none;opacity:1;fill:var(--ink)}
-.wm-icon{fill:var(--ink);transform-box:fill-box;transform-origin:50% 100%;transform:translateY(-14px);opacity:0;transition:transform .45s cubic-bezier(.5,1.6,.6,1) .95s,opacity .2s .95s}
-.hero h1.go .wm-icon{transform:none;opacity:1}
-.wm-since{fill:var(--red);transform-box:fill-box;transform-origin:50% 50%;transform:scale(1.6);opacity:0;transition:transform .35s cubic-bezier(.5,1.6,.6,1) 1.25s,opacity .2s 1.25s}
-.hero h1.go .wm-since{transform:none;opacity:1}
-.hero .lead{color:var(--ink)!important}
-.hero .facts{border-color:rgba(0,0,0,.18)}
-.hero .facts div{color:var(--ink)}
-.hero .label{color:var(--ink-2)}
-.hero .label::after{background:var(--ink)}
-.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
-.hero h1{font-size:clamp(3.6rem,10vw,8.4rem);line-height:.92;margin-bottom:.32em;perspective:600px}
-.hero h1 .line{display:block;white-space:nowrap}
-.hero h1 .ch{display:inline-block;transform:scaleX(-1);opacity:.18;color:var(--rubber);transition:transform .7s var(--ease),opacity .5s,color .7s;transition-delay:calc(var(--i)*45ms + 150ms)}
-.hero h1.go .ch{transform:none;opacity:1;color:var(--ink)}
-.hero h1 .ch.sp{width:.25em}
-.hero h1 em{font-style:italic;color:var(--ink);background:linear-gradient(transparent 72%,rgba(255,255,255,.6) 72%,rgba(255,255,255,.6) 90%,transparent 90%) no-repeat;background-size:0% 100%;transition:background-size .9s var(--ease) 1.1s;padding-right:.08em}
-.hero h1.go em{background-size:100% 100%}
-.hero h1.go em .ch{color:var(--ink)}
-.hero h1{position:relative}
-.hero h1.go .hero .lead{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink-2);max-width:34em}
-.hero .lead strong{color:var(--ink);font-weight:600}
+.wm-ink{fill:rgba(255,255,255,.6);transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0)}
+.wm-icon{fill:var(--ink);transform-box:fill-box;transform-origin:50% 100%;opacity:0}
+.wm-since{fill:var(--red);transform-box:fill-box;transform-origin:50% 50%;opacity:0}
+.hero h1.go .wm-icon{animation:iconPress .7s cubic-bezier(.3,.7,.3,1) .25s both}
+.hero h1.go .wm-since{animation:sincePress .4s cubic-bezier(.5,1.6,.6,1) .75s both}
+.hero h1.go .wm-ink{animation:inkRoll .7s cubic-bezier(.65,0,.35,1) 1s both}
+@keyframes iconPress{0%{opacity:0;transform:translateY(-22%)}45%{opacity:1;transform:translateY(3%) scaleY(.93)}70%{transform:translateY(-1%) scaleY(1.01)}100%{opacity:1;transform:none}}
+@keyframes sincePress{0%{opacity:0;transform:scale(1.6)}60%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes inkRoll{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 36px}
 .facts{display:flex;flex-wrap:wrap;gap:12px 36px;padding-top:24px;border-top:1px solid var(--rule);font-size:.92rem;color:var(--ink-2)}
 .facts b{display:block;font:400 1.6rem/1.1 var(--serif);color:var(--ink)}
@@ -390,6 +379,8 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
   .gens li{grid-template-columns:1fr;gap:2px}
 }
 @media (prefers-reduced-motion:reduce){
+  .wm-icon,.wm-since{opacity:1}
+  .wm-ink{transform:none}
   html{scroll-behavior:auto}
   *,*::before,*::after{transition:none!important;animation:none!important}
   .rv{opacity:1;transform:none;filter:none}
@@ -526,7 +517,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
         <p class="label rv"><b>Nº 001</b> Stempel &amp; Schilder · Haste</p>
         <h1 id="h1" aria-label="Stempel Pestka – seit 1924">
           <svg class="wordmark" viewBox="63.21 5.98 220.03 130.77" aria-hidden="true">
-            <g class="wm-letters"><g class="ch" style="--i:0"><use href="#bw-glyph-0-0" x="65.829255" y="72.265854"/></g><g class="ch" style="--i:1"><use href="#bw-glyph-0-1" x="98.322658" y="72.265854"/></g><g class="ch" style="--i:2"><use href="#bw-glyph-0-2" x="119.621872" y="72.265854"/></g><g class="ch" style="--i:3"><use href="#bw-glyph-0-3" x="153.083422" y="72.265854"/></g><g class="ch" style="--i:4"><use href="#bw-glyph-0-4" x="201.490727" y="72.265854"/></g><g class="ch" style="--i:5"><use href="#bw-glyph-0-2" x="235.43635" y="72.265854"/></g><g class="ch" style="--i:6"><use href="#bw-glyph-0-5" x="268.897899" y="72.265854"/></g><g class="ch" style="--i:7"><use href="#bw-glyph-1-0" x="120.594413" y="134.257314"/></g><g class="ch" style="--i:8"><use href="#bw-glyph-1-1" x="150.030705" y="134.257314"/></g><g class="ch" style="--i:9"><use href="#bw-glyph-1-2" x="180.259681" y="134.257314"/></g><g class="ch" style="--i:10"><use href="#bw-glyph-1-3" x="204.147678" y="134.257314"/></g><g class="ch" style="--i:11"><use href="#bw-glyph-1-4" x="223.389269" y="134.257314"/></g><g class="ch" style="--i:12"><use href="#bw-glyph-1-5" x="252.779617" y="134.257314"/></g></g>
+            <rect class="wm-ink" x="118" y="120" width="160" height="13" rx="2"/><g class="wm-letters"><g class="ch" style="--i:0"><use href="#bw-glyph-0-0" x="65.829255" y="72.265854"/></g><g class="ch" style="--i:1"><use href="#bw-glyph-0-1" x="98.322658" y="72.265854"/></g><g class="ch" style="--i:2"><use href="#bw-glyph-0-2" x="119.621872" y="72.265854"/></g><g class="ch" style="--i:3"><use href="#bw-glyph-0-3" x="153.083422" y="72.265854"/></g><g class="ch" style="--i:4"><use href="#bw-glyph-0-4" x="201.490727" y="72.265854"/></g><g class="ch" style="--i:5"><use href="#bw-glyph-0-2" x="235.43635" y="72.265854"/></g><g class="ch" style="--i:6"><use href="#bw-glyph-0-5" x="268.897899" y="72.265854"/></g><g class="ch" style="--i:7"><use href="#bw-glyph-1-0" x="120.594413" y="134.257314"/></g><g class="ch" style="--i:8"><use href="#bw-glyph-1-1" x="150.030705" y="134.257314"/></g><g class="ch" style="--i:9"><use href="#bw-glyph-1-2" x="180.259681" y="134.257314"/></g><g class="ch" style="--i:10"><use href="#bw-glyph-1-3" x="204.147678" y="134.257314"/></g><g class="ch" style="--i:11"><use href="#bw-glyph-1-4" x="223.389269" y="134.257314"/></g><g class="ch" style="--i:12"><use href="#bw-glyph-1-5" x="252.779617" y="134.257314"/></g></g>
             <g class="wm-icon"><path fill-rule="evenodd"  fill-opacity="1" d="M 95.359375 106.722656 L 96.925781 119.308594 L 112.5 119.308594 L 119.03125 134.253906 L 65.214844 134.253906 L 71.085938 119.308594 L 85.625 119.308594 L 87.171875 106.714844 C 82.40625 105.007812 79.117188 100.453125 79.117188 95.261719 C 79.117188 88.546875 84.5625 83.101562 91.277344 83.101562 C 97.992188 83.101562 103.4375 88.546875 103.4375 95.261719 C 103.4375 100.464844 100.140625 105.023438 95.359375 106.722656 Z M 91.277344 84.945312 C 96.976562 84.945312 101.59375 89.566406 101.59375 95.261719 C 101.59375 100.257812 98.042969 104.421875 93.332031 105.375 L 95.296875 121.15625 L 111.292969 121.15625 L 116.210938 132.40625 L 67.921875 132.40625 L 72.34375 121.15625 L 87.257812 121.15625 L 89.199219 105.371094 C 84.496094 104.40625 80.960938 100.246094 80.960938 95.261719 C 80.960938 89.566406 85.582031 84.945312 91.277344 84.945312 "/></g>
             <g class="wm-since"><use href="#bw-glyph-2-0" x="179.68785" y="33.972499"/><use href="#bw-glyph-2-1" x="188.626108" y="33.133976"/><use href="#bw-glyph-2-2" x="197.422938" y="32.308721"/><use href="#bw-glyph-2-3" x="202.599207" y="31.823121"/><use href="#bw-glyph-2-4" x="210.632325" y="31.069512"/><use href="#bw-glyph-2-5" x="220.136295" y="30.177918"/><use href="#bw-glyph-2-6" x="227.631986" y="29.474726"/><use href="#bw-glyph-2-7" x="242.651654" y="28.06569"/><use href="#bw-glyph-2-8" x="253.99419" y="27.001615"/></g>
           </svg>
