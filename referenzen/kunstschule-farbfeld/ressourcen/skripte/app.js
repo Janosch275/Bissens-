@@ -254,8 +254,8 @@
   });
   var wanted = new URLSearchParams(location.search).get("kurs");
   if (wanted) kurs.value = wanted;
-  var to = form.getAttribute("data-email"), done = $("#form-done"), link = $("#mail-link");
-  link.href = "mailto:" + to; link.textContent = to;
+  /* Beispiel-Website: Das Formular prüft nur die Eingaben und verschickt nichts. */
+  var done = $("#form-done");
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var ok = true;
@@ -265,13 +265,6 @@
       if (bad && ok) { f.focus(); ok = false; }
     });
     if (!ok) return;
-    var v = function (n) { return form.elements[n].value.trim(); };
-    var body = ["Hallo liebes Farbfeld-Team,", "", "ich möchte gern eine kostenlose Probestunde buchen.", "",
-      "Für wen: " + v("fuer"), "Kurs: " + (v("kurs") || "noch unsicher – bitte beraten"), "", v("nachricht"), "", "Viele Grüße", v("name")];
-    if (v("telefon")) body.push("Telefon: " + v("telefon"));
-    var href = "mailto:" + to + "?subject=" + encodeURIComponent("Probestunde – " + v("name")) + "&body=" + encodeURIComponent(body.join("\r\n"));
-    link.href = href;
-    window.location.href = href;
     done.hidden = false;
   });
 })();

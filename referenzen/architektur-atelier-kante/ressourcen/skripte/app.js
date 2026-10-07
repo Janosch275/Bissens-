@@ -144,8 +144,8 @@
   /* ---------- Kontaktformular: E-Mail-Vorlage ---------- */
   var form = $("#contact-form");
   if (!form) return;
-  var to = form.getAttribute("data-email"), done = $("#form-done"), link = $("#mail-link");
-  link.href = "mailto:" + to; link.textContent = to;
+  /* Beispiel-Website: Das Formular prüft nur die Eingaben und verschickt nichts. */
+  var done = $("#form-done");
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var ok = true;
@@ -155,13 +155,6 @@
       if (bad && ok) { f.focus(); ok = false; }
     });
     if (!ok) return;
-    var v = function (n) { return form.elements[n].value.trim(); };
-    var body = ["Guten Tag,", "", "ich interessiere mich für eine Zusammenarbeit mit Atelier Kante.", "",
-      "Art des Projekts: " + (v("art") || "noch offen"), "", v("nachricht"), "", "Mit freundlichen Grüßen", v("name")];
-    if (v("telefon")) body.push("Telefon: " + v("telefon"));
-    var href = "mailto:" + to + "?subject=" + encodeURIComponent("Projektanfrage – " + v("name")) + "&body=" + encodeURIComponent(body.join("\r\n"));
-    link.href = href;
-    window.location.href = href;
     done.hidden = false;
   });
 })();
