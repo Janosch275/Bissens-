@@ -7,7 +7,6 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 | Datei | Zweck |
 | --- | --- |
 | `index.html` | Startseite: Hero, Leistungen, Ablauf, Preise mit Rechner, Über mich, FAQ, Kontaktformular |
-| `webdesign-bad-nenndorf.html` | Standort-Seite für Kunden aus Bad Nenndorf, Schaumburg und der Region Hannover (lokale Auffindbarkeit bei Google) |
 | `robots.txt` | Hinweis für Suchmaschinen – Sitemap-Zeile ergänzen, sobald die Domain steht |
 | `impressum.html`, `datenschutz.html` | Rechtliche Seiten – **gelb markierte Platzhalter vor dem Livegang ausfüllen** |
 | `kontakt.php` | Nimmt Formular-Anfragen entgegen, speichert sie in `/anfragen` und schickt sie per E-Mail |

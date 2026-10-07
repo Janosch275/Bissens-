@@ -519,21 +519,6 @@ p { margin: 0 0 1em; }
 .area__label { fill: #fff; font: 700 14px var(--font-head); letter-spacing: -.01em; }
 .area figcaption { margin-top: 6px; text-align: right; font-size: .74rem; color: rgba(255, 255, 255, .45); }
 
-/* Standort-Seite */
-.page-hero { padding: 150px 0 140px; }
-.page-hero .hero__title { font-size: clamp(2.3rem, 1.4rem + 3.6vw, 4rem); max-width: 860px; }
-.page-hero .hero__lead { max-width: 640px; }
-.page-hero .hero__actions { margin-bottom: 0; }
-.local-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
-.local-list li { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; padding: 20px 24px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
-.local-list h3 { font-size: 1.1rem; margin: 0 0 2px; }
-.local-list p { margin: 0; color: var(--muted); font-size: .94rem; }
-.local-list .service__icon { margin: 0; width: 46px; height: 46px; border-radius: 14px; }
-.local-list .service__icon svg { width: 22px; height: 22px; }
-.local-list__price { font: 700 1.05rem var(--font-head); color: var(--green-600); white-space: nowrap; }
-.cta-band { text-align: center; }
-.cta-band h2 { color: #fff; max-width: 720px; margin-inline: auto; }
-.cta-band p { max-width: 560px; margin: 0 auto 30px; }
 
 /* ---------- Scroll-Animationen ---------- */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
@@ -605,9 +590,6 @@ p { margin: 0 0 1em; }
   .work__frame { margin: 10px 10px 0; }
   .service-strip__price { text-align: left; }
   .footer__inner { flex-direction: column; text-align: center; }
-  .local-list li { grid-template-columns: auto 1fr; }
-  .local-list__price { grid-column: 2; }
-  .page-hero { padding: 120px 0 110px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
