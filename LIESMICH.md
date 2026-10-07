@@ -11,7 +11,7 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 | `kontakt.php` | Nimmt Formular-Anfragen entgegen, speichert sie in `/anfragen` und schickt sie per E-Mail |
 | `ressourcen/stile/design.css` | Design: grüne Farbpalette, Schriften, Animationen, Handy-Ansicht |
 | `ressourcen/skripte/funktionen.js` | Scroll-Animationen, Menü, Zähler, Formular-Validierung & -Versand |
-| `ressourcen/bilder/logo.svg`, `symbol.svg` | Logo (JK-Monogramm) und Browser-Tab-Symbol |
+| `ressourcen/bilder/logo.svg`, `symbol.svg` | Logo (JK-Zeichen mit Mint-Quadrat) und Browser-Tab-Symbol |
 | `ressourcen/schriften/` | Sora & Plus Jakarta Sans, lokal eingebunden (DSGVO-freundlich, kein Google-CDN) |
 
 > Hinweis: `index.html` muss so heißen – Webserver laden diese Datei automatisch als Startseite.

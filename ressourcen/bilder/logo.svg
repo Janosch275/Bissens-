@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-label="Webdesign Janosch Krause">
-  <defs>
-    <linearGradient id="jk-g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#34D399"/>
-      <stop offset="1" stop-color="#0E7A55"/>
-    </linearGradient>
-  </defs>
-  <rect width="40" height="40" rx="11" fill="url(#jk-g)"/>
-  <g fill="#fff"><path transform="translate(4.579 28.750) scale(0.02260 -0.02260)" d="M303.25 -19.5Q220.25 -19.5 159.625 12.0Q99 43.5 66.25 103.625Q33.5 163.75 33.5 250.25V286.5H196V241.25Q196 192.5 224.625 163.0Q253.25 133.5 302.5 133.5Q351.75 133.5 380.375 163.0Q409 192.5 409 241.25V606.5H573V250.25Q573 163.75 540.25 103.625Q507.5 43.5 447.375 12.0Q387.25 -19.5 303.25 -19.5ZM119 586.5V730H573V586.5Z"/><path transform="translate(17.485 28.750) scale(0.02260 -0.02260)" d="M561.5 0 309.5 341H208.5L514.5 730H703L428 381L425.75 451.5L760 0ZM82 0V730H246V0Z"/></g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M26 6V48a8 8 0 0 1-16 0M45 23 26 37M33 31.5 46 45" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"/><rect x="51" y="39" width="10" height="10" fill="#3DFFA2"/></svg>
