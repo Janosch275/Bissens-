@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Farbfeld Kunstschule – Mal mal anders (Beispiel-Website)</title>
+  <meta name="description" content="Beispiel-Website der fiktiven Kunstschule Farbfeld – gestaltet von Webdesign Janosch Krause.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#F3EBDD">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="preload" href="ressourcen/schriften/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ressourcen/stile/stil.css">
+  <script>
+    (function (d) {
+      d.classList.replace("no-js", "js");
+      try { if (sessionStorage.getItem("ff-wipe")) { d.classList.add("wipe-in"); sessionStorage.removeItem("ff-wipe"); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+</head>
+<body class="is-home">
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+  <div class="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="head">
+    <a href="index.html" class="logo" aria-label="Farbfeld Kunstschule – Startseite"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M33 5c11 0 23 7 25 19s-3 27-16 31S11 55 7 42 15 5 33 5z" fill="#FF5B37"/><circle cx="41" cy="21" r="7.5" fill="#FFC53D"/><path d="M14 45c8-9 18 6 34-6" fill="none" stroke="#3047FF" stroke-width="5.5" stroke-linecap="round"/></svg><span>Farbfeld</span></a>
+    <nav class="menu" id="menu" aria-label="Hauptnavigation"><a href="index.html" aria-current="page">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></nav>
+    <a href="kontakt.html" class="pill pill--ink head__cta">Probestunde</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <canvas class="paint" aria-hidden="true"></canvas>
+      <span class="blob blob--1" aria-hidden="true"></span><span class="blob blob--2" aria-hidden="true"></span><span class="blob blob--3" aria-hidden="true"></span>
+      <p class="label hero__label pop">Kunstschule für Groß &amp; Klein · Musterstadt</p>
+      <h1 class="hero__title" data-bounce>Mal mal<br>anders.</h1>
+      <p class="hero__lead pop">Malen, Zeichnen, Drucken und Töpfern – ohne Vorkenntnisse, ohne Leistungsdruck, mit sehr viel Farbe. Für Kinder ab 6, Jugendliche und Erwachsene.</p>
+      <div class="hero__cta pop"><a href="kontakt.html" class="pill pill--tomato">Probestunde buchen</a><a href="kurse.html" class="pill">Kurse entdecken →</a></div>
+      <div class="sticker" aria-hidden="true"><svg viewBox="0 0 200 200"><defs><path id="circ" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs><text><textPath href="#circ">Probestunde gratis ✳ Probestunde gratis ✳ Probestunde gratis ✳ </textPath></text></svg><span>✳</span></div>
+      <p class="hero__hint label" aria-hidden="true">← Probier mal: Mit der Maus malen</p>
+    </section>
+
+    <div class="band" aria-hidden="true"><div class="band__track"><span>Aquarell</span><b>✳</b><span>Acryl</span><b>✳</b><span>Linoldruck</span><b>✳</b><span>Keramik</span><b>✳</b><span>Comic</span><b>✳</b><span>Porträt</span><b>✳</b><span>Aquarell</span><b>✳</b><span>Acryl</span><b>✳</b><span>Linoldruck</span><b>✳</b><span>Keramik</span><b>✳</b><span>Comic</span><b>✳</b><span>Porträt</span><b>✳</b></div></div>
+
+    <section class="section">
+      <div class="title-row"><p class="label">Für wen?</p><h2 data-bounce>Für alle mit Lust auf Farbe.</h2></div>
+      <div class="tilt-cards">
+        <a class="tcard tcard--tomato pop" href="kurse.html#kinder"><svg viewBox="0 0 120 120" class="doodle"><path d="M20 90c10-40 30-60 40-60s10 30 0 40-35 5-25-15 45-25 60-5" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="92" cy="30" r="12" fill="currentColor"/></svg><span class="label">6 – 12 Jahre</span><h3>Kinder</h3><p>Matschen, klecksen, entdecken: Wir probieren jede Woche eine neue Technik aus.</p><span class="tcard__more">Zu den Kursen →</span></a>
+        <a class="tcard tcard--sun pop" href="kurse.html#jugendliche"><svg viewBox="0 0 120 120" class="doodle"><path d="M18 100 60 18l42 82z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M38 70h44" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg><span class="label">13 – 17 Jahre</span><h3>Jugendliche</h3><p>Comic, Streetart, Mappenvorbereitung – mit Raum für den eigenen Stil.</p><span class="tcard__more">Zu den Kursen →</span></a>
+        <a class="tcard tcard--cobalt pop" href="kurse.html#erwachsene"><svg viewBox="0 0 120 120" class="doodle"><rect x="22" y="22" width="76" height="76" rx="8" fill="none" stroke="currentColor" stroke-width="6" transform="rotate(-8 60 60)"/><path d="M36 74c12-18 22-6 30-18s12-10 20-6" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/></svg><span class="label">ab 18 Jahren</span><h3>Erwachsene</h3><p>Abendkurse und Wochenend-Workshops zum Abschalten und Neu-Anfangen.</p><span class="tcard__more">Zu den Kursen →</span></a>
+      </div>
+    </section>
+
+    <section class="section numbers">
+      <div class="num pop"><b data-count="14">14</b><span>Kurse pro Woche</span></div>
+      <div class="num pop"><b data-count="8">8</b><span>Plätze pro Kurs – höchstens</span></div>
+      <div class="num pop"><b data-count="0">0</b><span>Vorkenntnisse nötig</span></div>
+      <div class="num pop"><b data-count="1">1</b><span>Tee oder Kakao inklusive</span></div>
+    </section>
+
+    <section class="quote">
+      <svg class="squiggle" viewBox="0 0 600 60" aria-hidden="true"><path d="M5 40C60 5 90 55 150 30s90-30 150 0 100 20 150-5 90 10 140 0" fill="none" stroke="#FF5B37" stroke-width="8" stroke-linecap="round"/></svg>
+      <blockquote class="pop">„Hier darf alles schiefgehen –<br>genau dafür gibt es Pinsel.“</blockquote>
+      <p class="label">Mara Lenz, Atelierleitung</p>
+    </section>
+
+    <section class="section">
+      <div class="title-row"><p class="label">Aus dem Atelier</p><h2 data-bounce>Frisch von der Staffelei.</h2></div>
+      <div class="teaser" data-art-grid="4"></div>
+      <p class="center"><a href="galerie.html" class="pill pill--ink">Zur ganzen Galerie →</a></p>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="foot__top">
+      <p class="foot__big" data-bounce>Bis bald im Atelier!</p>
+      <a href="kontakt.html" class="pill pill--sun">Probestunde buchen ✳</a>
+    </div>
+    <div class="foot__cols">
+      <div><p class="label">Atelier</p><p>Farbfeld Kunstschule<br>Musterweg 7<br>12345 Musterstadt</p></div>
+      <div><p class="label">Öffnungszeiten</p><p>Di – Fr 14 – 20 Uhr<br>Sa 10 – 16 Uhr</p></div>
+      <div><p class="label">Seiten</p><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></div>
+      <div><p class="label">Rechtliches</p><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+    <p class="foot__bottom label">© <span class="year">2026</span> Farbfeld Kunstschule · Beispiel-Website · Design &amp; Umsetzung: Webdesign Janosch Krause</p>
+  </footer>
+
+  <!-- Hinweis: Diese Seite ist ein Beispiel. Link im href auf Ihre eigene Website setzen. -->
+  <a class="demo-badge" href="../../index.html#arbeiten">✳ Beispiel-Website · erstellt von Janosch Krause</a>
+  <script src="ressourcen/skripte/app.js" defer></script>
+</body>
+</html>

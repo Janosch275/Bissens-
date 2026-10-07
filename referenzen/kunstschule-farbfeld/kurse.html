@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kurse & Workshops – Farbfeld Kunstschule (Beispiel-Website)</title>
+  <meta name="description" content="Kurse und Workshops der fiktiven Kunstschule Farbfeld.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#F3EBDD">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="preload" href="ressourcen/schriften/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ressourcen/stile/stil.css">
+  <script>
+    (function (d) {
+      d.classList.replace("no-js", "js");
+      try { if (sessionStorage.getItem("ff-wipe")) { d.classList.add("wipe-in"); sessionStorage.removeItem("ff-wipe"); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+</head>
+<body class="">
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+  <div class="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="head">
+    <a href="index.html" class="logo" aria-label="Farbfeld Kunstschule – Startseite"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M33 5c11 0 23 7 25 19s-3 27-16 31S11 55 7 42 15 5 33 5z" fill="#FF5B37"/><circle cx="41" cy="21" r="7.5" fill="#FFC53D"/><path d="M14 45c8-9 18 6 34-6" fill="none" stroke="#3047FF" stroke-width="5.5" stroke-linecap="round"/></svg><span>Farbfeld</span></a>
+    <nav class="menu" id="menu" aria-label="Hauptnavigation"><a href="index.html">Start</a><a href="kurse.html" aria-current="page">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></nav>
+    <a href="kontakt.html" class="pill pill--ink head__cta">Probestunde</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main id="main">
+    <section class="page-hero page-hero--sun">
+      <span class="blob blob--2" aria-hidden="true"></span>
+      <p class="label pop">Kurse &amp; Workshops</p>
+      <h1 data-bounce>Such dir<br>deine Farbe aus.</h1>
+      <p class="page-hero__lead pop">Wöchentliche Kurse in kleinen Gruppen mit höchstens acht Personen. Die erste Stunde ist immer kostenlos – einfach vorbeikommen und ausprobieren.</p>
+    </section>
+
+    <section class="section">
+      <div class="filters" role="group" aria-label="Kurse filtern">
+        <button class="chip is-on" data-filter="alle">Alle</button>
+        <button class="chip" data-filter="kinder" id="kinder">Kinder</button>
+        <button class="chip" data-filter="jugendliche" id="jugendliche">Jugendliche</button>
+        <button class="chip" data-filter="erwachsene" id="erwachsene">Erwachsene</button>
+        <button class="chip" data-filter="workshops">Workshops</button>
+      </div>
+      <p class="filters__count label" aria-live="polite"><span id="count">10</span> Angebote</p>
+      <div class="courses">
+        <article class="course course--tomato" data-cat="kinder">
+          <p class="label">6 – 8 Jahre</p>
+          <h3>Kleine Klecksmonster</h3>
+          <p>Fingerfarbe, Kleister, Kartoffeldruck – wir entdecken, was Farbe alles kann.</p>
+          <dl><div><dt>Wann</dt><dd>Di 15:00 – 16:30</dd></div><div><dt>Preis</dt><dd>58 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Kleine Klecksmonster" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--sun" data-cat="kinder">
+          <p class="label">9 – 12 Jahre</p>
+          <h3>Farbforscher:innen</h3>
+          <p>Acryl, Kreide und Collage: jede Woche ein neues Experiment.</p>
+          <dl><div><dt>Wann</dt><dd>Mi 15:00 – 16:30</dd></div><div><dt>Preis</dt><dd>58 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Farbforscher:innen" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--sage" data-cat="kinder">
+          <p class="label">6 – 12 Jahre</p>
+          <h3>Ton &amp; Matsch</h3>
+          <p>Tiere, Schalen und Monster aus Ton – inklusive Brennen im Atelierofen.</p>
+          <dl><div><dt>Wann</dt><dd>Fr 15:00 – 16:30</dd></div><div><dt>Preis</dt><dd>64 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Ton und Matsch" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--cobalt" data-cat="jugendliche">
+          <p class="label">13 – 17 Jahre</p>
+          <h3>Comic-Werkstatt</h3>
+          <p>Figuren, Panels, Geschichten: vom ersten Strich bis zum eigenen Heft.</p>
+          <dl><div><dt>Wann</dt><dd>Di 17:00 – 18:30</dd></div><div><dt>Preis</dt><dd>62 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Comic-Werkstatt" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--tomato" data-cat="jugendliche">
+          <p class="label">13 – 17 Jahre</p>
+          <h3>Streetart &amp; Schablone</h3>
+          <p>Schablonen schneiden, Sprühen auf Leinwand und Stickern – ganz legal.</p>
+          <dl><div><dt>Wann</dt><dd>Do 17:00 – 18:30</dd></div><div><dt>Preis</dt><dd>62 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Streetart und Schablone" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--sun" data-cat="jugendliche">
+          <p class="label">ab 15 Jahren</p>
+          <h3>Mappenkurs</h3>
+          <p>Gezielte Vorbereitung auf Bewerbungen an Kunst- und Designschulen.</p>
+          <dl><div><dt>Wann</dt><dd>Sa 10:00 – 12:30</dd></div><div><dt>Preis</dt><dd>89 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Mappenkurs" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--sage" data-cat="erwachsene">
+          <p class="label">Erwachsene</p>
+          <h3>Aquarell am Abend</h3>
+          <p>Lasieren, Nass-in-Nass, Licht malen – entspannt mit Tee.</p>
+          <dl><div><dt>Wann</dt><dd>Mi 19:00 – 21:00</dd></div><div><dt>Preis</dt><dd>72 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Aquarell am Abend" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--cobalt" data-cat="erwachsene">
+          <p class="label">Erwachsene</p>
+          <h3>Acryl &amp; Spachtel</h3>
+          <p>Große Formate, kräftige Farben, Mut zur Fläche.</p>
+          <dl><div><dt>Wann</dt><dd>Do 19:00 – 21:00</dd></div><div><dt>Preis</dt><dd>72 € / Monat</dd></div></dl>
+          <a href="kontakt.html?kurs=Acryl und Spachtel" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--tomato" data-cat="workshops">
+          <p class="label">ab 14 Jahren</p>
+          <h3>Linoldruck-Wochenende</h3>
+          <p>Motiv entwerfen, schneiden, drucken – Sie gehen mit eigener Edition nach Hause.</p>
+          <dl><div><dt>Wann</dt><dd>Sa + So, 10 – 16 Uhr</dd></div><div><dt>Preis</dt><dd>149 € einmalig</dd></div></dl>
+          <a href="kontakt.html?kurs=Linoldruck-Wochenende" class="course__btn">Platz anfragen →</a>
+        </article>
+        <article class="course course--sun" data-cat="workshops">
+          <p class="label">Erwachsene</p>
+          <h3>Porträt in einem Tag</h3>
+          <p>Proportionen, Licht und Ausdruck: ein intensiver Tag am Zeichenbrett.</p>
+          <dl><div><dt>Wann</dt><dd>Sa, 10 – 17 Uhr</dd></div><div><dt>Preis</dt><dd>119 € einmalig</dd></div></dl>
+          <a href="kontakt.html?kurs=Porträt in einem Tag" class="course__btn">Platz anfragen →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section steps">
+      <div class="title-row"><p class="label">So geht's</p><h2 data-bounce>In drei Schritten ins Atelier.</h2></div>
+      <ol class="steps__list">
+        <li class="pop"><b>1</b><h3>Kurs aussuchen</h3><p>Stöbern Sie oben oder rufen Sie uns an – wir beraten gern.</p></li>
+        <li class="pop"><b>2</b><h3>Probestunde</h3><p>Die erste Stunde ist kostenlos und unverbindlich.</p></li>
+        <li class="pop"><b>3</b><h3>Losmalen</h3><p>Gefällt's? Dann einfach monatlich dabei bleiben – jederzeit kündbar.</p></li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="foot__top">
+      <p class="foot__big" data-bounce>Bis bald im Atelier!</p>
+      <a href="kontakt.html" class="pill pill--sun">Probestunde buchen ✳</a>
+    </div>
+    <div class="foot__cols">
+      <div><p class="label">Atelier</p><p>Farbfeld Kunstschule<br>Musterweg 7<br>12345 Musterstadt</p></div>
+      <div><p class="label">Öffnungszeiten</p><p>Di – Fr 14 – 20 Uhr<br>Sa 10 – 16 Uhr</p></div>
+      <div><p class="label">Seiten</p><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></div>
+      <div><p class="label">Rechtliches</p><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+    <p class="foot__bottom label">© <span class="year">2026</span> Farbfeld Kunstschule · Beispiel-Website · Design &amp; Umsetzung: Webdesign Janosch Krause</p>
+  </footer>
+
+  <!-- Hinweis: Diese Seite ist ein Beispiel. Link im href auf Ihre eigene Website setzen. -->
+  <a class="demo-badge" href="../../index.html#arbeiten">✳ Beispiel-Website · erstellt von Janosch Krause</a>
+  <script src="ressourcen/skripte/app.js" defer></script>
+</body>
+</html>

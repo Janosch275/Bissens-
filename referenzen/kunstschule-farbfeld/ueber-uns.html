@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Über uns – Farbfeld Kunstschule (Beispiel-Website)</title>
+  <meta name="description" content="Team und Geschichte der fiktiven Kunstschule Farbfeld.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#F3EBDD">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="preload" href="ressourcen/schriften/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ressourcen/stile/stil.css">
+  <script>
+    (function (d) {
+      d.classList.replace("no-js", "js");
+      try { if (sessionStorage.getItem("ff-wipe")) { d.classList.add("wipe-in"); sessionStorage.removeItem("ff-wipe"); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+</head>
+<body class="">
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+  <div class="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="head">
+    <a href="index.html" class="logo" aria-label="Farbfeld Kunstschule – Startseite"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M33 5c11 0 23 7 25 19s-3 27-16 31S11 55 7 42 15 5 33 5z" fill="#FF5B37"/><circle cx="41" cy="21" r="7.5" fill="#FFC53D"/><path d="M14 45c8-9 18 6 34-6" fill="none" stroke="#3047FF" stroke-width="5.5" stroke-linecap="round"/></svg><span>Farbfeld</span></a>
+    <nav class="menu" id="menu" aria-label="Hauptnavigation"><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html" aria-current="page">Über uns</a><a href="kontakt.html">Kontakt</a></nav>
+    <a href="kontakt.html" class="pill pill--ink head__cta">Probestunde</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main id="main">
+    <section class="page-hero page-hero--tomato">
+      <span class="blob blob--3" aria-hidden="true"></span>
+      <p class="label pop">Über uns</p>
+      <h1 data-bounce>Ein Atelier<br>voller Leben.</h1>
+      <p class="page-hero__lead pop">Farbfeld ist eine freie Kunstschule. Wir glauben: Jeder Mensch kann kreativ sein – man muss es nur ausprobieren dürfen.</p>
+    </section>
+
+    <section class="section">
+      <div class="title-row"><p class="label">Das Team</p><h2 data-bounce>Die mit den Farbflecken.</h2></div>
+      <div class="team"><figure class="member pop"><div class="member__blob member__blob--tomato"><span>ML</span></div><figcaption><strong>Mara Lenz</strong><span class="label">Atelierleitung, Malerin</span><p>Studierte Malerei und unterrichtet seit 15 Jahren Menschen von 4 bis 84.</p></figcaption></figure><figure class="member pop"><div class="member__blob member__blob--cobalt"><span>TB</span></div><figcaption><strong>Tom Becker</strong><span class="label">Comic &amp; Illustration</span><p>Zeichnet für Zeitungen und bringt Jugendlichen das Erzählen in Bildern bei.</p></figcaption></figure><figure class="member pop"><div class="member__blob member__blob--sage"><span>NO</span></div><figcaption><strong>Nia Okafor</strong><span class="label">Keramik</span><p>Formt, brennt und glasiert – und weiß, wie man Ton wieder weich bekommt.</p></figcaption></figure><figure class="member pop"><div class="member__blob member__blob--sun"><span>JW</span></div><figcaption><strong>Jule Wagner</strong><span class="label">Druckgrafik</span><p>Liebt Linol, Siebdruck und alles, was beim Abziehen ein „Oh!“ auslöst.</p></figcaption></figure></div>
+    </section>
+
+    <section class="section timeline">
+      <div class="title-row"><p class="label">Geschichte</p><h2 data-bounce>Wie alles anfing.</h2></div>
+      <div class="tl">
+        <svg class="tl__line" viewBox="0 0 40 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M20 0C40 80 0 160 20 250S40 420 20 500 0 680 20 750 40 920 20 1000" fill="none" stroke="#26173D" stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+        <ol class="tl__list"><li class="pop"><span class="tl__year">2012</span><h3>Die Idee</h3><p>Zwei Malerinnen, ein leerer Laden, drei Kinder im ersten Kurs.</p></li><li class="pop"><span class="tl__year">2015</span><h3>Der Brennofen</h3><p>Mit einem gebrauchten Keramikofen kommt der erste Töpferkurs dazu.</p></li><li class="pop"><span class="tl__year">2019</span><h3>Mehr Platz</h3><p>Umzug in die ehemalige Druckerei – 220 m² voller Licht.</p></li><li class="pop"><span class="tl__year">2024</span><h3>Heute</h3><p>14 Kurse pro Woche, fünf Lehrende und über 300 Teilnehmende im Jahr.</p></li></ol>
+      </div>
+    </section>
+
+    <section class="section values">
+      <div class="value pop value--sun"><h3>Kleine Gruppen</h3><p>Höchstens acht Personen – damit Zeit für jede:n bleibt.</p></div>
+      <div class="value pop value--sage"><h3>Gutes Material</h3><p>Pinsel, Papier und Farben sind im Kursbeitrag enthalten.</p></div>
+      <div class="value pop value--cobalt"><h3>Kein Druck</h3><p>Es gibt keine Noten. Nur Neugier, Mut und Kakao.</p></div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="foot__top">
+      <p class="foot__big" data-bounce>Bis bald im Atelier!</p>
+      <a href="kontakt.html" class="pill pill--sun">Probestunde buchen ✳</a>
+    </div>
+    <div class="foot__cols">
+      <div><p class="label">Atelier</p><p>Farbfeld Kunstschule<br>Musterweg 7<br>12345 Musterstadt</p></div>
+      <div><p class="label">Öffnungszeiten</p><p>Di – Fr 14 – 20 Uhr<br>Sa 10 – 16 Uhr</p></div>
+      <div><p class="label">Seiten</p><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></div>
+      <div><p class="label">Rechtliches</p><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+    <p class="foot__bottom label">© <span class="year">2026</span> Farbfeld Kunstschule · Beispiel-Website · Design &amp; Umsetzung: Webdesign Janosch Krause</p>
+  </footer>
+
+  <!-- Hinweis: Diese Seite ist ein Beispiel. Link im href auf Ihre eigene Website setzen. -->
+  <a class="demo-badge" href="../../index.html#arbeiten">✳ Beispiel-Website · erstellt von Janosch Krause</a>
+  <script src="ressourcen/skripte/app.js" defer></script>
+</body>
+</html>

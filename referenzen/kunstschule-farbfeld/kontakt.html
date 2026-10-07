@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kontakt – Farbfeld Kunstschule (Beispiel-Website)</title>
+  <meta name="description" content="Probestunde buchen bei der fiktiven Kunstschule Farbfeld.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#F3EBDD">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="preload" href="ressourcen/schriften/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ressourcen/stile/stil.css">
+  <script>
+    (function (d) {
+      d.classList.replace("no-js", "js");
+      try { if (sessionStorage.getItem("ff-wipe")) { d.classList.add("wipe-in"); sessionStorage.removeItem("ff-wipe"); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+</head>
+<body class="">
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+  <div class="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="head">
+    <a href="index.html" class="logo" aria-label="Farbfeld Kunstschule – Startseite"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M33 5c11 0 23 7 25 19s-3 27-16 31S11 55 7 42 15 5 33 5z" fill="#FF5B37"/><circle cx="41" cy="21" r="7.5" fill="#FFC53D"/><path d="M14 45c8-9 18 6 34-6" fill="none" stroke="#3047FF" stroke-width="5.5" stroke-linecap="round"/></svg><span>Farbfeld</span></a>
+    <nav class="menu" id="menu" aria-label="Hauptnavigation"><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html" aria-current="page">Kontakt</a></nav>
+    <a href="kontakt.html" class="pill pill--ink head__cta">Probestunde</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main id="main">
+    <section class="page-hero page-hero--sage">
+      <span class="blob blob--1" aria-hidden="true"></span>
+      <p class="label pop">Kontakt</p>
+      <h1 data-bounce>Komm vorbei!</h1>
+      <p class="page-hero__lead pop">Buchen Sie Ihre kostenlose Probestunde oder stellen Sie uns einfach eine Frage. Wir freuen uns auf Sie!</p>
+    </section>
+
+    <section class="section contact">
+      <!-- An diese Adresse gehen die Anfragen: data-email anpassen -->
+      <form class="form pop" id="contact-form" data-email="hallo@farbfeld.example" novalidate>
+        <h2>Probestunde buchen</h2>
+        <label class="field"><span>Name *</span><input name="name" required autocomplete="name"></label>
+        <label class="field"><span>Telefon (optional)</span><input name="telefon" autocomplete="tel"></label>
+        <label class="field"><span>Für wen?</span><select name="fuer"><option>Für mein Kind (6 – 12)</option><option>Für Jugendliche (13 – 17)</option><option>Für mich (Erwachsene)</option></select></label>
+        <label class="field"><span>Kurs</span><select name="kurs" id="f-kurs"><option value="">Noch unsicher – bitte beraten</option></select></label>
+        <label class="field field--full"><span>Nachricht *</span><textarea name="nachricht" rows="4" required placeholder="Wann passt es Ihnen? Gibt es Fragen?"></textarea></label>
+        <p class="form__hint">✳ Beim Absenden öffnet sich Ihr E-Mail-Programm mit einer fertigen Nachricht – nur noch auf „Senden“ klicken.</p>
+        <button class="pill pill--tomato pill--big" type="submit">Anfrage erstellen ✳</button>
+        <p class="form__done" id="form-done" hidden>Juhu! Ihr E-Mail-Programm öffnet sich. Nichts passiert? Schreiben Sie an <a id="mail-link" href="#">uns</a>.</p>
+      </form>
+
+      <div class="contact__side">
+        <div class="infocard infocard--sun pop"><p class="label">Adresse</p><p><strong>Farbfeld Kunstschule</strong><br>Musterweg 7, 12345 Musterstadt</p></div>
+        <div class="infocard infocard--cobalt pop"><p class="label">Öffnungszeiten</p><p>Di – Fr 14 – 20 Uhr<br>Sa 10 – 16 Uhr</p></div>
+        <div class="map pop" aria-label="Illustrierte Karte: Das Atelier liegt am Musterweg, gegenüber dem Park.">
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <rect width="400" height="300" fill="#EADFCB"/>
+            <path d="M0 210C80 190 140 230 220 200s120-60 180-50" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round"/>
+            <path d="M120 0c-10 80 20 160-10 300" fill="none" stroke="#fff" stroke-width="16"/>
+            <path d="M260 0c10 70-30 120 0 300" fill="none" stroke="#fff" stroke-width="12"/>
+            <ellipse cx="320" cy="80" rx="60" ry="42" fill="#8FC1A0"/><circle cx="300" cy="70" r="9" fill="#6FA382"/><circle cx="335" cy="92" r="11" fill="#6FA382"/>
+            <rect x="40" y="60" width="50" height="40" rx="6" fill="#fff" opacity=".7"/><rect x="160" y="230" width="60" height="44" rx="6" fill="#fff" opacity=".7"/>
+            <text x="300" y="140" font-family="Geist Mono, monospace" font-size="11" fill="#26173D">Park</text>
+            <text x="18" y="232" font-family="Geist Mono, monospace" font-size="11" fill="#26173D">Musterweg</text>
+          </svg>
+          <span class="map__pin">✳</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="foot__top">
+      <p class="foot__big" data-bounce>Bis bald im Atelier!</p>
+      <a href="kontakt.html" class="pill pill--sun">Probestunde buchen ✳</a>
+    </div>
+    <div class="foot__cols">
+      <div><p class="label">Atelier</p><p>Farbfeld Kunstschule<br>Musterweg 7<br>12345 Musterstadt</p></div>
+      <div><p class="label">Öffnungszeiten</p><p>Di – Fr 14 – 20 Uhr<br>Sa 10 – 16 Uhr</p></div>
+      <div><p class="label">Seiten</p><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></div>
+      <div><p class="label">Rechtliches</p><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+    <p class="foot__bottom label">© <span class="year">2026</span> Farbfeld Kunstschule · Beispiel-Website · Design &amp; Umsetzung: Webdesign Janosch Krause</p>
+  </footer>
+
+  <!-- Hinweis: Diese Seite ist ein Beispiel. Link im href auf Ihre eigene Website setzen. -->
+  <a class="demo-badge" href="../../index.html#arbeiten">✳ Beispiel-Website · erstellt von Janosch Krause</a>
+  <script src="ressourcen/skripte/app.js" defer></script>
+</body>
+</html>

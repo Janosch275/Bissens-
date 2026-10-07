@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galerie – Farbfeld Kunstschule (Beispiel-Website)</title>
+  <meta name="description" content="Galerie der fiktiven Kunstschule Farbfeld.">
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#F3EBDD">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="preload" href="ressourcen/schriften/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ressourcen/stile/stil.css">
+  <script>
+    (function (d) {
+      d.classList.replace("no-js", "js");
+      try { if (sessionStorage.getItem("ff-wipe")) { d.classList.add("wipe-in"); sessionStorage.removeItem("ff-wipe"); } } catch (e) {}
+    })(document.documentElement);
+  </script>
+</head>
+<body class="">
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+  <div class="wipe" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="head">
+    <a href="index.html" class="logo" aria-label="Farbfeld Kunstschule – Startseite"><svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><path d="M33 5c11 0 23 7 25 19s-3 27-16 31S11 55 7 42 15 5 33 5z" fill="#FF5B37"/><circle cx="41" cy="21" r="7.5" fill="#FFC53D"/><path d="M14 45c8-9 18 6 34-6" fill="none" stroke="#3047FF" stroke-width="5.5" stroke-linecap="round"/></svg><span>Farbfeld</span></a>
+    <nav class="menu" id="menu" aria-label="Hauptnavigation"><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html" aria-current="page">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></nav>
+    <a href="kontakt.html" class="pill pill--ink head__cta">Probestunde</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main id="main">
+    <section class="page-hero page-hero--cobalt">
+      <span class="blob blob--1" aria-hidden="true"></span>
+      <p class="label pop">Galerie</p>
+      <h1 data-bounce>Gemalt.<br>Gedruckt. Geliebt.</h1>
+      <p class="page-hero__lead pop">Eine Auswahl aus unseren Kursen – von Kindern, Jugendlichen und Erwachsenen. Klicken Sie auf ein Bild, um es groß zu sehen.</p>
+    </section>
+    <section class="section">
+      <div class="gallery" data-art-grid="14" data-lightbox></div>
+    </section>
+    <div class="lightbox" id="lightbox" hidden>
+      <button class="lightbox__close" aria-label="Schließen">✕</button>
+      <button class="lightbox__nav lightbox__prev" aria-label="Vorheriges Bild">←</button>
+      <figure><div class="lightbox__art"></div><figcaption></figcaption></figure>
+      <button class="lightbox__nav lightbox__next" aria-label="Nächstes Bild">→</button>
+    </div>
+
+  </main>
+
+  <footer class="foot">
+    <div class="foot__top">
+      <p class="foot__big" data-bounce>Bis bald im Atelier!</p>
+      <a href="kontakt.html" class="pill pill--sun">Probestunde buchen ✳</a>
+    </div>
+    <div class="foot__cols">
+      <div><p class="label">Atelier</p><p>Farbfeld Kunstschule<br>Musterweg 7<br>12345 Musterstadt</p></div>
+      <div><p class="label">Öffnungszeiten</p><p>Di – Fr 14 – 20 Uhr<br>Sa 10 – 16 Uhr</p></div>
+      <div><p class="label">Seiten</p><a href="index.html">Start</a><a href="kurse.html">Kurse</a><a href="galerie.html">Galerie</a><a href="ueber-uns.html">Über uns</a><a href="kontakt.html">Kontakt</a></div>
+      <div><p class="label">Rechtliches</p><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+    </div>
+    <p class="foot__bottom label">© <span class="year">2026</span> Farbfeld Kunstschule · Beispiel-Website · Design &amp; Umsetzung: Webdesign Janosch Krause</p>
+  </footer>
+
+  <!-- Hinweis: Diese Seite ist ein Beispiel. Link im href auf Ihre eigene Website setzen. -->
+  <a class="demo-badge" href="../../index.html#arbeiten">✳ Beispiel-Website · erstellt von Janosch Krause</a>
+  <script src="ressourcen/skripte/app.js" defer></script>
+</body>
+</html>
