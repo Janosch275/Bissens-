@@ -10,8 +10,8 @@
  */
 
 // ===================== EINSTELLUNGEN =====================
-const EMPFAENGER   = 'kontakt@deine-domain.de';      // <- Hier Ihre E-Mail-Adresse eintragen
-const ABSENDER     = 'website@deine-domain.de';      // <- Adresse Ihrer eigenen Domain (wichtig gegen Spam-Filter)
+const EMPFAENGER   = 'janosch.krause2@icloud.com';   // Anfragen gehen an diese Adresse
+const ABSENDER     = 'website@deine-domain.de';      // <- TODO: Adresse Ihrer IONOS-Domain eintragen, sobald sie steht (wichtig gegen Spam-Filter)
 const BETREFF      = 'Neue Projektanfrage über die Website';
 const SPEICHERN    = true;                           // Anfragen zusätzlich als Datei sichern
 const SPEICHERPFAD = __DIR__ . '/anfragen';

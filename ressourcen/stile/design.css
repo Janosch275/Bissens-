@@ -418,7 +418,7 @@ p { margin: 0 0 1em; }
 /* Footer */
 .footer { background: var(--ink); color: rgba(255, 255, 255, .55); padding: 44px 0; font-size: .9rem; }
 .footer__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px; }
-.footer__links { display: flex; gap: 26px; }
+.footer__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; }
 .footer__links a { text-decoration: none; transition: color .2s; }
 .footer__links a:hover { color: var(--mint); }
 .footer__copy { margin: 0; }
@@ -499,6 +499,42 @@ p { margin: 0 0 1em; }
 .work__link:hover { background: var(--mint); color: var(--ink); }
 .work__link:hover svg { transform: translate(3px, -3px); }
 
+/* Standort */
+.local { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; }
+.local__copy > p { color: var(--muted); font-size: 1.08rem; }
+.places { list-style: none; padding: 0; margin: 26px 0 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+.places li { padding: 6px 13px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-size: .88rem; font-weight: 500; }
+.places li:first-child { background: var(--ink); border-color: var(--ink); color: var(--mint); font-weight: 600; }
+.local__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.area { margin: 0; padding: 22px 22px 16px; border-radius: 24px; background: var(--ink); box-shadow: var(--shadow-lg); }
+.area__map { width: 100%; height: auto; overflow: visible; }
+.area__ring { fill: none; stroke: rgba(255, 255, 255, .1); stroke-dasharray: 3 6; }
+.area__ring--outer { stroke: rgba(255, 255, 255, .06); }
+.area__place circle { fill: var(--green); }
+.area__place text { fill: rgba(255, 255, 255, .72); font: 500 11.5px var(--font-body); }
+.area__place--big text { fill: #fff; font-weight: 600; }
+.area__home { fill: var(--mint); stroke: var(--ink); stroke-width: 3; }
+.area__pulse { fill: var(--mint); opacity: .5; transform-origin: 200px 165px; animation: areaPulse 2.4s var(--ease) infinite; }
+@keyframes areaPulse { from { transform: scale(1); opacity: .5; } to { transform: scale(4); opacity: 0; } }
+.area__label { fill: #fff; font: 700 14px var(--font-head); letter-spacing: -.01em; }
+.area figcaption { margin-top: 6px; text-align: right; font-size: .74rem; color: rgba(255, 255, 255, .45); }
+
+/* Standort-Seite */
+.page-hero { padding: 150px 0 140px; }
+.page-hero .hero__title { font-size: clamp(2.3rem, 1.4rem + 3.6vw, 4rem); max-width: 860px; }
+.page-hero .hero__lead { max-width: 640px; }
+.page-hero .hero__actions { margin-bottom: 0; }
+.local-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.local-list li { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; padding: 20px 24px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.local-list h3 { font-size: 1.1rem; margin: 0 0 2px; }
+.local-list p { margin: 0; color: var(--muted); font-size: .94rem; }
+.local-list .service__icon { margin: 0; width: 46px; height: 46px; border-radius: 14px; }
+.local-list .service__icon svg { width: 22px; height: 22px; }
+.local-list__price { font: 700 1.05rem var(--font-head); color: var(--green-600); white-space: nowrap; }
+.cta-band { text-align: center; }
+.cta-band h2 { color: #fff; max-width: 720px; margin-inline: auto; }
+.cta-band p { max-width: 560px; margin: 0 auto 30px; }
+
 /* ---------- Scroll-Animationen ---------- */
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
 .reveal[data-delay="1"] { transition-delay: .1s; }
@@ -534,6 +570,8 @@ p { margin: 0 0 1em; }
   .addon__price { text-align: left; }
   .about { grid-template-columns: 1fr; gap: 50px; }
   .contact { grid-template-columns: 1fr; gap: 40px; }
+  .local { grid-template-columns: 1fr; gap: 44px; }
+  .area { max-width: 560px; }
   .contact__intro { position: static; }
 }
 
@@ -567,6 +605,9 @@ p { margin: 0 0 1em; }
   .work__frame { margin: 10px 10px 0; }
   .service-strip__price { text-align: left; }
   .footer__inner { flex-direction: column; text-align: center; }
+  .local-list li { grid-template-columns: auto 1fr; }
+  .local-list__price { grid-column: 2; }
+  .page-hero { padding: 120px 0 110px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

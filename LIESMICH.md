@@ -7,6 +7,8 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 | Datei | Zweck |
 | --- | --- |
 | `index.html` | Startseite: Hero, Leistungen, Ablauf, Preise mit Rechner, Über mich, FAQ, Kontaktformular |
+| `webdesign-bad-nenndorf.html` | Standort-Seite für Kunden aus Bad Nenndorf, Schaumburg und der Region Hannover (lokale Auffindbarkeit bei Google) |
+| `robots.txt` | Hinweis für Suchmaschinen – Sitemap-Zeile ergänzen, sobald die Domain steht |
 | `impressum.html`, `datenschutz.html` | Rechtliche Seiten – **gelb markierte Platzhalter vor dem Livegang ausfüllen** |
 | `kontakt.php` | Nimmt Formular-Anfragen entgegen, speichert sie in `/anfragen` und schickt sie per E-Mail |
 | `ressourcen/stile/design.css` | Design: grüne Farbpalette, Schriften, Animationen, Handy-Ansicht |
@@ -22,7 +24,7 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 
 Kunden schicken ihre Anfrage direkt über die Website – ohne Anruf oder eigenes E-Mail-Programm.
 
-1. In `kontakt.php` oben `EMPFAENGER` (Ihre E-Mail) und `ABSENDER` (eine Adresse Ihrer Domain) eintragen.
+1. In `kontakt.php` ist `EMPFAENGER` bereits eingetragen. `ABSENDER` muss noch auf eine Adresse Ihrer IONOS-Domain gesetzt werden (z. B. `website@ihre-domain.de`).
 2. Alle Dateien per FTP/Dateimanager zu einem Webhoster mit PHP hochladen (z. B. IONOS, Strato, All-Inkl).
 3. Jede Anfrage landet als E-Mail in Ihrem Postfach und zusätzlich als Sicherung im Ordner `anfragen/` (per `.htaccess` vor Zugriff geschützt).
 
