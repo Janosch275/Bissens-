@@ -30,6 +30,7 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .15 0 0 0 0 .09 0 0 0 0 .24 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 img, svg { display: block; max-width: 100%; }
+.star { display: inline-block; width: .9em; height: .9em; vertical-align: -.08em; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; flex: none; }
 a { color: inherit; }
 h1, h2, h3 { margin: 0; font-weight: 900; font-stretch: 125%; letter-spacing: -.045em; line-height: .92; }
 h2 { font-size: clamp(2.2rem, 1.2rem + 4vw, 4.8rem); }
@@ -118,17 +119,17 @@ p { margin: 0 0 1em; }
 
 /* Rotierender Sticker */
 .sticker { position: absolute !important; right: clamp(16px, 8vw, 140px); bottom: clamp(70px, 14vh, 160px); width: clamp(120px, 14vw, 180px); aspect-ratio: 1; display: grid; place-items: center; }
-.sticker svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(var(--rot, 0deg)); }
+.sticker > svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(var(--rot, 0deg)); }
 .sticker::before { content: ""; position: absolute; inset: 6%; border-radius: 50%; background: var(--tomato); border: 2.5px solid var(--ink); }
 .sticker text { font: 800 15.5px var(--mono); letter-spacing: 2.4px; fill: var(--ink); text-transform: uppercase; }
-.sticker span { position: relative; font-size: 2.6rem; animation: spin 6s linear infinite; }
+.sticker span { position: relative; display: grid; font-size: 2.6rem; animation: spin 6s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ---------- Laufband ---------- */
 .band { overflow: hidden; background: var(--ink); color: var(--paper); padding: 16px 0; transform: rotate(-2deg) scale(1.03); margin: 10px 0 40px; border-block: 2.5px solid var(--ink); }
 .band__track { display: flex; align-items: center; gap: 30px; width: max-content; animation: scrollX 30s linear infinite; }
 .band span { font-size: clamp(1.6rem, 1rem + 2.4vw, 3rem); font-weight: 900; font-stretch: 125%; letter-spacing: -.03em; }
-.band b { color: var(--sun); font-size: 2rem; }
+.band b { display: inline-flex; color: var(--sun); font-size: 2rem; }
 .band b:nth-of-type(3n+1) { color: var(--tomato); } .band b:nth-of-type(3n+2) { color: var(--sage); }
 @keyframes scrollX { to { transform: translateX(-50%); } }
 
@@ -260,7 +261,7 @@ p { margin: 0 0 1em; }
 .infocard--sun { background: var(--sun); transform: rotate(1.5deg); } .infocard--cobalt { background: var(--cobalt); color: #fff; transform: rotate(-1.5deg); }
 .map { position: relative; border: 2.5px solid var(--ink); border-radius: 22px; overflow: hidden; }
 .map svg { width: 100%; height: auto; }
-.map__pin { position: absolute; left: 28%; top: 55%; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--tomato); border: 2.5px solid var(--ink); font-size: 1.3rem; animation: pin 1.6s var(--spring) infinite; }
+.map__pin { position: absolute; left: 28%; top: 55%; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--tomato); border: 2.5px solid var(--ink); font-size: 1.3rem; color: var(--ink); animation: pin 1.6s var(--spring) infinite; }
 @keyframes pin { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 
 /* ---------- Rechtliches ---------- */
