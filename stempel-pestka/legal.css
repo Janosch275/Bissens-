@@ -25,3 +25,4 @@ footer p{margin:0;color:inherit}
 footer a{color:#1c1f1e;font-weight:500;text-decoration:none;margin-left:20px}
 .brand img{display:block;height:50px;width:auto}
 main{flex:1}
+footer .credit{flex-basis:100%;font-size:.72rem;opacity:.7;letter-spacing:.02em}

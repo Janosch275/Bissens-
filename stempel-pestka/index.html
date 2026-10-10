@@ -283,7 +283,7 @@ p{margin:0 0 1em}
 .pv-plate,.pv-imp{width:100%;height:100%;display:grid;place-content:center;text-align:center;padding:5% 7%;overflow:hidden;transition:color .4s,border-color .4s}
 .pv-plate{background:radial-gradient(120% 140% at 30% 20%,#646b67,var(--rubber));border-radius:4px;box-shadow:inset 0 0 0 5px #3a3f3c,inset 0 2px 8px rgba(0,0,0,.35)}
 .pv-plate .txt{transform:scaleX(-1);color:var(--rubber-hi);text-shadow:0 1px 0 rgba(255,255,255,.16),0 -1px 1px rgba(0,0,0,.45)}
-.pv-imp{color:var(--ink-c,#33702a);border:2.5px solid currentColor;filter:url(#ink)}
+.pv-imp{color:var(--ink-c,#33702a);border:3px solid currentColor}
 .txt{white-space:pre;line-height:1.22;font-size:var(--fs,1.1rem)}
 .txt.f-mono{font-family:var(--mono);font-weight:500}
 .txt.f-sans{font-family:var(--sans);font-weight:600}
@@ -343,6 +343,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
 .foot a{color:var(--ink);font-weight:500;text-decoration:none}
 .foot a:hover{text-decoration:underline}
 .foot-wort{display:block;height:58px;width:98px}
+.foot .credit{flex-basis:100%;font-size:.72rem;color:var(--ink-2);opacity:.7;letter-spacing:.02em;margin-top:-4px}
 .foot .sig{font:400 1.5rem/1 var(--serif);color:var(--ink)}
 
 /* ---------- Reveal: "Tinte setzt sich" ---------- */
@@ -852,6 +853,7 @@ address small{display:block;font:500 .74rem/1.6 var(--mono);letter-spacing:.14em
     <svg class="foot-wort" role="img" aria-label="Stempel Pestka seit 1924"><use href="#brandWort"/></svg>
     <p>© <span id="year">2026</span> · Inh. Nadine Rieboldt · im Hause PRINT &amp; CUT Werbetechnik · Hauptstraße 29 · 31559 Haste</p>
     <nav><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    <p class="credit">Website erstellt von Janosch Krause</p>
   </div>
 </footer>
 
