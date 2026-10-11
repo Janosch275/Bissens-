@@ -103,15 +103,34 @@
       </div>
     </section>
 
-    <!-- ===== Probefahrt: Fotos öffnen sich wie eine Kinoleinwand ===== -->
+    <!-- ===== Probefahrt: das Coupé fährt die Küstenstraße entlang ===== -->
     <section class="fahrt" id="probefahrt">
       <div class="fahrt__pin" id="fahrt-pin">
-        <figure class="fahrt__bild fahrt__bild--a">
-          <img src="ressourcen/bilder/coupe-front.webp" srcset="ressourcen/bilder/coupe-front-klein.webp 688w, ressourcen/bilder/coupe-front.webp 1376w" sizes="100vw" alt="Rotes Sportcoupé fährt auf einer Küstenstraße am Meer" width="1376" height="768">
-        </figure>
-        <figure class="fahrt__bild fahrt__bild--b">
-          <img src="ressourcen/bilder/coupe-heck.webp" srcset="ressourcen/bilder/coupe-heck-klein.webp 688w, ressourcen/bilder/coupe-heck.webp 1376w" sizes="100vw" alt="Rotes Sportcoupé mit Heckflügel von hinten auf einer kurvigen Küstenstraße" width="1376" height="768" loading="lazy">
-        </figure>
+        <div class="szene" id="szene" role="img" aria-label="Animation: ein rotes Sportcoupé fährt eine Küstenstraße am Meer entlang">
+          <div class="szene__ferne"><i class="schnell"></i></div>
+          <div class="szene__strasse"><i class="schnell"></i></div>
+          <div class="szene__planke"></div>
+          <div class="wagen" id="wagen">
+            <div class="wagen__schatten"></div>
+            <div class="wagen__koerper">
+              <img class="wagen__bild" src="ressourcen/bilder/fahrt/auto.webp" alt="" width="1198" height="339">
+              <div class="rad rad--vorn">
+                <img class="rad__basis" src="ressourcen/bilder/fahrt/rad-vorn.webp" alt="">
+                <img class="rad__basis schnell" src="ressourcen/bilder/fahrt/rad-vorn-schnell.webp" alt="">
+                <img class="rad__sattel" src="ressourcen/bilder/fahrt/sattel-vorn.webp" alt="">
+                <img class="rad__speichen" src="ressourcen/bilder/fahrt/speichen-vorn.webp" alt="">
+                <img class="rad__speichen schnell" src="ressourcen/bilder/fahrt/speichen-vorn-schnell.webp" alt="">
+              </div>
+              <div class="rad rad--hinten">
+                <img class="rad__basis" src="ressourcen/bilder/fahrt/rad-hinten.webp" alt="">
+                <img class="rad__basis schnell" src="ressourcen/bilder/fahrt/rad-hinten-schnell.webp" alt="">
+                <img class="rad__sattel" src="ressourcen/bilder/fahrt/sattel-hinten.webp" alt="">
+                <img class="rad__speichen" src="ressourcen/bilder/fahrt/speichen-hinten.webp" alt="">
+                <img class="rad__speichen schnell" src="ressourcen/bilder/fahrt/speichen-hinten-schnell.webp" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="fahrt__schleier" aria-hidden="true"></div>
         <div class="fahrt__text fahrt__text--a">
           <p class="tag tag--hell">Probefahrt</p>
@@ -122,7 +141,7 @@
           <p>Sie haben ein Auto im Blick? Wir stellen es vollgetankt bereit – für eine Runde durch die Stadt oder über die Landstraße.</p>
           <a href="#kontakt" class="knopf knopf--rot">Probefahrt vereinbaren</a>
         </div>
-        <p class="fahrt__hinweis">Beispielbilder</p>
+        <div class="fahrt__tempo" aria-hidden="true"><b id="fahrt-kmh">0</b><span>km/h</span></div>
       </div>
     </section>
 

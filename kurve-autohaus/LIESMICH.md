@@ -20,7 +20,7 @@ Statische Website (kein Shop) für ein fiktives Autohaus mit Verkauf, Werkstatt 
 - **Hero:** Ein 3D-Rad (Reifen mit Profil und Flankenbeschriftung, konkave Gussfelge, gelochte Bremsscheibe, Bremssattel) dreht beim Scrollen hoch. Tacho und Drehzahlbalken laufen mit, Fahrtwind-Linien erscheinen. Dann bremst es, dreht sich zur Seite und zerlegt sich in seine Teile (Explosionsansicht mit Bauteil-Liste), setzt sich wieder zusammen, beschleunigt auf 286 km/h und rollt aus dem Bild.
 - **Zahlen:** Rollende Ziffern wie ein Kilometerzähler.
 - **Leistungen:** Schräge Paneele, die sich beim Überfahren öffnen.
-- **Probefahrt:** Ein Foto öffnet sich beim Scrollen wie eine Kinoleinwand, danach wischt diagonal die Heckansicht herein.
+- **Probefahrt:** Ein rotes Coupé fährt eine Küstenstraße entlang: rollt ins Bild, beschleunigt (Tacho läuft mit), Räder drehen sich mit stehendem Bremssattel, Straße, Leitplanke und Meer ziehen in Ebenen mit Bewegungsunschärfe vorbei, am Ende zieht es davon. Die Fahrt läuft dauerhaft; das Scrollen steuert Einfahrt, Tempo und Ausfahrt.
 - **Geschichte:** Ein Punkt fährt beim Scrollen eine Rennstrecke ab, die Etappen leuchten nacheinander auf.
 
 Mit „Bewegung reduzieren“ oder ohne JavaScript ist alles ohne Animation sichtbar.
@@ -31,4 +31,4 @@ Mit „Bewegung reduzieren“ oder ohne JavaScript ist alles ohne Animation sich
 - **Geschichte** (1998–2024) und **Leistungen** (z. B. 120-Punkte-Check, 12 Monate Garantie) an das echte Autohaus anpassen.
 - **Terminanfrage** öffnet das E-Mail-Programm an `termin@ihre-domain.de` – Adresse ersetzen.
 
-- **Fotos des Sportcoupés** (`ressourcen/bilder/coupe-*.webp`) sind KI-generierte Beispielbilder eines markenlosen Fantasie-Fahrzeugs. Für den echten Auftritt durch eigene Fotos aus dem Autohaus ersetzen (gleiche Dateinamen, Querformat 16:9).
+- **Fahrszene** (`ressourcen/bilder/fahrt/`): Auto und Küste sind KI-generierte Beispielbilder eines markenlosen Fantasie-Fahrzeugs, in Ebenen zerlegt (Karosserie, Räder, Speichen, Bremssattel, Himmel/Meer, Straße).
