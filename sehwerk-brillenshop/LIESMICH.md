@@ -10,7 +10,8 @@ Statischer Online-Shop für Brillen mit Blaulichtfilter-Gläsern, mit Mikrofaser
 | `impressum.html`, `datenschutz.html` | Rechtliche Seiten – **gelb markierte Platzhalter ausfüllen** |
 | `ressourcen/css/stil.css` | Gestaltung und Animationen |
 | `ressourcen/js/app.js` | Produktdaten, Filter, Produktdetail, Warenkorb, Scroll-Effekte |
-| `ressourcen/js/hero3d.js`, `brille3d.js` | Live-3D-Brille im Hero (three.js) |
+| `ressourcen/js/hero3d.bundle.js` | Live-3D-Brille im Hero – fertig gebündelt, funktioniert auch per Doppelklick |
+| `ressourcen/js/hero3d.js`, `brille3d.js` | Quellcode der 3D-Brille (nach Änderungen neu bündeln: `npx esbuild ressourcen/js/hero3d.js --bundle --format=iife --minify --outfile=ressourcen/js/hero3d.bundle.js`) |
 | `ressourcen/vendor/` | three.js 0.169 (MIT-Lizenz), lokal eingebunden |
 | `ressourcen/bilder/produkte/` | Produktbilder aller Fassungen und Farben (aus dem 3D-Modell gerendert) |
 | `ressourcen/schriften/` | Geist & Geist Mono (SIL Open Font License) |
@@ -39,4 +40,4 @@ Mit „Bewegung reduzieren“ oder ohne JavaScript ist alles ohne Animation sich
 ```bash
 python3 -m http.server 8080
 ```
-Dann http://localhost:8080 öffnen. (Die 3D-Szene braucht einen Webserver, ein Doppelklick auf die Datei reicht nicht.)
+Dann http://localhost:8080 öffnen. Ein Doppelklick auf `index.html` funktioniert ebenfalls.
