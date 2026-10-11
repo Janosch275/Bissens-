@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sehwerk – Blaulichtfilter-Brillen für lange Bildschirmtage</title>
+  <meta name="description" content="Sehwerk fertigt zeitlose Brillen mit Blaulichtfilter-Gläsern für alle, die viel am Bildschirm arbeiten. Sechs Fassungen aus Acetat und Metall – mit oder ohne Sehstärke.">
+  <meta name="theme-color" content="#ECE8E1">
+  <meta property="og:title" content="Sehwerk – Brillen für Bildschirmtage">
+  <meta property="og:description" content="Zeitlose Fassungen mit Blaulichtfilter-Gläsern.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="preload" href="ressourcen/schriften/geist.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ressourcen/css/stil.css">
+</head>
+<body>
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+
+  <div class="bar" role="note"><p>Versandkostenfrei ab 60 € &nbsp;·&nbsp; 30 Tage Rückgabe &nbsp;·&nbsp; Auch mit Sehstärke</p></div>
+
+  <header class="head" id="head">
+    <div class="head__in">
+      <a href="#top" class="logo" aria-label="Sehwerk – Startseite">Sehwerk</a>
+      <nav class="menu" id="menu" aria-label="Hauptnavigation">
+        <a href="#kollektion">Kollektion</a>
+        <a href="#blaulicht">Blaulichtfilter</a>
+        <a href="#fassungen">Fassungen</a>
+        <a href="#zubehoer">Zubehör</a>
+        <a href="#fragen">Fragen</a>
+      </nav>
+      <div class="head__tools">
+        <button class="cart-btn" id="cart-open" aria-label="Warenkorb öffnen" aria-controls="cart">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+          <span class="cart-btn__n" id="cart-count">0</span>
+        </button>
+        <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero mit 3D-Brille ===== -->
+    <section class="hero" id="top">
+      <div class="hero__pin" id="hero-pin">
+        <div class="hero__stage">
+          <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+          <img class="hero__fallback" src="ressourcen/bilder/produkte/kant-schwarz-34.webp" alt="Brille Kant in Schwarz" width="1400" height="1050">
+          <div class="hero__labels" aria-hidden="true">
+            <span class="lbl" data-anchor="glas"><i></i><b>Entspiegeltes Glas</b>mit Blaulichtfilter</span>
+            <span class="lbl lbl--r" data-anchor="rand"><i></i><b>Acetat</b>von Hand poliert</span>
+            <span class="lbl" data-anchor="scharnier"><i></i><b>Metallscharnier</b>fünffach gelagert</span>
+          </div>
+        </div>
+
+        <h1 class="hero__title">
+          <span class="hero__line hero__line--a"><span>Für lange</span></span>
+          <span class="hero__line hero__line--b"><span><em>Bildschirm</em>tage.</span></span>
+        </h1>
+        <div class="hero__foot">
+          <p>Zeitlose Fassungen mit Gläsern, die einen Teil des blauen Bildschirmlichts filtern. Mit oder ohne Sehstärke.</p>
+          <a href="#kollektion" class="btn">Kollektion ansehen</a>
+        </div>
+        <div class="hero__scroll" aria-hidden="true"><span></span>Scrollen</div>
+      </div>
+    </section>
+
+    <!-- ===== Haltung ===== -->
+    <section class="statement">
+      <div class="wrap">
+        <p class="statement__k focus">Sehwerk</p>
+        <p class="statement__t focus-lines">Wir verbringen mehr Stunden vor Bildschirmen als je zuvor. Also haben wir Brillen gestaltet, die man gern den ganzen Tag trägt – ruhig im Design, leicht auf der Nase, mit Gläsern für helles Bildschirmlicht.</p>
+      </div>
+    </section>
+
+    <!-- ===== Blaulicht ===== -->
+    <section class="spectrum" id="blaulicht">
+      <div class="spectrum__pin" id="spec-pin">
+        <div class="spectrum__sticky">
+          <div class="spectrum__copy">
+            <p class="kick">Blaulichtfilter</p>
+            <h2 class="focus">Weniger blaues Licht.<br><em>Gleich klare Farben.</em></h2>
+            <ol class="spectrum__steps" id="spec-steps">
+              <li class="is-on"><span>01</span>Bildschirme senden viel Licht im blauen Bereich um 450 nm aus.</li>
+              <li><span>02</span>Die Beschichtung unserer Gläser reflektiert einen Teil davon – sichtbar am feinen bläulichen Schimmer.</li>
+              <li><span>03</span>Die übrigen Farben gehen fast unverändert durch. Das Glas bleibt klar.</li>
+            </ol>
+          </div>
+          <figure class="chart" aria-labelledby="chart-cap">
+            <svg viewBox="0 0 800 420" class="chart__svg" id="chart" role="img" aria-label="Schematisches Lichtspektrum eines Bildschirms mit und ohne Blaulichtfilter">
+              <defs>
+                <linearGradient id="spek" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#5B2BD6"/><stop offset=".17" stop-color="#2F45FF"/><stop offset=".3" stop-color="#1FA6E8"/>
+                  <stop offset=".42" stop-color="#27C27A"/><stop offset=".55" stop-color="#C9D52A"/><stop offset=".66" stop-color="#F2A93B"/>
+                  <stop offset=".8" stop-color="#E5533A"/><stop offset="1" stop-color="#9E1F2C"/>
+                </linearGradient>
+                <clipPath id="lens-clip"><rect id="lens-rect" x="40" y="0" width="0" height="400"/></clipPath>
+              </defs>
+              <g class="chart__grid">
+                <line x1="40" y1="360" x2="780" y2="360"/>
+                <line x1="40" y1="270" x2="780" y2="270"/><line x1="40" y1="180" x2="780" y2="180"/><line x1="40" y1="90" x2="780" y2="90"/>
+              </g>
+              <g class="chart__ticks">
+                <text x="40" y="392">380</text><text x="172" y="392">450</text><text x="360" y="392">550</text><text x="548" y="392">650</text><text x="742" y="392">750 nm</text>
+              </g>
+              <rect x="40" y="368" width="740" height="6" rx="3" fill="url(#spek)"/>
+              <!-- ungefiltertes Spektrum -->
+              <path class="chart__raw" id="raw" d=""/>
+              <!-- gefiltertes Spektrum innerhalb des Glases -->
+              <g clip-path="url(#lens-clip)">
+                <path class="chart__area" id="filt-area" d=""/>
+                <path class="chart__filt" id="filt" d=""/>
+              </g>
+              <g id="lens-ui" class="chart__lens">
+                <rect id="lens-frame" x="40" y="22" width="0" height="346" rx="18"/>
+              </g>
+              <g class="chart__peak" id="peak"><line x1="172" y1="60" x2="172" y2="20"/><text x="180" y="30">Blaulicht-Spitze</text></g>
+            </svg>
+            <figcaption id="chart-cap">Schematische Darstellung. Die Filterwirkung hängt vom Glas ab.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Kollektion / Shop ===== -->
+    <section class="shop" id="kollektion">
+      <div class="wrap">
+        <div class="shop__head">
+          <div>
+            <p class="kick">Kollektion</p>
+            <h2 class="focus">Sechs Fassungen.<br><em>Ein ruhiger Gedanke.</em></h2>
+          </div>
+          <div class="filters" role="group" aria-label="Kollektion filtern">
+            <button class="chip is-on" data-filter="alle" aria-pressed="true">Alle</button>
+            <button class="chip" data-filter="eckig" aria-pressed="false">Eckig</button>
+            <button class="chip" data-filter="rund" aria-pressed="false">Rund</button>
+            <button class="chip" data-filter="cateye" aria-pressed="false">Cat-Eye</button>
+            <button class="chip" data-filter="metall" aria-pressed="false">Metall</button>
+          </div>
+        </div>
+        <div class="grid" id="grid" aria-live="polite"></div>
+        <p class="shop__note">Alle Brillen inklusive Blaulichtfilter-Gläsern ohne Sehstärke, Etui und Mikrofasertuch. Sehstärke gegen Aufpreis.</p>
+      </div>
+    </section>
+
+    <!-- ===== Fassungen horizontal ===== -->
+    <section class="gallery" id="fassungen">
+      <div class="gallery__pin" id="gal-pin">
+        <div class="gallery__sticky">
+          <div class="gallery__head">
+            <p class="kick kick--light">Die Fassungen</p>
+            <p class="gallery__count"><span id="gal-n">01</span> / 06</p>
+          </div>
+          <div class="gallery__track" id="gal-track"></div>
+          <div class="gallery__bar" aria-hidden="true"><span id="gal-bar"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Details ===== -->
+    <section class="details">
+      <div class="wrap details__grid">
+        <figure class="details__img focus-img">
+          <img src="ressourcen/bilder/produkte/kant-schwarz-seite.webp" alt="Brille Kant in Schwarz von der Seite mit geöffneten Bügeln" width="1800" height="1200" loading="lazy">
+        </figure>
+        <div class="details__list">
+          <p class="kick">Gemacht für jeden Tag</p>
+          <h2 class="focus">Details, die man<br><em>erst beim Tragen merkt.</em></h2>
+          <dl>
+            <div class="focus"><dt>Acetat</dt><dd>Aus Platten geschnitten, getrommelt und von Hand poliert – warm in der Hand, leicht auf der Nase.</dd></div>
+            <div class="focus"><dt>Gläser</dt><dd>Kunststoffgläser mit Hartschicht, Entspiegelung und Blaulichtfilter. Auf Wunsch mit Ihrer Sehstärke.</dd></div>
+            <div class="focus"><dt>Lieferumfang</dt><dd>Jede Brille kommt im festen Etui mit einem Mikrofasertuch für streifenfreie Gläser.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Zubehör ===== -->
+    <section class="acc" id="zubehoer">
+      <div class="wrap acc__grid">
+        <figure class="acc__img reveal-mask">
+          <picture>
+            <source srcset="ressourcen/bilder/tuch-brille.webp" type="image/webp">
+            <img src="ressourcen/bilder/tuch-brille.jpg" alt="Hände reinigen eine schwarze Brille mit einem hellblauen Mikrofasertuch" width="915" height="592" loading="lazy">
+          </picture>
+        </figure>
+        <div class="acc__copy">
+          <p class="kick">Zubehör</p>
+          <h2 class="focus">Das Mikrofasertuch.</h2>
+          <p class="focus">Ultrafeine Mikrofaser nimmt Fingerabdrücke und Staub auf, ohne Kratzer und ohne Spray. Liegt jeder Brille bei – und ist einzeln oder im Set erhältlich.</p>
+          <div class="acc__items" id="acc-items"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Service ===== -->
+    <section class="service">
+      <div class="wrap service__grid">
+        <div class="focus"><span class="service__n">48 h</span><p>Versand ab Lager, Brillen mit Sehstärke in 7–10 Werktagen.</p></div>
+        <div class="focus"><span class="service__n">30 Tage</span><p>Rückgabe ohne Angabe von Gründen bei Brillen ohne Sehstärke.</p></div>
+        <div class="focus"><span class="service__n">2 Jahre</span><p>Gewährleistung auf Fassung und Gläser.</p></div>
+      </div>
+    </section>
+
+    <!-- ===== Fragen ===== -->
+    <section class="faq" id="fragen">
+      <div class="wrap faq__grid">
+        <div>
+          <p class="kick">Fragen</p>
+          <h2 class="focus">Gut zu wissen.</h2>
+        </div>
+        <div class="faq__list">
+          <details class="focus">
+            <summary>Was bewirkt ein Blaulichtfilter?</summary>
+            <p>Die Beschichtung reflektiert einen Teil des blauvioletten Lichts, das Bildschirme und LED-Licht aussenden. Viele Menschen empfinden das bei langer Bildschirmarbeit als angenehmer. Ein Blaulichtfilter ersetzt keine augenärztliche Untersuchung – bei Beschwerden wenden Sie sich bitte an Ihre Augenärztin oder Ihren Augenarzt.</p>
+          </details>
+          <details class="focus">
+            <summary>Verändern die Gläser die Farben auf dem Bildschirm?</summary>
+            <p>Kaum. Die Gläser sind klar; auf der Oberfläche sehen Sie je nach Lichteinfall einen feinen bläulichen Reflex. Für farbkritische Arbeit empfehlen wir, die Brille kurz abzunehmen.</p>
+          </details>
+          <details class="focus">
+            <summary>Wie bestelle ich eine Brille mit Sehstärke?</summary>
+            <p>Wählen Sie bei der Brille „mit Sehstärke“. Nach der Bestellung schicken Sie uns Ihren Brillenpass oder Ihre Refraktionswerte per E-Mail. Wir fertigen die Gläser und melden uns bei Rückfragen.</p>
+          </details>
+          <details class="focus">
+            <summary>Welche Fassung passt zu mir?</summary>
+            <p>Bei jeder Fassung finden Sie Glasbreite, Stegbreite und Bügellänge. Vergleichen Sie diese Werte mit den Zahlen auf der Innenseite Ihres aktuellen Brillenbügels – so finden Sie eine ähnliche Größe.</p>
+          </details>
+          <details class="focus">
+            <summary>Wie pflege ich die Gläser?</summary>
+            <p>Grobe Partikel zuerst abpusten oder kurz mit lauwarmem Wasser abspülen, dann mit dem beiliegenden Mikrofasertuch trocknen. Bitte keine Papiertücher oder Kleidung verwenden.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p class="foot__big" aria-hidden="true">Sehwerk</p>
+      <div class="foot__cols">
+        <div><p class="foot__h">Shop</p><a href="#kollektion">Kollektion</a><a href="#zubehoer">Zubehör</a></div>
+        <div><p class="foot__h">Hilfe</p><a href="#fragen">Fragen</a><a href="mailto:hallo@ihre-domain.de">Kontakt</a></div>
+        <div><p class="foot__h">Rechtliches</p><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></div>
+        <p class="foot__copy">© <span id="year">2026</span> Sehwerk</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Produktdetail ===== -->
+  <div class="layer" id="product" role="dialog" aria-modal="true" aria-labelledby="pd-name" hidden>
+    <div class="layer__bg" data-close></div>
+    <div class="pd">
+      <button class="x" data-close aria-label="Schließen"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <div class="pd__media">
+        <img id="pd-img" src="" alt="" width="1400" height="1050">
+        <div class="pd__views" role="group" aria-label="Ansicht">
+          <button class="is-on" data-view="34">Schräg</button>
+          <button data-view="front">Vorne</button>
+        </div>
+      </div>
+      <div class="pd__info">
+        <p class="kick" id="pd-form"></p>
+        <h3 id="pd-name"></h3>
+        <p class="pd__price" id="pd-price"></p>
+        <p class="pd__desc" id="pd-desc"></p>
+        <fieldset class="pd__group"><legend>Farbe: <span id="pd-color-name"></span></legend><div class="swatches" id="pd-colors"></div></fieldset>
+        <fieldset class="pd__group"><legend>Gläser</legend>
+          <label class="opt"><input type="radio" name="glas" value="ohne" checked><span><b>Blaulichtfilter ohne Sehstärke</b><i>inklusive</i></span></label>
+          <label class="opt"><input type="radio" name="glas" value="mit"><span><b>Blaulichtfilter mit Sehstärke</b><i>+ 49 €</i></span></label>
+        </fieldset>
+        <dl class="pd__size" id="pd-size"></dl>
+        <button class="btn btn--block" id="pd-add">In den Warenkorb</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Warenkorb ===== -->
+  <div class="layer layer--cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+    <div class="layer__bg" data-close></div>
+    <aside class="cart">
+      <div class="cart__top">
+        <h3 id="cart-title">Warenkorb</h3>
+        <button class="x" data-close aria-label="Warenkorb schließen"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <div class="cart__ship"><p id="ship-text"></p><span><i id="ship-bar"></i></span></div>
+      <ul class="cart__list" id="cart-list"></ul>
+      <p class="cart__empty" id="cart-empty">Ihr Warenkorb ist noch leer.</p>
+      <div class="cart__sum">
+        <p><span>Zwischensumme</span><b id="cart-sum">0,00 €</b></p>
+        <small>inkl. MwSt., zzgl. Versand</small>
+        <a class="btn btn--block" id="checkout" href="#">Zur Kasse</a>
+      </div>
+    </aside>
+  </div>
+
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+  <script src="ressourcen/js/app.js" defer></script>
+  <script type="module" src="ressourcen/js/hero3d.js"></script>
+</body>
+</html>
