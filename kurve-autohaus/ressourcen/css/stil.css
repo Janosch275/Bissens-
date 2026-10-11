@@ -289,3 +289,6 @@ html:not(.bewegt) .fahrt__text--a { display: none; }
 .bewegt .film__standbild, .bewegt .film__leinwand { transform: scale(calc(1.18 - var(--ein, 1) * .18)); filter: blur(calc((1 - var(--ein, 1)) * 6px)) brightness(calc(.7 + var(--ein, 1) * .3)); }
 .bewegt .fahrt__schleier { opacity: var(--ein, 1); }
 .bewegt .fahrt__balken { opacity: var(--ein, 1); }
+/* voll geöffnet: keine Filter/Transformation mehr – Bild bleibt maximal scharf */
+.bewegt .is-offen .film { clip-path: none; }
+.bewegt .is-offen .film__standbild, .bewegt .is-offen .film__leinwand { transform: none; filter: none; }

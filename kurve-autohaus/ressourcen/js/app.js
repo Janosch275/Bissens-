@@ -136,7 +136,9 @@
     K.fahrtP = prog(fahrt);
     // Einblenden: Film öffnet sich beim Hineinscrollen von einem kleinen Fenster zur vollen Fläche
     var ft = fahrt.getBoundingClientRect().top;
-    fahrtPin.style.setProperty("--ein", weich(clamp((vh * .95 - ft) / (vh * 1.25), 0, 1)).toFixed(4));
+    var ein = weich(clamp((vh * .95 - ft) / (vh * 1.25), 0, 1));
+    fahrtPin.style.setProperty("--ein", ein.toFixed(4));
+    fahrtPin.classList.toggle("is-offen", ein > .999);
 
     var rp = prog(strecke);
     streckePin.style.setProperty("--runde", rp.toFixed(4));
@@ -167,6 +169,7 @@
     if (!img || !img.complete || !img.naturalWidth) return false;
     var cw = leinwand.width, ch = leinwand.height, s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
     var w = img.naturalWidth * s, h = img.naturalHeight * s;
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
     ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
     return true;
   }
