@@ -252,7 +252,7 @@
     var hp = prog(hero);
     LUND.heroP = hp;
     heroPin.style.setProperty("--p", hp.toFixed(4));
-    setHeroDial(clamp(Math.floor(hp / .86 * DIALS.length), 0, DIALS.length - 1));
+    setHeroDial(clamp(Math.floor(Math.min(hp / .86, .9999) * DIALS.length + .27), 0, DIALS.length - 1));
     if (sy > hero.offsetHeight - vh * .5) setAccent(LUND.cfgDial);
 
     leadWords.forEach(function (w) { w.classList.toggle("is-in", w.getBoundingClientRect().top < vh * .72); });

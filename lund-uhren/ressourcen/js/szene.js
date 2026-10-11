@@ -1,5 +1,8 @@
 /* LUND – Live-3D: Hero-Uhr und Konfigurator (three.js lokal, gebündelt zu szene.bundle.js) */
-import { baueUhr, erstelleBuehne, setzeZeit, setzeZifferblatt } from "./uhr3d.js";
+import { baueUhr, erstelleBuehne, setzeZeit, setzeZifferblatt, mischeZifferblatt } from "./uhr3d.js";
+
+const REIHE = ["eisblau", "salbei", "nachtblau", "lachs", "anthrazit", "silber"];
+const glatt3 = t => t * t * (3 - 2 * t);
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const STATE = () => window.LUND || { heroP: 0, heroDial: "eisblau", cfgDial: "eisblau", cfgSize: 39 };
@@ -32,21 +35,23 @@ async function start() {
     const h = szene(heroCanvas);
     let uhr = baueUhr({ zifferblatt: STATE().heroDial, schrift: SCHRIFT });
     h.scene.add(uhr);
-    let dialAktuell = STATE().heroDial, spin = 0, glatt = 0;
+    let glatt = 0;
     const istSichtbar = sichtbar(heroCanvas);
     const loop = () => {
       requestAnimationFrame(loop);
       if (!istSichtbar()) return;
       const s = STATE();
-      if (s.heroDial !== dialAktuell) { setzeZifferblatt(uhr, s.heroDial); dialAktuell = s.heroDial; spin = 1; }
-      glatt += ((reduce ? .3 : s.heroP) - glatt) * .1;
-      spin *= .93;
+      glatt += ((reduce ? 0 : s.heroP) - glatt) * .1;
       const p = glatt;
-      uhr.rotation.y = .5 * Math.cos(p * Math.PI * 2.2) + spin * .35;
-      uhr.rotation.x = -.38 - .16 * Math.sin(p * Math.PI * 3);
-      uhr.rotation.z = .12 * Math.sin(p * Math.PI * 2) - spin * .08;
+      // Farbe folgt dem Scrollen: jede Farbe steht kurz, dann breitet sich die nächste von der Mitte aus
+      const x = Math.min(p / .86, .9999) * REIHE.length, i = Math.floor(x), f = x - i;
+      const t = i < REIHE.length - 1 ? glatt3(Math.min(1, Math.max(0, (f - .45) / .55))) : 0;
+      mischeZifferblatt(uhr, REIHE[i], REIHE[Math.min(i + 1, REIHE.length - 1)], t);
+      uhr.rotation.y = .42 * Math.cos(p * Math.PI * 2.2);
+      uhr.rotation.x = -.36 - .12 * Math.sin(p * Math.PI * 3);
+      uhr.rotation.z = .1 * Math.sin(p * Math.PI * 2);
       const r = heroCanvas.getBoundingClientRect(), schmal = r.width / r.height < .8;
-      h.camera.position.set(schmal ? 0 : -14, 0, (schmal ? 330 : 245) - p * 20);
+      h.camera.position.set(schmal ? 0 : -32, 0, (schmal ? 330 : 245) - p * 20);
       h.camera.lookAt(0, schmal ? 6 : 0, 0);
       setzeZeit(uhr, new Date());
       h.renderer.render(h.scene, h.camera);
@@ -60,7 +65,7 @@ async function start() {
   const cfgCanvas = document.getElementById("config-canvas");
   if (cfgCanvas) {
     const k = szene(cfgCanvas);
-    let groesse = STATE().cfgSize, dial = STATE().cfgDial;
+    let groesse = STATE().cfgSize, dial = STATE().cfgDial, ziel = dial, von = dial, start = 0, wechsel = false;
     let uhr = baueUhr({ zifferblatt: dial, durchmesser: groesse, schrift: SCHRIFT });
     k.scene.add(uhr);
     const istSichtbar = sichtbar(cfgCanvas);
@@ -82,9 +87,14 @@ async function start() {
       if (!istSichtbar()) return;
       const s = STATE();
       if (s.cfgSize !== groesse) {
-        k.scene.remove(uhr); groesse = s.cfgSize; dial = s.cfgDial;
+        k.scene.remove(uhr); groesse = s.cfgSize; dial = ziel = s.cfgDial; wechsel = false;
         uhr = baueUhr({ zifferblatt: dial, durchmesser: groesse, schrift: SCHRIFT }); k.scene.add(uhr);
-      } else if (s.cfgDial !== dial) { setzeZifferblatt(uhr, s.cfgDial); dial = s.cfgDial; }
+      } else if (s.cfgDial !== ziel) { von = wechsel ? ziel : dial; ziel = s.cfgDial; start = performance.now(); wechsel = true; }
+      if (wechsel) {
+        const t = reduce ? 1 : Math.min(1, (performance.now() - start) / 900);
+        mischeZifferblatt(uhr, von, ziel, glatt3(t));
+        if (t >= 1) { setzeZifferblatt(uhr, ziel); dial = ziel; wechsel = false; }
+      }
       if (!ziehen) {
         rotY += traeg; traeg *= .94;
         if (!reduce && performance.now() - zuletzt > 2500) rotY += .0025;   // langsames Drehen im Leerlauf

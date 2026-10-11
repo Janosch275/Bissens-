@@ -24,17 +24,20 @@ function zifferblattTextur(z, schrift) {
   // Sonnenschliff: konischer Hell-Dunkel-Wechsel
   if (g.createConicGradient) {
     const cg = g.createConicGradient(-Math.PI / 4, m, m);
-    for (let i = 0; i <= 8; i++) cg.addColorStop(i / 8, i % 2 ? "rgba(255,255,255,.16)" : "rgba(0,0,0,.14)");
+    [[0, .14], [.25, -.12], [.5, .14], [.75, -.12], [1, .14]].forEach(([o, v]) => cg.addColorStop(o, v > 0 ? "rgba(255,255,255," + v + ")" : "rgba(0,0,0," + (-v) + ")"));
     g.fillStyle = cg; g.fillRect(0, 0, S, S);
   }
   // feine radiale Schliffspuren
   g.save(); g.translate(m, m);
-  for (let i = 0; i < 1800; i++) {
-    const a = (i / 1800) * Math.PI * 2;
-    g.strokeStyle = (i % 3 ? "rgba(255,255,255," : "rgba(0,0,0,") + (.025 + (i * 7919 % 13) / 400) + ")";
-    g.lineWidth = 1.2;
+  for (let i = 0; i < 4200; i++) {
+    const a = (i / 4200) * Math.PI * 2;
+    g.strokeStyle = (i % 3 ? "rgba(255,255,255," : "rgba(0,0,0,") + (.012 + (i * 7919 % 13) / 700) + ")";
+    g.lineWidth = .8;
     g.beginPath(); g.moveTo(Math.cos(a) * 40, Math.sin(a) * 40); g.lineTo(Math.cos(a) * m, Math.sin(a) * m); g.stroke();
   }
+  const vg = g.createRadialGradient(0, 0, m * .8, 0, 0, m);
+  vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,.35)");
+  g.fillStyle = vg; g.fillRect(-m, -m, S, S);
   // Minuterie
   g.strokeStyle = z.druck; g.fillStyle = z.druck;
   for (let i = 0; i < 60; i++) {
@@ -67,8 +70,11 @@ function zifferblattTextur(z, schrift) {
   return t;
 }
 
+const texCache = {};
+function dialTex(name, schrift) { return texCache[name] || (texCache[name] = zifferblattTextur(ZIFFERBLAETTER[name], schrift)); }
+
 /* ---------- Materialien ---------- */
-const stahlPoliert = () => new THREE.MeshPhysicalMaterial({ color: "#d9dce0", metalness: 1, roughness: .07 });
+const stahlPoliert = () => new THREE.MeshPhysicalMaterial({ color: "#dcdfe3", metalness: 1, roughness: .1 });
 let schliffTex = null;
 function schliff() {                         // feine Schliffspuren als Rauheits-/Reliefkarte
   if (schliffTex) return schliffTex;
@@ -80,7 +86,7 @@ function schliff() {                         // feine Schliffspuren als Rauheits
   schliffTex.repeat.set(1 / 9, 1 / 9);
   return schliffTex;
 }
-const stahlGebuerstet = () => new THREE.MeshPhysicalMaterial({ color: "#c9cdd2", metalness: 1, roughness: .32, roughnessMap: schliff(), bumpMap: schliff(), bumpScale: .4 });
+const stahlGebuerstet = () => new THREE.MeshPhysicalMaterial({ color: "#c8ccd1", metalness: 1, roughness: .3 });
 const leucht = () => new THREE.MeshPhysicalMaterial({ color: "#f4f3ee", roughness: .5, emissive: "#d9f2e4", emissiveIntensity: .06 });
 
 function kantenProfil(w, h, r) {                // abgerundetes Rechteck als Shape
@@ -93,6 +99,20 @@ function kantenProfil(w, h, r) {                // abgerundetes Rechteck als Sha
 function block(w, h, d, mat, bevel = .35) {
   const g = new THREE.ExtrudeGeometry(kantenProfil(w, h, Math.min(w, h) * .1), { depth: d, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 3 });
   g.translate(0, 0, -d / 2);
+  return new THREE.Mesh(g, mat);
+}
+
+/* Glied mit gewölbter Oberseite: Querschnitt (Breite × Dicke) entlang der Länge extrudiert */
+function glied(w, len, dick, mat, wolb = .45) {
+  const q = new THREE.Shape(), r = Math.min(.8, w * .2);
+  q.moveTo(-w / 2 + r, 0); q.lineTo(w / 2 - r, 0); q.quadraticCurveTo(w / 2, 0, w / 2, r);
+  q.lineTo(w / 2, dick * (1 - wolb * .5));
+  q.bezierCurveTo(w / 2, dick, w * .25, dick + wolb, 0, dick + wolb);
+  q.bezierCurveTo(-w * .25, dick + wolb, -w / 2, dick, -w / 2, dick * (1 - wolb * .5));
+  q.lineTo(-w / 2, r); q.quadraticCurveTo(-w / 2, 0, -w / 2 + r, 0);
+  const g = new THREE.ExtrudeGeometry(q, { depth: len - .5, bevelEnabled: true, bevelThickness: .25, bevelSize: .2, bevelSegments: 4, curveSegments: 16 });
+  g.rotateX(Math.PI / 2);                      // Länge entlang −Y, Dicke entlang +Z
+  g.translate(0, (len - .5) / 2, -dick / 2);
   return new THREE.Mesh(g, mat);
 }
 
@@ -122,11 +142,25 @@ export function baueUhr({ zifferblatt = "eisblau", durchmesser = 39, schrift = "
   uhr.add(kante);
 
   // Zifferblatt
-  const zb = new THREE.Mesh(new THREE.CircleGeometry(R * .8, 128), new THREE.MeshPhysicalMaterial({
-    map: zifferblattTextur(ZIFFERBLAETTER[zifferblatt], schrift), metalness: .35, roughness: .38, clearcoat: .6, clearcoatRoughness: .25
-  }));
+  const dialMat = () => new THREE.MeshPhysicalMaterial({ metalness: .45, roughness: .32, clearcoat: .5, clearcoatRoughness: .2 });
+  const zb = new THREE.Mesh(new THREE.CircleGeometry(R * .8, 128), dialMat());
+  zb.material.map = dialTex(zifferblatt, schrift);
   zb.position.z = 1.2;
-  uhr.add(zb);
+  const zb2 = new THREE.Mesh(zb.geometry, dialMat());           // Überblend-Ebene für weiche Farbwechsel
+  Object.assign(zb2.material, { transparent: true, depthWrite: false });
+  const uT = { value: 0 };
+  zb2.material.onBeforeCompile = sh => {
+    sh.uniforms.uT = uT;
+    sh.fragmentShader = "uniform float uT;\n" + sh.fragmentShader.replace("#include <map_fragment>",
+      "#include <map_fragment>\n float rr = length(vMapUv - .5) * 2.;\n diffuseColor.a *= 1. - smoothstep(uT * 1.1 - .06, uT * 1.1, rr);");
+  };
+  zb2.userData.uT = uT;
+  zb2.position.z = 1.21; zb2.visible = false;
+  uhr.add(zb, zb2);
+  // Rehaut: schräger Ring zwischen Zifferblatt und Glas
+  const rehaut = new THREE.Mesh(new THREE.LatheGeometry([V(R * .8, 1.2), V(R * .83, 3.3)], 160), new THREE.MeshPhysicalMaterial({ color: "#8d9298", metalness: .9, roughness: .45, side: THREE.DoubleSide }));
+  rehaut.rotation.x = Math.PI / 2;
+  uhr.add(rehaut);
 
   // Indexe
   const indexe = new THREE.Group();
@@ -152,12 +186,17 @@ export function baueUhr({ zifferblatt = "eisblau", durchmesser = 39, schrift = "
   // Zeiger
   function zeiger(laenge, breite, z) {
     const g = new THREE.Group();
-    const s = new THREE.Shape();
-    s.moveTo(-breite / 2, -laenge * .14); s.lineTo(breite / 2, -laenge * .14); s.lineTo(breite * .45, laenge * .92); s.lineTo(0, laenge); s.lineTo(-breite * .45, laenge * .92); s.closePath();
-    const geo = new THREE.ExtrudeGeometry(s, { depth: .3, bevelEnabled: true, bevelThickness: .12, bevelSize: .12, bevelSegments: 2 });
-    g.add(new THREE.Mesh(geo, polished));
-    const lume = new THREE.Mesh(new THREE.BoxGeometry(breite * .42, laenge * .62, .2), leucht());
-    lume.position.set(0, laenge * .5, .45);
+    // zwei leicht geneigte Hälften ergeben einen polierten Grat in der Mitte
+    [-1, 1].forEach(seite => {
+      const h = new THREE.Shape();
+      h.moveTo(0, -laenge * .14); h.lineTo(seite * breite / 2, -laenge * .14); h.lineTo(seite * breite * .45, laenge * .92); h.lineTo(0, laenge); h.closePath();
+      const geo = new THREE.ExtrudeGeometry(h, { depth: .25, bevelEnabled: true, bevelThickness: .08, bevelSize: .06, bevelSegments: 2 });
+      const m = new THREE.Mesh(geo, polished);
+      m.rotation.y = seite * -.32;
+      g.add(m);
+    });
+    const lume = new THREE.Mesh(new THREE.BoxGeometry(breite * .34, laenge * .6, .2), leucht());
+    lume.position.set(0, laenge * .48, .42);
     g.add(lume);
     g.position.z = z;
     return g;
@@ -178,6 +217,15 @@ export function baueUhr({ zifferblatt = "eisblau", durchmesser = 39, schrift = "
   }));
   glas.rotation.x = Math.PI / 2; glas.position.z = 3.6;
   uhr.add(glas);
+  const rc = document.createElement("canvas"); rc.width = rc.height = 512;
+  const rg2 = rc.getContext("2d"), lg = rg2.createLinearGradient(0, 0, 512, 512);
+  lg.addColorStop(0, "rgba(255,255,255,0)"); lg.addColorStop(.3, "rgba(255,255,255,.0)"); lg.addColorStop(.38, "rgba(255,255,255,.55)");
+  lg.addColorStop(.47, "rgba(255,255,255,.08)"); lg.addColorStop(.62, "rgba(255,255,255,0)"); lg.addColorStop(1, "rgba(255,255,255,0)");
+  rg2.fillStyle = lg; rg2.beginPath(); rg2.arc(256, 256, 256, 0, Math.PI * 2); rg2.fill();
+  const reflexTex = new THREE.CanvasTexture(rc); reflexTex.colorSpace = THREE.SRGBColorSpace;
+  const reflex = new THREE.Mesh(new THREE.CircleGeometry(R * .81, 96), new THREE.MeshBasicMaterial({ map: reflexTex, transparent: true, opacity: .32, depthWrite: false, blending: THREE.AdditiveBlending }));
+  reflex.position.z = 3.92;
+  uhr.add(reflex);
 
   // Krone bei 3 Uhr
   const krone = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.6, 3.2, 48), brushed);
@@ -188,39 +236,31 @@ export function baueUhr({ zifferblatt = "eisblau", durchmesser = 39, schrift = "
   // Kronenschutz
   [-1, 1].forEach(s => { const k = block(2.2, 3.2, 4.8, brushed, .5); k.position.set(R + .9, s * 3.8, -.6); uhr.add(k); });
 
-  // Integriertes Armband: Glieder folgen einem Bogen nach hinten
+  // Integriertes Armband: gewölbte Glieder, die sich zur Schließe verjüngen
   const band = new THREE.Group();
-  const BR = 32, glieder = 8, laenge = 7.8, dick = 2.7, bw = 22;
+  const BR = 30, glieder = 12, laenge = 5.6, dick = 2.3, bw = R * 1.12;
   [-1, 1].forEach(seite => {
-    // Anstoß: verjüngt sich vom Gehäuse zum ersten Glied
-    const ans = new THREE.Shape();
-    ans.moveTo(-bw * .56, 0); ans.lineTo(bw * .56, 0); ans.lineTo(bw / 2, 5.6); ans.lineTo(-bw / 2, 5.6); ans.closePath();
-    const ag = new THREE.ExtrudeGeometry(ans, { depth: dick + .6, bevelEnabled: true, bevelThickness: .45, bevelSize: .45, bevelSegments: 4 });
-    ag.translate(0, 0, -(dick + .6) / 2);
-    const anstoss = new THREE.Mesh(ag, brushed);
-    anstoss.position.set(0, seite * (R * .86), -2.1);
-    anstoss.scale.y = seite;
-    band.add(anstoss);
-
+    const ende = glied(bw * 1.04, 5.4, dick + .4, brushed, .55);   // Endglied am Gehäuse
+    ende.position.set(0, seite * (R * .9 + 2.5), -2.4);
+    band.add(ende);
     for (let i = 0; i < glieder; i++) {
-      const glied = new THREE.Group();
-      const breite = bw - i * .18;
-      const aussen = block(breite * .35, laenge - .14, dick, brushed, .2);
-      const aussen2 = aussen.clone();
-      aussen.position.x = -breite * .325; aussen2.position.x = breite * .325;
-      const mitte = block(breite * .26, laenge * .62, dick + .3, polished, .22);
-      mitte.position.z = .25;
-      glied.add(aussen, aussen2, mitte);
-      // Lage auf dem Bogen: erst gerade, dann nach hinten gekrümmt
-      const y0 = R * .86 + 5.6, th = ((i + .5) * laenge) / BR;
-      glied.position.set(0, seite * (y0 + BR * Math.sin(th)), -2.1 - BR * (1 - Math.cos(th)));
-      glied.rotation.x = -seite * th;
-      band.add(glied);
+      const g = new THREE.Group();
+      const breite = bw * (1 - i * .016);
+      const a1 = glied(breite * .37, laenge, dick, brushed, .4), a2 = a1.clone();
+      a1.position.x = -breite * .315; a2.position.x = breite * .315;
+      const m = glied(breite * .22, laenge * .8, dick + .15, polished, .35);
+      m.position.set(0, laenge * .5, .1);
+      g.add(a1, a2, m);
+      const y0 = R * .9 + 5.3, th = ((i + .5) * laenge) / BR;
+      g.position.set(0, seite * (y0 + BR * Math.sin(th)), -2.3 - BR * (1 - Math.cos(th)));
+      g.rotation.x = -seite * th;
+      if (seite < 0) g.rotation.z = Math.PI;
+      band.add(g);
     }
   });
   uhr.add(band);
 
-  uhr.userData = { hStd, hMin, hSek, zb, schrift, R };
+  uhr.userData = { hStd, hMin, hSek, zb, zb2, schrift, R };
   setzeZeit(uhr, new Date());
   return uhr;
 }
@@ -233,11 +273,16 @@ export function setzeZeit(uhr, d) {
   hSek.rotation.z = -s / 60 * Math.PI * 2;
 }
 
-export function setzeZifferblatt(uhr, name) {
-  const mat = uhr.userData.zb.material;
-  if (mat.map) mat.map.dispose();
-  mat.map = zifferblattTextur(ZIFFERBLAETTER[name], uhr.userData.schrift);
-  mat.needsUpdate = true;
+export function setzeZifferblatt(uhr, name) { mischeZifferblatt(uhr, name, name, 0); }
+
+/* Weicher Übergang: Zifferblatt a, darüber b mit Deckkraft t (0…1) */
+export function mischeZifferblatt(uhr, a, b, t) {
+  const { zb, zb2, schrift } = uhr.userData;
+  const ta = dialTex(a, schrift), tb = dialTex(b, schrift);
+  if (zb.material.map !== ta) { zb.material.map = ta; zb.material.needsUpdate = true; }
+  if (zb2.material.map !== tb) { zb2.material.map = tb; zb2.material.needsUpdate = true; }
+  zb2.userData.uT.value = t;
+  zb2.visible = t > .002 && a !== b;
 }
 
 /* ---------- Studio-Umgebung mit Softboxen ---------- */
@@ -254,11 +299,11 @@ function studio(renderer) {
     fragmentShader: "varying vec3 p; void main(){ float t = p.y * .5 + .5; vec3 c = mix(vec3(.025,.027,.03), vec3(.3,.31,.33), smoothstep(.35,1.,t)); gl_FragColor = vec4(c,1.); }"
   }));
   s.add(raum);
-  box(16, 3.2, 0, 9, 5, 3.6);    // großes Oberlicht
-  box(2.2, 12, -10, 2, 4, 2.6);  // Streiflicht links
-  box(4, 10, 10, 1, -3, 1.0);    // Kante rechts hinten
-  box(12, 3, 0, -7, 7, .45);     // Aufheller unten
-  box(6, 6, 6, 6, 9, .9);        // Glanzpunkt vorne rechts
+  box(18, 2.4, 0, 10, 3, 3.4);    // langes Oberlicht
+  box(1.6, 16, -11, 1, 3, 2.8);   // Streifen links
+  box(1.6, 16, 11, 1, 1, 1.6);    // Streifen rechts
+  box(3, 12, 6, 3, 10, .9);       // weiche Box vorne rechts
+  box(14, 2, 0, -8, 6, .35);      // Aufheller unten
   const pm = new THREE.PMREMGenerator(renderer);
   return pm.fromScene(s, .03).texture;
 }
@@ -267,7 +312,7 @@ export function erstelleBuehne(canvas, { hintergrund = "#0E0F11", dpr = Math.min
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: transparent, preserveDrawingBuffer: true });
   renderer.setPixelRatio(dpr);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.1;
+  renderer.toneMappingExposure = 1.08;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   const scene = new THREE.Scene();
   if (!transparent) scene.background = new THREE.Color(hintergrund);
