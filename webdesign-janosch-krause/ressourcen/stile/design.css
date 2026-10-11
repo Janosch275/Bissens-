@@ -178,7 +178,7 @@ p { margin: 0 0 1em; }
 .hero__visual { position: relative; perspective: 1600px; }
 .hero__stage { position: relative; transform-style: preserve-3d; }
 .mock {
-  border-radius: 20px; overflow: hidden; transition: transform .6s var(--ease);
+  border-radius: 20px; overflow: hidden;
   background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12);
   box-shadow: 0 40px 100px -30px rgba(0, 0, 0, .7), inset 0 1px 0 rgba(255, 255, 255, .08);
   backdrop-filter: blur(10px);

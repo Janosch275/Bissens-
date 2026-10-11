@@ -283,19 +283,6 @@
   update();
   if (reduceMotion) steps.forEach(function (s) { s.classList.add("is-active"); });
 
-  /* ---------- 3D-Neigung des Browser-Mockups ---------- */
-  var mock = document.getElementById("mock");
-  var visual = mock && mock.closest(".hero__visual");
-  if (mock && !reduceMotion && window.matchMedia("(hover: hover)").matches) {
-    visual.addEventListener("mousemove", function (e) {
-      var r = visual.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5;
-      var y = (e.clientY - r.top) / r.height - 0.5;
-      mock.style.transform = "rotateY(" + (x * 14) + "deg) rotateX(" + (-y * 10) + "deg)";
-    });
-    visual.addEventListener("mouseleave", function () { mock.style.transform = ""; });
-  }
-
   /* ---------- Magnetische Buttons ---------- */
   if (!reduceMotion && window.matchMedia("(hover: hover)").matches) {
     document.querySelectorAll(".magnetic").forEach(function (btn) {
