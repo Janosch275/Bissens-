@@ -20,7 +20,6 @@
     <nav class="menue" id="menue" aria-label="Hauptnavigation">
       <a href="#leistungen">Leistungen</a>
       <a href="#probefahrt">Probefahrt</a>
-      <a href="#felgen">Felgen</a>
       <a href="#geschichte">Geschichte</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
@@ -111,23 +110,27 @@
           <p class="tag tag--hell">Probefahrt</p>
           <h2 class="schraeg">Einsteigen.<br><em>Anschnallen. Losfahren.</em></h2>
         </div>
-        <svg class="auto" id="auto" viewBox="0 0 1000 340" role="img" aria-label="Linienzeichnung eines Sportcoupés">
+        <svg class="auto" id="auto" viewBox="0 0 1000 340" role="img" aria-label="Linienzeichnung eines flachen Sportcoupés mit großem Heckflügel">
           <g class="auto__tempo" aria-hidden="true">
-            <line x1="-200" y1="150" x2="40" y2="150"/><line x1="-260" y1="200" x2="20" y2="200"/><line x1="-180" y1="248" x2="30" y2="248"/>
+            <line x1="-260" y1="120" x2="0" y2="120"/><line x1="-320" y1="180" x2="-20" y2="180"/><line x1="-240" y1="236" x2="10" y2="236"/>
           </g>
-          <path class="auto__linie" pathLength="1" d="M78 262 C 64 258 58 246 60 232 L 64 214 C 66 204 76 198 92 196 L 262 182 C 300 178 322 172 346 158 L 452 104 C 470 96 490 92 512 92 L 610 94 C 640 96 662 104 690 120 L 830 186 C 870 196 912 204 930 214 C 942 222 944 240 938 256 C 934 264 926 268 914 268 L 868 268 C 864 214 812 186 770 186 C 728 186 680 214 676 268 L 352 268 C 348 214 300 186 258 186 C 216 186 168 214 164 268 L 100 268 C 90 268 82 266 78 262 Z"/>
-          <path class="auto__linie auto__linie--fein" pathLength="1" d="M372 158 L 462 112 C 476 106 492 104 508 104 L 604 106 C 628 108 646 116 664 128 L 728 162 Z"/>
-          <path class="auto__linie auto__linie--fein" pathLength="1" d="M548 105 L 552 162 M 360 192 L 820 196 M 600 196 C 604 222 606 246 604 266"/>
-          <path class="auto__linie auto__linie--fein" pathLength="1" d="M70 214 L 140 208 M 880 204 L 930 214 M 420 222 L 540 222"/>
-          <g class="auto__rad" id="rad-v" style="transform-origin: 258px 268px">
-            <circle cx="258" cy="268" r="62" class="auto__reifen"/><circle cx="258" cy="268" r="44" class="auto__felge"/>
-            <path d="M258 226 V 310 M 216 268 H 300 M 228 238 L 288 298 M 288 238 L 228 298" class="auto__speichen"/>
+          <!-- Karosserie: flacher Keil, kurzes Dach, lange Haube -->
+          <path class="auto__linie auto__koerper" pathLength="1" d="M74 262 L 64 222 C 63 212 66 204 74 200 L 96 196 L 300 182 C 330 180 352 172 372 160 L 418 132 C 430 125 446 122 462 121 L 522 121 C 540 121 556 126 572 136 L 652 182 C 666 190 684 194 704 196 L 900 208 C 924 210 942 216 950 226 C 956 236 954 248 946 256 L 932 262 L 833 262 A 76 76 0 1 0 687 262 L 327 262 A 76 76 0 1 0 181 262 Z"/>
+          <!-- Heckflügel mit Stützen -->
+          <path class="auto__linie auto__koerper" pathLength="1" d="M38 150 L 214 146 L 216 160 L 42 166 Z M 92 164 L 100 198 M 186 160 L 178 186"/>
+          <!-- Seitenfenster -->
+          <path class="auto__linie auto__linie--fein" pathLength="1" d="M432 136 C 444 130 456 128 470 128 L 518 128 C 532 128 544 132 556 140 L 616 176 L 422 178 Z"/>
+          <!-- Tür, Lufteinlass, Schweller, Front, Haube -->
+          <path class="auto__linie auto__linie--fein" pathLength="1" d="M420 178 L 412 254 M 616 178 L 622 254 M 356 192 L 404 186 L 400 226 L 352 228 Z M 330 254 L 684 254 M 860 212 L 936 222 M 892 236 L 944 240 M 730 200 L 790 202 M 250 186 L 260 194 L 300 190"/>
+          <g class="auto__rad" id="rad-h" style="transform-origin: 254px 240px">
+            <circle cx="254" cy="240" r="60" class="auto__reifen"/><circle cx="254" cy="240" r="42" class="auto__felge"/>
+            <path d="M254 200 V 280 M 214 240 H 294 M 226 212 L 282 268 M 282 212 L 226 268" class="auto__speichen"/>
           </g>
-          <g class="auto__rad" id="rad-h" style="transform-origin: 770px 268px">
-            <circle cx="770" cy="268" r="62" class="auto__reifen"/><circle cx="770" cy="268" r="44" class="auto__felge"/>
-            <path d="M770 226 V 310 M 728 268 H 812 M 740 238 L 800 298 M 800 238 L 740 298" class="auto__speichen"/>
+          <g class="auto__rad" id="rad-v" style="transform-origin: 760px 240px">
+            <circle cx="760" cy="240" r="60" class="auto__reifen"/><circle cx="760" cy="240" r="42" class="auto__felge"/>
+            <path d="M760 200 V 280 M 720 240 H 800 M 732 212 L 788 268 M 788 212 L 732 268" class="auto__speichen"/>
           </g>
-          <line x1="0" y1="331" x2="1000" y2="331" class="auto__boden"/>
+          <line x1="0" y1="301" x2="1000" y2="301" class="auto__boden"/>
         </svg>
         <div class="skizze__fuss">
           <p>Sie haben ein Auto im Blick? Wir stellen es vollgetankt bereit – für eine Runde durch die Stadt oder über die Landstraße.</p>
@@ -136,38 +139,6 @@
       </div>
     </section>
 
-    <!-- ===== Felgen-Showroom ===== -->
-    <section class="showroom" id="felgen">
-      <div class="showroom__buehne">
-        <canvas id="show-canvas" aria-label="3D-Ansicht der gewählten Felge, mit Maus oder Finger drehbar" role="img"></canvas>
-        <img class="showroom__ersatz" id="show-ersatz" src="ressourcen/bilder/rad-stern.webp" alt="" width="1200" height="1200">
-        <p class="showroom__name" id="show-name" aria-live="polite">Stern</p>
-        <p class="showroom__drehen">Ziehen zum Drehen</p>
-      </div>
-      <div class="showroom__panel">
-        <p class="tag">Felgen-Showroom</p>
-        <h2 class="schraeg auf">Der erste Eindruck <em>dreht sich.</em></h2>
-        <p class="auf">Drei Designs, vier Oberflächen, vier Sattelfarben. Wir beraten, prüfen die Freigabe für Ihr Fahrzeug und montieren – inklusive Wuchten und Achsvermessung.</p>
-        <fieldset><legend>Design</legend><div class="wahl" id="wahl-felge">
-          <button class="is-an" data-felge="stern">Stern<small>5 Doppelspeichen</small></button>
-          <button data-felge="turbine">Turbine<small>14 Speichen</small></button>
-          <button data-felge="monza">Monza<small>5 Speichen</small></button>
-        </div></fieldset>
-        <fieldset><legend>Oberfläche <span id="finish-name">Gunmetal</span></legend><div class="punkte" id="wahl-finish">
-          <button data-finish="silber" style="--c:#c9ccd1" aria-label="Silber"></button>
-          <button class="is-an" data-finish="gunmetal" style="--c:#4a4e55" aria-label="Gunmetal"></button>
-          <button data-finish="schwarz" style="--c:#1c1d1f" aria-label="Schwarz matt"></button>
-          <button data-finish="bronze" style="--c:#8a6a3c" aria-label="Bronze"></button>
-        </div></fieldset>
-        <fieldset><legend>Bremssattel</legend><div class="punkte" id="wahl-sattel">
-          <button class="is-an" data-sattel="rot" style="--c:#d7261e" aria-label="Rot"></button>
-          <button data-sattel="gelb" style="--c:#e8b51f" aria-label="Gelb"></button>
-          <button data-sattel="blau" style="--c:#1f4fd1" aria-label="Blau"></button>
-          <button data-sattel="schwarz" style="--c:#1b1b1d" aria-label="Schwarz"></button>
-        </div></fieldset>
-        <a href="#kontakt" class="knopf">Beratung anfragen</a>
-      </div>
-    </section>
 
     <!-- ===== Geschichte als Rennstrecke ===== -->
     <section class="strecke" id="geschichte">

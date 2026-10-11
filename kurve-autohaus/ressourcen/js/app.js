@@ -17,7 +17,7 @@
   var jahr = $("#jahr"); if (jahr) jahr.textContent = new Date().getFullYear();
 
   // gemeinsamer Zustand mit der 3D-Szene
-  var K = window.KURVE = { heroP: 0, felge: "stern", finish: "gunmetal", sattel: "rot" };
+  var K = window.KURVE = { heroP: 0 };
 
   /* ---------- Navigation ---------- */
   var kopf = $("#kopf"), burger = $("#burger"), menue = $("#menue");
@@ -78,23 +78,6 @@
     p.addEventListener("mouseenter", function () { if (window.matchMedia("(hover: hover)").matches) oeffne(p); });
     p.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); oeffne(p); } });
   });
-
-  /* ---------- Felgen-Showroom ---------- */
-  var NAMEN = { stern: "Stern", turbine: "Turbine", monza: "Monza" };
-  var FINISHE = { silber: "Silber", gunmetal: "Gunmetal", schwarz: "Schwarz matt", bronze: "Bronze" };
-  function wahl(gruppe, attr, fn) {
-    var knoepfe = $$("button", $(gruppe));
-    knoepfe.forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.classList.contains("is-an")));
-      b.addEventListener("click", function () {
-        knoepfe.forEach(function (o) { o.classList.toggle("is-an", o === b); o.setAttribute("aria-pressed", String(o === b)); });
-        fn(b.dataset[attr]);
-      });
-    });
-  }
-  wahl("#wahl-felge", "felge", function (v) { K.felge = v; $("#show-name").textContent = NAMEN[v]; $("#show-ersatz").src = "ressourcen/bilder/rad-" + v + ".webp"; });
-  wahl("#wahl-finish", "finish", function (v) { K.finish = v; $("#finish-name").textContent = FINISHE[v]; });
-  wahl("#wahl-sattel", "sattel", function (v) { K.sattel = v; });
 
   /* ---------- Formular → E-Mail ---------- */
   var form = $("#formular");
