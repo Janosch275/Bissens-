@@ -97,7 +97,7 @@
 
   /* ---------- Scroll-Choreografie ---------- */
   var hero = $(".hero"), heroPin = $("#hero-pin"), tacho = $("#tacho"), drehzahl = $("#drehzahl"), teile = $$("#teile li");
-  var skizze = $(".skizze"), skizzePin = $("#skizze-pin");
+  var fahrt = $(".fahrt"), fahrtPin = $("#fahrt-pin");
   var strecke = $(".strecke"), streckePin = $("#strecke-pin"), kurs = $("#kurs"), fahrzeug = $("#fahrzeug"), etappen = $$("#etappen li");
   var fussWort = $(".fuss__wort");
   var kursLaenge = kurs.getTotalLength();
@@ -133,12 +133,10 @@
     var teil = hp > .42 && hp < .68 ? clamp(Math.floor(seg(hp, .42, .64) * 4), 0, 3) : -1;
     teile.forEach(function (li, i) { li.classList.toggle("is-an", i === teil); });
 
-    var sp = prog(skizze);
-    skizzePin.style.setProperty("--zeichnen", weich(seg(sp, .02, .55)).toFixed(4));
-    skizzePin.style.setProperty("--fuellung", seg(sp, .55, .75).toFixed(4));
-    skizzePin.style.setProperty("--fahrt", weich(seg(sp, 0, .55)).toFixed(4));
-    skizzePin.style.setProperty("--drehen", (sp * 5).toFixed(4));
-    skizzePin.style.setProperty("--tempo", seg(sp, .7, .85).toFixed(3));
+    var fp = prog(fahrt);
+    fahrtPin.style.setProperty("--auf", weich(seg(fp, 0, .4)).toFixed(4));
+    fahrtPin.style.setProperty("--fahrt", fp.toFixed(4));
+    fahrtPin.style.setProperty("--wisch", weich(seg(fp, .5, .85)).toFixed(4));
 
     var rp = prog(strecke);
     streckePin.style.setProperty("--runde", rp.toFixed(4));

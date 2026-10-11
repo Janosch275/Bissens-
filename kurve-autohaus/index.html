@@ -103,42 +103,28 @@
       </div>
     </section>
 
-    <!-- ===== Probefahrt: Sportwagen zeichnet sich ===== -->
-    <section class="skizze" id="probefahrt">
-      <div class="skizze__pin" id="skizze-pin">
-        <div class="skizze__kopf">
+    <!-- ===== Probefahrt: Fotos öffnen sich wie eine Kinoleinwand ===== -->
+    <section class="fahrt" id="probefahrt">
+      <div class="fahrt__pin" id="fahrt-pin">
+        <figure class="fahrt__bild fahrt__bild--a">
+          <img src="ressourcen/bilder/coupe-front.webp" srcset="ressourcen/bilder/coupe-front-klein.webp 688w, ressourcen/bilder/coupe-front.webp 1376w" sizes="100vw" alt="Rotes Sportcoupé fährt auf einer Küstenstraße am Meer" width="1376" height="768">
+        </figure>
+        <figure class="fahrt__bild fahrt__bild--b">
+          <img src="ressourcen/bilder/coupe-heck.webp" srcset="ressourcen/bilder/coupe-heck-klein.webp 688w, ressourcen/bilder/coupe-heck.webp 1376w" sizes="100vw" alt="Rotes Sportcoupé mit Heckflügel von hinten auf einer kurvigen Küstenstraße" width="1376" height="768" loading="lazy">
+        </figure>
+        <div class="fahrt__schleier" aria-hidden="true"></div>
+        <div class="fahrt__text fahrt__text--a">
           <p class="tag tag--hell">Probefahrt</p>
-          <h2 class="schraeg">Einsteigen.<br><em>Anschnallen. Losfahren.</em></h2>
+          <h2 class="schraeg">Einsteigen.<br><em>Anschnallen.</em></h2>
         </div>
-        <svg class="auto" id="auto" viewBox="0 0 1000 340" role="img" aria-label="Linienzeichnung eines flachen Sportcoupés mit großem Heckflügel">
-          <g class="auto__tempo" aria-hidden="true">
-            <line x1="-260" y1="120" x2="0" y2="120"/><line x1="-320" y1="180" x2="-20" y2="180"/><line x1="-240" y1="236" x2="10" y2="236"/>
-          </g>
-          <!-- Karosserie: flacher Keil, kurzes Dach, lange Haube -->
-          <path class="auto__linie auto__koerper" pathLength="1" d="M74 262 L 64 222 C 63 212 66 204 74 200 L 96 196 L 300 182 C 330 180 352 172 372 160 L 418 132 C 430 125 446 122 462 121 L 522 121 C 540 121 556 126 572 136 L 652 182 C 666 190 684 194 704 196 L 900 208 C 924 210 942 216 950 226 C 956 236 954 248 946 256 L 932 262 L 833 262 A 76 76 0 1 0 687 262 L 327 262 A 76 76 0 1 0 181 262 Z"/>
-          <!-- Heckflügel mit Stützen -->
-          <path class="auto__linie auto__koerper" pathLength="1" d="M38 150 L 214 146 L 216 160 L 42 166 Z M 92 164 L 100 198 M 186 160 L 178 186"/>
-          <!-- Seitenfenster -->
-          <path class="auto__linie auto__linie--fein" pathLength="1" d="M432 136 C 444 130 456 128 470 128 L 518 128 C 532 128 544 132 556 140 L 616 176 L 422 178 Z"/>
-          <!-- Tür, Lufteinlass, Schweller, Front, Haube -->
-          <path class="auto__linie auto__linie--fein" pathLength="1" d="M420 178 L 412 254 M 616 178 L 622 254 M 356 192 L 404 186 L 400 226 L 352 228 Z M 330 254 L 684 254 M 860 212 L 936 222 M 892 236 L 944 240 M 730 200 L 790 202 M 250 186 L 260 194 L 300 190"/>
-          <g class="auto__rad" id="rad-h" style="transform-origin: 254px 240px">
-            <circle cx="254" cy="240" r="60" class="auto__reifen"/><circle cx="254" cy="240" r="42" class="auto__felge"/>
-            <path d="M254 200 V 280 M 214 240 H 294 M 226 212 L 282 268 M 282 212 L 226 268" class="auto__speichen"/>
-          </g>
-          <g class="auto__rad" id="rad-v" style="transform-origin: 760px 240px">
-            <circle cx="760" cy="240" r="60" class="auto__reifen"/><circle cx="760" cy="240" r="42" class="auto__felge"/>
-            <path d="M760 200 V 280 M 720 240 H 800 M 732 212 L 788 268 M 788 212 L 732 268" class="auto__speichen"/>
-          </g>
-          <line x1="0" y1="301" x2="1000" y2="301" class="auto__boden"/>
-        </svg>
-        <div class="skizze__fuss">
+        <div class="fahrt__text fahrt__text--b">
+          <h2 class="schraeg">Losfahren.</h2>
           <p>Sie haben ein Auto im Blick? Wir stellen es vollgetankt bereit – für eine Runde durch die Stadt oder über die Landstraße.</p>
           <a href="#kontakt" class="knopf knopf--rot">Probefahrt vereinbaren</a>
         </div>
+        <p class="fahrt__hinweis">Beispielbilder</p>
       </div>
     </section>
-
 
     <!-- ===== Geschichte als Rennstrecke ===== -->
     <section class="strecke" id="geschichte">
