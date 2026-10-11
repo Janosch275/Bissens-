@@ -10,14 +10,27 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 | `robots.txt` | Hinweis für Suchmaschinen – Sitemap-Zeile ergänzen, sobald die Domain steht |
 | `impressum.html`, `datenschutz.html` | Rechtliche Seiten – **gelb markierte Platzhalter vor dem Livegang ausfüllen** |
 | `kontakt.php` | Nimmt Formular-Anfragen entgegen, speichert sie in `/anfragen` und schickt sie per E-Mail |
-| `ressourcen/stile/design.css` | Design: grüne Farbpalette, Schriften, Animationen, Handy-Ansicht |
-| `ressourcen/skripte/funktionen.js` | Scroll-Animationen, Menü, Zähler, Formular-Validierung & -Versand |
+| `ressourcen/stile/design.css` | Design: grüne Farbpalette, Schriften, Scroll-Animationen, Handy-Ansicht |
+| `ressourcen/skripte/funktionen.js` | Scroll-Animationen, Menü, Zähler, Preisrechner, Formular-Validierung & -Versand |
 | `ressourcen/bilder/logo.svg`, `symbol.svg` | Logo (JK-Zeichen mit Mint-Quadrat) und Browser-Tab-Symbol |
 | `referenzen/` | Zwei Beispiel-Websites als Arbeitsproben (Kunstschule „Farbfeld“, Architekturbüro „Atelier Kante“) – verlinkt im Bereich „Arbeiten“ |
 | `ressourcen/bilder/arbeiten/` | Vorschaubilder der Beispiel-Websites |
 | `ressourcen/schriften/` | Sora & Plus Jakarta Sans, lokal eingebunden (DSGVO-freundlich, kein Google-CDN) |
 
 > Hinweis: `index.html` muss so heißen – Webserver laden diese Datei automatisch als Startseite.
+
+## Scroll-Animationen
+
+Alle Effekte sind selbst geschrieben – ohne Bibliotheken, ohne CDN, ohne externe Verbindungen:
+
+- Überschrift baut sich Wort für Wort auf, das Browser-Mockup richtet sich beim Scrollen auf, Farbflächen bewegen sich mit Parallaxe
+- Leistungs-Karten stapeln sich beim Scrollen übereinander
+- Referenz-Fenster klappen beim Hineinscrollen auf
+- „Ablauf“ fährt auf großen Bildschirmen horizontal durch die vier Schritte (Handy: Zeitleiste füllt sich)
+- „Über mich“-Text füllt sich Wort für Wort, die Karte im Standort-Bereich zeichnet ihre Verbindungen
+- Fortschrittsbalken oben, Menü blendet sich beim Runterscrollen aus und beim Hochscrollen ein
+
+Wer in seinem Betriebssystem „Bewegung reduzieren“ eingestellt hat, sieht die Seite ohne Animationen. Ohne JavaScript ist ebenfalls alles sichtbar.
 
 ## Kontaktformular einrichten
 
