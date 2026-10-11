@@ -106,30 +106,9 @@
     <!-- ===== Probefahrt: das Coupé fährt die Küstenstraße entlang ===== -->
     <section class="fahrt" id="probefahrt">
       <div class="fahrt__pin" id="fahrt-pin">
-        <div class="szene" id="szene" role="img" aria-label="Animation: ein rotes Sportcoupé fährt eine Küstenstraße am Meer entlang">
-          <div class="szene__ferne"><i class="schnell"></i></div>
-          <div class="szene__strasse"><i class="schnell"></i></div>
-          <div class="szene__planke"></div>
-          <div class="wagen" id="wagen">
-            <div class="wagen__schatten"></div>
-            <div class="wagen__koerper">
-              <img class="wagen__bild" src="ressourcen/bilder/fahrt/auto.webp" alt="" width="1198" height="339">
-              <div class="rad rad--vorn">
-                <img class="rad__basis" src="ressourcen/bilder/fahrt/rad-vorn.webp" alt="">
-                <img class="rad__basis schnell" src="ressourcen/bilder/fahrt/rad-vorn-schnell.webp" alt="">
-                <img class="rad__sattel" src="ressourcen/bilder/fahrt/sattel-vorn.webp" alt="">
-                <img class="rad__speichen" src="ressourcen/bilder/fahrt/speichen-vorn.webp" alt="">
-                <img class="rad__speichen schnell" src="ressourcen/bilder/fahrt/speichen-vorn-schnell.webp" alt="">
-              </div>
-              <div class="rad rad--hinten">
-                <img class="rad__basis" src="ressourcen/bilder/fahrt/rad-hinten.webp" alt="">
-                <img class="rad__basis schnell" src="ressourcen/bilder/fahrt/rad-hinten-schnell.webp" alt="">
-                <img class="rad__sattel" src="ressourcen/bilder/fahrt/sattel-hinten.webp" alt="">
-                <img class="rad__speichen" src="ressourcen/bilder/fahrt/speichen-hinten.webp" alt="">
-                <img class="rad__speichen schnell" src="ressourcen/bilder/fahrt/speichen-hinten-schnell.webp" alt="">
-              </div>
-            </div>
-          </div>
+        <div class="film" id="film">
+          <img class="film__standbild" id="film-standbild" src="ressourcen/bilder/fahrt/bild-001.webp" alt="Ein rotes Sportcoupé fährt eine Küstenstraße am Meer entlang" width="1152" height="648">
+          <canvas class="film__leinwand" id="film-leinwand" aria-hidden="true"></canvas>
         </div>
         <div class="fahrt__schleier" aria-hidden="true"></div>
         <div class="fahrt__text fahrt__text--a">
@@ -141,7 +120,7 @@
           <p>Sie haben ein Auto im Blick? Wir stellen es vollgetankt bereit – für eine Runde durch die Stadt oder über die Landstraße.</p>
           <a href="#kontakt" class="knopf knopf--rot">Probefahrt vereinbaren</a>
         </div>
-        <div class="fahrt__tempo" aria-hidden="true"><b id="fahrt-kmh">0</b><span>km/h</span></div>
+        <div class="fahrt__balken" aria-hidden="true"><i></i></div>
       </div>
     </section>
 

@@ -147,40 +147,21 @@ p { margin: 0 0 1em; }
 .paneel__inhalt li { display: flex; gap: 10px; align-items: center; font: 500 .82rem var(--mono); }
 .paneel__inhalt li::before { content: ""; width: 12px; height: 3px; background: currentColor; transform: skewX(-30deg); }
 
-/* ---------- Probefahrt: Fahrszene ---------- */
-.fahrt { background: #8fc3e8; color: #fff; }
+/* ---------- Probefahrt: Film, der beim Scrollen läuft ---------- */
+.fahrt { background: #0d0e10; color: #fff; }
 .fahrt__pin { position: relative; height: 100svh; min-height: 560px; overflow: hidden; }
-.szene { position: absolute; inset: 0; --x-ferne: 0px; --x-strasse: 0px; --schnell: 0; }
-.szene__ferne, .szene__strasse { position: absolute; left: 0; right: 0; background-repeat: repeat-x; }
-.szene__ferne { top: 0; height: 64%; background-image: url("../bilder/fahrt/ferne.webp"); background-size: auto 100%; background-position: var(--x-ferne) bottom; }
-.szene__strasse { top: 64%; bottom: 0; background-image: url("../bilder/fahrt/strasse.webp"); background-size: auto 100%; background-position: var(--x-strasse) 0; }
-.szene__ferne .schnell, .szene__strasse .schnell { position: absolute; inset: 0; background: inherit; opacity: var(--schnell); }
-.szene__ferne .schnell { background-image: url("../bilder/fahrt/ferne-schnell.webp"); }
-.szene__strasse .schnell { background-image: url("../bilder/fahrt/strasse-schnell.webp"); }
-/* Leitplanke: Holm + Pfosten, nahtlos wiederholbar */
-.szene__planke { position: absolute; left: 0; right: 0; top: calc(64% - 9.6%); height: 9.6%; filter: blur(calc(var(--schnell) * 2.5px)); }
-.szene__planke::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0 46%, #6f767c 46% 48%, #b9bec2 48% 52%, #7b8187 52% 54%, transparent 54%) var(--x-planke, 0px) 44% / calc(9.6vh * 3.6) 56% repeat-x; }
-.szene__planke { background: linear-gradient(180deg, transparent 0 12%, #eef1f3 12% 17%, #c3c8cc 17% 30%, #8e959b 30% 38%, #5d6368 38% 44%, transparent 44%); }
-.wagen { position: absolute; left: 50%; bottom: 9%; width: min(64vw, 1050px); transform: translateX(calc(-50% + var(--wagen-x, 0px))); will-change: transform; }
-.wagen__koerper { position: relative; aspect-ratio: 1198 / 339; transform: translateY(var(--wippen, 0px)) rotate(var(--neigung, 0deg)); transform-origin: 70% 90%; }
-.wagen__bild { position: absolute; inset: 0; width: 100%; height: 100%; }
-.wagen__schatten { position: absolute; left: 4%; right: 3%; bottom: -3%; height: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .6), rgba(0, 0, 0, .25) 60%, transparent); filter: blur(6px); }
-.rad { position: absolute; }
-.rad--vorn { left: 12.27%; top: 41.89%; width: 16.36%; aspect-ratio: 1; }
-.rad--hinten { left: 73.04%; top: 40.12%; width: 16.86%; aspect-ratio: 1; }
-.rad img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.rad__basis, .rad__speichen { transform: rotate(var(--dreh, 0deg)); }
-.rad .schnell { opacity: var(--schnell); }
-.rad__basis:not(.schnell), .rad__speichen:not(.schnell) { opacity: calc(1 - var(--schnell) * .85); }
+.film { position: absolute; inset: 0; }
+.film__standbild, .film__leinwand { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.film__leinwand { opacity: 0; transition: opacity .6s; }
+.film.is-bereit .film__leinwand { opacity: 1; }
+.fahrt__balken { position: absolute; left: var(--rand); right: var(--rand); bottom: 22px; height: 2px; background: rgba(255, 255, 255, .2); }
+.fahrt__balken i { display: block; height: 100%; background: var(--rot); transform-origin: left; transform: scaleX(var(--film, 0)); }
 .fahrt__schleier { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10, 10, 12, .55), transparent 38%), linear-gradient(0deg, rgba(10, 10, 12, .35), transparent 30%); }
 .fahrt__text { position: absolute; left: var(--rand); max-width: 560px; }
 .fahrt__text--a { top: clamp(90px, 13vh, 150px); }
 .fahrt__text--b { top: clamp(90px, 13vh, 150px); }
 .fahrt__text--b p { color: rgba(255, 255, 255, .92); max-width: 420px; margin: 16px 0 22px; text-shadow: 0 2px 16px rgba(0, 0, 0, .35); }
 .fahrt__text h2 { text-shadow: 0 4px 30px rgba(0, 0, 0, .3); }
-.fahrt__tempo { position: absolute; right: var(--rand); top: clamp(90px, 13vh, 150px); display: flex; align-items: baseline; gap: 8px; transform: skewX(-9deg); }
-.fahrt__tempo b { font: 900 clamp(3rem, 2rem + 3vw, 5.4rem)/.85 var(--display); font-stretch: 75%; font-variant-numeric: tabular-nums; min-width: 3ch; text-align: right; text-shadow: 0 4px 24px rgba(0, 0, 0, .3); }
-.fahrt__tempo span { font: 500 .8rem var(--mono); }
 
 /* ---------- Strecke ---------- */
 .strecke { background: var(--asphalt); color: #fff; }
@@ -253,7 +234,7 @@ p { margin: 0 0 1em; }
 .bewegt .hero__titel { opacity: calc(1 - var(--p, 0) * 5); }
 .bewegt .fahrt__text--a { opacity: var(--text-a, 1); transform: translateY(calc((1 - var(--text-a, 1)) * 30px)); }
 .bewegt .fahrt__text--b { opacity: var(--text-b, 0); transform: translateY(calc((1 - var(--text-b, 0)) * 30px)); }
-html:not(.bewegt) .fahrt__text--a, html:not(.bewegt) .fahrt__tempo { display: none; }
+html:not(.bewegt) .fahrt__text--a { display: none; }
 .bewegt .hud { opacity: calc(min(1, var(--p, 0) * 12) * (1 - max(0, var(--p, 0) - .88) * 8)); }
 .bewegt .auf { opacity: 0; transform: translateY(50px) skewY(2deg); transition: opacity 1s var(--ease), transform 1.1s var(--ease); }
 .bewegt .auf.is-da { opacity: 1; transform: none; }
@@ -301,10 +282,5 @@ html:not(.bewegt) .fahrt__text--a, html:not(.bewegt) .fahrt__tempo { display: no
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
 
-@media (max-width: 700px) {
-  .wagen { width: 112vw; bottom: 12%; }
-  .szene__ferne { height: 60%; }
-  .szene__strasse { top: 60%; }
-  .szene__planke { top: calc(60% - 9.6%); }
-  .fahrt__tempo { top: auto; bottom: 30%; }
-}
+.fahrt h2 { font-size: clamp(2.2rem, 1.2rem + 3.2vw, 4.8rem); }
+.fahrt__text--a, .fahrt__text--b { top: clamp(80px, 11vh, 120px); }

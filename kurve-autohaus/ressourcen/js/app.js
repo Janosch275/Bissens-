@@ -151,44 +151,55 @@
   if (reduce) { etappen.forEach(function (li) { li.classList.add("is-an"); }); fahrzeug.setAttribute("transform", "translate(1540 120)"); }
   requestAnimationFrame(function () { heroPin.classList.add("is-geladen"); });
 
-  /* ---------- Fahrszene: Coupé fährt die Küstenstraße entlang ---------- */
-  var szene = $("#szene"), wagen = $("#wagen"), kmhEl = $("#fahrt-kmh");
-  var raeder = $$(".rad", wagen), koerper = $(".wagen__koerper", wagen);
-  var strecke_px = 0, tempoIst = 0, zeit = performance.now(), sichtbar = true;
-  if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { sichtbar = es[0].isIntersecting; }).observe(fahrtPin);
-  // Phasen: einrollen (0–.25), Fahrt mit hohem Tempo (.25–.72), davonziehen (.72–1)
-  function phase(p) {
-    var ein = weich(seg(p, 0, .26)), aus = weich(seg(p, .74, 1));
-    return {
-      ziel: .35 + ein * .45 + seg(p, .45, .72) * .2 + aus * .2,     // 0…1 Tempo
-      x: (1 - ein) * .75 - aus * 1.0                                  // Bildschirmversatz in Viewport-Breiten (Auto fährt nach links)
+  /* ---------- Probefahrt: Film-Einzelbilder folgen dem Scrollen ---------- */
+  var BILDER = 96, film = $("#film"), leinwand = $("#film-leinwand"), ctx = leinwand.getContext("2d");
+  var bilder = [], geladen = 0, aktuell = -1, ziel = 0, anzeige = 0;
+  function bildPfad(i) { return "ressourcen/bilder/fahrt/bild-" + String(i + 1).padStart(3, "0") + ".webp"; }
+  function leinwandGroesse() {
+    var r = leinwand.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
+    leinwand.width = Math.round(r.width * d); leinwand.height = Math.round(r.height * d); aktuell = -1;
+  }
+  function zeichne(i) {
+    var img = bilder[i];
+    if (!img || !img.complete || !img.naturalWidth) return false;
+    var cw = leinwand.width, ch = leinwand.height, s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+    var w = img.naturalWidth * s, h = img.naturalHeight * s;
+    ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
+    return true;
+  }
+  if (!reduce) {
+    // erst jedes 8. Bild, dann den Rest – so ist früh etwas zu sehen
+    var reihenfolge = [];
+    for (var st = 8; st >= 1; st = st >> 1) for (var j = 0; j < BILDER; j += st) if (reihenfolge.indexOf(j) < 0) reihenfolge.push(j);
+    var ladeStart = function () {
+      reihenfolge.forEach(function (i) {
+        var img = new Image(); img.decoding = "async"; img.src = bildPfad(i);
+        img.onload = function () { geladen++; if (geladen === 1) { leinwandGroesse(); film.classList.add("is-bereit"); } aktuell = -1; };
+        bilder[i] = img;
+      });
     };
+    if ("IntersectionObserver" in window) {
+      var vorab = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { ladeStart(); vorab.disconnect(); } }, { rootMargin: "150% 0px" });
+      vorab.observe(fahrtPin);
+    } else ladeStart();
+    addEventListener("resize", leinwandGroesse);
+    (function abspielen() {
+      requestAnimationFrame(abspielen);
+      var p = K.fahrtP || 0;
+      ziel = seg(p, .04, .96) * (BILDER - 1);
+      anzeige += (ziel - anzeige) * .18;                       // weiches Nachlaufen
+      var i = Math.round(anzeige);
+      if (i !== aktuell && geladen) {
+        // nächstes vorhandenes Bild suchen, falls noch nicht geladen
+        for (var d = 0; d < BILDER; d++) {
+          if (zeichne(Math.min(BILDER - 1, i + d))) break;
+          if (zeichne(Math.max(0, i - d))) break;
+        }
+        aktuell = i;
+      }
+      fahrtPin.style.setProperty("--film", seg(p, .04, .96).toFixed(4));
+      fahrtPin.style.setProperty("--text-a", (seg(p, .02, .12) * (1 - seg(p, .4, .5))).toFixed(3));
+      fahrtPin.style.setProperty("--text-b", seg(p, .55, .65).toFixed(3));
+    })();
   }
-  function fahren(jetzt) {
-    requestAnimationFrame(fahren);
-    var dt = Math.min(.05, (jetzt - zeit) / 1000); zeit = jetzt;
-    if (!sichtbar || reduce) return;
-    var p = K.fahrtP || 0, ph = phase(p);
-    tempoIst += (ph.ziel - tempoIst) * Math.min(1, dt * 2.2);          // träge wie ein echtes Auto
-    var breite = wagen.offsetWidth;
-    var vPx = tempoIst * breite * 2.4;                                  // Pixel pro Sekunde
-    strecke_px += vPx * dt;
-    var radR = breite * 96 / 1198;
-    var winkel = -(strecke_px / radR) * 180 / Math.PI;
-    var schnell = Math.max(0, Math.min(1, (tempoIst - .45) / .45));
-    szene.style.setProperty("--x-strasse", (strecke_px % 100000).toFixed(1) + "px");
-    szene.style.setProperty("--x-planke", (strecke_px * .97 % 100000).toFixed(1) + "px");
-    szene.style.setProperty("--x-ferne", (strecke_px * .05).toFixed(1) + "px");
-    szene.style.setProperty("--schnell", schnell.toFixed(3));
-    raeder.forEach(function (r) { r.style.setProperty("--dreh", (winkel % 360).toFixed(2) + "deg"); });
-    var t = jetzt / 1000;
-    koerper.style.setProperty("--wippen", (Math.sin(t * 13) * .6 * tempoIst + Math.sin(t * 5.3) * .5 * tempoIst).toFixed(2) + "px");
-    var beschl = ph.ziel - tempoIst;                                   // Heck taucht beim Beschleunigen ein
-    koerper.style.setProperty("--neigung", (beschl * 1.6).toFixed(3) + "deg");
-    wagen.style.setProperty("--wagen-x", (ph.x * innerWidth).toFixed(1) + "px");
-    kmhEl.textContent = Math.max(0, Math.round(tempoIst * 240));
-    fahrtPin.style.setProperty("--text-a", (seg(p, .02, .14) * (1 - seg(p, .42, .52))).toFixed(3));
-    fahrtPin.style.setProperty("--text-b", seg(p, .52, .62).toFixed(3));
-  }
-  requestAnimationFrame(fahren);
 })();
