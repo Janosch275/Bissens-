@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LUND – Automatikuhren mit farbigem Zifferblatt</title>
+  <meta name="description" content="LUND Automatikuhren aus Edelstahl mit integriertem Armband und Zifferblättern in sechs Farben. 36 oder 39 mm, Saphirglas, 100 m wasserdicht.">
+  <meta name="theme-color" content="#0B0C0E">
+  <meta property="og:title" content="LUND – Sechs Farben. Eine Haltung.">
+  <meta property="og:description" content="Automatikuhren aus Edelstahl mit farbigen Sonnenschliff-Zifferblättern.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="ressourcen/css/stil.css">
+</head>
+<body>
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+
+  <header class="top" id="top-bar">
+    <a href="#start" class="mark" aria-label="LUND – zum Anfang">LUND</a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="#uhr">Die Uhr</a>
+      <a href="#kollektion">Kollektion</a>
+      <a href="#konfigurator">Konfigurator</a>
+      <a href="#technik">Technik</a>
+      <a href="#fragen">Fragen</a>
+    </nav>
+    <div class="top__r">
+      <button class="bag" id="bag-open" aria-label="Warenkorb öffnen"><span>Warenkorb</span><b id="bag-n">0</b></button>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero: Uhr wechselt beim Scrollen die Zifferblattfarbe ===== -->
+    <section class="hero" id="start">
+      <div class="hero__pin" id="hero-pin">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <p class="hero__colorword" id="hero-word" aria-hidden="true">Eisblau</p>
+        <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+        <img class="hero__fallback" src="ressourcen/bilder/uhren/eisblau-front.webp" alt="LUND Automatikuhr mit eisblauem Zifferblatt" width="1200" height="1500">
+
+        <div class="hero__copy">
+          <p class="eyebrow">LUND Automatik · 36 & 39 mm</p>
+          <h1><span class="mask"><span>Sechs Farben.</span></span><span class="mask"><span>Eine Haltung.</span></span></h1>
+        </div>
+        <div class="hero__side">
+          <p class="hero__time" aria-live="off"><span id="hero-clock">10:09</span> <small>Ortszeit</small></p>
+          <ol class="dots" id="hero-dots" aria-label="Zifferblattfarben"></ol>
+        </div>
+        <div class="hero__cta">
+          <a href="#kollektion" class="pill">Kollektion entdecken</a>
+          <span class="hero__hint" aria-hidden="true">Scrollen, um die Farben zu sehen</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Die Uhr ===== -->
+    <section class="intro" id="uhr">
+      <div class="wrap">
+        <p class="intro__lead split-words">Eine Uhr für jeden Tag, gebaut wie ein Werkzeug und gestaltet wie ein Schmuckstück. Gehäuse und Armband aus einem Guss, das Zifferblatt in der Farbe, die zu Ihnen passt.</p>
+        <dl class="figures">
+          <div class="rise"><dt>Durchmesser</dt><dd><span data-count="39">39</span><small>mm</small></dd></div>
+          <div class="rise"><dt>Wasserdicht</dt><dd><span data-count="100">100</span><small>m</small></dd></div>
+          <div class="rise"><dt>Gangreserve</dt><dd><span data-count="41">41</span><small>h</small></dd></div>
+          <div class="rise"><dt>Höhe</dt><dd><span data-count="9.8" data-dec="1">9,8</span><small>mm</small></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===== Details im Zoom ===== -->
+    <section class="macro" id="details">
+      <div class="macro__pin" id="macro-pin">
+        <div class="macro__sticky">
+          <figure class="macro__frame">
+            <img class="macro__img is-on" src="ressourcen/bilder/uhren/makro-zifferblatt.webp" alt="Nahaufnahme des eisblauen Zifferblatts mit Sonnenschliff" width="1800" height="1200" loading="lazy">
+            <img class="macro__img" src="ressourcen/bilder/uhren/makro-krone.webp" alt="Gehäuseflanke mit verschraubter Krone und Kronenschutz" width="1800" height="1200" loading="lazy">
+            <img class="macro__img" src="ressourcen/bilder/uhren/makro-band.webp" alt="Integriertes Gliederarmband mit polierten Mittelgliedern" width="1800" height="1200" loading="lazy">
+          </figure>
+          <div class="macro__text">
+            <article class="macro__item is-on"><span>01 — Zifferblatt</span><h2>Sonnenschliff, der mit dem Licht spielt.</h2><p>Jede Farbe verläuft von hell zur Mitte nach dunkel zum Rand. Facettierte, polierte Indexe mit Leuchtmasse bleiben auch nachts lesbar.</p></article>
+            <article class="macro__item"><span>02 — Gehäuse</span><h2>Gebürstet. Poliert. Präzise.</h2><p>Flache Lünette mit satinierter Oberfläche, polierte Fasen an den Kanten und eine verschraubte Krone mit Kronenschutz.</p></article>
+            <article class="macro__item"><span>03 — Armband</span><h2>Aus einem Guss mit dem Gehäuse.</h2><p>Das integrierte Gliederarmband geht nahtlos in das Gehäuse über. Polierte Mittelglieder setzen feine Lichtakzente am Handgelenk.</p></article>
+          </div>
+          <div class="macro__bar" aria-hidden="true"><i id="macro-bar"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Kollektion ===== -->
+    <section class="collection" id="kollektion">
+      <div class="wrap">
+        <div class="collection__head">
+          <h2 class="rise">Die Kollektion</h2>
+          <div class="seg" role="group" aria-label="Gehäusegröße">
+            <button class="is-on" data-size="39" aria-pressed="true">39 mm</button>
+            <button data-size="36" aria-pressed="false">36 mm</button>
+          </div>
+        </div>
+        <div class="cards" id="cards"></div>
+      </div>
+    </section>
+
+    <!-- ===== Konfigurator ===== -->
+    <section class="config" id="konfigurator">
+      <div class="config__in">
+        <div class="config__stage">
+          <canvas id="config-canvas" aria-label="3D-Ansicht der Uhr, mit der Maus oder dem Finger drehbar" role="img"></canvas>
+          <img class="config__fallback" id="config-fallback" src="ressourcen/bilder/uhren/eisblau-34.webp" alt="" width="1200" height="1500">
+          <p class="config__hint">Ziehen zum Drehen</p>
+        </div>
+        <div class="config__panel">
+          <p class="eyebrow">Konfigurator</p>
+          <h2 class="rise">Ihre LUND.</h2>
+          <fieldset><legend>Zifferblatt <span id="cfg-name">Eisblau</span></legend><div class="swatches" id="cfg-dials"></div></fieldset>
+          <fieldset><legend>Gehäuse</legend>
+            <div class="seg seg--full" role="group" aria-label="Gehäusegröße wählen"><button class="is-on" data-cfg-size="39" aria-pressed="true">39 mm</button><button data-cfg-size="36" aria-pressed="false">36 mm</button></div>
+          </fieldset>
+          <fieldset><legend>Gravur auf dem Gehäuseboden</legend>
+            <label class="engrave"><input id="cfg-gravur" type="text" maxlength="24" placeholder="optional, bis 24 Zeichen" autocomplete="off"><span>+ 49 €</span></label>
+          </fieldset>
+          <div class="config__sum"><p><span>Gesamt</span><b id="cfg-price">1.290,00 €</b></p><small>inkl. MwSt., versandkostenfrei</small></div>
+          <button class="pill pill--light pill--block" id="cfg-add">In den Warenkorb</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Technik ===== -->
+    <section class="tech" id="technik">
+      <div class="wrap tech__grid">
+        <h2 class="rise">Technik</h2>
+        <dl class="specs">
+          <div class="rise"><dt>Werk</dt><dd>Automatik, Schweizer Kaliber, 28.800 A/h, Stopsekunde</dd></div>
+          <div class="rise"><dt>Gangreserve</dt><dd>ca. 41 Stunden</dd></div>
+          <div class="rise"><dt>Gehäuse</dt><dd>Edelstahl 316L, gebürstet und poliert, 36 oder 39 mm</dd></div>
+          <div class="rise"><dt>Höhe</dt><dd>9,8 mm</dd></div>
+          <div class="rise"><dt>Glas</dt><dd>Saphir, beidseitig entspiegelt</dd></div>
+          <div class="rise"><dt>Wasserdichtheit</dt><dd>10 bar (100 m), verschraubte Krone</dd></div>
+          <div class="rise"><dt>Zifferblatt</dt><dd>Sonnenschliff, applizierte Indexe mit Leuchtmasse, Datum bei 3 Uhr</dd></div>
+          <div class="rise"><dt>Armband</dt><dd>Integriertes Edelstahl-Gliederarmband mit Faltschließe</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===== Service ===== -->
+    <section class="promise">
+      <div class="wrap promise__grid">
+        <div class="rise"><b>Versand</b><p>Versichert und versandkostenfrei innerhalb Deutschlands.</p></div>
+        <div class="rise"><b>Rückgabe</b><p>30 Tage Rückgaberecht für ungetragene Uhren ohne Gravur.</p></div>
+        <div class="rise"><b>Garantie</b><p>Zwei Jahre Herstellergarantie auf Werk und Gehäuse.</p></div>
+      </div>
+    </section>
+
+    <!-- ===== Fragen ===== -->
+    <section class="faq" id="fragen">
+      <div class="wrap faq__grid">
+        <h2 class="rise">Fragen</h2>
+        <div class="faq__list">
+          <details class="rise"><summary>Welche Größe passt zu meinem Handgelenk?</summary><p>Als Faustregel: Bis etwa 16,5 cm Handgelenksumfang wirkt die 36-mm-Version ausgewogen, darüber die 39-mm-Version. Durch das integrierte Armband trägt die Uhr etwas größer als ihr Durchmesser.</p></details>
+          <details class="rise"><summary>Kann ich das Armband kürzen lassen?</summary><p>Ja. Jedes Armband hat herausnehmbare Glieder. Nennen Sie uns bei der Bestellung Ihren Handgelenksumfang, dann passen wir es vor dem Versand an.</p></details>
+          <details class="rise"><summary>Muss ich eine Automatikuhr aufziehen?</summary><p>Beim täglichen Tragen zieht sich das Werk durch Ihre Armbewegung selbst auf. Lag die Uhr länger, genügen etwa 30 Umdrehungen an der Krone.</p></details>
+          <details class="rise"><summary>Wie lange dauert die Lieferung?</summary><p>Uhren ohne Gravur versenden wir innerhalb von zwei Werktagen. Mit Gravur rechnen Sie bitte mit fünf bis sieben Werktagen.</p></details>
+          <details class="rise"><summary>Wie pflege ich Gehäuse und Glas?</summary><p>Mit einem weichen Mikrofasertuch. Nach dem Baden im Meer kurz mit Süßwasser abspülen. Wir empfehlen eine Revision des Werks etwa alle fünf Jahre.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p class="foot__mark" aria-hidden="true">LUND</p>
+    <div class="foot__row">
+      <p>© <span id="year">2026</span> LUND</p>
+      <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="mailto:hallo@ihre-domain.de">Kontakt</a></nav>
+    </div>
+  </footer>
+
+  <!-- ===== Warenkorb ===== -->
+  <div class="sheet" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-title" hidden>
+    <div class="sheet__bg" data-close></div>
+    <aside class="sheet__panel">
+      <header><h3 id="bag-title">Warenkorb</h3><button class="close" data-close aria-label="Warenkorb schließen"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+      <ul class="bag__list" id="bag-list"></ul>
+      <p class="bag__empty" id="bag-empty">Noch keine Uhr ausgewählt.</p>
+      <footer><p><span>Summe</span><b id="bag-sum">0,00 €</b></p><small>inkl. MwSt., versandkostenfrei</small><a class="pill pill--light pill--block" id="checkout" href="#">Zur Kasse</a></footer>
+    </aside>
+  </div>
+  <p class="note" id="note" role="status" aria-live="polite"></p>
+
+  <script src="ressourcen/js/app.js" defer></script>
+  <script src="ressourcen/js/szene.bundle.js" defer></script>
+</body>
+</html>
