@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Klarsicht – Das Mikrofaser-Brillenputztuch für streifenfreie Sicht</title>
+  <meta name="description" content="Klarsicht ist ein ultrafeines Mikrofaser-Tuch für Brillen, Displays und Kameralinsen. Ohne Chemie, schonend zu beschichteten Gläsern, waschbar und wiederverwendbar.">
+  <meta name="theme-color" content="#0D1520">
+  <meta property="og:title" content="Klarsicht – Klare Sicht in einem Wisch">
+  <meta property="og:description" content="Ultrafeine Mikrofaser für streifenfreie Brillengläser, Displays und Linsen.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="preload" href="ressourcen/schriften/mona-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ressourcen/stile/stil.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <!-- Einstieg: Vorhang in Linsenform -->
+  <div class="curtain" aria-hidden="true"><span></span></div>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  <div class="cursor" aria-hidden="true"><span></span></div>
+
+  <!-- unsichtbare SVG-Definitionen -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="hero-clip" clipPathUnits="userSpaceOnUse">
+        <rect id="clip-l" x="0" y="0" width="0" height="0" rx="0"/>
+        <rect id="clip-r" x="0" y="0" width="0" height="0" rx="0"/>
+      </clipPath>
+      <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+      <filter id="softer" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    </defs>
+  </svg>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="#top" class="brand" aria-label="Klarsicht – zum Seitenanfang">
+        <svg viewBox="0 0 44 20" aria-hidden="true"><rect x="2" y="3" width="16" height="14" rx="6"/><rect x="26" y="3" width="16" height="14" rx="6"/><path d="M18 9q4-4 8 0"/></svg>
+        <span>Klarsicht</span>
+      </a>
+      <nav class="nav__links" id="nav-links" aria-label="Hauptnavigation">
+        <a href="#produkt">Das Tuch</a>
+        <a href="#mikrofaser">Mikrofaser</a>
+        <a href="#vergleich">Vorher/Nachher</a>
+        <a href="#farben">Farben</a>
+        <a href="#faq">FAQ</a>
+        <a href="#kaufen" class="btn btn--dark btn--sm magnetic">Jetzt bestellen</a>
+      </nav>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero: Brille wird beim Scrollen geputzt ===== -->
+    <section class="hero" id="top">
+      <div class="hero__sticky" id="hero-sticky">
+        <p class="hero__word hero__word--blur" aria-hidden="true">KLAR</p>
+        <div class="hero__sharp" id="hero-sharp" aria-hidden="true"><p class="hero__word">KLAR</p></div>
+
+        <div class="hero__stage-wrap">
+          <div class="hero__stage" id="hero-stage">
+            <svg class="glasses" id="glasses" viewBox="0 0 1000 400" aria-hidden="true">
+              <defs>
+                <clipPath id="lens-shapes">
+                  <rect x="96" y="112" width="328" height="196" rx="74"/>
+                  <rect x="576" y="112" width="328" height="196" rx="74"/>
+                </clipPath>
+                <mask id="wipe-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="400">
+                  <rect x="0" y="0" width="1000" height="400" fill="#fff"/>
+                  <g id="wipe-edge">
+                    <rect x="-1200" y="-200" width="1200" height="800" fill="#000"/>
+                    <ellipse cx="0" cy="200" rx="60" ry="420" fill="#000" filter="url(#soft)"/>
+                  </g>
+                </mask>
+                <linearGradient id="glare" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+                  <stop offset=".5" stop-color="#fff" stop-opacity=".55"/>
+                  <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="coating" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#8E7CFF"/>
+                  <stop offset=".5" stop-color="#5AD4C8"/>
+                  <stop offset="1" stop-color="#C9EF86"/>
+                </linearGradient>
+              </defs>
+              <!-- Glasflächen -->
+              <rect class="lens" id="lens-l" x="96" y="112" width="328" height="196" rx="74"/>
+              <rect class="lens" id="lens-r" x="576" y="112" width="328" height="196" rx="74"/>
+              <!-- Entspiegelung schimmert am Rand -->
+              <g clip-path="url(#lens-shapes)" class="coating">
+                <rect x="96" y="112" width="328" height="196" rx="74" fill="none" stroke="url(#coating)" stroke-width="10"/>
+                <rect x="576" y="112" width="328" height="196" rx="74" fill="none" stroke="url(#coating)" stroke-width="10"/>
+              </g>
+              <!-- Schmutz & Fingerabdrücke -->
+              <g clip-path="url(#lens-shapes)">
+                <g mask="url(#wipe-mask)" class="smudge">
+                  <g filter="url(#soft)">
+                    <ellipse cx="190" cy="170" rx="80" ry="46" fill="#E7EDF3" opacity=".75"/>
+                    <ellipse cx="330" cy="250" rx="110" ry="60" fill="#DCE4EC" opacity=".7"/>
+                    <ellipse cx="660" cy="240" rx="90" ry="70" fill="#E5EBF1" opacity=".75"/>
+                    <ellipse cx="820" cy="160" rx="100" ry="50" fill="#D7E0E9" opacity=".7"/>
+                    <ellipse cx="250" cy="280" rx="70" ry="30" fill="#EEF2F6" opacity=".6"/>
+                  </g>
+                  <g class="print" filter="url(#softer)" fill="none" stroke="#C9D3DD" stroke-width="3.2" opacity=".85">
+                    <ellipse cx="300" cy="180" rx="22" ry="30"/><ellipse cx="300" cy="180" rx="34" ry="44"/><ellipse cx="300" cy="180" rx="46" ry="58"/><ellipse cx="300" cy="180" rx="58" ry="72"/>
+                    <ellipse cx="760" cy="230" rx="20" ry="27" transform="rotate(-25 760 230)"/><ellipse cx="760" cy="230" rx="32" ry="41" transform="rotate(-25 760 230)"/><ellipse cx="760" cy="230" rx="44" ry="55" transform="rotate(-25 760 230)"/><ellipse cx="760" cy="230" rx="56" ry="69" transform="rotate(-25 760 230)"/>
+                  </g>
+                  <g fill="#CDD6DF" opacity=".9">
+                    <circle cx="160" cy="250" r="3"/><circle cx="380" cy="150" r="2.4"/><circle cx="210" cy="140" r="2"/><circle cx="640" cy="160" r="2.6"/><circle cx="870" cy="270" r="3"/><circle cx="700" cy="290" r="2"/>
+                  </g>
+                </g>
+              </g>
+              <!-- Lichtreflex -->
+              <g clip-path="url(#lens-shapes)"><rect class="glare" x="-200" y="0" width="120" height="400" fill="url(#glare)" transform="skewX(-20)"/></g>
+              <!-- Fassung -->
+              <g class="frame">
+                <rect x="96" y="112" width="328" height="196" rx="74"/>
+                <rect x="576" y="112" width="328" height="196" rx="74"/>
+                <path d="M424 176c28-34 124-34 152 0"/>
+                <path d="M96 150 22 128"/>
+                <path d="M904 150l74-22"/>
+              </g>
+              <g class="frame-shine">
+                <path d="M150 116c40-6 150-6 220 0"/>
+                <path d="M630 116c40-6 150-6 220 0"/>
+              </g>
+            </svg>
+
+            <!-- Tuch, das über die Gläser wischt -->
+            <svg class="cloth" id="cloth" viewBox="0 0 300 360" aria-hidden="true">
+              <defs>
+                <linearGradient id="cloth-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#D3E1EE"/>
+                  <stop offset="1" stop-color="#9FB7CD"/>
+                </linearGradient>
+              </defs>
+              <path d="M40 40c50-40 170-30 220 10 30 30 20 90 10 140-12 60 0 110-30 140-40 30-120 20-160-10-36-28-24-90-40-140C24 130 0 70 40 40Z" fill="url(#cloth-grad)"/>
+              <path d="M70 70c40 30 60 90 40 160M150 50c20 50 30 120 10 220M215 80c-10 50 10 120-20 190" fill="none" stroke="#8EA7BF" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+              <path d="M60 60c60-30 140-20 190 10" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".5"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero__copy" id="hero-copy">
+          <p class="eyebrow">Mikrofaser-Brillenputztuch</p>
+          <h1>Klare Sicht.<br><em>In einem Wisch.</em></h1>
+          <p class="hero__lead">Ultrafeine Mikrofaser nimmt Fingerabdrücke, Fett und Staub einfach auf – streifenfrei, ganz ohne Spray.</p>
+          <div class="hero__actions">
+            <a href="#kaufen" class="btn btn--dark magnetic">Jetzt bestellen <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="#produkt" class="btn btn--ghost">Mehr erfahren</a>
+          </div>
+        </div>
+
+        <p class="hero__hint" id="hero-hint" aria-hidden="true"><span class="mouse"><i></i></span> Scrollen zum Putzen</p>
+        <div class="hero__meter" aria-hidden="true"><span>Sauberkeit</span><b id="clean-value">0</b>%</div>
+      </div>
+    </section>
+
+    <!-- ===== Das Tuch ===== -->
+    <section class="section intro" id="produkt">
+      <div class="wrap intro__grid">
+        <figure class="intro__photo reveal-clip" data-parallax>
+          <picture>
+            <source srcset="ressourcen/bilder/tuch-brille.webp" type="image/webp">
+            <img src="ressourcen/bilder/tuch-brille.jpg" alt="Hände reinigen eine schwarze Brille mit einem hellblauen Mikrofasertuch" width="915" height="592" loading="lazy">
+          </picture>
+          <figcaption class="tag tag--float"><span class="dot"></span> Weich wie Wildleder</figcaption>
+        </figure>
+        <div class="intro__text">
+          <p class="eyebrow reveal">Das Tuch</p>
+          <h2 class="split">Ein Tuch. Für alles, wodurch Sie schauen.</h2>
+          <p class="reveal">Brille, Sonnenbrille, Smartphone, Kameraobjektiv oder Tablet: Klarsicht entfernt Fingerabdrücke und Schlieren in Sekunden – ohne Reinigungsmittel und ohne Fussel.</p>
+          <ul class="specs">
+            <li class="reveal"><span class="specs__k">Material</span><span class="specs__v">Mikrofaser</span></li>
+            <li class="reveal"><span class="specs__k">Größe</span><span class="specs__v">18 × 18 cm</span></li>
+            <li class="reveal"><span class="specs__k">Pflege</span><span class="specs__v">waschbar</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Mikrofaser-Zoom ===== -->
+    <section class="micro" id="mikrofaser">
+      <div class="micro__pin" id="micro-pin">
+        <div class="micro__sticky">
+          <div class="micro__scope" id="micro-scope" aria-hidden="true">
+            <svg class="micro__fibers" id="micro-fibers" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"></svg>
+            <span class="micro__ring"></span>
+          </div>
+          <div class="micro__captions">
+            <p class="eyebrow eyebrow--light">Unter dem Mikroskop</p>
+            <div class="micro__list">
+              <article class="micro__item is-active">
+                <span class="micro__num">01</span>
+                <h2>Feiner als ein Haar.</h2>
+                <p>Mikrofasern sind um ein Vielfaches dünner als ein menschliches Haar. So kommen sie auch in winzige Unebenheiten der Glasoberfläche.</p>
+              </article>
+              <article class="micro__item">
+                <span class="micro__num">02</span>
+                <h2>Aufnehmen statt verschmieren.</h2>
+                <p>Die unzähligen Faserkanten nehmen Fett und Fingerabdrücke auf, anstatt sie nur auf dem Glas zu verteilen.</p>
+              </article>
+              <article class="micro__item">
+                <span class="micro__num">03</span>
+                <h2>Ohne Chemie.</h2>
+                <p>Kein Spray, kein Alkohol, keine Rückstände – nur Tuch und Glas. Ideal für Gläser mit Beschichtung.</p>
+              </article>
+            </div>
+            <div class="micro__dots" aria-hidden="true"><i class="is-active"></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Vorteile ===== -->
+    <section class="section" id="vorteile">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow reveal">Vorteile</p>
+          <h2 class="split">Klein im Format. Groß im Unterschied.</h2>
+        </div>
+        <div class="bento">
+          <article class="card card--wide card--dark reveal" data-tilt>
+            <div class="card__icon card__icon--sparkle" aria-hidden="true"><i></i><i></i><i></i></div>
+            <h3>Streifenfrei</h3>
+            <p>Die dichte Faserstruktur poliert das Glas glatt – ohne Schlieren, ohne Wischspuren.</p>
+            <span class="card__glow" aria-hidden="true"></span>
+          </article>
+          <article class="card reveal" data-delay="1" data-tilt>
+            <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><path d="m8.5 12 2.4 2.4 4.6-4.8"/></svg></div>
+            <h3>Schonend</h3>
+            <p>Sanft zu Entspiegelung, Blaulichtfilter und anderen Beschichtungen.</p>
+          </article>
+          <article class="card reveal" data-delay="2" data-tilt>
+            <div class="card__icon card__icon--spin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg></div>
+            <h3>Wiederverwendbar</h3>
+            <p>Einfach waschen und weiter benutzen – statt Einwegtüchern.</p>
+          </article>
+          <article class="card reveal" data-delay="1" data-tilt>
+            <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg></div>
+            <h3>Für alle Gläser</h3>
+            <p>Brillen, Displays, Kameralinsen, Ferngläser und Tablets.</p>
+          </article>
+          <article class="card reveal" data-delay="2" data-tilt>
+            <div class="card__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7c3-3 5 3 8 0s5 3 8 0M4 12c3-3 5 3 8 0s5 3 8 0M4 17c3-3 5 3 8 0s5 3 8 0"/></svg></div>
+            <h3>Fusselfrei</h3>
+            <p>Keine Flusen, keine Fasern auf dem Glas – nur klare Sicht.</p>
+          </article>
+          <article class="card card--full card--ice reveal" data-tilt>
+            <div class="card__pocket" aria-hidden="true"><span class="pocket"></span><span class="pocket__cloth"></span></div>
+            <h3>Passt in jede Tasche</h3>
+            <p>Zusammengefaltet kleiner als ein Schlüsselbund – immer dabei, wenn die Sicht verschwimmt.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Vorher / Nachher ===== -->
+    <section class="section section--tint" id="vergleich">
+      <div class="wrap">
+        <div class="head head--center">
+          <p class="eyebrow reveal">Vorher / Nachher</p>
+          <h2 class="split">Ziehen Sie selbst.</h2>
+          <p class="reveal">Schieben Sie den Regler – und sehen Sie den Unterschied.</p>
+        </div>
+        <div class="compare reveal-clip" id="compare" style="--pos: 50%">
+          <img class="compare__img" src="ressourcen/bilder/tuch-brille.jpg" alt="Saubere Brille nach der Reinigung mit dem Tuch" width="915" height="592" loading="lazy">
+          <div class="compare__dirty" aria-hidden="true">
+            <img class="compare__img" src="ressourcen/bilder/tuch-brille.jpg" alt="" width="915" height="592" loading="lazy">
+            <span class="compare__smudge"></span>
+          </div>
+          <span class="compare__label compare__label--l" aria-hidden="true">Vorher</span>
+          <span class="compare__label compare__label--r" aria-hidden="true">Nachher</span>
+          <span class="compare__handle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          <input type="range" class="compare__range" id="compare-range" min="0" max="100" value="50" aria-label="Vergleich verschieben: links vorher, rechts nachher">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Farben ===== -->
+    <section class="section colors" id="farben" style="--cloth: #B8CCE0; --cloth-dark: #8EA7BF">
+      <div class="wrap colors__grid">
+        <div class="colors__visual" data-scroll>
+          <span class="colors__halo" aria-hidden="true"></span>
+          <svg class="colors__cloth" viewBox="0 0 400 400" aria-hidden="true">
+            <defs>
+              <pattern id="weave" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+                <path d="M0 3h6" stroke="#000" stroke-opacity=".06" stroke-width="1.2"/>
+              </pattern>
+              <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity=".45"/>
+                <stop offset=".45" stop-color="#fff" stop-opacity="0"/>
+                <stop offset="1" stop-color="#000" stop-opacity=".12"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="205" cy="340" rx="130" ry="14" fill="#0D1520" opacity=".1"/>
+            <path class="c-base" d="M70 88Q200 66 332 86Q346 168 334 250L262 324Q160 338 70 322Q54 205 70 88Z"/>
+            <path d="M70 88Q200 66 332 86Q346 168 334 250L262 324Q160 338 70 322Q54 205 70 88Z" fill="url(#weave)"/>
+            <path d="M70 88Q200 66 332 86Q346 168 334 250L262 324Q160 338 70 322Q54 205 70 88Z" fill="url(#sheen)"/>
+            <path class="c-stitch" d="M86 104Q200 86 316 102Q328 172 318 242L256 306Q160 318 86 306Q72 205 86 104Z"/>
+            <path class="c-fold" d="M150 96Q170 210 140 318M250 90Q236 180 262 260"/>
+            <path class="c-corner" d="M334 250L262 324L258 252Z"/>
+            <path d="M334 250L262 324" stroke="#fff" stroke-opacity=".5" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <div class="colors__text">
+          <p class="eyebrow reveal">Farben</p>
+          <h2 class="split">Ihre Farbe. Ihre Klarheit.</h2>
+          <p class="reveal">Vier ruhige Töne, die zu jedem Etui passen.</p>
+          <div class="swatches reveal" role="radiogroup" aria-label="Farbe wählen">
+            <button type="button" class="swatch is-active" role="radio" aria-checked="true" data-color="#B8CCE0" data-dark="#8EA7BF" data-name="Eisblau" style="--c:#B8CCE0"><span>Eisblau</span></button>
+            <button type="button" class="swatch" role="radio" aria-checked="false" data-color="#4A525C" data-dark="#2E343B" data-name="Graphit" style="--c:#4A525C"><span>Graphit</span></button>
+            <button type="button" class="swatch" role="radio" aria-checked="false" data-color="#B5C7B0" data-dark="#8DA287" data-name="Salbei" style="--c:#B5C7B0"><span>Salbei</span></button>
+            <button type="button" class="swatch" role="radio" aria-checked="false" data-color="#E2D5C2" data-dark="#C2B29B" data-name="Sand" style="--c:#E2D5C2"><span>Sand</span></button>
+          </div>
+          <p class="colors__name" aria-live="polite">Gewählt: <strong id="color-name">Eisblau</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Anwendung ===== -->
+    <section class="section section--tint" id="anwendung">
+      <div class="wrap">
+        <div class="head">
+          <p class="eyebrow reveal">Anwendung</p>
+          <h2 class="split">Drei Schritte zu klarer Sicht.</h2>
+        </div>
+        <ol class="steps" id="steps" data-scroll>
+          <li class="step reveal">
+            <span class="step__n">1</span>
+            <h3>Staub abpusten</h3>
+            <p>Grobe Partikel zuerst entfernen – so wird nichts über das Glas gerieben.</p>
+          </li>
+          <li class="step reveal" data-delay="1">
+            <span class="step__n">2</span>
+            <h3>Sanft wischen</h3>
+            <p>Mit leichtem Druck in kleinen Kreisen von der Mitte nach außen wischen.</p>
+          </li>
+          <li class="step reveal" data-delay="2">
+            <span class="step__n">3</span>
+            <h3>Tuch waschen</h3>
+            <p>Ab und zu mit der Hand oder in der Maschine waschen – ohne Weichspüler.</p>
+          </li>
+          <svg class="steps__line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20C160 0 330 40 500 20s340-20 500 0" pathLength="1"/></svg>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Kaufen ===== -->
+    <section class="section" id="kaufen">
+      <div class="wrap">
+        <div class="head head--center">
+          <p class="eyebrow reveal">Bestellen</p>
+          <h2 class="split">Für Sie. Für die Familie. Fürs Büro.</h2>
+        </div>
+        <div class="offers">
+          <article class="offer reveal reveal--rise">
+            <h3>Einzeln</h3>
+            <p class="offer__desc">Ein Tuch für die Brillentasche.</p>
+            <p class="offer__price"><span data-count="790" data-decimals="2">7,90</span> €</p>
+            <ul><li>1 Mikrofasertuch</li><li>Farbe frei wählbar</li></ul>
+            <a class="btn btn--ghost btn--block" href="mailto:bestellung@ihre-domain.de?subject=Bestellung%20Klarsicht%20Einzeln">Bestellen</a>
+          </article>
+          <article class="offer offer--hero reveal reveal--rise" data-delay="1">
+            <span class="offer__badge">Beliebt</span>
+            <h3>3er-Set</h3>
+            <p class="offer__desc">Für Zuhause, Auto und unterwegs.</p>
+            <p class="offer__price"><span data-count="1790" data-decimals="2">17,90</span> €</p>
+            <ul><li>3 Mikrofasertücher</li><li>Farben frei kombinierbar</li><li>Ideal zum Verschenken</li></ul>
+            <a class="btn btn--light btn--block magnetic" href="mailto:bestellung@ihre-domain.de?subject=Bestellung%20Klarsicht%203er-Set">Bestellen</a>
+          </article>
+          <article class="offer reveal reveal--rise" data-delay="2">
+            <h3>5er-Set</h3>
+            <p class="offer__desc">Für die ganze Familie oder das Team.</p>
+            <p class="offer__price"><span data-count="2490" data-decimals="2">24,90</span> €</p>
+            <ul><li>5 Mikrofasertücher</li><li>Alle vier Farben enthalten</li></ul>
+            <a class="btn btn--ghost btn--block" href="mailto:bestellung@ihre-domain.de?subject=Bestellung%20Klarsicht%205er-Set">Bestellen</a>
+          </article>
+        </div>
+        <p class="offers__note reveal">Alle Preise inkl. gesetzlicher MwSt., zzgl. Versand.</p>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section section--tint" id="faq">
+      <div class="wrap faq-grid">
+        <div class="head">
+          <p class="eyebrow reveal">FAQ</p>
+          <h2 class="split">Gut zu wissen.</h2>
+        </div>
+        <div class="faq">
+          <details class="reveal">
+            <summary>Ist das Tuch für entspiegelte Gläser geeignet?</summary>
+            <p>Ja. Mikrofaser reinigt ohne Chemie und ist sanft zu Beschichtungen wie Entspiegelung oder Blaulichtfilter. Wichtig: Grobe Partikel vorher abpusten, damit nichts über das Glas gerieben wird.</p>
+          </details>
+          <details class="reveal">
+            <summary>Wie wasche ich das Tuch?</summary>
+            <p>Mit der Hand in lauwarmem Wasser oder in der Maschine bei niedriger Temperatur. Bitte keinen Weichspüler verwenden – er legt sich auf die Fasern und kann Schlieren verursachen. An der Luft trocknen lassen.</p>
+          </details>
+          <details class="reveal">
+            <summary>Kann ich damit auch mein Smartphone reinigen?</summary>
+            <p>Natürlich. Displays, Kameralinsen, Tablets, Uhrengläser und Ferngläser werden genauso schlierenfrei sauber.</p>
+          </details>
+          <details class="reveal">
+            <summary>Brauche ich zusätzlich ein Reinigungsspray?</summary>
+            <p>In den meisten Fällen nicht. Bei starker Verschmutzung hilft es, das Glas vorher kurz unter lauwarmem Wasser abzuspülen und anschließend mit dem Tuch zu trocknen.</p>
+          </details>
+          <details class="reveal">
+            <summary>Wie lange hält ein Tuch?</summary>
+            <p>Bei richtiger Pflege sehr lange. Wird das Tuch rau oder verliert es an Wirkung, einfach waschen – oder ersetzen.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Abschluss ===== -->
+    <section class="outro" id="outro" data-scroll>
+      <div class="wrap outro__inner">
+        <p class="outro__word" aria-hidden="true"><span>K</span><span>l</span><span>a</span><span>r</span><span>.</span></p>
+        <h2 class="outro__title">Sehen Sie den Unterschied.</h2>
+        <a href="#kaufen" class="btn btn--light magnetic">Jetzt bestellen <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <a href="#top" class="brand brand--light">
+        <svg viewBox="0 0 44 20" aria-hidden="true"><rect x="2" y="3" width="16" height="14" rx="6"/><rect x="26" y="3" width="16" height="14" rx="6"/><path d="M18 9q4-4 8 0"/></svg>
+        <span>Klarsicht</span>
+      </a>
+      <nav class="footer__links" aria-label="Rechtliches">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+      <p class="footer__copy">© <span id="year">2026</span> Klarsicht</p>
+    </div>
+  </footer>
+
+  <script src="ressourcen/skripte/app.js" defer></script>
+</body>
+</html>
