@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E6E3DC"/><stop offset="1" stop-color="#F5F3EE"/></linearGradient>
+<linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9D5CC"/><stop offset="1" stop-color="#C9C4BA"/></linearGradient>
+<linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2A2B2D"/><stop offset=".55" stop-color="#3B3D40"/><stop offset="1" stop-color="#1B1C1E"/></linearGradient>
+<linearGradient id="lightface" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FBFAF7"/><stop offset="1" stop-color="#EDEBE5"/></linearGradient>
+</defs>
+<rect width="1200" height="900" fill="url(#sky)"/>
+<polygon points="0,700 1200,580 1200,900 0,900" fill="url(#gr)"/><polygon points="260,700 880,600 1040,660 360,770" fill="#000" opacity="0.12"/><rect x="260" y="470" width="380" height="230" fill="url(#lightface)"/><polygon points="640,470 730,429.5 730,659.5 640,700" fill="#CFCBC2"/><polygon points="260,470 350,429.5 730,429.5 640,470" fill="#F7F5F0"/><rect x="300" y="520" width="300" height="90" fill="url(#glass)"/><rect x="560" y="330" width="360" height="210" fill="url(#lightface)"/><polygon points="920,330 1010,289.5 1010,499.5 920,540" fill="#CFCBC2"/><polygon points="560,330 650,289.5 1010,289.5 920,330" fill="#EFEDE7"/><rect x="600" y="370" width="140" height="120" fill="url(#glass)"/><rect x="760" y="370" width="120" height="60" fill="url(#glass)"/><rect x="300" y="610" width="40" height="90" fill="#E2401C"/><rect x="998" y="532.4" width="4" height="57.599999999999994" fill="#6E675C"/><circle cx="1000" cy="518.0" r="48" fill="#8E9A86"/><circle cx="1016.8" cy="508.4" r="33.599999999999994" fill="#9AA591" opacity=".8"/><rect x="158" y="664.8" width="4" height="43.199999999999996" fill="#6E675C"/><circle cx="160" cy="654.0" r="36" fill="#8E9A86"/><circle cx="172.6" cy="646.8" r="25.2" fill="#9AA591" opacity=".8"/>
+</svg>
