@@ -134,6 +134,9 @@
     teile.forEach(function (li, i) { li.classList.toggle("is-an", i === teil); });
 
     K.fahrtP = prog(fahrt);
+    // Einblenden: Film öffnet sich beim Hineinscrollen von einem kleinen Fenster zur vollen Fläche
+    var ft = fahrt.getBoundingClientRect().top;
+    fahrtPin.style.setProperty("--ein", weich(clamp((vh * .95 - ft) / (vh * 1.25), 0, 1)).toFixed(4));
 
     var rp = prog(strecke);
     streckePin.style.setProperty("--runde", rp.toFixed(4));
@@ -198,7 +201,7 @@
         aktuell = i;
       }
       fahrtPin.style.setProperty("--film", seg(p, .04, .96).toFixed(4));
-      fahrtPin.style.setProperty("--text-a", (seg(p, .02, .12) * (1 - seg(p, .4, .5))).toFixed(3));
+      fahrtPin.style.setProperty("--text-a", (seg(p, .08, .16) * (1 - seg(p, .4, .5))).toFixed(3));
       fahrtPin.style.setProperty("--text-b", seg(p, .55, .65).toFixed(3));
     })();
   }
