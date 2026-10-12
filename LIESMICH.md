@@ -13,7 +13,7 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 | `ressourcen/stile/design.css` | Design: grüne Farbpalette, Schriften, Animationen, Handy-Ansicht |
 | `ressourcen/skripte/funktionen.js` | Scroll-Animationen, Menü, Zähler, Formular-Validierung & -Versand |
 | `ressourcen/bilder/logo.svg`, `symbol.svg` | Logo (JK-Zeichen mit Mint-Quadrat) und Browser-Tab-Symbol |
-| `referenzen/` | Zwei Beispiel-Websites als Arbeitsproben (Kunstschule „Farbfeld“, Architekturbüro „Atelier Kante“) – verlinkt im Bereich „Arbeiten“ |
+| `referenzen/` | Zwei Beispiel-Websites als Arbeitsproben (Kunstschule „Farbfeld“, Autohaus mit Werkstatt „KURVE“, mit 3D-Animation) – verlinkt im Bereich „Arbeiten“ |
 | `ressourcen/bilder/arbeiten/` | Vorschaubilder der Beispiel-Websites |
 | `ressourcen/schriften/` | Sora & Plus Jakarta Sans, lokal eingebunden (DSGVO-freundlich, kein Google-CDN) |
 

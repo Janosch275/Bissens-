@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KURVE Automobile – Sportwagen, Service & Felgen (Beispiel-Website)</title>
+  <meta name="description" content="KURVE Automobile: Verkauf von Neu- und Gebrauchtwagen, Meisterwerkstatt, Reifen- und Felgenservice. Leistungsprüfstand und Probefahrten nach Termin.">
+  <meta name="theme-color" content="#E6E5E1">
+  <meta name="robots" content="noindex, follow">
+  <meta property="og:title" content="KURVE Automobile – Leidenschaft auf vier Rädern">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <link rel="icon" href="symbol.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="ressourcen/css/stil.css">
+</head>
+<body>
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+
+  <header class="kopf" id="kopf">
+    <a href="#start" class="logo" aria-label="KURVE Automobile – zum Anfang"><span>KURVE</span><small>Automobile</small></a>
+    <nav class="menue" id="menue" aria-label="Hauptnavigation">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#pruefstand">Prüfstand</a>
+      <a href="#geschichte">Geschichte</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a href="#kontakt" class="knopf knopf--rot knopf--klein">Termin</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menue"><i></i><i></i></button>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero: Rad dreht hoch und zerlegt sich ===== -->
+    <section class="hero" id="start">
+      <div class="hero__pin" id="hero-pin">
+        <p class="hero__wort" aria-hidden="true">KURVE</p>
+        <div class="hero__linien" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <canvas class="hero__canvas" id="hero-canvas" aria-hidden="true"></canvas>
+        <img class="hero__ersatz" src="ressourcen/bilder/rad-stern.webp" alt="Sportfelge mit rotem Bremssattel" width="1200" height="1200">
+
+        <div class="hero__titel">
+          <p class="tag">Autohaus · Werkstatt · Felgen</p>
+          <h1><span class="zeile"><span>Leidenschaft</span></span><span class="zeile"><span>auf vier <em>Rädern.</em></span></span></h1>
+        </div>
+
+        <div class="hud" aria-hidden="true">
+          <div class="hud__tacho"><b id="tacho">0</b><span>km/h</span></div>
+          <div class="hud__balken"><i id="drehzahl"></i></div>
+          <ol class="hud__teile" id="teile">
+            <li>Reifen <small>255/35 ZR20</small></li>
+            <li>Felge <small>Leichtmetall, konkav</small></li>
+            <li>Bremsscheibe <small>gelocht, 380 mm</small></li>
+            <li>Bremssattel <small>6 Kolben</small></li>
+          </ol>
+        </div>
+        <p class="hero__hinweis" aria-hidden="true">Scrollen <i></i></p>
+      </div>
+    </section>
+
+    <!-- ===== Haltung & Zahlen ===== -->
+    <section class="haltung">
+      <div class="rahmen">
+        <p class="haltung__text auf">Seit über 25 Jahren verkaufen, warten und veredeln wir Autos für Menschen, die gern fahren. Ehrlich beraten, sauber gearbeitet – vom ersten Gespräch bis zur letzten Inspektion.</p>
+        <dl class="zahlen">
+          <div class="auf"><dt>Gegründet</dt><dd><span class="zaehler" data-wert="1998">1998</span></dd></div>
+          <div class="auf"><dt>Fahrzeuge übergeben</dt><dd><span class="zaehler" data-wert="4800">4800</span>+</dd></div>
+          <div class="auf"><dt>Meister & Mechatroniker</dt><dd><span class="zaehler" data-wert="14">14</span></dd></div>
+          <div class="auf"><dt>Hebebühnen</dt><dd><span class="zaehler" data-wert="9">9</span></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===== Leistungen ===== -->
+    <section class="leistungen" id="leistungen">
+      <div class="rahmen">
+        <h2 class="schraeg auf">Was wir <em>können.</em></h2>
+      </div>
+      <div class="paneele" id="paneele">
+        <article class="paneel is-offen" tabindex="0">
+          <span class="paneel__nr">01</span>
+          <h3>Neuwagen</h3>
+          <div class="paneel__inhalt"><p>Aktuelle Modelle mit Wunschausstattung. Wir konfigurieren mit Ihnen, organisieren Zulassung und übergeben Ihr Auto fertig vorbereitet.</p><ul><li>Individuelle Konfiguration</li><li>Zulassung & Kennzeichen</li><li>Übergabe mit Einweisung</li></ul></div>
+        </article>
+        <article class="paneel" tabindex="0">
+          <span class="paneel__nr">02</span>
+          <h3>Gebraucht&shy;wagen</h3>
+          <div class="paneel__inhalt"><p>Geprüfte Fahrzeuge mit lückenloser Historie. Jedes Auto durchläuft unseren 120-Punkte-Check, bevor es auf den Hof kommt.</p><ul><li>120-Punkte-Check</li><li>12 Monate Garantie</li><li>Inzahlungnahme Ihres Fahrzeugs</li></ul></div>
+        </article>
+        <article class="paneel" tabindex="0">
+          <span class="paneel__nr">03</span>
+          <h3>Werkstatt</h3>
+          <div class="paneel__inhalt"><p>Inspektion, Diagnose, Reparatur und Hauptuntersuchung – markenunabhängig und mit Originalteilen oder gleichwertigen Ersatzteilen.</p><ul><li>Inspektion nach Herstellervorgabe</li><li>Fehlerdiagnose</li><li>HU/AU im Haus</li></ul></div>
+        </article>
+        <article class="paneel" tabindex="0">
+          <span class="paneel__nr">04</span>
+          <h3>Reifen & Felgen</h3>
+          <div class="paneel__inhalt"><p>Montage, Wuchten, Achsvermessung und Einlagerung. Dazu eine Auswahl an Sportfelgen, die wir passend zu Ihrem Fahrzeug montieren.</p><ul><li>Räderwechsel & Einlagerung</li><li>Achsvermessung</li><li>Felgen-Beratung</li></ul></div>
+        </article>
+        <article class="paneel" tabindex="0">
+          <span class="paneel__nr">05</span>
+          <h3>Finanzierung</h3>
+          <div class="paneel__inhalt"><p>Finanzierung oder Leasing mit transparenten Raten. Wir rechnen verschiedene Varianten durch und erklären jede Zahl.</p><ul><li>Finanzierung & Leasing</li><li>Ballon- oder Laufzeitraten</li><li>Gewerbekunden-Angebote</li></ul></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Leistungsprüfstand: Messkurven zeichnen sich beim Scrollen ===== -->
+    <section class="pruef" id="pruefstand">
+      <div class="pruef__pin" id="pruef-pin">
+        <div class="rahmen pruef__raster">
+          <div class="pruef__kopf">
+            <p class="tag tag--hell">Leistungsprüfstand</p>
+            <h2 class="schraeg">Wir messen,<br><em>was ankommt.</em></h2>
+            <p class="pruef__text">Auf unserem Allrad-Prüfstand sehen Sie schwarz auf weiß, wie viel Leistung Ihr Auto wirklich auf die Straße bringt – vor und nach jeder Optimierung.</p>
+            <dl class="pruef__werte" aria-live="off">
+              <div><dt>Drehzahl</dt><dd><b id="pw-rpm">1.000</b><small>1/min</small></dd></div>
+              <div class="pruef__ps"><dt>Leistung</dt><dd><b id="pw-ps">53</b><small>PS</small></dd></div>
+              <div><dt>Drehmoment</dt><dd><b id="pw-nm">380</b><small>Nm</small></dd></div>
+            </dl>
+          </div>
+          <figure class="pruef__diagramm">
+            <svg viewBox="0 0 1000 560" role="img" aria-labelledby="pruef-titel">
+              <title id="pruef-titel">Beispielmessung von Leistung und Drehmoment über die Drehzahl</title>
+              <g class="pruef__gitter" id="pruef-gitter"></g>
+              <path class="pruef__flaeche" id="pk-flaeche" d=""/>
+              <path class="pruef__nm" id="pk-nm" d=""/>
+              <path class="pruef__ps-kurve" id="pk-ps" d=""/>
+              <line class="pruef__scan" id="pk-scan" x1="60" x2="60" y1="30" y2="490"/>
+              <circle class="pruef__punkt pruef__punkt--nm" id="pk-pnm" r="7" cx="60" cy="490"/>
+              <circle class="pruef__punkt" id="pk-pps" r="8" cx="60" cy="490"/>
+              <g class="pruef__spitze" id="pk-spitze"><line id="pk-sl" y1="30" y2="490"/><text id="pk-st" text-anchor="end"></text></g>
+            </svg>
+            <figcaption><span class="pruef__legende pruef__legende--ps">Leistung (PS)</span><span class="pruef__legende">Drehmoment (Nm)</span><span class="pruef__hinweis">Beispielmessung</span></figcaption>
+          </figure>
+        </div>
+        <div class="pruef__balken" aria-hidden="true"><i></i></div>
+      </div>
+    </section>
+
+    <!-- ===== Geschichte als Rennstrecke ===== -->
+    <section class="strecke" id="geschichte">
+      <div class="strecke__pin" id="strecke-pin">
+        <div class="strecke__kopf">
+          <p class="tag tag--hell">Geschichte</p>
+          <h2 class="schraeg">Eine Runde <em>durch 25 Jahre.</em></h2>
+        </div>
+        <div class="strecke__bahn">
+          <svg viewBox="0 0 1600 420" class="strecke__svg" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <path id="kurs" class="strecke__kurs" d="M80 330 C 240 330 260 120 420 120 S 600 330 760 300 S 900 80 1060 90 S 1200 300 1320 290 S 1480 150 1540 120"/>
+            <path id="kurs-fahrt" class="strecke__fahrt" pathLength="1" d="M80 330 C 240 330 260 120 420 120 S 600 330 760 300 S 900 80 1060 90 S 1200 300 1320 290 S 1480 150 1540 120"/>
+            <g id="fahrzeug"><circle r="12" class="strecke__punkt"/><circle r="26" class="strecke__ring"/></g>
+          </svg>
+          <ol class="etappen" id="etappen">
+            <li style="--x:5%;--y:62%"><b>1998</b>Gründung als freie Werkstatt mit zwei Hebebühnen.</li>
+            <li style="--x:24%;--y:4%"><b>2004</b>Eigener Gebrauchtwagenhandel mit 30 Stellplätzen.</li>
+            <li style="--x:45%;--y:58%"><b>2011</b>Neubau mit Showroom, Reifenhotel und Achsvermessung.</li>
+            <li style="--x:64%;--y:0%"><b>2018</b>Neuwagenvertrieb und Finanzierung aus einer Hand.</li>
+            <li style="--x:80%;--y:56%"><b>2024</b>Felgen-Showroom und Werkstatt für E-Fahrzeuge.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Kontakt ===== -->
+    <section class="kontakt" id="kontakt">
+      <div class="rahmen kontakt__raster">
+        <div>
+          <h2 class="schraeg auf">Vorbei&shy;kommen.</h2>
+          <dl class="infos">
+            <div class="auf"><dt>Adresse</dt><dd>Musterstraße 12<br>12345 Musterstadt</dd></div>
+            <div class="auf"><dt>Verkauf</dt><dd>Mo – Fr 9 – 18 Uhr<br>Sa 10 – 14 Uhr</dd></div>
+            <div class="auf"><dt>Werkstatt</dt><dd>Mo – Fr 7:30 – 17 Uhr</dd></div>
+            <div class="auf"><dt>Telefon</dt><dd>Auf Anfrage</dd></div>
+          </dl>
+        </div>
+        <form class="formular auf" id="formular" novalidate>
+          <p class="formular__titel">Termin anfragen</p>
+          <div class="wahl wahl--klein" role="radiogroup" aria-label="Anliegen">
+            <label><input type="radio" name="anliegen" value="Probefahrt" checked><span>Probefahrt</span></label>
+            <label><input type="radio" name="anliegen" value="Werkstatt"><span>Werkstatt</span></label>
+            <label><input type="radio" name="anliegen" value="Leistungsmessung"><span>Leistungsmessung</span></label>
+            <label><input type="radio" name="anliegen" value="Reifen & Felgen"><span>Reifen & Felgen</span></label>
+            <label><input type="radio" name="anliegen" value="Beratung"><span>Beratung</span></label>
+          </div>
+          <label class="feld"><span>Name *</span><input name="name" required autocomplete="name"></label>
+          <label class="feld"><span>Telefon oder E-Mail *</span><input name="kontakt" required autocomplete="email"></label>
+          <label class="feld"><span>Wunschtermin</span><input name="termin" type="date"></label>
+          <label class="feld"><span>Fahrzeug / Anliegen</span><textarea name="nachricht" rows="3"></textarea></label>
+          <p class="formular__fehler" id="formular-fehler" role="alert"></p>
+          <button class="knopf knopf--rot knopf--breit" type="submit">Anfrage senden</button>
+          <p class="formular__fertig" id="formular-fertig" hidden>So würde es aussehen. Da dies nur eine Beispiel-Website ist, wurde nichts verschickt. Sie möchten selbst so eine Website? <a href="../../index.html#kontakt">Schreiben Sie Janosch Krause.</a></p>
+          <small>Beispiel-Formular: Das Autohaus ist frei erfunden, es werden keine Nachrichten verschickt.</small>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="fuss">
+    <p class="fuss__wort" aria-hidden="true">KURVE</p>
+    <div class="fuss__zeile">
+      <p>© <span id="jahr">2026</span> KURVE Automobile</p>
+      <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    </div>
+  </footer>
+
+  <!-- Hinweis: Diese Seite ist ein Beispiel. -->
+  <a class="demo-badge" href="../../index.html#arbeiten">Beispiel-Website · erstellt von Janosch Krause</a>
+  <script src="ressourcen/js/app.js" defer></script>
+  <script src="ressourcen/js/szene.bundle.js" defer></script>
+</body>
+</html>
