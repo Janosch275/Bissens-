@@ -117,7 +117,9 @@ $header = [
     'X-Mailer: PHP/' . phpversion(),
 ];
 $betreff = '=?UTF-8?B?' . base64_encode(BETREFF . ' – ' . $name) . '?=';
-$gesendet = @mail(EMPFAENGER, $betreff, $text, implode("\r\n", $header));
+// "-f" setzt den Absender auch im Umschlag der Mail – ohne das sortieren
+// manche Postfächer (z. B. iCloud) die Nachricht still aus.
+$gesendet = @mail(EMPFAENGER, $betreff, $text, implode("\r\n", $header), '-f' . ABSENDER);
 
 if (!$gesendet && !$gespeichert) {
     antwort(500, false, 'Die Anfrage konnte leider nicht gesendet werden. Bitte versuchen Sie es später erneut.');
