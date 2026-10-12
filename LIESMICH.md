@@ -23,7 +23,7 @@ Moderne, statische Unternehmenswebsite mit eingebautem Kontaktformular.
 
 Kunden schicken ihre Anfrage direkt über die Website – ohne Anruf oder eigenes E-Mail-Programm.
 
-1. In `kontakt.php` sind `EMPFAENGER` und `ABSENDER` (website@janoschkrause-webdesign.de) bereits eingetragen.
+1. In `kontakt.php` sind `EMPFAENGER` und `ABSENDER` (info@janoschkrause-webdesign.de) bereits eingetragen.
 2. Alle Dateien per FTP/Dateimanager zu einem Webhoster mit PHP hochladen (z. B. IONOS, Strato, All-Inkl).
 3. Jede Anfrage landet als E-Mail in Ihrem Postfach und zusätzlich als Sicherung im Ordner `anfragen/` (per `.htaccess` vor Zugriff geschützt).
 
