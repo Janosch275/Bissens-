@@ -21,12 +21,12 @@
     <nav class="nav" id="nav" aria-label="Hauptnavigation">
       <a href="#uhr">Die Uhr</a>
       <a href="#kollektion">Kollektion</a>
-      <a href="#konfigurator">Konfigurator</a>
+      <a href="#konfigurator">Farbstudio</a>
       <a href="#technik">Technik</a>
       <a href="#fragen">Fragen</a>
     </nav>
     <div class="top__r">
-      <button class="bag" id="bag-open" aria-label="Warenkorb öffnen"><span>Warenkorb</span><b id="bag-n">0</b></button>
+      <a class="cta" href="#kontakt"><span>Kontakt</span><b aria-hidden="true">→</b></a>
       <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
     </div>
   </header>
@@ -111,17 +111,18 @@
           <p class="config__hint">Ziehen zum Drehen</p>
         </div>
         <div class="config__panel">
-          <p class="eyebrow">Konfigurator</p>
-          <h2 class="rise">Ihre LUND.</h2>
+          <p class="eyebrow">Farbstudio</p>
+          <h2 class="rise">Ihre Farbe.</h2>
           <fieldset><legend>Zifferblatt <span id="cfg-name">Eisblau</span></legend><div class="swatches" id="cfg-dials"></div></fieldset>
           <fieldset><legend>Gehäuse</legend>
             <div class="seg seg--full" role="group" aria-label="Gehäusegröße wählen"><button class="is-on" data-cfg-size="39" aria-pressed="true">39 mm</button><button data-cfg-size="36" aria-pressed="false">36 mm</button></div>
           </fieldset>
-          <fieldset><legend>Gravur auf dem Gehäuseboden</legend>
-            <label class="engrave"><input id="cfg-gravur" type="text" maxlength="24" placeholder="optional, bis 24 Zeichen" autocomplete="off"><span>+ 49 €</span></label>
-          </fieldset>
-          <div class="config__sum"><p><span>Gesamt</span><b id="cfg-price">1.290,00 €</b></p><small>inkl. MwSt., versandkostenfrei</small></div>
-          <button class="pill pill--light pill--block" id="cfg-add">In den Warenkorb</button>
+          <dl class="config__spec">
+            <div><dt>Modell</dt><dd id="cfg-modell">LUND 39 Eisblau</dd></div>
+            <div><dt>Gehäuse</dt><dd>Edelstahl 316L, gebürstet und poliert</dd></div>
+            <div><dt>Höhe</dt><dd>9,8 mm</dd></div>
+          </dl>
+          <p class="config__note">Ziehen Sie die Uhr, um sie von allen Seiten zu betrachten. Jede Farbe gibt es in beiden Größen.</p>
         </div>
       </div>
     </section>
@@ -143,12 +144,12 @@
       </div>
     </section>
 
-    <!-- ===== Service ===== -->
+    <!-- ===== Haltung ===== -->
     <section class="promise">
       <div class="wrap promise__grid">
-        <div class="rise"><b>Versand</b><p>Versichert und versandkostenfrei innerhalb Deutschlands.</p></div>
-        <div class="rise"><b>Rückgabe</b><p>30 Tage Rückgaberecht für ungetragene Uhren ohne Gravur.</p></div>
-        <div class="rise"><b>Garantie</b><p>Zwei Jahre Herstellergarantie auf Werk und Gehäuse.</p></div>
+        <div class="rise"><b>Kleine Serien</b><p>Jede Farbe entsteht in limitierter Auflage und wird von Hand montiert und reguliert.</p></div>
+        <div class="rise"><b>Gebaut für Jahrzehnte</b><p>Robustes Schweizer Werk, Saphirglas und verschraubte Krone – gedacht zum täglichen Tragen.</p></div>
+        <div class="rise"><b>Service</b><p>Revision, Politur und Armbandanpassung übernehmen wir in unserer eigenen Werkstatt.</p></div>
       </div>
     </section>
 
@@ -158,11 +159,21 @@
         <h2 class="rise">Fragen</h2>
         <div class="faq__list">
           <details class="rise"><summary>Welche Größe passt zu meinem Handgelenk?</summary><p>Als Faustregel: Bis etwa 16,5 cm Handgelenksumfang wirkt die 36-mm-Version ausgewogen, darüber die 39-mm-Version. Durch das integrierte Armband trägt die Uhr etwas größer als ihr Durchmesser.</p></details>
-          <details class="rise"><summary>Kann ich das Armband kürzen lassen?</summary><p>Ja. Jedes Armband hat herausnehmbare Glieder. Nennen Sie uns bei der Bestellung Ihren Handgelenksumfang, dann passen wir es vor dem Versand an.</p></details>
+          <details class="rise"><summary>Kann das Armband angepasst werden?</summary><p>Ja. Jedes Armband hat herausnehmbare Glieder und lässt sich in wenigen Minuten auf Ihren Handgelenksumfang einstellen.</p></details>
           <details class="rise"><summary>Muss ich eine Automatikuhr aufziehen?</summary><p>Beim täglichen Tragen zieht sich das Werk durch Ihre Armbewegung selbst auf. Lag die Uhr länger, genügen etwa 30 Umdrehungen an der Krone.</p></details>
-          <details class="rise"><summary>Wie lange dauert die Lieferung?</summary><p>Uhren ohne Gravur versenden wir innerhalb von zwei Werktagen. Mit Gravur rechnen Sie bitte mit fünf bis sieben Werktagen.</p></details>
+          <details class="rise"><summary>Wo kann ich die Uhren sehen?</summary><p>In unserem Atelier, nach kurzer Terminabsprache. Dort können Sie alle sechs Farben in beiden Größen am Handgelenk ausprobieren.</p></details>
           <details class="rise"><summary>Wie pflege ich Gehäuse und Glas?</summary><p>Mit einem weichen Mikrofasertuch. Nach dem Baden im Meer kurz mit Süßwasser abspülen. Wir empfehlen eine Revision des Werks etwa alle fünf Jahre.</p></details>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== Kontakt ===== -->
+    <section class="contact" id="kontakt">
+      <div class="wrap contact__in rise">
+        <p class="eyebrow">Atelier</p>
+        <h2>Am Handgelenk<br>wirkt jede Farbe anders.</h2>
+        <p class="contact__lead">Besuchen Sie uns und probieren Sie alle sechs Zifferblätter in Ruhe aus. Wir freuen uns auf Ihre Nachricht.</p>
+        <a class="pill pill--light" href="mailto:hallo@ihre-domain.de?subject=Termin%20im%20LUND%20Atelier">Termin anfragen</a>
       </div>
     </section>
   </main>
@@ -174,18 +185,6 @@
       <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a><a href="mailto:hallo@ihre-domain.de">Kontakt</a></nav>
     </div>
   </footer>
-
-  <!-- ===== Warenkorb ===== -->
-  <div class="sheet" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-title" hidden>
-    <div class="sheet__bg" data-close></div>
-    <aside class="sheet__panel">
-      <header><h3 id="bag-title">Warenkorb</h3><button class="close" data-close aria-label="Warenkorb schließen"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
-      <ul class="bag__list" id="bag-list"></ul>
-      <p class="bag__empty" id="bag-empty">Noch keine Uhr ausgewählt.</p>
-      <footer><p><span>Summe</span><b id="bag-sum">0,00 €</b></p><small>inkl. MwSt., versandkostenfrei</small><a class="pill pill--light pill--block" id="checkout" href="#">Zur Kasse</a></footer>
-    </aside>
-  </div>
-  <p class="note" id="note" role="status" aria-live="polite"></p>
 
   <script src="ressourcen/js/app.js" defer></script>
   <script src="ressourcen/js/szene.bundle.js" defer></script>

@@ -1,4 +1,4 @@
-/* LUND – Shop, Warenkorb & Scroll-Animationen
+/* LUND – Kollektion, Farbstudio & Scroll-Animationen
    Reines JavaScript, keine Bibliotheken, keine externen Dienste. */
 (function () {
   "use strict";
@@ -11,7 +11,6 @@
   function $(s, c) { return (c || document).querySelector(s); }
   function $$(s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); }
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
-  function euro(n) { return n.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; }
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   var y = $("#year"); if (y) y.textContent = new Date().getFullYear();
@@ -25,7 +24,6 @@
     { id: "anthrazit", name: "Anthrazit", c: "#5a5e65", txt: "Zurückhaltend, für jeden Anlass." },
     { id: "silber", name: "Silber", c: "#c9ccd0", txt: "Klassisch hell mit feinem Glanz." }
   ];
-  var PREIS = { 39: 1290, 36: 1250 }, GRAVUR = 49;
   var IMG = "ressourcen/bilder/uhren/";
   function dial(id) { return DIALS.filter(function (d) { return d.id === id; })[0]; }
   function hex2rgba(h, a) { var n = parseInt(h.slice(1), 16); return "rgba(" + (n >> 16) + "," + (n >> 8 & 255) + "," + (n & 255) + "," + a + ")"; }
@@ -85,12 +83,11 @@
   function renderCards() {
     cards.innerHTML = DIALS.map(function (d, i) {
       return '<article class="wcard' + (reduce ? " is-in" : "") + '" style="--c:' + d.c + ';--d:' + (i % 3) + '" data-id="' + d.id + '">' +
-        '<button class="wcard__img" aria-label="LUND ' + size + ' ' + d.name + ' im Konfigurator ansehen">' +
+        '<button class="wcard__img" aria-label="LUND ' + size + ' ' + d.name + ' im Farbstudio ansehen">' +
           '<img class="a" src="' + IMG + d.id + '-front-klein.webp" alt="LUND ' + size + ' mm mit Zifferblatt ' + d.name + '" width="600" height="750" loading="lazy">' +
           '<img class="b" src="' + IMG + d.id + '-34-klein.webp" alt="" width="600" height="750" loading="lazy"></button>' +
         '<span class="wcard__dot">' + d.name + '</span>' +
-        '<button class="wcard__add" aria-label="LUND ' + size + ' ' + d.name + ' in den Warenkorb"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>' +
-        '<div class="wcard__info"><div><h3 class="wcard__name">LUND ' + size + ' ' + d.name + '</h3><p class="wcard__meta">' + d.txt + '</p></div><span class="wcard__price">' + euro(PREIS[size]) + '</span></div>' +
+        '<div class="wcard__info"><div><h3 class="wcard__name">LUND ' + size + ' ' + d.name + '</h3><p class="wcard__meta">' + d.txt + '</p></div><span class="wcard__price">' + size + ' mm</span></div>' +
       '</article>';
     }).join("");
     if (io) $$(".wcard", cards).forEach(function (c) { io.observe(c); });
@@ -104,15 +101,14 @@
   });
   cards.addEventListener("click", function (e) {
     var card = e.target.closest(".wcard"); if (!card) return;
-    if (e.target.closest(".wcard__add")) { addItem({ dial: card.dataset.id, size: size, gravur: "" }); return; }
     if (e.target.closest(".wcard__img")) {
       setCfgDial(card.dataset.id); setCfgSize(size);
       $("#konfigurator").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
     }
   });
 
-  /* ---------- Konfigurator ---------- */
-  var cfgDials = $("#cfg-dials"), gravur = $("#cfg-gravur");
+  /* ---------- Farbstudio ---------- */
+  var cfgDials = $("#cfg-dials");
   cfgDials.innerHTML = DIALS.map(function (d) {
     return '<button class="sw" style="--c:' + d.c + '" data-dial="' + d.id + '" aria-label="Zifferblatt ' + d.name + '" aria-pressed="false"></button>';
   }).join("");
@@ -122,85 +118,24 @@
     $("#cfg-name").textContent = dial(id).name;
     $("#config-fallback").src = IMG + id + "-34.webp";
     if (window.scrollY > hero.offsetHeight) setAccent(id);
-    cfgPrice();
+    cfgModell();
   }
   function setCfgSize(s) {
     LUND.cfgSize = s;
     $$("[data-cfg-size]").forEach(function (b) { var on = +b.dataset.cfgSize === s; b.classList.toggle("is-on", on); b.setAttribute("aria-pressed", String(on)); });
-    cfgPrice();
+    cfgModell();
   }
-  function cfgPrice() { $("#cfg-price").textContent = euro(PREIS[LUND.cfgSize] + (gravur.value.trim() ? GRAVUR : 0)); }
+  function cfgModell() { $("#cfg-modell").textContent = "LUND " + LUND.cfgSize + " " + dial(LUND.cfgDial).name; }
   cfgDials.addEventListener("click", function (e) { var b = e.target.closest(".sw"); if (b) setCfgDial(b.dataset.dial); });
   $$("[data-cfg-size]").forEach(function (b) { b.addEventListener("click", function () { setCfgSize(+b.dataset.cfgSize); }); });
-  gravur.addEventListener("input", cfgPrice);
-  $("#cfg-add").addEventListener("click", function () { addItem({ dial: LUND.cfgDial, size: LUND.cfgSize, gravur: gravur.value.trim() }); });
   setCfgDial("eisblau");
-
-  /* ---------- Warenkorb ---------- */
-  var KEY = "lund-warenkorb", bag = [];
-  try { bag = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { bag = []; }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(bag)); } catch (e) { /* ohne Speicher weiter */ } }
-  function price(it) { return PREIS[it.size] + (it.gravur ? GRAVUR : 0); }
-  function render() {
-    $("#bag-list").innerHTML = bag.map(function (it, i) {
-      var d = dial(it.dial);
-      return '<li class="bi"><img src="' + IMG + it.dial + '-front-klein.webp" alt="" width="76" height="95"><div><b>LUND ' + it.size + ' ' + esc(d.name) + '</b><small>' + it.size + ' mm · Edelstahl' + (it.gravur ? ' · Gravur „' + esc(it.gravur) + '“' : '') + '</small>' +
-        '<div class="bi__q"><button data-q="-1" data-i="' + i + '" aria-label="Menge verringern">–</button><span>' + it.n + '</span><button data-q="1" data-i="' + i + '" aria-label="Menge erhöhen">+</button></div></div>' +
-        '<div class="bi__p">' + euro(price(it) * it.n) + '<button data-rm="' + i + '">Entfernen</button></div></li>';
-    }).join("");
-    var n = bag.reduce(function (s, it) { return s + it.n; }, 0);
-    $("#bag-n").textContent = n;
-    $("#bag-sum").textContent = euro(bag.reduce(function (s, it) { return s + price(it) * it.n; }, 0));
-  }
-  $("#bag-list").addEventListener("click", function (e) {
-    var q = e.target.closest("[data-q]"), rm = e.target.closest("[data-rm]");
-    if (q) { var it = bag[+q.dataset.i]; it.n += +q.dataset.q; if (it.n < 1) bag.splice(+q.dataset.i, 1); }
-    if (rm) bag.splice(+rm.dataset.rm, 1);
-    if (q || rm) { save(); render(); }
-  });
-  var noteT;
-  function note(t) { var el = $("#note"); el.textContent = t; el.classList.add("is-on"); clearTimeout(noteT); noteT = setTimeout(function () { el.classList.remove("is-on"); }, 2600); }
-  function addItem(item) {
-    var k = item.dial + "|" + item.size + "|" + item.gravur;
-    var f = bag.filter(function (b) { return b.dial + "|" + b.size + "|" + b.gravur === k; })[0];
-    if (f) f.n++; else { item.n = 1; bag.push(item); }
-    save(); render();
-    var b = $("#bag-open"); b.classList.remove("is-bump"); void b.offsetWidth; b.classList.add("is-bump");
-    note("LUND " + item.size + " " + dial(item.dial).name + " liegt im Warenkorb.");
-  }
-  render();
-
-  var sheet = $("#bag"), lastFocus;
-  function openSheet() { lastFocus = document.activeElement; sheet.hidden = false; document.body.classList.add("is-locked"); $(".close", sheet).focus(); }
-  function closeSheet() {
-    if (sheet.hidden) return;
-    var done = function () { sheet.hidden = true; sheet.classList.remove("is-closing"); document.body.classList.remove("is-locked"); if (lastFocus) lastFocus.focus(); };
-    if (reduce) return done();
-    sheet.classList.add("is-closing"); setTimeout(done, 480);
-  }
-  $("#bag-open").addEventListener("click", openSheet);
-  sheet.addEventListener("click", function (e) { if (e.target.closest("[data-close]")) closeSheet(); });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { closeSheet(); setMenu(false); }
-    if (e.key === "Tab" && !sheet.hidden) {
-      var f = $$("button, a[href]", sheet).filter(function (x) { return x.offsetParent !== null; });
-      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
-      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
-    }
-  });
-  $("#checkout").addEventListener("click", function (e) {
-    e.preventDefault();
-    if (!bag.length) return;
-    var lines = bag.map(function (it) { return it.n + " × LUND " + it.size + " " + dial(it.dial).name + (it.gravur ? " (Gravur: " + it.gravur + ")" : "") + " – " + euro(price(it) * it.n); });
-    var body = "Hallo LUND-Team,\n\nich möchte Folgendes bestellen:\n\n" + lines.join("\n") + "\n\nHandgelenksumfang (cm):\n\nLieferadresse:\n\n";
-    location.href = "mailto:bestellung@ihre-domain.de?subject=" + encodeURIComponent("Bestellung LUND") + "&body=" + encodeURIComponent(body);
-  });
 
   /* ---------- Navigation ---------- */
   var top = $("#top-bar"), burger = $("#burger"), nav = $("#nav");
   function setMenu(o) { burger.setAttribute("aria-expanded", String(o)); burger.setAttribute("aria-label", o ? "Menü schließen" : "Menü öffnen"); nav.classList.toggle("is-open", o); top.classList.toggle("menu-open", o); }
   burger.addEventListener("click", function () { setMenu(burger.getAttribute("aria-expanded") !== "true"); });
   nav.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") setMenu(false); });
   top.addEventListener("focusin", function () { top.classList.remove("is-hidden"); });
   var links = $$("a", nav);
   if ("IntersectionObserver" in window) {

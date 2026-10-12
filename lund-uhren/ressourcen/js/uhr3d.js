@@ -74,20 +74,30 @@ const texCache = {};
 function dialTex(name, schrift) { return texCache[name] || (texCache[name] = zifferblattTextur(ZIFFERBLAETTER[name], schrift)); }
 
 /* ---------- Materialien ---------- */
-const stahlPoliert = () => new THREE.MeshPhysicalMaterial({ color: "#dcdfe3", metalness: 1, roughness: .1 });
-let schliffTex = null;
-function schliff() {                         // feine Schliffspuren als Rauheits-/Reliefkarte
-  if (schliffTex) return schliffTex;
-  const c = document.createElement("canvas"); c.width = 1024; c.height = 64;
+// Schliffspuren als Rauheitskarte: Linien entlang U (quer = false) oder entlang V (quer = true)
+const strichCache = {};
+function striche(quer) {
+  if (strichCache[quer]) return strichCache[quer];
+  const S = 1024, c = document.createElement("canvas"); c.width = c.height = S;
   const g = c.getContext("2d");
-  for (let x = 0; x < 1024; x++) { const v = 150 + Math.round(Math.sin(x * 12.9898) * 43758.5453 % 1 * 70); g.fillStyle = "rgb(" + v + "," + v + "," + v + ")"; g.fillRect(x, 0, 1, 64); }
-  schliffTex = new THREE.CanvasTexture(c);
-  schliffTex.wrapS = schliffTex.wrapT = THREE.RepeatWrapping;
-  schliffTex.repeat.set(1 / 9, 1 / 9);
-  return schliffTex;
+  g.fillStyle = "#c8c8c8"; g.fillRect(0, 0, S, S);
+  let z = 7;
+  const rnd = () => (z = (z * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < 2600; i++) {
+    const v = 150 + Math.floor(rnd() * 105), y = rnd() * S, x = rnd() * S, l = S * (.2 + rnd() * .8);
+    g.fillStyle = "rgb(" + v + "," + v + "," + v + ")";
+    if (quer) g.fillRect(y, x - l / 2, 1 + rnd() * 1.5, l); else g.fillRect(x - l / 2, y, l, 1 + rnd() * 1.5);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping;
+  return (strichCache[quer] = t);
 }
-const stahlGebuerstet = () => new THREE.MeshPhysicalMaterial({ color: "#c8ccd1", metalness: 1, roughness: .3 });
-const leucht = () => new THREE.MeshPhysicalMaterial({ color: "#f4f3ee", roughness: .5, emissive: "#d9f2e4", emissiveIntensity: .06 });
+const stahlPoliert = () => new THREE.MeshPhysicalMaterial({ color: "#e6e8eb", metalness: 1, roughness: .045, envMapIntensity: 1.15 });
+function stahlGebuerstet(quer = false, rep = 1) {
+  const t = striche(quer).clone(); t.needsUpdate = true; t.repeat.set(rep, rep);
+  return new THREE.MeshPhysicalMaterial({ color: "#c9cdd2", metalness: 1, roughness: .34, roughnessMap: t, bumpMap: t, bumpScale: .015 });
+}
+const leucht = () => new THREE.MeshPhysicalMaterial({ color: "#f1f0e8", roughness: .55, emissive: "#d9f2e4", emissiveIntensity: .05 });
 
 function kantenProfil(w, h, r) {                // abgerundetes Rechteck als Shape
   const s = new THREE.Shape(), x = -w / 2, y = -h / 2;
@@ -102,47 +112,63 @@ function block(w, h, d, mat, bevel = .35) {
   return new THREE.Mesh(g, mat);
 }
 
-/* Glied mit gewölbter Oberseite: Querschnitt (Breite × Dicke) entlang der Länge extrudiert */
-function glied(w, len, dick, mat, wolb = .45) {
-  const q = new THREE.Shape(), r = Math.min(.8, w * .2);
+/* Glied: Querschnitt (Breite × Dicke) mit leicht gewölbter Oberseite, entlang der Länge extrudiert */
+function glied(w, len, dick, mat, wolb = .25, fase = .22) {
+  const q = new THREE.Shape(), r = Math.min(.5, w * .15);
   q.moveTo(-w / 2 + r, 0); q.lineTo(w / 2 - r, 0); q.quadraticCurveTo(w / 2, 0, w / 2, r);
-  q.lineTo(w / 2, dick * (1 - wolb * .5));
-  q.bezierCurveTo(w / 2, dick, w * .25, dick + wolb, 0, dick + wolb);
-  q.bezierCurveTo(-w * .25, dick + wolb, -w / 2, dick, -w / 2, dick * (1 - wolb * .5));
+  q.lineTo(w / 2, dick - wolb);
+  q.bezierCurveTo(w / 2, dick - wolb * .3, w * .3, dick, 0, dick);
+  q.bezierCurveTo(-w * .3, dick, -w / 2, dick - wolb * .3, -w / 2, dick - wolb);
   q.lineTo(-w / 2, r); q.quadraticCurveTo(-w / 2, 0, -w / 2 + r, 0);
-  const g = new THREE.ExtrudeGeometry(q, { depth: len - .5, bevelEnabled: true, bevelThickness: .25, bevelSize: .2, bevelSegments: 4, curveSegments: 16 });
+  const g = new THREE.ExtrudeGeometry(q, { depth: len - 2 * fase, bevelEnabled: true, bevelThickness: fase, bevelSize: fase * .8, bevelOffset: -fase * .8, bevelSegments: 4, curveSegments: 14 });
   g.rotateX(Math.PI / 2);                      // Länge entlang −Y, Dicke entlang +Z
-  g.translate(0, (len - .5) / 2, -dick / 2);
+  g.translate(0, len / 2 - fase, -dick / 2);
   return new THREE.Mesh(g, mat);
+}
+
+/* Gehäusemittelteil von oben: Kreis mit fließend angesetzten Bandanstößen */
+function gehaeuseUmriss(R, L, Y) {
+  const s = new THREE.Shape(), Rc = R + .35, w = 52 * Math.PI / 180;
+  const P = a => [Math.cos(a) * Rc, Math.sin(a) * Rc];
+  s.moveTo(L, Y);
+  s.quadraticCurveTo(L, R * .82, ...P(w));
+  s.absarc(0, 0, Rc, w, -w, true);
+  s.quadraticCurveTo(L, -R * .82, L, -Y);
+  s.lineTo(-L, -Y);
+  s.quadraticCurveTo(-L, -R * .82, ...P(Math.PI + w));
+  s.absarc(0, 0, Rc, Math.PI + w, Math.PI - w, true);
+  s.quadraticCurveTo(-L, R * .82, -L, Y);
+  s.closePath();
+  const loch = new THREE.Path(); loch.absarc(0, 0, R * .9, 0, Math.PI * 2, true);
+  s.holes.push(loch);
+  return s;
 }
 
 /* ---------- Uhr bauen ---------- */
 export function baueUhr({ zifferblatt = "eisblau", durchmesser = 39, schrift = "sans-serif" } = {}) {
   const R = durchmesser / 2;
   const uhr = new THREE.Group();
-  const polished = stahlPoliert(), brushed = stahlGebuerstet();
-
-  // Gehäuse (Drehprofil): Boden → Flanke → flache, gebürstete Lünette
+  const polished = stahlPoliert(), brushed = stahlGebuerstet(false, 1), flanke = stahlGebuerstet(true, 1 / 30);
   const V = (x, y) => new THREE.Vector2(x, y);
-  const gehaeuse = new THREE.Mesh(new THREE.LatheGeometry([
-    V(0, -5), V(R * .8, -5), V(R * .92, -4.6), V(R - .2, -3.6), V(R + .25, -2.4), V(R + .25, 1.8), V(R + .05, 2.6), V(R - .15, 2.9)
-  ], 160), brushed);
-  gehaeuse.rotation.x = Math.PI / 2;
-  uhr.add(gehaeuse);
-  const luenette = new THREE.Mesh(new THREE.LatheGeometry([V(R - .15, 2.9), V(R - .4, 3.55), V(R * .87, 3.75)], 160), brushed);
-  luenette.rotation.x = Math.PI / 2;
-  uhr.add(luenette);
-  // polierte Innenfase zum Glas
-  const fase = new THREE.Mesh(new THREE.LatheGeometry([V(R * .87, 3.75), V(R * .835, 3.3), V(R * .81, 2.4)], 160), polished);
-  fase.rotation.x = Math.PI / 2;
-  uhr.add(fase);
-  // polierte Kante zwischen Flanke und Lünette
-  const kante = new THREE.Mesh(new THREE.TorusGeometry(R - .02, .32, 12, 160), polished);
-  kante.position.z = 2.75;
-  uhr.add(kante);
+  const dreh = (pts, mat, seg = 200) => { const m = new THREE.Mesh(new THREE.LatheGeometry(pts.map(([r, z]) => V(r, z)), seg), mat); m.rotation.x = Math.PI / 2; return m; };
+
+  const bw = R * 1.12, L = bw / 2 + .35, Y = R + 4.2;          // Bandbreite, Anstoßbreite, Anstoßende
+  const Z0 = -4.6, Z1 = 2.6, F = .5;                            // Gehäusemittelteil unten/oben, Fase
+  // Mittelteil mit Anstößen: Oberseite längs gebürstet, Flanken senkrecht gebürstet, Kanten als polierte Fase
+  const deckel = stahlGebuerstet(true, 1 / 22);
+  const mitte = new THREE.ExtrudeGeometry(gehaeuseUmriss(R, L, Y), { depth: Z1 - Z0 - 2 * F, bevelEnabled: true, bevelThickness: F, bevelSize: F, bevelOffset: -F, bevelSegments: 5, curveSegments: 96 });
+  mitte.translate(0, 0, Z0 + F);
+  uhr.add(new THREE.Mesh(mitte, [deckel, flanke]));
+  // Boden
+  uhr.add(dreh([[0, -5.3], [R * .78, -5.3], [R * .86, -5.05], [R * .93, -4.6]], brushed, 120));
+
+  // Lünette: flach, kreisförmig satiniert, mit polierter Außen- und Innenfase
+  uhr.add(dreh([[R + .1, Z1 - .05], [R + .05, Z1 + .45], [R - .45, Z1 + .95]], polished));
+  uhr.add(dreh([[R - .45, Z1 + .95], [R * .875, Z1 + 1.05]], brushed));
+  uhr.add(dreh([[R * .875, Z1 + 1.05], [R * .84, Z1 + .7], [R * .815, Z1 - .2]], polished));
 
   // Zifferblatt
-  const dialMat = () => new THREE.MeshPhysicalMaterial({ metalness: .45, roughness: .32, clearcoat: .5, clearcoatRoughness: .2 });
+  const dialMat = () => new THREE.MeshPhysicalMaterial({ metalness: .28, roughness: .34, clearcoat: .55, clearcoatRoughness: .12 });
   const zb = new THREE.Mesh(new THREE.CircleGeometry(R * .8, 128), dialMat());
   zb.material.map = dialTex(zifferblatt, schrift);
   zb.position.z = 1.2;
@@ -158,25 +184,22 @@ export function baueUhr({ zifferblatt = "eisblau", durchmesser = 39, schrift = "
   zb2.position.z = 1.21; zb2.visible = false;
   uhr.add(zb, zb2);
   // Rehaut: schräger Ring zwischen Zifferblatt und Glas
-  const rehaut = new THREE.Mesh(new THREE.LatheGeometry([V(R * .8, 1.2), V(R * .83, 3.3)], 160), new THREE.MeshPhysicalMaterial({ color: "#8d9298", metalness: .9, roughness: .45, side: THREE.DoubleSide }));
-  rehaut.rotation.x = Math.PI / 2;
-  uhr.add(rehaut);
+  uhr.add(dreh([[R * .8, 1.2], [R * .818, 2.4]], new THREE.MeshPhysicalMaterial({ color: "#7d8288", metalness: .9, roughness: .4, side: THREE.DoubleSide }), 160));
 
-  // Indexe
+  // Indexe: facettiert, poliert, mit Leuchtmasse
   const indexe = new THREE.Group();
   for (let i = 0; i < 12; i++) {
     if (i === 3) continue;                         // Datum bei 3 Uhr
     const a = (i / 12) * Math.PI * 2, doppelt = i === 0;
-    [doppelt ? -1.1 : 0, doppelt ? 1.1 : null].forEach(dx => {
-      if (dx === null) return;
+    (doppelt ? [-.95, .95] : [0]).forEach(dx => {
       const ix = new THREE.Group();
       const len = R * .2;
-      const metall = block(1.4, len, .5, polished, .2);
-      const lume = new THREE.Mesh(new THREE.BoxGeometry(.6, len * .78, .3), leucht());
-      lume.position.z = .45;
+      const metall = block(1.15, len, .35, polished, .28);
+      const lume = new THREE.Mesh(new THREE.BoxGeometry(.42, len * .74, .2), leucht());
+      lume.position.z = .38;
       ix.add(metall, lume);
       const rr = R * .62;
-      ix.position.set(Math.sin(a) * rr + Math.cos(a) * dx, Math.cos(a) * rr - Math.sin(a) * dx, 1.6);
+      ix.position.set(Math.sin(a) * rr + Math.cos(a) * dx, Math.cos(a) * rr - Math.sin(a) * dx, 1.55);
       ix.rotation.z = -a;
       indexe.add(ix);
     });
@@ -190,69 +213,83 @@ export function baueUhr({ zifferblatt = "eisblau", durchmesser = 39, schrift = "
     [-1, 1].forEach(seite => {
       const h = new THREE.Shape();
       h.moveTo(0, -laenge * .14); h.lineTo(seite * breite / 2, -laenge * .14); h.lineTo(seite * breite * .45, laenge * .92); h.lineTo(0, laenge); h.closePath();
-      const geo = new THREE.ExtrudeGeometry(h, { depth: .25, bevelEnabled: true, bevelThickness: .08, bevelSize: .06, bevelSegments: 2 });
+      const geo = new THREE.ExtrudeGeometry(h, { depth: .2, bevelEnabled: true, bevelThickness: .06, bevelSize: .05, bevelSegments: 2 });
       const m = new THREE.Mesh(geo, polished);
-      m.rotation.y = seite * -.32;
+      m.rotation.y = seite * -.3;
       g.add(m);
     });
-    const lume = new THREE.Mesh(new THREE.BoxGeometry(breite * .34, laenge * .6, .2), leucht());
-    lume.position.set(0, laenge * .48, .42);
+    const lume = new THREE.Mesh(new THREE.BoxGeometry(breite * .3, laenge * .58, .16), leucht());
+    lume.position.set(0, laenge * .48, .36);
     g.add(lume);
     g.position.z = z;
     return g;
   }
-  const hStd = zeiger(R * .5, 1.9, 2.3), hMin = zeiger(R * .74, 1.5, 2.9);
+  const hStd = zeiger(R * .5, 1.8, 2.25), hMin = zeiger(R * .74, 1.4, 2.8);
   const hSek = new THREE.Group();
-  const nadel = new THREE.Mesh(new THREE.BoxGeometry(.28, R * .9, .14), polished);
+  const nadel = new THREE.Mesh(new THREE.BoxGeometry(.24, R * .9, .12), polished);
   nadel.position.y = R * .3;
-  const gegen = new THREE.Mesh(new THREE.CylinderGeometry(.7, .7, .3, 24), polished); gegen.rotation.x = Math.PI / 2; gegen.position.y = -R * .1;
-  hSek.add(nadel, gegen); hSek.position.z = 3.25;
-  const kappe = new THREE.Mesh(new THREE.CylinderGeometry(.9, .9, 1.2, 32), polished); kappe.rotation.x = Math.PI / 2; kappe.position.z = 3.0;
+  const gegen = new THREE.Mesh(new THREE.CylinderGeometry(.65, .65, .25, 24), polished); gegen.rotation.x = Math.PI / 2; gegen.position.y = -R * .1;
+  hSek.add(nadel, gegen); hSek.position.z = 3.15;
+  const kappe = new THREE.Mesh(new THREE.CylinderGeometry(.8, .8, 1.1, 32), polished); kappe.rotation.x = Math.PI / 2; kappe.position.z = 2.9;
   uhr.add(hStd, hMin, hSek, kappe);
 
   // Saphirglas
-  const glas = new THREE.Mesh(new THREE.CylinderGeometry(R * .81, R * .81, .6, 128), new THREE.MeshPhysicalMaterial({
-    color: "#ffffff", transparent: true, opacity: .1, roughness: 0, clearcoat: 1, depthWrite: false, envMapIntensity: 1.6,
+  const glas = new THREE.Mesh(new THREE.CylinderGeometry(R * .82, R * .82, .6, 128), new THREE.MeshPhysicalMaterial({
+    color: "#ffffff", transparent: true, opacity: .08, roughness: 0, clearcoat: 1, depthWrite: false, envMapIntensity: 1.6,
     iridescence: .3, iridescenceIOR: 1.3, iridescenceThicknessRange: [300, 420]
   }));
-  glas.rotation.x = Math.PI / 2; glas.position.z = 3.6;
+  glas.rotation.x = Math.PI / 2; glas.position.z = 3.2;
   uhr.add(glas);
   const rc = document.createElement("canvas"); rc.width = rc.height = 512;
   const rg2 = rc.getContext("2d"), lg = rg2.createLinearGradient(0, 0, 512, 512);
-  lg.addColorStop(0, "rgba(255,255,255,0)"); lg.addColorStop(.3, "rgba(255,255,255,.0)"); lg.addColorStop(.38, "rgba(255,255,255,.55)");
-  lg.addColorStop(.47, "rgba(255,255,255,.08)"); lg.addColorStop(.62, "rgba(255,255,255,0)"); lg.addColorStop(1, "rgba(255,255,255,0)");
+  lg.addColorStop(0, "rgba(255,255,255,0)"); lg.addColorStop(.3, "rgba(255,255,255,.0)"); lg.addColorStop(.38, "rgba(255,255,255,.5)");
+  lg.addColorStop(.47, "rgba(255,255,255,.07)"); lg.addColorStop(.62, "rgba(255,255,255,0)"); lg.addColorStop(1, "rgba(255,255,255,0)");
   rg2.fillStyle = lg; rg2.beginPath(); rg2.arc(256, 256, 256, 0, Math.PI * 2); rg2.fill();
   const reflexTex = new THREE.CanvasTexture(rc); reflexTex.colorSpace = THREE.SRGBColorSpace;
-  const reflex = new THREE.Mesh(new THREE.CircleGeometry(R * .81, 96), new THREE.MeshBasicMaterial({ map: reflexTex, transparent: true, opacity: .32, depthWrite: false, blending: THREE.AdditiveBlending }));
-  reflex.position.z = 3.92;
+  const reflex = new THREE.Mesh(new THREE.CircleGeometry(R * .82, 96), new THREE.MeshBasicMaterial({ map: reflexTex, transparent: true, opacity: .26, depthWrite: false, blending: THREE.AdditiveBlending }));
+  reflex.position.z = 3.52;
   uhr.add(reflex);
 
-  // Krone bei 3 Uhr
-  const krone = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 2.6, 3.2, 48), brushed);
-  krone.rotation.z = Math.PI / 2; krone.position.set(R + 1.7, 0, -.6);
-  const kroneKopf = new THREE.Mesh(new THREE.CylinderGeometry(2.62, 2.5, .8, 48), polished);
-  kroneKopf.rotation.z = Math.PI / 2; kroneKopf.position.set(R + 3.4, 0, -.6);
-  uhr.add(krone, kroneKopf);
-  // Kronenschutz
-  [-1, 1].forEach(s => { const k = block(2.2, 3.2, 4.8, brushed, .5); k.position.set(R + .9, s * 3.8, -.6); uhr.add(k); });
+  // Verschraubte Krone mit Rändelung bei 3 Uhr
+  const kroneGeo = new THREE.CylinderGeometry(2.5, 2.5, 3.0, 72, 1);
+  const kp = kroneGeo.attributes.position;
+  for (let i = 0; i < kp.count; i++) {
+    const x = kp.getX(i), z = kp.getZ(i), r = Math.hypot(x, z);
+    if (r > 2.4) { const a = Math.atan2(z, x), k = Math.round((a / (Math.PI * 2)) * 72); const f = k % 2 ? .9 : 1; kp.setX(i, x * f); kp.setZ(i, z * f); }
+  }
+  kroneGeo.computeVertexNormals();
+  const krone = new THREE.Mesh(kroneGeo, polished);
+  krone.rotation.z = Math.PI / 2; krone.position.set(R + 2.0, 0, -1.0);
+  const kroneKopf = new THREE.Mesh(new THREE.CylinderGeometry(2.3, 2.45, .5, 64), polished);
+  kroneKopf.rotation.z = Math.PI / 2; kroneKopf.position.set(R + 3.75, 0, -1.0);
+  const kroneHals = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.6, 1.4, 32), brushed);
+  kroneHals.rotation.z = Math.PI / 2; kroneHals.position.set(R + .5, 0, -1.0);
+  uhr.add(krone, kroneKopf, kroneHals);
+  // Kronenschutz, aus dem Gehäuse herausgezogen
+  [-1, 1].forEach(s => {
+    const k = block(2.4, 2.6, 5.2, flanke, .6);
+    k.position.set(R + 1.2, s * 3.75, -1.0);
+    uhr.add(k);
+  });
 
-  // Integriertes Armband: gewölbte Glieder, die sich zur Schließe verjüngen
+  // Integriertes H-Glieder-Armband: gebürstete Außenglieder, polierte Mittelglieder, fugendicht
   const band = new THREE.Group();
-  const BR = 30, glieder = 12, laenge = 5.6, dick = 2.3, bw = R * 1.12;
+  const laengs = stahlGebuerstet(true, 1 / 8);
+  const mittelPoliert = new THREE.MeshPhysicalMaterial({ color: "#e2e4e7", metalness: 1, roughness: .13 });
+  const BR = 26, glieder = 13, teil = 5.2, dick = 2.5, fuge = .14;
   [-1, 1].forEach(seite => {
-    const ende = glied(bw * 1.04, 5.4, dick + .4, brushed, .55);   // Endglied am Gehäuse
-    ende.position.set(0, seite * (R * .9 + 2.5), -2.4);
-    band.add(ende);
     for (let i = 0; i < glieder; i++) {
       const g = new THREE.Group();
-      const breite = bw * (1 - i * .016);
-      const a1 = glied(breite * .37, laenge, dick, brushed, .4), a2 = a1.clone();
+      const breite = bw * (1 - i * .012);
+      const a1 = glied(breite * .37, teil - fuge, dick, laengs), a2 = a1.clone();
       a1.position.x = -breite * .315; a2.position.x = breite * .315;
-      const m = glied(breite * .22, laenge * .8, dick + .15, polished, .35);
-      m.position.set(0, laenge * .5, .1);
+      const m = glied(breite * .23 - fuge, teil - fuge, dick - .1, mittelPoliert, .3);
+      m.position.set(0, teil * .5, 0);
       g.add(a1, a2, m);
-      const y0 = R * .9 + 5.3, th = ((i + .5) * laenge) / BR;
-      g.position.set(0, seite * (y0 + BR * Math.sin(th)), -2.3 - BR * (1 - Math.cos(th)));
+      const s0 = (i + .5) * teil, gerade = 4;                 // erst gerade, dann zur Schließe gebogen
+      const th = Math.max(0, s0 - gerade) / BR;
+      const yy = Y + Math.min(s0, gerade) + BR * Math.sin(th), zz = Z1 - dick / 2 - .15 - BR * (1 - Math.cos(th));
+      g.position.set(0, seite * yy, zz);
       g.rotation.x = -seite * th;
       if (seite < 0) g.rotation.z = Math.PI;
       band.add(g);
@@ -299,11 +336,12 @@ function studio(renderer) {
     fragmentShader: "varying vec3 p; void main(){ float t = p.y * .5 + .5; vec3 c = mix(vec3(.025,.027,.03), vec3(.3,.31,.33), smoothstep(.35,1.,t)); gl_FragColor = vec4(c,1.); }"
   }));
   s.add(raum);
-  box(18, 2.4, 0, 10, 3, 3.4);    // langes Oberlicht
-  box(1.6, 16, -11, 1, 3, 2.8);   // Streifen links
-  box(1.6, 16, 11, 1, 1, 1.6);    // Streifen rechts
-  box(3, 12, 6, 3, 10, .9);       // weiche Box vorne rechts
-  box(14, 2, 0, -8, 6, .35);      // Aufheller unten
+  box(18, 1.6, 0, 10, 3, 9);      // schmales Oberlicht
+  box(1.1, 16, -11, 1, 3, 7);     // Streifen links
+  box(1.1, 16, 11, 1, 1, 4);      // Streifen rechts
+  box(4, 10, 6, 3, 10, 2.2);      // Softbox vorne rechts
+  box(.8, 12, -4, 0, 12, 3);      // Kante vorne links
+  box(14, 1.4, 0, -8, 6, .9);     // Aufheller unten
   const pm = new THREE.PMREMGenerator(renderer);
   return pm.fromScene(s, .03).texture;
 }
