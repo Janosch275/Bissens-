@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KURVE Automobile – Sportwagen, Service & Felgen</title>
-  <meta name="description" content="KURVE Automobile: Verkauf von Neu- und Gebrauchtwagen, Meisterwerkstatt, Reifen- und Felgenservice. Vereinbaren Sie Ihre Probefahrt.">
+  <meta name="description" content="KURVE Automobile: Verkauf von Neu- und Gebrauchtwagen, Meisterwerkstatt, Reifen- und Felgenservice. Leistungsprüfstand und Probefahrten nach Termin.">
   <meta name="theme-color" content="#E6E5E1">
   <meta property="og:title" content="KURVE Automobile – Leidenschaft auf vier Rädern">
   <meta property="og:type" content="website">
@@ -19,7 +19,7 @@
     <a href="#start" class="logo" aria-label="KURVE Automobile – zum Anfang"><span>KURVE</span><small>Automobile</small></a>
     <nav class="menue" id="menue" aria-label="Hauptnavigation">
       <a href="#leistungen">Leistungen</a>
-      <a href="#probefahrt">Probefahrt</a>
+      <a href="#pruefstand">Prüfstand</a>
       <a href="#geschichte">Geschichte</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
@@ -103,24 +103,36 @@
       </div>
     </section>
 
-    <!-- ===== Probefahrt: das Coupé fährt die Küstenstraße entlang ===== -->
-    <section class="fahrt" id="probefahrt">
-      <div class="fahrt__pin" id="fahrt-pin">
-        <div class="film" id="film">
-          <img class="film__standbild" id="film-standbild" src="ressourcen/bilder/fahrt/bild-001.webp" alt="Ein rotes Sportcoupé fährt eine Küstenstraße am Meer entlang" width="1280" height="720">
-          <canvas class="film__leinwand" id="film-leinwand" aria-hidden="true"></canvas>
+    <!-- ===== Leistungsprüfstand: Messkurven zeichnen sich beim Scrollen ===== -->
+    <section class="pruef" id="pruefstand">
+      <div class="pruef__pin" id="pruef-pin">
+        <div class="rahmen pruef__raster">
+          <div class="pruef__kopf">
+            <p class="tag tag--hell">Leistungsprüfstand</p>
+            <h2 class="schraeg">Wir messen,<br><em>was ankommt.</em></h2>
+            <p class="pruef__text">Auf unserem Allrad-Prüfstand sehen Sie schwarz auf weiß, wie viel Leistung Ihr Auto wirklich auf die Straße bringt – vor und nach jeder Optimierung.</p>
+            <dl class="pruef__werte" aria-live="off">
+              <div><dt>Drehzahl</dt><dd><b id="pw-rpm">1.000</b><small>1/min</small></dd></div>
+              <div class="pruef__ps"><dt>Leistung</dt><dd><b id="pw-ps">53</b><small>PS</small></dd></div>
+              <div><dt>Drehmoment</dt><dd><b id="pw-nm">380</b><small>Nm</small></dd></div>
+            </dl>
+          </div>
+          <figure class="pruef__diagramm">
+            <svg viewBox="0 0 1000 560" role="img" aria-labelledby="pruef-titel">
+              <title id="pruef-titel">Beispielmessung von Leistung und Drehmoment über die Drehzahl</title>
+              <g class="pruef__gitter" id="pruef-gitter"></g>
+              <path class="pruef__flaeche" id="pk-flaeche" d=""/>
+              <path class="pruef__nm" id="pk-nm" d=""/>
+              <path class="pruef__ps-kurve" id="pk-ps" d=""/>
+              <line class="pruef__scan" id="pk-scan" x1="60" x2="60" y1="30" y2="490"/>
+              <circle class="pruef__punkt pruef__punkt--nm" id="pk-pnm" r="7" cx="60" cy="490"/>
+              <circle class="pruef__punkt" id="pk-pps" r="8" cx="60" cy="490"/>
+              <g class="pruef__spitze" id="pk-spitze"><line id="pk-sl" y1="30" y2="490"/><text id="pk-st" text-anchor="end"></text></g>
+            </svg>
+            <figcaption><span class="pruef__legende pruef__legende--ps">Leistung (PS)</span><span class="pruef__legende">Drehmoment (Nm)</span><span class="pruef__hinweis">Beispielmessung</span></figcaption>
+          </figure>
         </div>
-        <div class="fahrt__schleier" aria-hidden="true"></div>
-        <div class="fahrt__text fahrt__text--a">
-          <p class="tag tag--hell">Probefahrt</p>
-          <h2 class="schraeg">Einsteigen.<br><em>Anschnallen.</em></h2>
-        </div>
-        <div class="fahrt__text fahrt__text--b">
-          <h2 class="schraeg">Losfahren.</h2>
-          <p>Sie haben ein Auto im Blick? Wir stellen es vollgetankt bereit – für eine Runde durch die Stadt oder über die Landstraße.</p>
-          <a href="#kontakt" class="knopf knopf--rot">Probefahrt vereinbaren</a>
-        </div>
-        <div class="fahrt__balken" aria-hidden="true"><i></i></div>
+        <div class="pruef__balken" aria-hidden="true"><i></i></div>
       </div>
     </section>
 
@@ -165,6 +177,7 @@
           <div class="wahl wahl--klein" role="radiogroup" aria-label="Anliegen">
             <label><input type="radio" name="anliegen" value="Probefahrt" checked><span>Probefahrt</span></label>
             <label><input type="radio" name="anliegen" value="Werkstatt"><span>Werkstatt</span></label>
+            <label><input type="radio" name="anliegen" value="Leistungsmessung"><span>Leistungsmessung</span></label>
             <label><input type="radio" name="anliegen" value="Reifen & Felgen"><span>Reifen & Felgen</span></label>
             <label><input type="radio" name="anliegen" value="Beratung"><span>Beratung</span></label>
           </div>

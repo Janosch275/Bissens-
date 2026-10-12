@@ -97,7 +97,7 @@
 
   /* ---------- Scroll-Choreografie ---------- */
   var hero = $(".hero"), heroPin = $("#hero-pin"), tacho = $("#tacho"), drehzahl = $("#drehzahl"), teile = $$("#teile li");
-  var fahrt = $(".fahrt"), fahrtPin = $("#fahrt-pin");
+  var pruef = $(".pruef"), pruefPin = $("#pruef-pin");
   var strecke = $(".strecke"), streckePin = $("#strecke-pin"), kurs = $("#kurs"), fahrzeug = $("#fahrzeug"), etappen = $$("#etappen li");
   var fussWort = $(".fuss__wort");
   var kursLaenge = kurs.getTotalLength();
@@ -133,12 +133,7 @@
     var teil = hp > .42 && hp < .68 ? clamp(Math.floor(seg(hp, .42, .64) * 4), 0, 3) : -1;
     teile.forEach(function (li, i) { li.classList.toggle("is-an", i === teil); });
 
-    K.fahrtP = prog(fahrt);
-    // Einblenden: Film öffnet sich beim Hineinscrollen von einem kleinen Fenster zur vollen Fläche
-    var ft = fahrt.getBoundingClientRect().top;
-    var ein = weich(clamp((vh * .95 - ft) / (vh * 1.25), 0, 1));
-    fahrtPin.style.setProperty("--ein", ein.toFixed(4));
-    fahrtPin.classList.toggle("is-offen", ein > .999);
+    pruefZiel = seg(prog(pruef), .06, .9);
 
     var rp = prog(strecke);
     streckePin.style.setProperty("--runde", rp.toFixed(4));
@@ -156,56 +151,58 @@
   if (reduce) { etappen.forEach(function (li) { li.classList.add("is-an"); }); fahrzeug.setAttribute("transform", "translate(1540 120)"); }
   requestAnimationFrame(function () { heroPin.classList.add("is-geladen"); });
 
-  /* ---------- Probefahrt: Film-Einzelbilder folgen dem Scrollen ---------- */
-  var BILDER = 96, film = $("#film"), leinwand = $("#film-leinwand"), ctx = leinwand.getContext("2d");
-  var bilder = [], geladen = 0, aktuell = -1, ziel = 0, anzeige = 0;
-  function bildPfad(i) { return "ressourcen/bilder/fahrt/bild-" + String(i + 1).padStart(3, "0") + ".webp"; }
-  function leinwandGroesse() {
-    var r = leinwand.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
-    leinwand.width = Math.round(r.width * d); leinwand.height = Math.round(r.height * d); aktuell = -1;
+  /* ---------- Leistungsprüfstand: Messkurven folgen dem Scrollen ---------- */
+  // Beispielfahrzeug: Drehmomentverlauf in Nm, Leistung daraus berechnet (PS = Nm · U/min / 7023)
+  var N0 = 1000, N1 = 7600, X0 = 60, X1 = 940, Y0 = 490, Y1 = 30, PSMAX = 600, NMMAX = 600;
+  function nm(n) {
+    if (n < 2500) return 380 + 150 * weich(seg(n, 1000, 2500));
+    if (n < 5000) return 530 - 6 * Math.sin((n - 2500) / 2500 * Math.PI);
+    return 530 - 175 * Math.pow(seg(n, 5000, 7600), 1.35);
   }
-  function zeichne(i) {
-    var img = bilder[i];
-    if (!img || !img.complete || !img.naturalWidth) return false;
-    var cw = leinwand.width, ch = leinwand.height, s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-    var w = img.naturalWidth * s, h = img.naturalHeight * s;
-    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
-    return true;
+  function ps(n) { return nm(n) * n / 7023; }
+  function px(n) { return X0 + (n - N0) / (N1 - N0) * (X1 - X0); }
+  function pyPs(v) { return Y0 - v / PSMAX * (Y0 - Y1); }
+  function pyNm(v) { return Y0 - v / NMMAX * (Y0 - Y1); }
+  var spitzeN = N0, spitzePs = 0;
+  for (var n = N0; n <= N1; n += 10) if (ps(n) > spitzePs) { spitzePs = ps(n); spitzeN = n; }
+  var tsd = function (v) { return Math.round(v).toLocaleString("de-DE"); };
+
+  // Raster und Achsbeschriftung
+  var gitter = $("#pruef-gitter"), g = "";
+  for (var u = 1000; u <= 7000; u += 1000) g += '<line x1="' + px(u) + '" x2="' + px(u) + '" y1="' + Y1 + '" y2="' + Y0 + '"/><text x="' + px(u) + '" y="' + (Y0 + 30) + '" text-anchor="middle">' + (u / 1000) + '</text>';
+  for (var q = 0; q <= 600; q += 100) g += '<line x1="' + X0 + '" x2="' + X1 + '" y1="' + pyPs(q) + '" y2="' + pyPs(q) + '"/><text x="' + (X0 - 12) + '" y="' + (pyPs(q) + 5) + '" text-anchor="end">' + q + '</text>';
+  g += '<text x="' + X1 + '" y="' + (Y0 + 58) + '" text-anchor="end" class="pruef__achse">Drehzahl × 1.000 1/min</text>';
+  g += '<text x="' + (X0 - 12) + '" y="' + (Y1 - 14) + '" text-anchor="end" class="pruef__achse">PS / Nm</text>';
+  gitter.innerHTML = g;
+
+  var pkPs = $("#pk-ps"), pkNm = $("#pk-nm"), pkFl = $("#pk-flaeche"), scan = $("#pk-scan"), pPs = $("#pk-pps"), pNm = $("#pk-pnm");
+  var spitze = $("#pk-spitze"), wRpm = $("#pw-rpm"), wPs = $("#pw-ps"), wNm = $("#pw-nm");
+  $("#pk-sl").setAttribute("x1", px(spitzeN)); $("#pk-sl").setAttribute("x2", px(spitzeN));
+  var st = $("#pk-st"); st.setAttribute("x", px(spitzeN) - 14); st.setAttribute("y", pyPs(spitzePs) - 16);
+  st.textContent = "max. " + Math.round(spitzePs) + " PS bei " + tsd(Math.round(spitzeN / 100) * 100) + " 1/min";
+
+  var pruefZiel = reduce ? 1 : seg(prog(pruef), .06, .9), pruefAnz = -1;
+  function zeichnePruef(f) {
+    var bis = N0 + (N1 - N0) * f, dPs = "", dNm = "";
+    for (var n = N0; n <= bis; n += 50) {
+      dPs += (n === N0 ? "M" : "L") + px(n).toFixed(1) + " " + pyPs(ps(n)).toFixed(1);
+      dNm += (n === N0 ? "M" : "L") + px(n).toFixed(1) + " " + pyNm(nm(n)).toFixed(1);
+    }
+    dPs += "L" + px(bis).toFixed(1) + " " + pyPs(ps(bis)).toFixed(1);
+    dNm += "L" + px(bis).toFixed(1) + " " + pyNm(nm(bis)).toFixed(1);
+    pkPs.setAttribute("d", dPs); pkNm.setAttribute("d", dNm);
+    pkFl.setAttribute("d", dPs + "L" + px(bis).toFixed(1) + " " + Y0 + "L" + X0 + " " + Y0 + "Z");
+    var x = px(bis).toFixed(1);
+    scan.setAttribute("x1", x); scan.setAttribute("x2", x);
+    pPs.setAttribute("cx", x); pPs.setAttribute("cy", pyPs(ps(bis)).toFixed(1));
+    pNm.setAttribute("cx", x); pNm.setAttribute("cy", pyNm(nm(bis)).toFixed(1));
+    wRpm.textContent = tsd(Math.round(bis / 10) * 10); wPs.textContent = Math.round(ps(bis)); wNm.textContent = Math.round(nm(bis));
+    spitze.classList.toggle("is-an", bis >= spitzeN);
+    pruefPin.style.setProperty("--mess", f.toFixed(4));
   }
-  if (!reduce) {
-    // erst jedes 8. Bild, dann den Rest – so ist früh etwas zu sehen
-    var reihenfolge = [];
-    for (var st = 8; st >= 1; st = st >> 1) for (var j = 0; j < BILDER; j += st) if (reihenfolge.indexOf(j) < 0) reihenfolge.push(j);
-    var ladeStart = function () {
-      reihenfolge.forEach(function (i) {
-        var img = new Image(); img.decoding = "async"; img.src = bildPfad(i);
-        img.onload = function () { geladen++; if (geladen === 1) { leinwandGroesse(); film.classList.add("is-bereit"); } aktuell = -1; };
-        bilder[i] = img;
-      });
-    };
-    if ("IntersectionObserver" in window) {
-      var vorab = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { ladeStart(); vorab.disconnect(); } }, { rootMargin: "150% 0px" });
-      vorab.observe(fahrtPin);
-    } else ladeStart();
-    addEventListener("resize", leinwandGroesse);
-    (function abspielen() {
-      requestAnimationFrame(abspielen);
-      var p = K.fahrtP || 0;
-      ziel = seg(p, .04, .96) * (BILDER - 1);
-      anzeige += (ziel - anzeige) * .18;                       // weiches Nachlaufen
-      var i = Math.round(anzeige);
-      if (i !== aktuell && geladen) {
-        // nächstes vorhandenes Bild suchen, falls noch nicht geladen
-        for (var d = 0; d < BILDER; d++) {
-          if (zeichne(Math.min(BILDER - 1, i + d))) break;
-          if (zeichne(Math.max(0, i - d))) break;
-        }
-        aktuell = i;
-      }
-      fahrtPin.style.setProperty("--film", seg(p, .04, .96).toFixed(4));
-      fahrtPin.style.setProperty("--text-a", (seg(p, .08, .16) * (1 - seg(p, .4, .5))).toFixed(3));
-      fahrtPin.style.setProperty("--text-b", seg(p, .55, .65).toFixed(3));
-    })();
-  }
+  (function messen() {
+    if (!reduce) requestAnimationFrame(messen);
+    var neu = pruefAnz < 0 ? pruefZiel : pruefAnz + (pruefZiel - pruefAnz) * .14;   // weiches Nachlaufen
+    if (Math.abs(neu - pruefAnz) > .0002) { pruefAnz = neu; zeichnePruef(neu); }
+  })();
 })();

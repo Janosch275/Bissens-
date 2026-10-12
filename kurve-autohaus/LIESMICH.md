@@ -6,7 +6,7 @@ Statische Website (kein Shop) für ein fiktives Autohaus mit Verkauf, Werkstatt 
 
 | Datei | Zweck |
 | --- | --- |
-| `index.html` | Hero mit 3D-Rad, Zahlen, Leistungen, Probefahrt, Geschichte als Rennstrecke, Kontakt mit Terminanfrage |
+| `index.html` | Hero mit 3D-Rad, Zahlen, Leistungen, Leistungsprüfstand, Geschichte als Rennstrecke, Kontakt mit Terminanfrage |
 | `impressum.html`, `datenschutz.html` | Rechtliche Seiten – **markierte Platzhalter ausfüllen** |
 | `ressourcen/css/stil.css` | Gestaltung und Animationen |
 | `ressourcen/js/app.js` | Tacho, Zähler, Paneele, Zeichnung, Rennstrecke, Formular, Navigation |
@@ -20,7 +20,7 @@ Statische Website (kein Shop) für ein fiktives Autohaus mit Verkauf, Werkstatt 
 - **Hero:** Ein 3D-Rad (Reifen mit Profil und Flankenbeschriftung, konkave Gussfelge, gelochte Bremsscheibe, Bremssattel) dreht beim Scrollen hoch. Tacho und Drehzahlbalken laufen mit, Fahrtwind-Linien erscheinen. Dann bremst es, dreht sich zur Seite und zerlegt sich in seine Teile (Explosionsansicht mit Bauteil-Liste), setzt sich wieder zusammen, beschleunigt auf 286 km/h und rollt aus dem Bild.
 - **Zahlen:** Rollende Ziffern wie ein Kilometerzähler.
 - **Leistungen:** Schräge Paneele, die sich beim Überfahren öffnen.
-- **Probefahrt:** Ein Film eines roten Sportcoupés auf einer Küstenstraße läuft beim Scrollen vor und zurück (96 Einzelbilder auf einer Canvas, flüssig und auch rückwärts).
+- **Leistungsprüfstand:** Beim Scrollen läuft die Drehzahl hoch, Leistungs- und Drehmomentkurve zeichnen sich wie bei einer echten Messung, Drehzahl, PS und Nm laufen live mit; am Ende erscheint die Spitzenleistung.
 - **Geschichte:** Ein Punkt fährt beim Scrollen eine Rennstrecke ab, die Etappen leuchten nacheinander auf.
 
 Mit „Bewegung reduzieren“ oder ohne JavaScript ist alles ohne Animation sichtbar.
@@ -31,4 +31,4 @@ Mit „Bewegung reduzieren“ oder ohne JavaScript ist alles ohne Animation sich
 - **Geschichte** (1998–2024) und **Leistungen** (z. B. 120-Punkte-Check, 12 Monate Garantie) an das echte Autohaus anpassen.
 - **Terminanfrage** öffnet das E-Mail-Programm an `termin@ihre-domain.de` – Adresse ersetzen.
 
-- **Film** (`ressourcen/bilder/fahrt/bild-001…096.webp`): KI-generiertes Video (Veo 3.1 über vidIQ) eines markenlosen Fantasie-Fahrzeugs, in Einzelbilder zerlegt. Für den echten Auftritt kann ein eigenes Video genauso zerlegt werden: `ffmpeg -i film.mp4 -vf "select=not(mod(n\,2)),scale=1152:648" -vsync vfr bild-%03d.png`, dann nach WebP wandeln; Anzahl in `app.js` (`BILDER`) anpassen.
+- **Prüfstandswerte** sind eine Beispielmessung (bis 414 PS / 530 Nm). Den Verlauf bestimmen die Funktionen `nm()` und `ps()` in `ressourcen/js/app.js` – dort lassen sich echte Messwerte eintragen.
