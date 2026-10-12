@@ -11,7 +11,7 @@
 
 // ===================== EINSTELLUNGEN =====================
 const EMPFAENGER   = 'janosch.krause2@icloud.com';   // Anfragen gehen an diese Adresse
-const ABSENDER     = 'website@deine-domain.de';      // <- TODO: Adresse Ihrer IONOS-Domain eintragen, sobald sie steht (wichtig gegen Spam-Filter)
+const ABSENDER     = 'website@janoschkrause-webdesign.de'; // Absender aus der eigenen Domain (wichtig gegen Spam-Filter)
 const BETREFF      = 'Neue Projektanfrage über die Website';
 const SPEICHERN    = true;                           // Anfragen zusätzlich als Datei sichern
 const SPEICHERPFAD = __DIR__ . '/anfragen';

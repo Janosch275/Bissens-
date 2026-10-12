@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sobald die Domain steht, hier die Sitemap eintragen:
-# Sitemap: https://www.ihre-domain.de/sitemap.xml
+Sitemap: https://janoschkrause-webdesign.de/sitemap.xml
