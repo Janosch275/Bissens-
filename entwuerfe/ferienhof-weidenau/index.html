@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ferienhof Weidenau</title>
+<meta name="description" content="Beispiel-Website eines frei erfundenen Ferienhofs mit Belegungskalender, Preisrechner und Galerie – erstellt von Webdesign Janosch Krause.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+<style>
+/* Layout: animierte Seelandschaft als Bühne, darunter ein ruhiges Raster mit echten Werkzeugen (Suche, Kalender, Preis, Galerie) */
+:root {
+  --bg: #F7F9FA;
+  --surface: #FFFFFF;
+  --ink: #18213A;
+  --muted: #5A6577;
+  --line: #DCE3EA;
+  --accent: #D9652E;
+  --accent-soft: #FBEDE4;
+  --lake: #2F6690;
+  --lake-soft: #E6EFF6;
+  --booked: #EEF0F3;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Nunito Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --radius: 16px;
+  --wrap: 1180px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.65 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+svg { max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 24px; }
+.label { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.lead { color: var(--muted); font-size: 1.125rem; max-width: 58ch; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 24px; border-radius: 999px; border: 0; font-weight: 700; text-decoration: none; cursor: pointer; transition: background .2s, transform .2s; }
+.btn--primary { background: var(--accent); color: #fff; }
+.btn--primary:hover { background: var(--ink); }
+.btn--light { background: rgba(255,255,255,.85); color: var(--ink); }
+.btn--light:hover { background: #fff; }
+
+/* Kopfzeile */
+.head { position: absolute; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 20; }
+.head__in { display: flex; align-items: center; gap: 28px; min-height: 80px; }
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 1.25rem; text-decoration: none; color: var(--ink); }
+.logo svg { width: 36px; height: 36px; }
+.nav { display: flex; gap: 26px; margin-left: auto; font-weight: 600; }
+.nav a { text-decoration: none; color: var(--ink); opacity: .8; }
+.nav a:hover { opacity: 1; }
+.burger { display: none; margin-left: auto; width: 46px; height: 46px; border: 0; border-radius: 12px; background: rgba(255,255,255,.8); cursor: pointer; }
+.burger span { display: block; width: 18px; height: 2px; margin: 4px auto; background: var(--ink); }
+
+/* Hero mit Landschaft */
+.hero { position: relative; height: clamp(600px, 92vh, 860px); overflow: hidden; background: linear-gradient(#8DC3E6, #CFE6F2 45%, #F6E3CB 75%); }
+.layer { position: absolute; inset: 0; will-change: transform; pointer-events: none; }
+.layer svg { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; display: block; }
+.dusk { position: absolute; inset: 0; background: linear-gradient(#1E2350, #46407A 40%, #E07A52 78%, #F2B37A); opacity: 0; pointer-events: none; }
+.stars { opacity: 0; }
+.sun circle { transition: fill .3s; }
+.hero__text { position: absolute; z-index: 5; left: 0; right: 0; top: 0; padding-top: calc(env(safe-area-inset-top, 0px) + 150px); will-change: transform, opacity; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 5.6rem); max-width: 11ch; }
+.hero h1 .w { display: inline-block; }
+.hero__sub { margin-top: 20px; font-size: 1.2rem; max-width: 40ch; color: #2A3550; font-weight: 600; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.scroll-hint { position: absolute; z-index: 6; left: 50%; bottom: 120px; transform: translateX(-50%); display: grid; justify-items: center; gap: 8px; color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+.scroll-hint i { width: 2px; height: 34px; background: rgba(255,255,255,.8); border-radius: 2px; animation: hint 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* Einstiegs-Animation */
+.js .layer > svg, .js .layer > .rise { animation: rise 1.6s cubic-bezier(.2,.8,.2,1) both; }
+.js .l-far > svg { animation-delay: .1s; } .js .l-lake > svg { animation-delay: .25s; } .js .l-mid > svg { animation-delay: .4s; } .js .l-front > svg { animation-delay: .55s; }
+.js .sun > svg { animation: sunrise 2.4s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes rise { from { transform: translateY(70px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sunrise { from { transform: translateY(180px); } to { transform: none; } }
+.js .hero h1 .w, .js .hero__sub, .js .hero__actions { animation: up .9s cubic-bezier(.2,.8,.2,1) both; }
+.js .hero h1 .w:nth-child(1) { animation-delay: .5s; } .js .hero h1 .w:nth-child(2) { animation-delay: .65s; } .js .hero h1 .w:nth-child(3) { animation-delay: .8s; }
+.js .hero__sub { animation-delay: 1s; } .js .hero__actions { animation-delay: 1.15s; }
+@keyframes up { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+.shimmer { animation: shimmer 6s ease-in-out infinite alternate; }
+@keyframes shimmer { from { transform: translateX(-14px); opacity: .55; } to { transform: translateX(14px); opacity: 1; } }
+.bird { animation: fly 38s linear infinite; }
+.bird path { animation: flap .9s ease-in-out infinite alternate; transform-origin: center; transform-box: fill-box; }
+@keyframes fly { from { transform: translateX(-120px); } to { transform: translateX(1560px); } }
+@keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(.45); } }
+.glow { opacity: 0; }
+
+/* Suchleiste */
+.search { position: relative; z-index: 10; margin-top: -64px; }
+.search form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; gap: 14px; align-items: end; padding: 22px; border-radius: 20px; background: var(--surface); box-shadow: 0 30px 60px -30px rgba(24, 33, 58, .45); }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-size: .82rem; font-weight: 700; color: var(--muted); }
+.field input, .field select, .field textarea { width: 100%; min-height: 50px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); font: inherit; font-size: 1rem; }
+.field textarea { min-height: 110px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.search__msg { margin-top: 14px; color: var(--muted); font-size: .95rem; min-height: 1.6em; }
+.search__msg strong { color: var(--ink); }
+
+/* Abschnitte */
+.section { padding-block: 100px; }
+.section--white { background: var(--surface); }
+.section__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 40px; }
+.section__head > div { display: grid; gap: 12px; max-width: 640px; }
+.section__head > .filters { display: flex; max-width: none; }
+.section__head h2 { font-size: clamp(2rem, 4vw, 3rem); }
+
+/* Filter + Wohnungen */
+.filters { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; flex: 1 1 340px; }
+.chip { min-height: 42px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-weight: 600; font-size: .95rem; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.live { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .95rem; }
+.live i { width: 9px; height: 9px; border-radius: 50%; background: #2E9B62; box-shadow: 0 0 0 4px rgba(46,155,98,.18); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 8px rgba(46,155,98,0); } }
+.apts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.apt { display: grid; grid-template-rows: auto 1fr; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); overflow: hidden; transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s, opacity .3s; }
+.apt:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(24,33,58,.5); }
+.apt[hidden] { display: none !important; }
+.apt.is-busy { opacity: .55; }
+.apt__img { position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; background: var(--lake-soft); }
+.apt__img svg { width: 100%; height: 100%; display: block; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+.apt:hover .apt__img svg { transform: scale(1.05); }
+.apt__state { position: absolute; left: 14px; top: 14px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.92); font-size: .82rem; font-weight: 700; }
+.apt__state.is-free { color: #1F7A4C; }
+.apt__state.is-busy { color: #A2452A; }
+.apt__body { display: grid; gap: 12px; padding: 24px; align-content: start; }
+.apt__top { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+.apt h3 { font-size: 1.5rem; }
+.price { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--muted); }
+.price strong { font-size: 1.3rem; color: var(--ink); font-family: var(--display); }
+.apt p { color: var(--muted); }
+.feats { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.feats li { padding: 4px 10px; border-radius: 999px; background: var(--lake-soft); color: var(--lake); font-size: .82rem; font-weight: 700; }
+.apt__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
+.apt__total { font-size: .95rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.apt__total strong { color: var(--ink); }
+.link-btn { border: 0; background: none; padding: 8px 0; font-weight: 700; color: var(--accent); cursor: pointer; }
+.link-btn:hover { color: var(--ink); }
+.empty { padding: 40px; border: 1px dashed var(--line); border-radius: 20px; text-align: center; color: var(--muted); }
+
+/* Kalender */
+.booking { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.cal { padding: 26px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+.cal__nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.cal__nav strong { font-family: var(--display); font-size: 1.3rem; }
+.icon-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); cursor: pointer; display: grid; place-items: center; }
+.icon-btn:hover:not(:disabled) { border-color: var(--ink); }
+.icon-btn:disabled { opacity: .35; cursor: default; }
+.icon-btn svg { width: 18px; height: 18px; }
+.grid7 { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.dow { text-align: center; font-size: .78rem; font-weight: 700; color: var(--muted); padding-bottom: 6px; }
+.day { aspect-ratio: 1; max-width: 100%; border: 0; border-radius: 10px; background: transparent; font-variant-numeric: tabular-nums; font-weight: 600; cursor: pointer; position: relative; }
+.day:hover:not(:disabled) { background: var(--lake-soft); }
+.day:disabled { cursor: default; }
+.day.is-past { color: #B3BBC6; }
+.day.is-booked { background: var(--booked); color: #9AA3AF; text-decoration: line-through; }
+.day.is-range { background: var(--accent-soft); border-radius: 0; }
+.day.is-start, .day.is-end { background: var(--accent); color: #fff; }
+.day.is-start { border-radius: 10px 0 0 10px; } .day.is-end { border-radius: 0 10px 10px 0; }
+.day.is-start.is-only { border-radius: 10px; }
+.day.is-today::after { content: ""; position: absolute; left: 50%; bottom: 6px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: currentColor; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 16px; font-size: .85rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 14px; height: 14px; border-radius: 4px; }
+.summary { position: sticky; top: 24px; padding: 28px; border-radius: 20px; background: var(--ink); color: #fff; display: grid; gap: 18px; }
+.summary h3 { font-size: 1.5rem; }
+.summary__dates { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.summary__dates div { padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,.08); }
+.summary__dates span, .summary__row span { font-size: .8rem; color: rgba(255,255,255,.65); }
+.summary__dates strong { display: block; font-variant-numeric: tabular-nums; }
+.stepper { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.stepper div { display: flex; align-items: center; gap: 14px; }
+.stepper button { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #fff; cursor: pointer; font-size: 1.2rem; line-height: 1; }
+.stepper button:disabled { opacity: .3; cursor: default; }
+.stepper output { min-width: 1.5ch; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.lines { display: grid; gap: 8px; padding: 16px 0; border-block: 1px solid rgba(255,255,255,.15); font-variant-numeric: tabular-nums; }
+.lines div { display: flex; justify-content: space-between; gap: 12px; color: rgba(255,255,255,.8); }
+.total { display: flex; justify-content: space-between; align-items: baseline; }
+.total strong { font-family: var(--display); font-size: 2rem; font-variant-numeric: tabular-nums; }
+.summary__hint { font-size: .88rem; color: rgba(255,255,255,.7); min-height: 1.4em; }
+.summary .btn { width: 100%; }
+.summary .btn:disabled { opacity: .4; cursor: default; }
+
+/* Galerie */
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 220px; gap: 14px; }
+.shot { position: relative; padding: 0; border: 0; border-radius: 16px; overflow: hidden; cursor: zoom-in; background: var(--lake-soft); }
+.shot:nth-child(1) { grid-row: span 2; }
+.shot:nth-child(6) { grid-column: 1 / -1; }
+.shot svg { width: 100%; height: 100%; display: block; transition: transform .8s cubic-bezier(.2,.8,.2,1); }
+.shot:hover svg { transform: scale(1.06); }
+.shot span { position: absolute; left: 12px; bottom: 12px; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.92); font-weight: 700; font-size: .85rem; }
+.lightbox { width: min(1000px, calc(100vw - 32px)); max-width: none; padding: 0; border: 0; border-radius: 20px; background: var(--ink); color: #fff; overflow: hidden; }
+.lightbox::backdrop { background: rgba(10, 14, 28, .82); }
+.lightbox__img svg { width: 100%; height: auto; display: block; aspect-ratio: 16 / 10; }
+.lightbox__bar { display: flex; align-items: center; gap: 12px; padding: 14px 18px; }
+.lightbox__bar p { margin-right: auto; font-weight: 700; }
+.lightbox .icon-btn { background: transparent; color: #fff; border-color: rgba(255,255,255,.3); }
+
+/* Umgebung */
+.around { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding: 0; margin: 0; list-style: none; border-top: 1px solid var(--line); }
+.around li { display: flex; justify-content: space-between; gap: 16px; padding: 20px 4px; border-bottom: 1px solid var(--line); }
+.around li:not(:nth-child(3n)) { padding-right: 28px; }
+.around strong { font-weight: 700; }
+.around span { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Anfrage */
+.ask { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 56px; align-items: start; }
+.ask form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 32px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+.full { grid-column: 1 / -1; }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .92rem; color: var(--muted); }
+.check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+.ask form .btn { justify-self: start; }
+.form-note { grid-column: 1 / -1; font-size: .85rem; color: var(--muted); }
+.success { grid-column: 1 / -1; display: grid; gap: 8px; padding: 28px; border-radius: 16px; background: var(--accent-soft); }
+.success strong { font-family: var(--display); font-size: 1.4rem; }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; max-width: 820px; }
+.faq details { border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.faq summary { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 20px 24px; font-weight: 700; cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-size: 1.5rem; line-height: 1; color: var(--accent); transition: transform .25s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 24px 22px; color: var(--muted); }
+
+/* Fuß */
+.foot { padding-block: 72px 110px; background: var(--ink); color: rgba(255,255,255,.75); }
+.foot__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+.foot strong { display: block; color: #fff; margin-bottom: 8px; font-family: var(--display); font-size: 1.15rem; }
+.foot nav { display: grid; gap: 6px; }
+.foot a { text-decoration: none; }
+.foot a:hover { color: #fff; }
+.foot__bottom { margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.15); font-size: .88rem; }
+.demo-badge { position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60; padding: 10px 16px; border-radius: 999px; background: var(--surface); color: var(--ink); font: 700 .8rem var(--body); text-decoration: none; box-shadow: 0 10px 30px -10px rgba(24, 33, 58, .5); border: 1px solid var(--line); }
+
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+@media (max-width: 980px) {
+  .booking, .ask { grid-template-columns: minmax(0, 1fr); }
+  .summary { position: static; }
+  .search form { grid-template-columns: 1fr 1fr; }
+  .search .btn { grid-column: 1 / -1; }
+  .around { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .around li:not(:nth-child(3n)) { padding-right: 4px; }
+  .around li:nth-child(odd) { padding-right: 28px; }
+  .foot__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .nav { display: none; }
+  .burger { display: block; }
+  .nav.is-open { display: grid; gap: 0; position: absolute; top: 72px; left: 16px; right: 16px; padding: 8px 20px; border-radius: 16px; background: var(--surface); box-shadow: 0 20px 40px -20px rgba(24,33,58,.4); }
+  .nav.is-open a { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .nav.is-open a:last-child { border-bottom: 0; }
+  .apts, .gallery { grid-template-columns: minmax(0, 1fr); }
+  .gallery { grid-auto-rows: 200px; }
+  .shot:nth-child(1) { grid-row: auto; } .shot:nth-child(6) { grid-column: auto; }
+  .hero__text { padding-top: calc(env(safe-area-inset-top, 0px) + 116px); }
+  .scroll-hint { display: none; }
+}
+@media (max-width: 600px) {
+  .wrap { padding-inline: 18px; }
+  .section { padding-block: 70px; }
+  .search form, .ask form, .around, .foot__grid, .summary__dates { grid-template-columns: minmax(0, 1fr); }
+  .around li:nth-child(odd) { padding-right: 4px; }
+  .cal, .ask form { padding: 18px; }
+  .day { border-radius: 8px; font-size: .9rem; }
+  .demo-badge { left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: .74rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .layer > svg, .js .sun > svg, .js .hero h1 .w, .js .hero__sub, .js .hero__actions, .shimmer, .bird, .bird path, .scroll-hint i, .live i { animation: none !important; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap head__in">
+    <a class="logo" href="#start" aria-label="Ferienhof Weidenau – zum Seitenanfang">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#18213A"/><circle cx="26" cy="15" r="5" fill="#F2A65A"/><path d="M5 27c6-5 10-5 15 0s10 5 15 0v13H5Z" fill="#5E9BC4"/></svg>
+      Ferienhof Weidenau
+    </a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="#wohnungen">Wohnungen</a>
+      <a href="#verfuegbarkeit">Verfügbarkeit</a>
+      <a href="#galerie">Galerie</a>
+      <a href="#umgebung">Umgebung</a>
+      <a href="#anfrage">Anfrage</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="start">
+  <section class="hero" id="hero" aria-label="Ferienhof Weidenau am Lindensee">
+    <div class="dusk" id="dusk"></div>
+    <div class="layer stars" id="stars"><svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" id="starsSvg" aria-hidden="true"></svg></div>
+    <div class="layer sun" id="sun"><svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><radialGradient id="sunGlow"><stop offset="0" stop-color="#FFE8B0" stop-opacity=".9"/><stop offset="1" stop-color="#FFE8B0" stop-opacity="0"/></radialGradient></defs><circle cx="980" cy="420" r="150" fill="url(#sunGlow)"/><circle cx="980" cy="420" r="58" fill="#FFD27A" id="sunDisc"/></svg></div>
+    <div class="layer" id="birds"><svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g class="bird"><path d="M0 200q8-8 16 0q8-8 16 0" fill="none" stroke="#3A4560" stroke-width="2.5" stroke-linecap="round"/></g><g class="bird" style="animation-delay:-6s"><path d="M30 235q6-6 12 0q6-6 12 0" fill="none" stroke="#3A4560" stroke-width="2" stroke-linecap="round"/></g><g class="bird" style="animation-delay:-20s"><path d="M0 170q7-7 14 0q7-7 14 0" fill="none" stroke="#3A4560" stroke-width="2" stroke-linecap="round"/></g></svg></div>
+    <div class="layer l-far" id="far"><svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" id="farSvg" aria-hidden="true"></svg></div>
+    <div class="layer l-lake" id="lake"><svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" id="lakeSvg" aria-hidden="true"></svg></div>
+    <div class="layer l-mid" id="mid"><svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" id="midSvg" aria-hidden="true"></svg></div>
+    <div class="layer l-front" id="front"><svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice" id="frontSvg" aria-hidden="true"></svg></div>
+
+    <div class="hero__text" id="heroText">
+      <div class="wrap">
+        <h1><span class="w">Ankommen.</span> <span class="w">Durchatmen.</span> <span class="w">Bleiben.</span></h1>
+        <p class="hero__sub">Vier Ferienwohnungen direkt am Lindensee – mit Steg, Sauna und viel Ruhe.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#wohnungen">Wohnungen ansehen</a>
+          <a class="btn btn--light" href="#verfuegbarkeit">Verfügbarkeit prüfen</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">Scrollen<i></i></div>
+  </section>
+
+  <div class="search wrap">
+    <form id="search" aria-label="Freie Wohnungen suchen">
+      <div class="field"><label for="s-an">Anreise</label><input type="date" id="s-an" required></div>
+      <div class="field"><label for="s-ab">Abreise</label><input type="date" id="s-ab" required></div>
+      <div class="field"><label for="s-pers">Gäste</label>
+        <select id="s-pers"><option value="1">1 Person</option><option value="2" selected>2 Personen</option><option value="3">3 Personen</option><option value="4">4 Personen</option><option value="5">5 Personen</option><option value="6">6 Personen</option></select>
+      </div>
+      <button class="btn btn--primary" type="submit">Freie Wohnungen finden</button>
+    </form>
+    <p class="search__msg" id="searchMsg" role="status"></p>
+  </div>
+
+  <section class="section" id="wohnungen">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <div>
+          <p class="label">Wohnungen</p>
+          <h2>Vier Wohnungen, ein See</h2>
+          <p class="live" id="liveFree"><i></i><span>Heute noch Wohnungen frei</span></p>
+        </div>
+        <div class="filters" role="group" aria-label="Wohnungen filtern">
+          <button class="chip" type="button" data-filter="hund" aria-pressed="false">Hund erlaubt</button>
+          <button class="chip" type="button" data-filter="see" aria-pressed="false">Seeblick</button>
+          <button class="chip" type="button" data-filter="gross" aria-pressed="false">Ab 4 Personen</button>
+          <button class="chip" type="button" data-filter="sauna" aria-pressed="false">Mit Sauna</button>
+        </div>
+      </div>
+      <div class="apts" id="apts"></div>
+      <p class="empty" id="empty" hidden>Keine Wohnung passt zu allen Filtern. Nehmen Sie einen Filter heraus.</p>
+    </div>
+  </section>
+
+  <section class="section section--white" id="verfuegbarkeit">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <div>
+          <p class="label">Verfügbarkeit &amp; Preis</p>
+          <h2>Termin wählen, Preis sofort sehen</h2>
+          <p class="lead">Tippen Sie auf Ihren Anreisetag und danach auf Ihren Abreisetag. Mindestaufenthalt: 2 Nächte.</p>
+        </div>
+      </div>
+      <div class="booking">
+        <div class="cal reveal">
+          <div class="tabs" id="calTabs" role="group" aria-label="Wohnung wählen"></div>
+          <div class="cal__nav">
+            <button class="icon-btn" type="button" id="prevM" aria-label="Vorheriger Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+            <strong id="monthLabel">Monat</strong>
+            <button class="icon-btn" type="button" id="nextM" aria-label="Nächster Monat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+          </div>
+          <div class="grid7" id="dows"></div>
+          <div class="grid7" id="days"></div>
+          <div class="legend">
+            <span><i style="background:var(--accent)"></i>Ihr Zeitraum</span>
+            <span><i style="background:var(--booked)"></i>Belegt</span>
+            <span><i style="border:1px solid var(--line)"></i>Frei</span>
+          </div>
+        </div>
+        <aside class="summary reveal" aria-live="polite">
+          <h3 id="sumTitle">Wohnung</h3>
+          <div class="summary__dates">
+            <div><span>Anreise</span><strong id="sumAn">–</strong></div>
+            <div><span>Abreise</span><strong id="sumAb">–</strong></div>
+          </div>
+          <div class="stepper"><span>Gäste</span><div><button type="button" id="persMinus" aria-label="Weniger Gäste">−</button><output id="persOut">2</output><button type="button" id="persPlus" aria-label="Mehr Gäste">+</button></div></div>
+          <div class="lines" id="lines"></div>
+          <div class="total"><span>Gesamt</span><strong id="sumTotal">–</strong></div>
+          <p class="summary__hint" id="sumHint">Wählen Sie Ihren Anreisetag im Kalender.</p>
+          <button class="btn btn--primary" type="button" id="sumBtn" disabled>Mit diesen Daten anfragen</button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="galerie">
+    <div class="wrap">
+      <div class="section__head reveal"><div><p class="label">Galerie</p><h2>Ein Jahr am Lindensee</h2></div></div>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="section section--white" id="umgebung">
+    <div class="wrap">
+      <div class="section__head reveal"><div><p class="label">Umgebung</p><h2>Alles Wichtige in der Nähe</h2></div></div>
+      <ul class="around reveal">
+        <li><strong>Badestelle mit Steg</strong><span>150 m</span></li>
+        <li><strong>Bäckerei &amp; Hofladen</strong><span>900 m</span></li>
+        <li><strong>Fahrradverleih</strong><span>1,2 km</span></li>
+        <li><strong>Rundweg um den See</strong><span>11 km</span></li>
+        <li><strong>Restaurant „Zur Fähre“</strong><span>1,8 km</span></li>
+        <li><strong>Bahnhof Musterstadt</strong><span>6 km</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="anfrage">
+    <div class="wrap ask">
+      <div class="reveal">
+        <p class="label">Anfrage</p>
+        <h2 style="font-size: clamp(2rem, 4vw, 3rem); margin-block: 12px 16px;">Wir halten Ihnen die Tage frei.</h2>
+        <p class="lead">Nach Ihrer Anfrage reservieren wir die Wohnung 48 Stunden unverbindlich für Sie und schicken Ihnen alle Details per E-Mail.</p>
+      </div>
+      <form id="ask" class="reveal" novalidate>
+        <div class="field"><label for="a-name">Name *</label><input id="a-name" autocomplete="name"></div>
+        <div class="field"><label for="a-mail">E-Mail *</label><input id="a-mail" type="email" autocomplete="email"></div>
+        <div class="field full"><label for="a-apt">Wohnung</label><select id="a-apt"></select></div>
+        <div class="field"><label for="a-an">Anreise</label><input id="a-an" type="date"></div>
+        <div class="field"><label for="a-ab">Abreise</label><input id="a-ab" type="date"></div>
+        <div class="field"><label for="a-pers">Gäste</label><select id="a-pers"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+        <div class="field"><label for="a-hund">Hund dabei?</label><select id="a-hund"><option>Nein</option><option>Ja, ein Hund</option></select></div>
+        <div class="field full"><label for="a-msg">Nachricht</label><textarea id="a-msg" placeholder="z. B. Wir kommen mit zwei Fahrrädern."></textarea></div>
+        <label class="check full"><input type="checkbox" id="a-ok"> Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden.</label>
+        <button class="btn btn--primary" type="submit">Unverbindlich anfragen</button>
+        <p class="form-note" id="askNote">Beispiel-Website: Es wird nichts verschickt.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--white" id="faq">
+    <div class="wrap">
+      <div class="section__head reveal"><div><p class="label">Fragen</p><h2>Gut zu wissen</h2></div></div>
+      <div class="faq">
+        <details class="reveal"><summary>Wann ist Anreise und Abreise?</summary><p>Anreise ab 15 Uhr, Abreise bis 10 Uhr. Wenn die Wohnung frei ist, geht es auch früher oder später – fragen Sie einfach.</p></details>
+        <details class="reveal"><summary>Sind Bettwäsche und Handtücher dabei?</summary><p>Ja, Bettwäsche, Handtücher und Geschirrtücher sind im Preis enthalten. Die Betten sind bei Ihrer Ankunft bezogen.</p></details>
+        <details class="reveal"><summary>Darf mein Hund mit?</summary><p>In den Wohnungen „Weidenzimmer“ und „Alte Scheune“ sind Hunde willkommen. Wir berechnen dafür 8 € pro Nacht.</p></details>
+        <details class="reveal"><summary>Wie kann ich bezahlen?</summary><p>Nach Ihrer Buchung erhalten Sie eine Rechnung. 30 % zahlen Sie als Anzahlung, den Rest bis 14 Tage vor Anreise per Überweisung.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div><strong>Ferienhof Weidenau</strong>Am Lindensee 3<br>12345 Musterstadt<br>Telefon 01234 98 76 54</div>
+      <div><strong>Seiten</strong><nav aria-label="Fußnavigation"><a href="#wohnungen">Wohnungen</a><a href="#verfuegbarkeit">Verfügbarkeit</a><a href="#anfrage">Anfrage</a></nav></div>
+      <div><strong>Rechtliches</strong><nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav></div>
+    </div>
+    <p class="foot__bottom">Beispiel-Website: Der „Ferienhof Weidenau“ und der Lindensee sind frei erfunden. Alle Bilder sind Illustrationen. Design &amp; Umsetzung: Webdesign Janosch Krause.</p>
+  </div>
+</footer>
+
+<a class="demo-badge" href="../../index.html#arbeiten">Beispiel-Website · erstellt von Janosch Krause</a>
+
+<dialog class="lightbox" id="lightbox" aria-label="Bild vergrößert">
+  <div class="lightbox__img" id="lbImg"></div>
+  <div class="lightbox__bar">
+    <p id="lbCap">Bild</p>
+    <button class="icon-btn" type="button" id="lbPrev" aria-label="Vorheriges Bild"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+    <button class="icon-btn" type="button" id="lbNext" aria-label="Nächstes Bild"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+    <button class="icon-btn" type="button" id="lbClose" aria-label="Schließen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function $(id) { return document.getElementById(id); }
+
+  /* ---------- Zufall mit festem Startwert (gleiche Bilder bei jedem Aufruf) ---------- */
+  function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  /* Hügelkante als Liste von Punkten */
+  function ridgePts(W, base, amp, seed, step, bowl) {
+    var r = rng(seed), p1 = r() * 6, p2 = r() * 6, p3 = r() * 6, pts = [];
+    for (var x = 0; x <= W + step; x += step) {
+      var t = x / W;
+      var y = base - amp * (0.55 * Math.sin(t * 5 + p1) + 0.3 * Math.sin(t * 11 + p2) + 0.15 * Math.sin(t * 23 + p3));
+      if (bowl) y += bowl * Math.pow(Math.sin(Math.PI * t), 3);
+      pts.push([x, y]);
+    }
+    return pts;
+  }
+  function areaPath(pts, H) {
+    var d = "M0 " + H + " L" + pts.map(function (p) { return p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" L") + " L" + pts[pts.length - 1][0] + " " + H + " Z";
+    return d;
+  }
+  function yAt(pts, x) {
+    for (var i = 1; i < pts.length; i++) if (pts[i][0] >= x) { var a = pts[i - 1], b = pts[i], k = (x - a[0]) / (b[0] - a[0] || 1); return a[1] + (b[1] - a[1]) * k; }
+    return pts[pts.length - 1][1];
+  }
+  function trees(pts, from, to, count, size, color, seed, H) {
+    var r = rng(seed), out = "";
+    for (var i = 0; i < count; i++) {
+      var x = from + (to - from) * r(), y = yAt(pts, x) + 4, h = size * (0.6 + r() * 0.7), w = h * 0.36;
+      out += '<path d="M' + x.toFixed(1) + " " + (y - h).toFixed(1) + " L" + (x + w).toFixed(1) + " " + y.toFixed(1) + " L" + (x - w).toFixed(1) + " " + y.toFixed(1) + 'Z" fill="' + color + '"/>';
+    }
+    return out;
+  }
+  function house(x, y, s, wall, roof, windowFill, glowId) {
+    var w = 60 * s, h = 38 * s;
+    return '<g>' +
+      '<rect x="' + (x - w / 2) + '" y="' + (y - h) + '" width="' + w + '" height="' + h + '" fill="' + wall + '"/>' +
+      '<path d="M' + (x - w / 2 - 6 * s) + " " + (y - h) + " L" + x + " " + (y - h - 30 * s) + " L" + (x + w / 2 + 6 * s) + " " + (y - h) + 'Z" fill="' + roof + '"/>' +
+      '<rect x="' + (x - w / 2 + 10 * s) + '" y="' + (y - h + 10 * s) + '" width="' + 12 * s + '" height="' + 12 * s + '" fill="' + windowFill + '"/>' +
+      '<rect x="' + (x + 6 * s) + '" y="' + (y - h + 10 * s) + '" width="' + 12 * s + '" height="' + 12 * s + '" fill="' + windowFill + '"/>' +
+      (glowId ? '<circle class="glow" id="' + glowId + '" cx="' + x + '" cy="' + (y - h + 16 * s) + '" r="' + 46 * s + '" fill="url(#winGlow)"/>' : "") +
+      "</g>";
+  }
+
+  /* ---------- Szenen für Wohnungen und Galerie ---------- */
+  var PAL = {
+    sommer: { sky: ["#8CC6EA", "#F3E6CF"], sun: "#FFD27A", far: "#A9C3D9", mid: "#6E9C86", front: "#335E50", lake: ["#5E9BC4", "#2F6690"], tree: "#2B5446", wall: "#E9DCC8", roof: "#9A4B33", win: "#45556E" },
+    morgen: { sky: ["#F6C9B6", "#FCEBD9"], sun: "#FFE3A3", far: "#C7B9CF", mid: "#8FA79A", front: "#4E6B60", lake: ["#AFC6DA", "#6F93B5"], tree: "#3E5E54", wall: "#F1E4D2", roof: "#A65A3E", win: "#5A6178" },
+    abend: { sky: ["#3A3C78", "#EE9563"], sun: "#FFB35C", far: "#6D5D8C", mid: "#4A4D70", front: "#272A45", lake: ["#B9708B", "#3B3D6B"], tree: "#1F2240", wall: "#3D3A57", roof: "#2A2742", win: "#FFC870" },
+    herbst: { sky: ["#9EC3DD", "#F2DDC0"], sun: "#FFCB7A", far: "#B9B7C9", mid: "#C98B4F", front: "#7A4A2E", lake: ["#6D99BA", "#355F82"], tree: "#B4572D", wall: "#EADCC6", roof: "#6E3B2B", win: "#45556E" },
+    winter: { sky: ["#BFD3E3", "#F2F5F8"], sun: "#FFF1D6", far: "#DCE6EE", mid: "#EEF3F7", front: "#FFFFFF", lake: ["#C9D9E6", "#9DB6CB"], tree: "#4C6172", wall: "#D9CFC3", roof: "#5F6E7C", win: "#FFD98A" },
+    nacht: { sky: ["#0E1430", "#2D3566"], sun: "#F4F1DE", far: "#2A3159", mid: "#1D2346", front: "#121733", lake: ["#2C3767", "#121733"], tree: "#0D1129", wall: "#2A2E4E", roof: "#171A33", win: "#FFC870" }
+  };
+  function scene(o) {
+    var W = 400, H = 260, p = PAL[o.pal], id = "g" + o.seed, s = "";
+    s += '<svg viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="xMidYMid slice" role="img" aria-label="' + o.alt + '">';
+    s += '<defs><linearGradient id="' + id + 's" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + p.sky[0] + '"/><stop offset="1" stop-color="' + p.sky[1] + '"/></linearGradient>';
+    s += '<linearGradient id="' + id + 'l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + p.lake[0] + '"/><stop offset="1" stop-color="' + p.lake[1] + '"/></linearGradient></defs>';
+    s += '<rect width="' + W + '" height="' + H + '" fill="url(#' + id + 's)"/>';
+    if (o.pal === "nacht") { var r = rng(o.seed); for (var i = 0; i < 60; i++) s += '<circle cx="' + (r() * W).toFixed(1) + '" cy="' + (r() * 130).toFixed(1) + '" r="' + (r() * 1.2 + .3).toFixed(2) + '" fill="#fff" opacity="' + (r() * .7 + .3).toFixed(2) + '"/>'; }
+    s += '<circle cx="' + (o.sunX || 280) + '" cy="' + (o.sunY || 95) + '" r="' + (o.pal === "nacht" ? 16 : 26) + '" fill="' + p.sun + '"/>';
+    var far = ridgePts(W, 150, 18, o.seed + 1, 8);
+    s += '<path d="' + areaPath(far, H) + '" fill="' + p.far + '"/>';
+    if (o.lake !== false) {
+      s += '<rect y="160" width="' + W + '" height="' + (H - 160) + '" fill="url(#' + id + 'l)"/>';
+      s += '<g opacity=".5" stroke="#fff" stroke-width="1.4" stroke-linecap="round">';
+      var rr = rng(o.seed + 9); for (var j = 0; j < 9; j++) { var lx = rr() * W, ly = 172 + rr() * 70; s += '<path d="M' + lx.toFixed(1) + " " + ly.toFixed(1) + "h" + (12 + rr() * 30).toFixed(1) + '"/>'; }
+      s += "</g>";
+    }
+    var mid = ridgePts(W, o.lake === false ? 175 : 190, 14, o.seed + 2, 8, o.lake === false ? 0 : 60);
+    s += '<path d="' + areaPath(mid, H) + '" fill="' + p.mid + '"/>';
+    s += trees(mid, 0, o.lake === false ? W : 120, o.lake === false ? 26 : 14, 30, p.tree, o.seed + 3);
+    if (o.lake !== false) s += trees(mid, 300, W, 10, 30, p.tree, o.seed + 4);
+    if (o.house) s += house(o.house[0], yAt(mid, o.house[0]) + 6, o.house[1], p.wall, p.roof, p.win);
+    if (o.pier) s += '<path d="M190 222 L250 210 L254 214 L194 227Z" fill="' + p.roof + '" opacity=".85"/><path d="M200 225v12M230 219v12M250 214v12" stroke="' + p.roof + '" stroke-width="2"/>';
+    var front = ridgePts(W, 246, 6, o.seed + 5, 10);
+    s += '<path d="' + areaPath(front, H) + '" fill="' + p.front + '"/>';
+    s += "</svg>";
+    return s;
+  }
+
+  /* ---------- Hero-Landschaft ---------- */
+  (function hero() {
+    var W = 1440, H = 800;
+    var r = rng(7), st = "";
+    for (var i = 0; i < 140; i++) st += '<circle cx="' + (r() * W).toFixed(1) + '" cy="' + (r() * 430).toFixed(1) + '" r="' + (r() * 1.6 + .4).toFixed(2) + '" fill="#fff" opacity="' + (r() * .7 + .3).toFixed(2) + '"/>';
+    $("starsSvg").innerHTML = st;
+
+    var far = ridgePts(W, 520, 60, 11, 12);
+    var far2 = ridgePts(W, 560, 34, 12, 12);
+    $("farSvg").innerHTML = '<path d="' + areaPath(far, H) + '" fill="#A7BCD3"/><path d="' + areaPath(far2, H) + '" fill="#8FA9C4"/>';
+
+    $("lakeSvg").innerHTML =
+      '<defs><linearGradient id="lakeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7FB2D6"/><stop offset="1" stop-color="#2F6690"/></linearGradient></defs>' +
+      '<rect y="575" width="' + W + '" height="' + (H - 575) + '" fill="url(#lakeG)"/>' +
+      '<g class="shimmer" stroke="#FFF4DA" stroke-linecap="round" opacity=".85"><path d="M930 600h100" stroke-width="5"/><path d="M905 622h150" stroke-width="4"/><path d="M945 646h70" stroke-width="4"/><path d="M915 672h120" stroke-width="3"/><path d="M955 700h40" stroke-width="3"/></g>' +
+      '<g class="shimmer" style="animation-delay:-3s" stroke="#fff" stroke-linecap="round" stroke-width="2" opacity=".5"><path d="M300 640h60"/><path d="M520 690h90"/><path d="M1200 620h70"/><path d="M700 740h110"/><path d="M1260 720h80"/></g>';
+
+    var mid = ridgePts(W, 600, 26, 21, 10, 300);
+    var g = '<defs><radialGradient id="winGlow"><stop offset="0" stop-color="#FFC870" stop-opacity=".9"/><stop offset="1" stop-color="#FFC870" stop-opacity="0"/></radialGradient></defs>';
+    g += '<path d="' + areaPath(mid, H) + '" fill="#5F8E78"/>';
+    g += trees(mid, 0, 420, 46, 90, "#2E5A4A", 22);
+    g += trees(mid, 1120, 1440, 34, 90, "#2E5A4A", 23);
+    g += house(1180, yAt(mid, 1180) + 10, 2.1, "#EFE2CC", "#9A4B33", "#45556E", "win1");
+    g += house(1300, yAt(mid, 1300) + 10, 1.5, "#E6D7BF", "#86422E", "#45556E", "win2");
+    $("midSvg").innerHTML = g;
+
+    var front = ridgePts(W, 770, 14, 31, 14);
+    var f = '<path d="' + areaPath(front, H) + '" fill="#244A3E"/>';
+    // Steg
+    f += '<path d="M560 745 L760 700 L770 708 L572 756Z" fill="#6B4A36"/>';
+    f += '<path d="M590 752v26M650 738v28M710 724v28M762 708v26" stroke="#4E3527" stroke-width="5"/>';
+    // Schilf
+    var rs = rng(41);
+    for (var k = 0; k < 70; k++) { var x = rs() * 520 + (k % 2 ? 860 : 0), y = yAt(front, x) + 4, h = 30 + rs() * 50, bend = (rs() - .5) * 20; f += '<path d="M' + x.toFixed(1) + " " + y.toFixed(1) + " q" + (bend / 2).toFixed(1) + " " + (-h / 2).toFixed(1) + " " + bend.toFixed(1) + " " + (-h).toFixed(1) + '" stroke="#1C3A31" stroke-width="3" fill="none" stroke-linecap="round"/>'; }
+    $("frontSvg").innerHTML = f;
+
+    // Auf schmalen Bildschirmen den rechten Bildteil mit Sonne und Hof zeigen
+    function frame() {
+      var vb = window.innerWidth < 700 ? "760 0 680 800" : "0 0 1440 800";
+      document.querySelectorAll("#hero .layer svg").forEach(function (s) { s.setAttribute("viewBox", vb); });
+    }
+    frame(); window.addEventListener("resize", frame);
+
+    var heroEl = $("hero"), layers = [
+      { el: $("stars"), k: .1 }, { el: $("sun"), k: .55 }, { el: $("birds"), k: .3 }, { el: $("far"), k: .32 },
+      { el: $("lake"), k: .2 }, { el: $("mid"), k: .12 }, { el: $("front"), k: 0 }
+    ];
+    var dusk = $("dusk"), stars = $("stars"), text = $("heroText"), disc = $("sunDisc"), hint = document.querySelector(".scroll-hint");
+    var w1 = $("win1"), w2 = $("win2"), ticking = false;
+    function mix(a, b, t) { var pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16); var rr = (pa >> 16) + (((pb >> 16) - (pa >> 16)) * t), gg = ((pa >> 8) & 255) + ((((pb >> 8) & 255) - ((pa >> 8) & 255)) * t), bb = (pa & 255) + (((pb & 255) - (pa & 255)) * t); return "rgb(" + (rr | 0) + "," + (gg | 0) + "," + (bb | 0) + ")"; }
+    function update() {
+      ticking = false;
+      var h = heroEl.offsetHeight, y = Math.min(window.scrollY, h);
+      var p = Math.min(1, Math.max(0, y / (h * .75)));
+      layers.forEach(function (l) { l.el.style.transform = "translate3d(0," + (y * l.k).toFixed(1) + "px,0)"; });
+      dusk.style.opacity = (p * .95).toFixed(3);
+      stars.style.opacity = Math.max(0, p * 1.4 - .4).toFixed(3);
+      if (w1) { w1.style.opacity = p.toFixed(3); w2.style.opacity = p.toFixed(3); }
+      disc.style.fill = mix("#FFD27A", "#FF8A4C", p);
+      text.style.transform = "translate3d(0," + (y * .35).toFixed(1) + "px,0)";
+      text.style.opacity = Math.max(0, 1 - p * 1.6).toFixed(3);
+      hint.style.opacity = Math.max(0, 1 - p * 5).toFixed(3);
+    }
+    if (!reduce) {
+      window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    }
+  })();
+
+  /* ---------- Daten ---------- */
+  var APTS = [
+    { id: "seeblick", name: "Seeblick", text: "Helle Wohnung im ersten Stock mit Balkon und freiem Blick über den See.", m2: 62, max: 4, price: 89, clean: 50, hund: false, see: true, sauna: false, feats: ["62 m²", "bis 4 Gäste", "Balkon", "Seeblick"], pic: { pal: "sommer", seed: 101, alt: "Blick vom Balkon auf den See", house: null, pier: true } },
+    { id: "weiden", name: "Weidenzimmer", text: "Gemütliches Studio im Erdgeschoss mit eigener Terrasse, ideal für zwei – Hunde willkommen.", m2: 38, max: 2, price: 69, clean: 40, hund: true, see: false, sauna: false, feats: ["38 m²", "bis 2 Gäste", "Terrasse", "Hund erlaubt"], pic: { pal: "morgen", seed: 202, alt: "Morgenstimmung am Ufer", house: [120, 1.1], lake: true } },
+    { id: "scheune", name: "Alte Scheune", text: "Viel Platz für Familien und Freunde: Kamin, große Küche und eigene Sauna im Garten.", m2: 95, max: 6, price: 129, clean: 70, hund: true, see: false, sauna: true, feats: ["95 m²", "bis 6 Gäste", "Kamin", "Sauna", "Hund erlaubt"], pic: { pal: "herbst", seed: 303, alt: "Die alte Scheune im Herbst", house: [210, 1.6], lake: false } },
+    { id: "kranich", name: "Kranichnest", text: "Unterm Dach mit Dachterrasse – hier sehen Sie im Herbst die Kraniche über den See ziehen.", m2: 48, max: 3, price: 79, clean: 45, hund: false, see: true, sauna: true, feats: ["48 m²", "bis 3 Gäste", "Dachterrasse", "Seeblick", "Saunanutzung"], pic: { pal: "abend", seed: 404, alt: "Abendstimmung über dem See", house: null, pier: true } }
+  ];
+  var GAST = 2, HUND = 8;
+  var GALLERY = [
+    { pal: "morgen", seed: 11, alt: "Morgens am Steg", pier: true },
+    { pal: "sommer", seed: 12, alt: "Sommer am Lindensee", house: [300, 1.2] },
+    { pal: "herbst", seed: 13, alt: "Herbstwald am Hof", lake: false, house: [110, 1.3] },
+    { pal: "winter", seed: 14, alt: "Winter auf dem Hof", house: [90, 1.2] },
+    { pal: "abend", seed: 15, alt: "Sonnenuntergang über dem See", pier: true, sunX: 200, sunY: 140 },
+    { pal: "nacht", seed: 16, alt: "Sternenhimmel über dem Hof", house: [320, 1.1] }
+  ];
+
+  /* ---------- Datumshilfen ---------- */
+  function dayStart(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+  function key(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function parse(v) { if (!v) return null; var a = v.split("-"); return new Date(+a[0], +a[1] - 1, +a[2]); }
+  function nightsBetween(a, b) { return Math.round((b - a) / 864e5); }
+  function nice(d) { return d.toLocaleDateString("de-DE", { weekday: "short", day: "numeric", month: "short" }); }
+  function euro(n) { return n.toLocaleString("de-DE") + " €"; }
+  var TODAY = dayStart(new Date());
+
+  /* Belegung: feste, aber zufällig wirkende Buchungen für die nächsten Monate */
+  APTS.forEach(function (a, i) {
+    var r = rng((i + 1) * 977), set = {}, d = -3;
+    while (d < 200) {
+      d += 2 + Math.floor(r() * 9);
+      var len = 2 + Math.floor(r() * 4);
+      for (var n = 0; n < len; n++) set[key(addDays(TODAY, d + n))] = true;
+      d += len;
+    }
+    a.booked = set;
+  });
+  function isFree(a, from, to) { for (var d = new Date(from); d < to; d = addDays(d, 1)) if (a.booked[key(d)]) return false; return true; }
+  function cost(a, nights, guests, hund) { var base = a.price * nights; return { base: base, clean: a.clean, gast: GAST * guests * nights, hund: hund ? HUND * nights : 0, total: base + a.clean + GAST * guests * nights + (hund ? HUND * nights : 0) }; }
+
+  /* ---------- Wohnungen ---------- */
+  var aptsEl = $("apts"), filters = {}, search = null;
+  APTS.forEach(function (a) {
+    var el = document.createElement("article");
+    el.className = "apt reveal"; el.id = "apt-" + a.id;
+    el.innerHTML = '<div class="apt__img">' + scene(a.pic) + '<span class="apt__state" data-state></span></div>' +
+      '<div class="apt__body"><div class="apt__top"><h3>' + a.name + '</h3><span class="price">ab <strong>' + a.price + ' €</strong> / Nacht</span></div>' +
+      "<p>" + a.text + '</p><ul class="feats">' + a.feats.map(function (f) { return "<li>" + f + "</li>"; }).join("") + "</ul>" +
+      '<div class="apt__foot"><span class="apt__total" data-total></span><button class="link-btn" type="button" data-cal="' + a.id + '">Kalender &amp; Preis →</button></div></div>';
+    a.el = el; aptsEl.appendChild(el);
+  });
+  var freeTonight = APTS.filter(function (a) { return !a.booked[key(TODAY)]; }).length;
+  $("liveFree").querySelector("span").textContent = freeTonight ? "Heute noch " + freeTonight + " von 4 Wohnungen frei" : "Heute ausgebucht – ab morgen wieder frei";
+
+  function render() {
+    var shown = 0;
+    APTS.forEach(function (a) {
+      var ok = (!filters.hund || a.hund) && (!filters.see || a.see) && (!filters.gross || a.max >= 4) && (!filters.sauna || a.sauna);
+      a.el.hidden = !ok; if (ok) shown++;
+      var state = a.el.querySelector("[data-state]"), total = a.el.querySelector("[data-total]");
+      a.el.classList.remove("is-busy"); state.className = "apt__state"; state.textContent = ""; state.hidden = true; total.textContent = "";
+      if (search) {
+        state.hidden = false;
+        if (search.guests > a.max) { state.textContent = "Nur bis " + a.max + " Gäste"; state.classList.add("is-busy"); a.el.classList.add("is-busy"); }
+        else if (!isFree(a, search.from, search.to)) { state.textContent = "Im Zeitraum belegt"; state.classList.add("is-busy"); a.el.classList.add("is-busy"); }
+        else {
+          var c = cost(a, search.nights, search.guests, false);
+          state.textContent = "Frei für Ihre Daten"; state.classList.add("is-free");
+          total.innerHTML = search.nights + " Nächte: <strong>" + euro(c.total) + "</strong>";
+        }
+      }
+    });
+    $("empty").hidden = shown > 0;
+  }
+  document.querySelectorAll("[data-filter]").forEach(function (b) {
+    b.addEventListener("click", function () { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", on); filters[b.dataset.filter] = on; render(); });
+  });
+
+  /* Suchleiste */
+  var sAn = $("s-an"), sAb = $("s-ab"), sPers = $("s-pers"), sMsg = $("searchMsg");
+  sAn.min = key(TODAY); sAb.min = key(addDays(TODAY, 1));
+  // Beispieldaten: ein Zeitraum in 2–8 Wochen, in dem mindestens zwei Wohnungen frei sind
+  (function () {
+    for (var off = 14; off < 60; off++) {
+      var f = addDays(TODAY, off), t = addDays(f, 3);
+      if (APTS.filter(function (a) { return a.max >= 2 && isFree(a, f, t); }).length >= 2) { sAn.value = key(f); sAb.value = key(t); return; }
+    }
+    sAn.value = key(addDays(TODAY, 14)); sAb.value = key(addDays(TODAY, 17));
+  })();
+  sAn.addEventListener("change", function () { var a = parse(sAn.value); if (a) { sAb.min = key(addDays(a, 2)); if (!parse(sAb.value) || parse(sAb.value) <= addDays(a, 1)) sAb.value = key(addDays(a, 3)); } });
+  function runSearch(scroll) {
+    var from = parse(sAn.value), to = parse(sAb.value), guests = +sPers.value;
+    if (!from || !to) { sMsg.textContent = "Bitte wählen Sie An- und Abreise."; return; }
+    var n = nightsBetween(from, to);
+    if (from < TODAY) { sMsg.textContent = "Die Anreise liegt in der Vergangenheit."; return; }
+    if (n < 2) { sMsg.textContent = "Bitte bleiben Sie mindestens 2 Nächte."; return; }
+    search = { from: from, to: to, nights: n, guests: guests };
+    var free = APTS.filter(function (a) { return guests <= a.max && isFree(a, from, to); }).length;
+    sMsg.innerHTML = "<strong>" + free + " von 4 Wohnungen</strong> sind vom " + nice(from) + " bis " + nice(to) + " (" + n + " Nächte) für " + guests + (guests === 1 ? " Person" : " Personen") + " frei.";
+    render();
+    if (scroll) $("wohnungen").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+  }
+  $("search").addEventListener("submit", function (e) { e.preventDefault(); runSearch(true); });
+  runSearch(false);
+
+  /* ---------- Kalender ---------- */
+  var cal = { apt: APTS[0], month: new Date(TODAY.getFullYear(), TODAY.getMonth(), 1), from: null, to: null, guests: 2 };
+  var MAXM = new Date(TODAY.getFullYear(), TODAY.getMonth() + 5, 1);
+  var tabs = $("calTabs");
+  APTS.forEach(function (a) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "chip"; b.textContent = a.name; b.dataset.apt = a.id;
+    b.addEventListener("click", function () { selectApt(a); });
+    tabs.appendChild(b);
+  });
+  ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].forEach(function (d) { var s = document.createElement("div"); s.className = "dow"; s.textContent = d; $("dows").appendChild(s); });
+
+  function selectApt(a, keepDates) {
+    cal.apt = a; if (!keepDates) { cal.from = null; cal.to = null; }
+    cal.guests = Math.min(cal.guests, a.max);
+    tabs.querySelectorAll(".chip").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.apt === a.id); });
+    drawCal(); drawSum();
+  }
+  function drawCal() {
+    var m = cal.month, days = $("days");
+    $("monthLabel").textContent = m.toLocaleDateString("de-DE", { month: "long", year: "numeric" });
+    $("prevM").disabled = m <= new Date(TODAY.getFullYear(), TODAY.getMonth(), 1);
+    $("nextM").disabled = m >= MAXM;
+    days.innerHTML = "";
+    var offset = (m.getDay() + 6) % 7;
+    for (var i = 0; i < offset; i++) days.appendChild(document.createElement("span"));
+    var len = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
+    for (var d = 1; d <= len; d++) {
+      var date = new Date(m.getFullYear(), m.getMonth(), d), k = key(date), b = document.createElement("button");
+      b.type = "button"; b.className = "day"; b.textContent = d; b.dataset.key = k;
+      var past = date < TODAY, booked = cal.apt.booked[k];
+      // Abreisetag darf ein belegter Tag sein (Wechseltag)
+      var canEnd = cal.from && !cal.to && date > cal.from;
+      if (past) { b.classList.add("is-past"); b.disabled = true; }
+      else if (booked) { b.classList.add("is-booked"); if (!canEnd) b.disabled = true; }
+      if (+date === +TODAY) b.classList.add("is-today");
+      if (cal.from && +date === +cal.from) { b.classList.add("is-start"); if (!cal.to) b.classList.add("is-only"); }
+      if (cal.to && +date === +cal.to) b.classList.add("is-end");
+      if (cal.from && cal.to && date > cal.from && date < cal.to) b.classList.add("is-range");
+      b.setAttribute("aria-label", date.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" }) + (booked ? ", belegt" : ", frei"));
+      b.addEventListener("click", pick.bind(null, date));
+      days.appendChild(b);
+    }
+  }
+  function pick(date) {
+    var hint = $("sumHint");
+    if (!cal.from || cal.to || date <= cal.from) {
+      if (cal.apt.booked[key(date)]) return;
+      cal.from = date; cal.to = null; hint.textContent = "Jetzt Ihren Abreisetag wählen.";
+    } else {
+      var n = nightsBetween(cal.from, date);
+      if (n < 2) { hint.textContent = "Mindestaufenthalt: 2 Nächte."; return; }
+      if (!isFree(cal.apt, cal.from, date)) { hint.textContent = "Dazwischen ist die Wohnung belegt. Bitte anderen Zeitraum wählen."; return; }
+      cal.to = date; hint.textContent = "Ihr Zeitraum ist frei.";
+    }
+    drawCal(); drawSum();
+  }
+  function drawSum() {
+    var a = cal.apt;
+    $("sumTitle").textContent = a.name;
+    $("sumAn").textContent = cal.from ? nice(cal.from) : "–";
+    $("sumAb").textContent = cal.to ? nice(cal.to) : "–";
+    $("persOut").textContent = cal.guests;
+    $("persMinus").disabled = cal.guests <= 1; $("persPlus").disabled = cal.guests >= a.max;
+    var lines = $("lines");
+    if (cal.from && cal.to) {
+      var n = nightsBetween(cal.from, cal.to), c = cost(a, n, cal.guests, false);
+      lines.innerHTML = "<div><span>" + n + " Nächte × " + a.price + " €</span><span>" + euro(c.base) + "</span></div>" +
+        "<div><span>Endreinigung</span><span>" + euro(c.clean) + "</span></div>" +
+        "<div><span>Gästebeitrag (" + cal.guests + " × " + n + " × 2 €)</span><span>" + euro(c.gast) + "</span></div>";
+      $("sumTotal").textContent = euro(c.total);
+      $("sumBtn").disabled = false;
+    } else {
+      lines.innerHTML = "<div><span>ab " + a.price + " € pro Nacht</span><span>" + a.feats[1] + "</span></div><div><span>Endreinigung</span><span>" + euro(a.clean) + "</span></div>";
+      $("sumTotal").textContent = "–"; $("sumBtn").disabled = true;
+      if (!cal.from) $("sumHint").textContent = "Wählen Sie Ihren Anreisetag im Kalender.";
+    }
+  }
+  $("prevM").addEventListener("click", function () { cal.month = new Date(cal.month.getFullYear(), cal.month.getMonth() - 1, 1); drawCal(); });
+  $("nextM").addEventListener("click", function () { cal.month = new Date(cal.month.getFullYear(), cal.month.getMonth() + 1, 1); drawCal(); });
+  $("persMinus").addEventListener("click", function () { if (cal.guests > 1) { cal.guests--; drawSum(); } });
+  $("persPlus").addEventListener("click", function () { if (cal.guests < cal.apt.max) { cal.guests++; drawSum(); } });
+
+  aptsEl.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cal]"); if (!b) return;
+    var a = APTS.filter(function (x) { return x.id === b.dataset.cal; })[0];
+    cal.guests = search ? search.guests : 2;
+    if (search && search.guests <= a.max && isFree(a, search.from, search.to)) { cal.from = search.from; cal.to = search.to; cal.month = new Date(search.from.getFullYear(), search.from.getMonth(), 1); selectApt(a, true); $("sumHint").textContent = "Ihr Zeitraum ist frei."; }
+    else selectApt(a);
+    $("verfuegbarkeit").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+  });
+
+  // Startzustand: erste freie Wohnung mit den Beispieldaten der Suche
+  (function () {
+    var a = APTS.filter(function (x) { return search && x.max >= search.guests && isFree(x, search.from, search.to); })[0];
+    if (a) { cal.from = search.from; cal.to = search.to; cal.guests = search.guests; cal.month = new Date(search.from.getFullYear(), search.from.getMonth(), 1); selectApt(a, true); $("sumHint").textContent = "Beispiel: Ihr Zeitraum ist frei."; }
+    else selectApt(APTS[0]);
+  })();
+
+  /* ---------- Anfrage ---------- */
+  var aApt = $("a-apt");
+  APTS.forEach(function (a) { var o = document.createElement("option"); o.value = a.id; o.textContent = a.name; aApt.appendChild(o); });
+  $("sumBtn").addEventListener("click", function () {
+    aApt.value = cal.apt.id; $("a-an").value = key(cal.from); $("a-ab").value = key(cal.to); $("a-pers").value = String(cal.guests);
+    $("anfrage").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+    setTimeout(function () { $("a-name").focus({ preventScroll: true }); }, reduce ? 0 : 700);
+  });
+  $("ask").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("a-name").value.trim(), mail = $("a-mail").value.trim(), note = $("askNote");
+    if (!name) { note.textContent = "Bitte geben Sie Ihren Namen an."; $("a-name").focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) { note.textContent = "Bitte geben Sie eine gültige E-Mail-Adresse an."; $("a-mail").focus(); return; }
+    if (!$("a-ok").checked) { note.textContent = "Bitte bestätigen Sie die Einwilligung."; $("a-ok").focus(); return; }
+    this.innerHTML = '<div class="success" role="status"><strong>Danke, ' + name.replace(/[<>&"]/g, "") + '!</strong><span>Wir halten Ihnen die Wohnung 48 Stunden frei und melden uns per E-Mail.</span><span style="font-size:.85rem;color:var(--muted)">Hinweis: Dies ist eine Beispiel-Website, es wurde nichts verschickt.</span></div>';
+  });
+
+  /* ---------- Galerie mit großer Ansicht ---------- */
+  var gal = $("gallery"), lb = $("lightbox"), cur = 0;
+  GALLERY.forEach(function (g, i) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "shot reveal";
+    b.setAttribute("aria-label", g.alt + " – groß anzeigen");
+    b.innerHTML = scene(g) + "<span>" + g.alt + "</span>";
+    b.addEventListener("click", function () { open(i); });
+    gal.appendChild(b);
+  });
+  function show(i) { cur = (i + GALLERY.length) % GALLERY.length; var g = Object.assign({}, GALLERY[cur], { seed: GALLERY[cur].seed }); $("lbImg").innerHTML = scene(g).replace(/id="g(\d+)/g, 'id="lb$1').replace(/url\(#g(\d+)/g, "url(#lb$1"); $("lbCap").textContent = g.alt; }
+  function open(i) { show(i); if (lb.showModal) lb.showModal(); else lb.setAttribute("open", ""); }
+  $("lbPrev").addEventListener("click", function () { show(cur - 1); });
+  $("lbNext").addEventListener("click", function () { show(cur + 1); });
+  $("lbClose").addEventListener("click", function () { lb.close ? lb.close() : lb.removeAttribute("open"); });
+  lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+  lb.addEventListener("keydown", function (e) { if (e.key === "ArrowLeft") show(cur - 1); if (e.key === "ArrowRight") show(cur + 1); });
+
+  /* ---------- Menü ---------- */
+  var burger = $("burger"), nav = $("nav");
+  burger.addEventListener("click", function () { var o = nav.classList.toggle("is-open"); burger.setAttribute("aria-expanded", o); });
+  nav.addEventListener("click", function (e) { if (e.target.tagName === "A") { nav.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); } });
+
+  /* ---------- Einblendungen ---------- */
+  var els = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) { els.forEach(function (el) { el.classList.add("is-in"); }); return; }
+  var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("is-in"); io.unobserve(x.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
