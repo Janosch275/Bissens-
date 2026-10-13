@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Café Kranich</title>
+<meta name="description" content="Beispiel-Website eines frei erfundenen Cafés mit 3D-Scrollanimation – erstellt von Webdesign Janosch Krause.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Onest:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Steingrau als Bühne für das 3D-Glas, Espresso-Braun für Schrift, Kobaltblau als einziger Akzent; breite Unbounded-Überschriften, ruhige Raster darunter */
+:root {
+  --bg: #EEEBE6;
+  --surface: #FFFFFF;
+  --ink: #1C1813;
+  --muted: #6A635B;
+  --line: #DAD5CD;
+  --cobalt: #2B3FD6;
+  --cobalt-soft: #E3E6FA;
+  --espresso: #4A2C1A;
+  --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --body: "Onest", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono: "DM Mono", ui-monospace, Menlo, monospace;
+  --wrap: 1240px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.65 var(--body); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--display); font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 24px; }
+.mono { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.kicker { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--cobalt); }
+.kicker::before { content: ""; width: 18px; height: 2px; background: currentColor; }
+.lead { color: var(--muted); font-size: 1.15rem; max-width: 46ch; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 999px; border: 0; background: var(--cobalt); color: #fff; font-weight: 600; text-decoration: none; cursor: pointer; transition: background .2s, transform .2s; }
+.btn:hover { background: var(--ink); }
+.btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: #fff; }
+.btn svg { width: 18px; height: 18px; }
+
+/* Kopf */
+.head { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding-top: env(safe-area-inset-top, 0px); transition: background .3s, box-shadow .3s; }
+.head.is-solid { background: rgba(238,235,230,.92); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--line); }
+.head__in { display: flex; align-items: center; gap: 32px; min-height: 76px; }
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 600; font-size: 1.15rem; letter-spacing: -.03em; text-decoration: none; }
+.logo svg { width: 30px; height: 30px; }
+.nav { display: flex; gap: 30px; margin-left: auto; font-weight: 500; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+.head .btn { min-height: 44px; padding: 0 20px; font-size: .92rem; }
+.burger { display: none; margin-left: auto; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--surface); cursor: pointer; }
+.burger span { display: block; width: 16px; height: 1.5px; margin: 4px auto; background: var(--ink); }
+
+/* 3D-Bühne */
+.stage { position: relative; }
+.js .stage { height: 560vh; }
+.stage__sticky { position: relative; min-height: 100vh; overflow: hidden; background: var(--bg); }
+.js .stage__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; }
+#glas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stage__fallback { display: none; position: absolute; right: 6%; top: 50%; width: min(38vw, 460px); aspect-ratio: 2 / 3; object-fit: cover; border-radius: 300px 300px 24px 24px; transform: translateY(-46%); }
+.no-3d .stage__fallback { display: block; }
+.steps { position: relative; z-index: 2; height: 100%; display: grid; align-items: center; padding-top: 76px; pointer-events: none; }
+.step { grid-area: 1 / 1; max-width: 470px; display: grid; gap: 20px; pointer-events: auto; }
+.js .step { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .7s cubic-bezier(.2,.7,.2,1); visibility: hidden; }
+.js .step.is-on { opacity: 1; transform: none; visibility: visible; }
+.step h1 { font-size: clamp(2.6rem, 5.6vw, 5.2rem); }
+.step h2 { font-size: clamp(2.2rem, 4.4vw, 3.8rem); }
+.step__num { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+.step__facts { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { padding: 7px 14px; border-radius: 999px; background: var(--surface); font: 500 .8rem var(--mono); color: var(--ink); }
+.step .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.rail { position: absolute; z-index: 3; right: 24px; top: 50%; transform: translateY(-50%); display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
+.rail button { display: flex; align-items: center; justify-content: flex-end; gap: 10px; border: 0; background: none; cursor: pointer; font: 500 .78rem var(--mono); color: var(--muted); padding: 2px 0; }
+.rail i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--muted); transition: background .3s, box-shadow .3s, transform .3s; }
+.rail button.is-on { color: var(--ink); }
+.rail button.is-on i { background: var(--cobalt); box-shadow: none; transform: scale(1.3); }
+.rail span { opacity: 0; transition: opacity .3s; }
+.rail button:hover span, .rail button.is-on span { opacity: 1; }
+.hint { position: absolute; z-index: 3; left: 50%; bottom: 30px; transform: translateX(-50%); display: none; align-items: center; gap: 10px; font: 500 .78rem var(--mono); color: var(--muted); transition: opacity .4s; }
+.js .hint { display: flex; }
+.hint i { width: 22px; height: 34px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--muted); position: relative; }
+.hint i::after { content: ""; position: absolute; left: 50%; top: 7px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: var(--cobalt); animation: wheel 1.6s ease-in-out infinite; }
+@keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 80% { transform: translateY(10px); opacity: 0; } 100% { opacity: 0; } }
+.bar { position: absolute; z-index: 3; left: 0; bottom: 0; height: 3px; width: 100%; background: transparent; }
+.bar i { display: block; height: 100%; width: 0; background: var(--cobalt); }
+
+/* Abschnitte */
+.section { padding-block: 120px; }
+.section--white { background: var(--surface); }
+.top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 24px 56px; align-items: end; margin-bottom: 56px; }
+.top h2 { font-size: clamp(2.2rem, 4.6vw, 3.8rem); margin-top: 18px; }
+
+/* Fakten-Leiste */
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--line); }
+.facts div { padding: 28px 24px 28px 0; }
+.facts div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+.facts strong { display: block; font-family: var(--display); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.3rem); letter-spacing: -.03em; }
+.facts span { color: var(--muted); font-size: .95rem; }
+
+/* Karte */
+.tabs { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 999px; background: var(--bg); justify-self: end; }
+.tab { min-height: 42px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; cursor: pointer; font-weight: 600; font-size: .92rem; color: var(--muted); }
+.tab[aria-selected="true"] { background: var(--ink); color: #fff; }
+.menu { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 64px; padding: 0; margin: 0; list-style: none; }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.item h3 { font-family: var(--body); font-weight: 600; font-size: 1.1rem; letter-spacing: -.01em; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.item p { grid-column: 1; color: var(--muted); font-size: .95rem; }
+.item b { grid-column: 2; grid-row: 1; font-family: var(--mono); font-weight: 500; font-variant-numeric: tabular-nums; }
+.badge { padding: 2px 8px; border-radius: 999px; background: var(--cobalt-soft); color: var(--cobalt); font: 500 .7rem var(--mono); letter-spacing: .02em; }
+.menu-note { margin-top: 24px; }
+
+/* Bilder */
+.mosaic { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: 120px; gap: 16px; }
+.tile { position: relative; margin: 0; border-radius: 22px; overflow: hidden; background: var(--line); }
+.tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.tile:hover img { transform: scale(1.05); }
+.tile figcaption { position: absolute; left: 14px; bottom: 14px; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.92); font: 500 .78rem var(--mono); }
+.t1 { grid-column: 1 / span 5; grid-row: span 4; }
+.t2 { grid-column: 6 / span 4; grid-row: span 2; }
+.t3 { grid-column: 10 / span 3; grid-row: span 2; }
+.t4 { grid-column: 6 / span 3; grid-row: span 2; }
+.t5 { grid-column: 9 / span 4; grid-row: span 2; }
+.js .tile { clip-path: inset(12% 12% 12% 12% round 22px); transition: clip-path 1.1s cubic-bezier(.2,.7,.2,1); }
+.js .tile.is-in { clip-path: inset(0 0 0 0 round 22px); }
+
+/* Reservierung */
+.booking { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 20px; align-items: start; }
+.panel { padding: 32px; border-radius: 26px; background: var(--surface); display: grid; gap: 26px; }
+.group { display: grid; gap: 12px; }
+.group > span { font-weight: 600; }
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.day { display: grid; justify-items: center; gap: 2px; padding: 10px 2px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 600; }
+.day small { font: 500 .72rem var(--mono); color: var(--muted); }
+.day[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.day[aria-pressed="true"] small { color: rgba(255,255,255,.7); }
+.day:disabled { opacity: .35; cursor: default; }
+.times { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.time { min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font: 500 .9rem var(--mono); }
+.time:hover:not(:disabled) { border-color: var(--ink); }
+.time:disabled { background: var(--bg); color: #ABA49B; border-color: transparent; text-decoration: line-through; cursor: default; }
+.time[aria-pressed="true"] { background: var(--cobalt); border-color: var(--cobalt); color: #fff; }
+.stepper { display: flex; align-items: center; gap: 16px; }
+.stepper button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 1.2rem; }
+.stepper button:disabled { opacity: .35; cursor: default; }
+.stepper output { min-width: 2ch; font-family: var(--display); font-size: 1.6rem; text-align: center; }
+.ticket { position: sticky; top: 100px; padding: 30px; border-radius: 26px; background: var(--ink); color: #fff; display: grid; gap: 18px; }
+.ticket h3 { font-size: 1.5rem; }
+.ticket dl { margin: 0; display: grid; gap: 12px; }
+.ticket dl div { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,.2); }
+.ticket dt { color: rgba(255,255,255,.6); }
+.ticket dd { margin: 0; font-weight: 600; text-align: right; }
+.field { display: grid; gap: 6px; }
+.field label { font-size: .85rem; color: rgba(255,255,255,.7); }
+.field input { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.18); border-radius: 12px; background: rgba(255,255,255,.06); color: #fff; font: inherit; }
+.field input:focus { outline: none; border-color: #fff; }
+.ticket .btn { width: 100%; }
+.ticket .btn:hover { background: #fff; color: var(--ink); }
+.ticket .btn:disabled { opacity: .4; cursor: default; }
+.ticket .mono { color: rgba(255,255,255,.55); }
+
+/* Besuch */
+.visit { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.card { padding: 30px; border-radius: 26px; background: var(--surface); display: grid; gap: 14px; align-content: start; }
+.card h3 { font-size: 1.3rem; }
+.live { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; }
+.live i { width: 10px; height: 10px; border-radius: 50%; background: #2E9B62; box-shadow: 0 0 0 4px rgba(46,155,98,.15); }
+.live.is-closed i { background: #C0442E; box-shadow: 0 0 0 4px rgba(192,68,46,.15); }
+.hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.hours td { padding: 9px 0; border-bottom: 1px solid var(--line); }
+.hours td:last-child { text-align: right; font-family: var(--mono); font-size: .88rem; }
+.hours tr:last-child td { border-bottom: 0; }
+.hours tr.is-today td { color: var(--cobalt); font-weight: 600; }
+
+/* Fuß */
+.foot { padding-block: 80px 110px; background: var(--ink); color: rgba(255,255,255,.7); overflow: hidden; }
+.foot__word { font-family: var(--display); font-weight: 700; font-size: clamp(4rem, 17vw, 15rem); line-height: .85; letter-spacing: -.06em; color: #fff; }
+.foot__word span { color: var(--cobalt); }
+.foot__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.15); }
+.foot strong { display: block; color: #fff; margin-bottom: 10px; }
+.foot nav { display: grid; gap: 6px; }
+.foot a { text-decoration: none; }
+.foot a:hover { color: #fff; }
+.foot__bottom { margin-top: 40px; font-size: .85rem; }
+.demo-badge { position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: #fff; font: 600 .78rem var(--body); text-decoration: none; }
+
+.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+@media (max-width: 1020px) {
+  .top, .booking { grid-template-columns: minmax(0, 1fr); }
+  .tabs { justify-self: start; }
+  .menu { grid-template-columns: minmax(0, 1fr); }
+  .visit { grid-template-columns: minmax(0, 1fr); }
+  .ticket { position: static; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .facts div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 900px) {
+  .steps { align-items: end; padding-bottom: 96px; }
+  .step { max-width: none; padding: 22px; border-radius: 22px; background: rgba(255,255,255,.82); backdrop-filter: blur(12px); }
+  .step h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .step h2 { font-size: clamp(1.7rem, 7.5vw, 2.4rem); }
+  .step .lead { font-size: 1rem; }
+  .rail { top: 96px; transform: none; right: 18px; }
+  .rail span { display: none; }
+  .hint { bottom: 18px; }
+  .mosaic { grid-auto-rows: 90px; }
+  .t1 { grid-column: 1 / -1; grid-row: span 4; }
+  .t2, .t3, .t4, .t5 { grid-column: span 6; grid-row: span 2; }
+  .stage__fallback { position: absolute; left: 50%; right: auto; top: 90px; width: 60vw; transform: translateX(-50%); }
+}
+@media (max-width: 760px) {
+  .nav, .head .btn { display: none; }
+  .burger { display: block; }
+  .nav.is-open { display: grid; gap: 0; position: absolute; top: 100%; left: 16px; right: 16px; padding: 8px 20px; border-radius: 20px; background: var(--surface); box-shadow: 0 20px 40px -20px rgba(28,24,19,.4); }
+  .nav.is-open a { padding: 12px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
+  .nav.is-open a:last-child { border-bottom: 0; }
+}
+@media (max-width: 600px) {
+  .wrap { padding-inline: 18px; }
+  .section { padding-block: 80px; }
+  .days { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .times { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .panel, .ticket, .card { padding: 22px; }
+  .foot__grid { grid-template-columns: minmax(0, 1fr); }
+  .demo-badge { left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .stage { height: auto; }
+  .js .stage__sticky { position: relative; height: auto; min-height: 100vh; }
+  .js .step { opacity: 0; visibility: hidden; }
+  .js .step.is-on { opacity: 1; visibility: visible; transform: none; }
+  .hint, .rail { display: none !important; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .js .tile { clip-path: none; transition: none; }
+}
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="logo" href="#start" aria-label="Café Kranich – zum Seitenanfang">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#2B3FD6"/><path d="M8 19c3-6 7-9 14-10-4 3-6 6-7 11" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Kranich
+    </a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="#karte">Karte</a>
+      <a href="#ofen">Aus dem Ofen</a>
+      <a href="#reservieren">Reservieren</a>
+      <a href="#besuch">Besuch</a>
+    </nav>
+    <a class="btn" href="#reservieren">Tisch reservieren</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="start">
+  <section class="stage" id="stage" aria-label="So entsteht unser Latte macchiato">
+    <div class="stage__sticky">
+      <canvas id="glas" aria-hidden="true"></canvas>
+      <img class="stage__fallback" src="bilder/latte.jpg" alt="Cappuccino mit Latte Art" loading="lazy">
+      <div class="wrap steps">
+        <div class="step is-on" data-i="0">
+          <span class="kicker">Café · Musterstadt</span>
+          <h1>Kaffee, Schicht für Schicht.</h1>
+          <p class="lead">Wir bereiten jeden Kaffee von Hand zu – mit Bohnen aus der Rösterei nebenan und Milch vom Hof um die Ecke.</p>
+          <div class="actions"><a class="btn" href="#karte">Zur Karte</a><a class="btn btn--ghost" href="#reservieren">Tisch reservieren</a></div>
+        </div>
+        <div class="step" data-i="1">
+          <span class="step__num">01 / 03</span>
+          <h2>Erst die Milch.</h2>
+          <p class="lead">Frische Vollmilch vom Hof Lindemann, auf 62 °C erwärmt. Heißer wird sie bei uns nie – sonst schmeckt sie nicht mehr süß.</p>
+          <div class="step__facts"><span class="pill">62 °C</span><span class="pill">200 ml</span><span class="pill">auch Hafer</span></div>
+        </div>
+        <div class="step" data-i="2">
+          <span class="step__num">02 / 03</span>
+          <h2>Dann der Schaum.</h2>
+          <p class="lead">Feinporig und glänzend, ohne große Blasen. Er legt sich wie eine Decke auf die Milch und hält die Wärme.</p>
+          <div class="step__facts"><span class="pill">Mikroschaum</span><span class="pill">3 cm</span></div>
+        </div>
+        <div class="step" data-i="3">
+          <span class="step__num">03 / 03</span>
+          <h2>Zum Schluss der Espresso.</h2>
+          <p class="lead">Er wird durch den Schaum gegossen und sinkt genau in die Mitte – leichter als Milch, schwerer als Schaum. So entstehen die drei Schichten.</p>
+          <div class="step__facts"><span class="pill">18 g Kaffee</span><span class="pill">27 Sekunden</span><span class="pill">93 °C</span></div>
+        </div>
+        <div class="step" data-i="4">
+          <span class="kicker">Latte macchiato · 4,20 €</span>
+          <h2>Fertig. Jetzt nur noch umrühren – oder nicht.</h2>
+          <div class="actions"><a class="btn" href="#karte">Ganze Karte ansehen</a><a class="btn btn--ghost" href="#reservieren">Platz sichern</a></div>
+        </div>
+      </div>
+      <ul class="rail" id="rail" aria-label="Schritte">
+        <li><button type="button" data-go="0" class="is-on"><span>Start</span><i></i></button></li>
+        <li><button type="button" data-go="1"><span>Milch</span><i></i></button></li>
+        <li><button type="button" data-go="2"><span>Schaum</span><i></i></button></li>
+        <li><button type="button" data-go="3"><span>Espresso</span><i></i></button></li>
+        <li><button type="button" data-go="4"><span>Fertig</span><i></i></button></li>
+      </ul>
+      <div class="hint" id="hint" aria-hidden="true"><i></i>Scrollen und zusehen</div>
+      <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+    </div>
+  </section>
+
+  <section class="section section--white">
+    <div class="wrap">
+      <div class="facts reveal">
+        <div><strong>7:30</strong><span>Uhr öffnen wir unter der Woche</span></div>
+        <div><strong>200 m</strong><span>bis zur Rösterei unserer Bohnen</span></div>
+        <div><strong>42</strong><span>Plätze drinnen, 20 auf der Terrasse</span></div>
+        <div><strong>täglich</strong><span>frische Kuchen aus der eigenen Backstube</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" id="karte" style="padding-top:40px">
+    <div class="wrap">
+      <div class="top reveal">
+        <div><span class="kicker">Karte</span><h2>Was es heute gibt</h2></div>
+        <div class="tabs" role="tablist" aria-label="Kategorie">
+          <button class="tab" role="tab" type="button" data-cat="kaffee" aria-selected="true">Kaffee</button>
+          <button class="tab" role="tab" type="button" data-cat="mehr" aria-selected="false">Tee &amp; mehr</button>
+          <button class="tab" role="tab" type="button" data-cat="frueh" aria-selected="false">Frühstück</button>
+          <button class="tab" role="tab" type="button" data-cat="kuchen" aria-selected="false">Kuchen</button>
+        </div>
+      </div>
+      <ul class="menu" id="menu" aria-live="polite"></ul>
+      <p class="mono menu-note">Alle Milchgetränke auch mit Hafer- oder Mandeldrink, ohne Aufpreis.</p>
+    </div>
+  </section>
+
+  <section class="section" id="ofen">
+    <div class="wrap">
+      <div class="top reveal">
+        <div><span class="kicker">Aus dem Ofen</span><h2>Jeden Morgen um fünf.</h2></div>
+        <p class="lead">Croissants, Kuchen und Brot backen wir selbst. Was mittags weg ist, ist weg – dafür ist alles frisch.</p>
+      </div>
+      <div class="mosaic">
+        <figure class="tile t1"><img src="bilder/fensterplatz.jpg" alt="Holztisch am Fenster mit Pflanzen" loading="lazy"><figcaption>Fensterplätze mit Morgensonne</figcaption></figure>
+        <figure class="tile t2"><img src="bilder/croissants.jpg" alt="Frische Croissants" loading="lazy"><figcaption>Butter-Croissant · 2,40 €</figcaption></figure>
+        <figure class="tile t3"><img src="bilder/schokokuchen.jpg" alt="Schokoladenkuchen auf einem Teller" loading="lazy"><figcaption>Schokotarte</figcaption></figure>
+        <figure class="tile t4"><img src="bilder/avocado.jpg" alt="Avocado-Brot auf dunklem Teller" loading="lazy"><figcaption>Avocado-Brot</figcaption></figure>
+        <figure class="tile t5"><img src="bilder/fruehstueck.jpg" alt="Frühstücksteller von oben" loading="lazy"><figcaption>Frühstück bis 14 Uhr</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--white" id="reservieren">
+    <div class="wrap">
+      <div class="top reveal">
+        <div><span class="kicker">Reservieren</span><h2>Ihr Tisch wartet.</h2></div>
+        <p class="lead">Tag, Uhrzeit und Personen wählen – vergebene Zeiten sind durchgestrichen. Ab 7 Personen rufen Sie uns bitte kurz an.</p>
+      </div>
+      <div class="booking">
+        <div class="panel reveal" style="background:var(--bg)">
+          <div class="group"><span>Tag</span><div class="days" id="days"></div></div>
+          <div class="group"><span>Uhrzeit</span><div class="times" id="times"></div></div>
+          <div class="group"><span>Personen</span><div class="stepper"><button type="button" id="pMinus" aria-label="Eine Person weniger">−</button><output id="pOut">2</output><button type="button" id="pPlus" aria-label="Eine Person mehr">+</button></div></div>
+        </div>
+        <aside class="ticket reveal" aria-live="polite">
+          <h3>Ihre Reservierung</h3>
+          <dl>
+            <div><dt>Tag</dt><dd id="tDay">–</dd></div>
+            <div><dt>Uhrzeit</dt><dd id="tTime">–</dd></div>
+            <div><dt>Personen</dt><dd id="tPers">2</dd></div>
+          </dl>
+          <div class="field"><label for="r-name">Name</label><input id="r-name" autocomplete="name"></div>
+          <div class="field"><label for="r-tel">Telefon</label><input id="r-tel" type="tel" autocomplete="tel"></div>
+          <button class="btn" type="button" id="book" disabled>Tisch reservieren</button>
+          <p class="mono" id="bNote">Beispiel-Website: Es wird nichts reserviert.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="besuch">
+    <div class="wrap">
+      <div class="top reveal"><div><span class="kicker">Besuch</span><h2>Kommen Sie vorbei.</h2></div></div>
+      <div class="visit">
+        <div class="card reveal">
+          <h3>Öffnungszeiten</h3>
+          <p class="live" id="live"><i></i><span>Jetzt geöffnet</span></p>
+          <table class="hours" id="hours">
+            <tr data-d="w"><td>Mo – Fr</td><td>7:30 – 18:00</td></tr>
+            <tr data-d="6"><td>Samstag</td><td>8:30 – 18:00</td></tr>
+            <tr data-d="0"><td>Sonntag</td><td>9:00 – 17:00</td></tr>
+          </table>
+        </div>
+        <div class="card reveal">
+          <h3>Adresse</h3>
+          <p style="color:var(--muted)">Musterweg 7<br>12345 Musterstadt</p>
+          <span class="mono">2 Minuten vom Marktplatz · Fahrradständer vor der Tür</span>
+        </div>
+        <figure class="card reveal" style="padding:0;overflow:hidden;margin:0;min-height:240px"><img src="bilder/kuchen.jpg" alt="Stück Kuchen mit Sahne und eine Tasse Kaffee" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot__word">Kranich<span>.</span></p>
+    <div class="foot__grid">
+      <div><strong>Café Kranich</strong>Musterweg 7 · 12345 Musterstadt<br>Telefon 01234 12 12 12</div>
+      <div><strong>Seiten</strong><nav aria-label="Fußnavigation"><a href="#karte">Karte</a><a href="#reservieren">Reservieren</a><a href="#besuch">Besuch</a></nav></div>
+      <div><strong>Rechtliches</strong><nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav></div>
+    </div>
+    <p class="foot__bottom">Beispiel-Website: Das „Café Kranich“ ist frei erfunden. Fotos: Pexels. 3D-Szene und Umsetzung: Webdesign Janosch Krause.</p>
+  </div>
+</footer>
+
+<a class="demo-badge" href="../../index.html#arbeiten">Beispiel-Website · erstellt von Janosch Krause</a>
+
+<script>
+(function () {
+  "use strict";
+  function $(id) { return document.getElementById(id); }
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Menü & Kopfzeile */
+  var burger = $("burger"), nav = $("nav"), head = $("head");
+  burger.addEventListener("click", function () { var o = nav.classList.toggle("is-open"); burger.setAttribute("aria-expanded", o); });
+  nav.addEventListener("click", function (e) { if (e.target.tagName === "A") { nav.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); } });
+  function headState() { head.classList.toggle("is-solid", window.scrollY > stage.offsetTop + stage.offsetHeight - 90); }
+
+  /* Schritte der 3D-Bühne */
+  var stage = $("stage"), steps = Array.prototype.slice.call(document.querySelectorAll(".step")), rail = Array.prototype.slice.call(document.querySelectorAll("#rail button"));
+  var GRENZEN = [0, .12, .37, .6, .86], aktiv = -1;
+  function zeige(p) {
+    var i = 0; GRENZEN.forEach(function (g, j) { if (p >= g) i = j; });
+    if (reduce) i = 0;
+    if (i !== aktiv) {
+      aktiv = i;
+      steps.forEach(function (s, j) { s.classList.toggle("is-on", j === i); });
+      rail.forEach(function (b, j) { b.classList.toggle("is-on", j === i); });
+    }
+    $("bar").style.width = (p * 100).toFixed(1) + "%";
+    $("hint").style.opacity = p > .04 ? "0" : "1";
+  }
+  function eigenerFortschritt() { var span = stage.offsetHeight - window.innerHeight; return span > 0 ? Math.min(1, Math.max(0, (window.scrollY - stage.offsetTop) / span)) : 0; }
+  window.addEventListener("cafe:fortschritt", function (e) { zeige(e.detail); });
+  window.addEventListener("scroll", function () { headState(); if (!document.documentElement.classList.contains("has-3d")) zeige(eigenerFortschritt()); }, { passive: true });
+  rail.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var g = GRENZEN[+b.dataset.go] + (+b.dataset.go ? .08 : 0);
+      window.scrollTo({ top: stage.offsetTop + (stage.offsetHeight - window.innerHeight) * g, behavior: reduce ? "auto" : "smooth" });
+    });
+  });
+  zeige(0); headState();
+
+  /* Karte */
+  var KARTE = {
+    kaffee: [["Espresso", "Unsere Hausröstung, schokoladig und kräftig", "2,40", ["Hausröstung"]], ["Cappuccino", "Doppelter Espresso, Mikroschaum, Latte Art", "3,80", []], ["Latte macchiato", "Die drei Schichten aus dem Glas oben", "4,20", ["Beliebt"]], ["Flat White", "Doppelter Ristretto, wenig samtiger Schaum", "4,10", []], ["Filterkaffee", "Wechselnde Sorte, im Handfilter gebrüht", "3,50", ["Single Origin"]], ["Iced Latte", "Espresso auf Eis und kalter Milch", "4,40", []]],
+    mehr: [["Chai Latte", "Hausgemachter Gewürzsud mit Milchschaum", "4,30", ["Hausgemacht"]], ["Matcha Latte", "Japanischer Matcha, ungesüßt", "4,60", []], ["Heiße Schokolade", "70 % Kakao, geschmolzen, nicht aus Pulver", "4,20", []], ["Frischer Minztee", "Ein großer Bund Minze, Honig auf Wunsch", "3,40", ["Vegan"]], ["Hauslimonade", "Zitrone-Ingwer oder Rhabarber", "3,90", ["Hausgemacht"]], ["Apfelschorle", "Saft vom Obsthof Brandt", "3,20", []]],
+    frueh: [["Butter-Croissant", "Mit Salzbutter und Aprikosenkonfitüre", "3,90", ["Hausgemacht"]], ["Avocado-Brot", "Sauerteig, Avocado, Chili, Limette, Ei", "9,50", ["Beliebt"]], ["Kranich-Frühstück", "Brötchen, Käse, Schinken, Ei, Obst, Kaffee", "13,90", []], ["Granola-Bowl", "Joghurt oder Hafer, Beeren, hausgemachtes Granola", "7,80", ["Vegan möglich"]], ["Shakshuka", "Pfanne mit Tomaten, Paprika, zwei Eiern, Brot", "11,50", []], ["Pfannkuchen", "Drei Stück, Ahornsirup, Beeren", "8,90", []]],
+    kuchen: [["Schokotarte", "Dunkle Schokolade, Meersalz", "4,50", ["Hausgemacht"]], ["Käsekuchen", "Ohne Boden, mit Zitronenabrieb", "4,20", ["Beliebt"]], ["Apfelkuchen", "Mit Streuseln, auf Wunsch mit Sahne", "3,90", []], ["Karottenkuchen", "Walnüsse, Frischkäsecreme", "4,40", []], ["Bananenbrot", "Ohne Zucker, mit Datteln gesüßt", "3,60", ["Vegan"]], ["Zimtschnecke", "Frisch aus dem Ofen, ab 8 Uhr", "3,20", ["Hausgemacht"]]]
+  };
+  var menu = $("menu");
+  function karte(cat) {
+    menu.innerHTML = KARTE[cat].map(function (x) {
+      return '<li class="item"><h3>' + x[0] + x[3].map(function (b) { return '<span class="badge">' + b + "</span>"; }).join("") + "</h3><b>" + x[2] + " €</b><p>" + x[1] + "</p></li>";
+    }).join("");
+  }
+  document.querySelectorAll(".tab").forEach(function (t) {
+    t.addEventListener("click", function () { document.querySelectorAll(".tab").forEach(function (x) { x.setAttribute("aria-selected", x === t); }); karte(t.dataset.cat); });
+  });
+  karte("kaffee");
+
+  /* Reservierung */
+  var DOW = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"], heute = new Date(), daysEl = $("days"), timesEl = $("times");
+  var st = { day: null, time: null, pers: 2 };
+  function seed(s) { var h = 11; for (var i = 0; i < s.length; i++) h = (h * 33 + s.charCodeAt(i)) % 1000003; return h; }
+  for (var k = 0; k < 7; k++) {
+    (function (dt, idx) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "day"; b.setAttribute("aria-pressed", idx === 0);
+      b.innerHTML = (idx === 0 ? "Heute" : DOW[dt.getDay()]) + "<small>" + dt.getDate() + "." + (dt.getMonth() + 1) + ".</small>";
+      b.addEventListener("click", function () { st.day = dt; st.time = null; daysEl.querySelectorAll(".day").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); zeiten(); ticket(); });
+      daysEl.appendChild(b);
+      if (idx === 0) st.day = dt;
+    })(new Date(heute.getFullYear(), heute.getMonth(), heute.getDate() + k), k);
+  }
+  function zeiten() {
+    var d = st.day.getDay(), start = d === 0 ? 9 * 60 : d === 6 ? 8.5 * 60 : 8 * 60, end = d === 0 ? 16 * 60 : 17 * 60, html = "";
+    var istHeute = st.day.toDateString() === heute.toDateString(), jetzt = heute.getHours() * 60 + heute.getMinutes();
+    for (var m = start; m <= end; m += 30) {
+      var label = Math.floor(m / 60) + ":" + String(m % 60).padStart(2, "0");
+      var weg = (istHeute && m < jetzt + 30) || seed(st.day.toDateString() + label + st.pers) % 4 === 0;
+      html += '<button type="button" class="time" data-t="' + label + '"' + (weg ? " disabled" : "") + ' aria-pressed="' + (st.time === label) + '">' + label + "</button>";
+    }
+    timesEl.innerHTML = html;
+  }
+  timesEl.addEventListener("click", function (e) { var b = e.target.closest(".time"); if (!b || b.disabled) return; st.time = b.dataset.t; timesEl.querySelectorAll(".time").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); ticket(); });
+  function pers(d) { st.pers = Math.min(6, Math.max(1, st.pers + d)); $("pOut").textContent = st.pers; $("pMinus").disabled = st.pers <= 1; $("pPlus").disabled = st.pers >= 6; st.time = null; zeiten(); ticket(); }
+  $("pMinus").addEventListener("click", function () { pers(-1); }); $("pPlus").addEventListener("click", function () { pers(1); });
+  function ticket() {
+    $("tDay").textContent = st.day.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" });
+    $("tTime").textContent = st.time ? st.time + " Uhr" : "–";
+    $("tPers").textContent = st.pers + (st.pers === 1 ? " Person" : " Personen");
+    $("book").disabled = !st.time;
+  }
+  pers(0);
+  $("book").addEventListener("click", function () {
+    var n = $("r-name").value.trim(), t = $("r-tel").value.trim(), note = $("bNote");
+    if (!n || !t) { note.textContent = "Bitte geben Sie Name und Telefonnummer an."; (n ? $("r-tel") : $("r-name")).focus(); return; }
+    note.textContent = "Reserviert für " + n.replace(/[<>&"]/g, "") + ": " + $("tDay").textContent + ", " + st.time + " Uhr. (Beispiel – es wurde nichts reserviert.)";
+    this.disabled = true; this.textContent = "Reserviert";
+  });
+
+  /* Öffnungszeiten live */
+  var H = { 0: [540, 1020], 6: [510, 1080] }, d = heute.getDay(), min = heute.getHours() * 60 + heute.getMinutes(), h = H[d] || [450, 1080];
+  var offen = min >= h[0] && min < h[1], live = $("live");
+  live.classList.toggle("is-closed", !offen);
+  live.querySelector("span").textContent = offen ? "Jetzt geöffnet bis " + Math.floor(h[1] / 60) + ":" + String(h[1] % 60).padStart(2, "0") + " Uhr" : "Gerade geschlossen – ab " + Math.floor(h[0] / 60) + ":" + String(h[0] % 60).padStart(2, "0") + " Uhr wieder da";
+  var row = document.querySelector('#hours [data-d="' + (d === 0 ? "0" : d === 6 ? "6" : "w") + '"]'); if (row) row.classList.add("is-today");
+
+  /* Einblendungen */
+  var els = document.querySelectorAll(".reveal, .tile");
+  if (reduce || !("IntersectionObserver" in window)) { els.forEach(function (el) { el.classList.add("is-in"); }); return; }
+  var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("is-in"); io.unobserve(x.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+<script src="glas3d.bundle.js" defer></script>
+</body>
+</html>
