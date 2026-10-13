@@ -241,6 +241,9 @@ button { font: inherit; color: inherit; }
   .wrap { padding-inline: 18px; }
   .section { padding-block: 80px; }
   .days { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .tabs { display: flex; flex-wrap: nowrap; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: none; padding: 0 14px; white-space: nowrap; }
   .times { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .panel, .ticket, .card { padding: 22px; }
   .foot__grid { grid-template-columns: minmax(0, 1fr); }
@@ -333,7 +336,7 @@ button { font: inherit; color: inherit; }
   <section class="section section--white" id="karte">
     <div class="wrap">
       <div class="top reveal">
-        <div><span class="kicker">Karte</span><h2>Speisekarte</h2></div>
+        <div><span class="kicker">Essen &amp; Trinken</span><h2>Speisekarte</h2></div>
         <div class="tabs" role="tablist" aria-label="Kategorie">
           <button class="tab" role="tab" type="button" data-cat="kaffee" aria-selected="true">Kaffee</button>
           <button class="tab" role="tab" type="button" data-cat="mehr" aria-selected="false">Tee &amp; mehr</button>
