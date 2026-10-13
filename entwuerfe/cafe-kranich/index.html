@@ -4,22 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Café Kranich</title>
-<meta name="description" content="Beispiel-Website eines frei erfundenen Cafés mit 3D-Scrollanimation – erstellt von Webdesign Janosch Krause.">
+<meta name="description" content="Beispiel-Website eines frei erfundenen Cafés mit Scroll-Video – erstellt von Webdesign Janosch Krause.">
 <meta name="robots" content="noindex, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Onest:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: Steingrau als Bühne für das 3D-Glas, Espresso-Braun für Schrift, Kobaltblau als einziger Akzent; breite Unbounded-Überschriften, ruhige Raster darunter */
+/* Layout: Video-Bühne in Espresso-Dunkel, darunter Hafer-Hell; Karamell als einziger Akzent; breite Unbounded-Überschriften, ruhige Raster */
 :root {
-  --bg: #EEEBE6;
-  --surface: #FFFFFF;
-  --ink: #1C1813;
-  --muted: #6A635B;
-  --line: #DAD5CD;
-  --cobalt: #2B3FD6;
-  --cobalt-soft: #E3E6FA;
-  --espresso: #4A2C1A;
+  --bg: #F3EEE7;
+  --surface: #FBF8F4;
+  --ink: #231A14;
+  --muted: #76695D;
+  --line: #E2D8CC;
+  --cobalt: #A8622F;
+  --cobalt-soft: #F2E2D1;
+  --espresso: #17100C;
+  --cream: #F6EDE2;
   --display: "Unbounded", "Arial Black", system-ui, sans-serif;
   --body: "Onest", "Helvetica Neue", Arial, system-ui, sans-serif;
   --mono: "DM Mono", ui-monospace, Menlo, monospace;
@@ -59,38 +60,50 @@ button { font: inherit; color: inherit; }
 .burger { display: none; margin-left: auto; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--surface); cursor: pointer; }
 .burger span { display: block; width: 16px; height: 1.5px; margin: 4px auto; background: var(--ink); }
 
-/* 3D-Bühne */
-.stage { position: relative; }
-.js .stage { height: 560vh; }
-.stage__sticky { position: relative; min-height: 100vh; overflow: hidden; background: var(--bg); }
+/* Video-Bühne: Einzelbilder werden beim Scrollen abgespielt */
+.stage { position: relative; background: var(--espresso); }
+.js .stage { height: 520vh; }
+.stage__sticky { position: relative; min-height: 100vh; overflow: hidden; background: var(--espresso); color: var(--cream); }
 .js .stage__sticky { position: sticky; top: 0; height: 100vh; height: 100svh; }
-#glas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.stage__fallback { display: none; position: absolute; right: 6%; top: 50%; width: min(38vw, 460px); aspect-ratio: 2 / 3; object-fit: cover; border-radius: 300px 300px 24px 24px; transform: translateY(-46%); }
-.no-3d .stage__fallback { display: block; }
-.steps { position: relative; z-index: 2; height: 100%; display: grid; align-items: center; padding-top: 76px; pointer-events: none; }
-.step { grid-area: 1 / 1; max-width: 470px; display: grid; gap: 20px; pointer-events: auto; }
-.js .step { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .7s cubic-bezier(.2,.7,.2,1); visibility: hidden; }
+#film { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stage__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.js .stage__poster { display: none; }
+.stage__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(23,16,12,.92) 0%, rgba(23,16,12,.7) 34%, rgba(23,16,12,.1) 62%, rgba(23,16,12,0) 100%), linear-gradient(0deg, rgba(23,16,12,.55), rgba(23,16,12,0) 30%); pointer-events: none; }
+.steps { position: relative; z-index: 2; height: 100%; min-height: 100vh; display: grid; align-items: center; padding-top: 76px; pointer-events: none; }
+.step { grid-area: 1 / 1; max-width: 480px; display: grid; gap: 20px; pointer-events: auto; }
+.js .step { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .7s cubic-bezier(.2,.7,.2,1); visibility: hidden; }
 .js .step.is-on { opacity: 1; transform: none; visibility: visible; }
-.step h1 { font-size: clamp(2.6rem, 5.6vw, 5.2rem); }
-.step h2 { font-size: clamp(2.2rem, 4.4vw, 3.8rem); }
-.step__num { font-family: var(--mono); font-size: .85rem; color: var(--muted); }
+.step h1 { font-size: clamp(2.6rem, 5.4vw, 5rem); }
+.step h2 { font-size: clamp(2.2rem, 4.2vw, 3.6rem); }
+.step .lead { color: rgba(246,237,226,.78); }
+.stage .kicker { color: #E2A877; }
+.step__num { font-family: var(--mono); font-size: .85rem; color: rgba(246,237,226,.6); }
 .step__facts { display: flex; flex-wrap: wrap; gap: 8px; }
-.pill { padding: 7px 14px; border-radius: 999px; background: var(--surface); font: 500 .8rem var(--mono); color: var(--ink); }
+.pill { padding: 7px 14px; border-radius: 999px; background: rgba(246,237,226,.12); border: 1px solid rgba(246,237,226,.2); font: 500 .8rem var(--mono); color: var(--cream); }
 .step .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.stage .btn--ghost { color: var(--cream); box-shadow: inset 0 0 0 1.5px rgba(246,237,226,.6); }
+.stage .btn--ghost:hover { background: var(--cream); color: var(--ink); }
 .rail { position: absolute; z-index: 3; right: 24px; top: 50%; transform: translateY(-50%); display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
-.rail button { display: flex; align-items: center; justify-content: flex-end; gap: 10px; border: 0; background: none; cursor: pointer; font: 500 .78rem var(--mono); color: var(--muted); padding: 2px 0; }
-.rail i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--muted); transition: background .3s, box-shadow .3s, transform .3s; }
-.rail button.is-on { color: var(--ink); }
-.rail button.is-on i { background: var(--cobalt); box-shadow: none; transform: scale(1.3); }
+.rail button { display: flex; align-items: center; justify-content: flex-end; gap: 10px; border: 0; background: none; cursor: pointer; font: 500 .78rem var(--mono); color: rgba(246,237,226,.6); padding: 2px 0; }
+.rail i { width: 10px; height: 10px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgba(246,237,226,.6); transition: background .3s, box-shadow .3s, transform .3s; }
+.rail button.is-on { color: var(--cream); }
+.rail button.is-on i { background: #E2A877; box-shadow: none; transform: scale(1.3); }
 .rail span { opacity: 0; transition: opacity .3s; }
 .rail button:hover span, .rail button.is-on span { opacity: 1; }
-.hint { position: absolute; z-index: 3; left: 50%; bottom: 30px; transform: translateX(-50%); display: none; align-items: center; gap: 10px; font: 500 .78rem var(--mono); color: var(--muted); transition: opacity .4s; }
+.hint { position: absolute; z-index: 3; left: 50%; bottom: 30px; transform: translateX(-50%); display: none; align-items: center; gap: 10px; font: 500 .78rem var(--mono); color: rgba(246,237,226,.75); transition: opacity .4s; }
 .js .hint { display: flex; }
-.hint i { width: 22px; height: 34px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--muted); position: relative; }
-.hint i::after { content: ""; position: absolute; left: 50%; top: 7px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: var(--cobalt); animation: wheel 1.6s ease-in-out infinite; }
+.hint i { width: 22px; height: 34px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px rgba(246,237,226,.7); position: relative; }
+.hint i::after { content: ""; position: absolute; left: 50%; top: 7px; width: 4px; height: 7px; margin-left: -2px; border-radius: 2px; background: #E2A877; animation: wheel 1.6s ease-in-out infinite; }
 @keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 80% { transform: translateY(10px); opacity: 0; } 100% { opacity: 0; } }
-.bar { position: absolute; z-index: 3; left: 0; bottom: 0; height: 3px; width: 100%; background: transparent; }
-.bar i { display: block; height: 100%; width: 0; background: var(--cobalt); }
+.bar { position: absolute; z-index: 3; left: 0; bottom: 0; height: 3px; width: 100%; background: rgba(246,237,226,.1); }
+.bar i { display: block; height: 100%; width: 0; background: #E2A877; }
+.loading { position: absolute; z-index: 3; right: 24px; bottom: 24px; font: 500 .74rem var(--mono); color: rgba(246,237,226,.6); transition: opacity .5s; }
+
+/* Kopf auf der dunklen Bühne */
+.head.on-dark .logo, .head.on-dark .nav a { color: var(--cream); }
+.head.on-dark .nav a:hover { color: #fff; }
+.head.on-dark .burger { background: rgba(246,237,226,.14); }
+.head.on-dark .burger span { background: var(--cream); }
 
 /* Abschnitte */
 .section { padding-block: 120px; }
@@ -205,8 +218,8 @@ button { font: inherit; color: inherit; }
   .facts div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
 }
 @media (max-width: 900px) {
-  .steps { align-items: end; padding-bottom: 96px; }
-  .step { max-width: none; padding: 22px; border-radius: 22px; background: rgba(255,255,255,.82); backdrop-filter: blur(12px); }
+  .steps { align-items: end; padding-bottom: 92px; }
+  .stage__shade { background: linear-gradient(0deg, rgba(23,16,12,.95) 0%, rgba(23,16,12,.75) 45%, rgba(23,16,12,.05) 75%); }
   .step h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
   .step h2 { font-size: clamp(1.7rem, 7.5vw, 2.4rem); }
   .step .lead { font-size: 1rem; }
@@ -216,7 +229,6 @@ button { font: inherit; color: inherit; }
   .mosaic { grid-auto-rows: 90px; }
   .t1 { grid-column: 1 / -1; grid-row: span 4; }
   .t2, .t3, .t4, .t5 { grid-column: span 6; grid-row: span 2; }
-  .stage__fallback { position: absolute; left: 50%; right: auto; top: 90px; width: 60vw; transform: translateX(-50%); }
 }
 @media (max-width: 760px) {
   .nav, .head .btn { display: none; }
@@ -238,6 +250,8 @@ button { font: inherit; color: inherit; }
   html { scroll-behavior: auto; }
   .js .stage { height: auto; }
   .js .stage__sticky { position: relative; height: auto; min-height: 100vh; }
+  .js .stage__poster { display: block; }
+  #film { display: none; }
   .js .step { opacity: 0; visibility: hidden; }
   .js .step.is-on { opacity: 1; visibility: visible; transform: none; }
   .hint, .rail { display: none !important; }
@@ -252,7 +266,7 @@ button { font: inherit; color: inherit; }
 <header class="head" id="head">
   <div class="wrap head__in">
     <a class="logo" href="#start" aria-label="Café Kranich – zum Seitenanfang">
-      <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#2B3FD6"/><path d="M8 19c3-6 7-9 14-10-4 3-6 6-7 11" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="15" fill="#A8622F"/><path d="M8 19c3-6 7-9 14-10-4 3-6 6-7 11" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Kranich
     </a>
     <nav class="nav" id="nav" aria-label="Hauptnavigation">
@@ -269,63 +283,54 @@ button { font: inherit; color: inherit; }
 <main id="start">
   <section class="stage" id="stage" aria-label="So entsteht unser Latte macchiato">
     <div class="stage__sticky">
-      <canvas id="glas" aria-hidden="true"></canvas>
-      <img class="stage__fallback" src="bilder/latte.jpg" alt="Cappuccino mit Latte Art" loading="lazy">
+      <img class="stage__poster" src="frames/gross/120.webp" alt="Fertige Latte Art in Form einer Rosette" width="1280" height="720">
+      <canvas id="film" aria-hidden="true"></canvas>
+      <div class="stage__shade" aria-hidden="true"></div>
       <div class="wrap steps">
         <div class="step is-on" data-i="0">
           <span class="kicker">Café · Musterstadt</span>
-          <h1>Kaffee, Schicht für Schicht.</h1>
-          <p class="lead">Wir bereiten jeden Kaffee von Hand zu – mit Bohnen aus der Rösterei nebenan und Milch vom Hof um die Ecke.</p>
+          <h1>Jede Tasse ein kleines Kunstwerk.</h1>
+          <p class="lead">Kaffee, Frühstück und Kuchen aus der eigenen Backstube – zwei Minuten vom Marktplatz.</p>
           <div class="actions"><a class="btn" href="#karte">Zur Karte</a><a class="btn btn--ghost" href="#reservieren">Tisch reservieren</a></div>
         </div>
         <div class="step" data-i="1">
-          <span class="step__num">01 / 03</span>
-          <h2>Erst die Milch.</h2>
-          <p class="lead">Frische Vollmilch vom Hof Lindemann, auf 62 °C erwärmt. Heißer wird sie bei uns nie – sonst schmeckt sie nicht mehr süß.</p>
-          <div class="step__facts"><span class="pill">62 °C</span><span class="pill">200 ml</span><span class="pill">auch Hafer</span></div>
+          <span class="kicker">Über uns</span>
+          <h2>Ein Café, wie wir es selbst gern hätten.</h2>
+          <p class="lead">Seit 2014 führen Lena und Tom das Kranich. Die Bohnen kommen aus der Rösterei nebenan, die Milch vom Hof Lindemann, das Brot aus unserer Backstube.</p>
+          <div class="step__facts"><span class="pill">42 Plätze drinnen</span><span class="pill">20 auf der Terrasse</span><span class="pill">WLAN</span></div>
         </div>
         <div class="step" data-i="2">
-          <span class="step__num">02 / 03</span>
-          <h2>Dann der Schaum.</h2>
-          <p class="lead">Feinporig und glänzend, ohne große Blasen. Er legt sich wie eine Decke auf die Milch und hält die Wärme.</p>
-          <div class="step__facts"><span class="pill">Mikroschaum</span><span class="pill">3 cm</span></div>
+          <span class="kicker">Küche</span>
+          <h2>Frühstück bis 14 Uhr. Kuchen bis er weg ist.</h2>
+          <p class="lead">Jeden Morgen um fünf backen wir Croissants, Zimtschnecken und drei Kuchen. Vieles gibt es auch vegan oder glutenfrei.</p>
+          <div class="step__facts"><span class="pill">hausgemacht</span><span class="pill">vegan möglich</span><span class="pill">regional</span></div>
         </div>
         <div class="step" data-i="3">
-          <span class="step__num">03 / 03</span>
-          <h2>Zum Schluss der Espresso.</h2>
-          <p class="lead">Er wird durch den Schaum gegossen und sinkt genau in die Mitte – leichter als Milch, schwerer als Schaum. So entstehen die drei Schichten.</p>
-          <div class="step__facts"><span class="pill">18 g Kaffee</span><span class="pill">27 Sekunden</span><span class="pill">93 °C</span></div>
+          <span class="kicker" id="stageLive">Heute geöffnet</span>
+          <h2>Wir sind fast jeden Tag für Sie da.</h2>
+          <div class="step__facts"><span class="pill">Mo – Fr 7:30 – 18:00</span><span class="pill">Sa 8:30 – 18:00</span><span class="pill">So 9:00 – 17:00</span></div>
+          <p class="lead">An Feiertagen gelten die Sonntagszeiten.</p>
         </div>
         <div class="step" data-i="4">
-          <span class="kicker">Latte macchiato · 4,20 €</span>
-          <h2>Fertig. Jetzt nur noch umrühren – oder nicht.</h2>
-          <div class="actions"><a class="btn" href="#karte">Ganze Karte ansehen</a><a class="btn btn--ghost" href="#reservieren">Platz sichern</a></div>
+          <span class="kicker">Musterweg 7 · 12345 Musterstadt</span>
+          <h2>Kommen Sie vorbei – wir halten Ihnen einen Platz frei.</h2>
+          <div class="actions"><a class="btn" href="#reservieren">Tisch reservieren</a><a class="btn btn--ghost" href="#karte">Karte ansehen</a></div>
         </div>
       </div>
       <ul class="rail" id="rail" aria-label="Schritte">
         <li><button type="button" data-go="0" class="is-on"><span>Start</span><i></i></button></li>
-        <li><button type="button" data-go="1"><span>Milch</span><i></i></button></li>
-        <li><button type="button" data-go="2"><span>Schaum</span><i></i></button></li>
-        <li><button type="button" data-go="3"><span>Espresso</span><i></i></button></li>
-        <li><button type="button" data-go="4"><span>Fertig</span><i></i></button></li>
+        <li><button type="button" data-go="1"><span>Über uns</span><i></i></button></li>
+        <li><button type="button" data-go="2"><span>Küche</span><i></i></button></li>
+        <li><button type="button" data-go="3"><span>Zeiten</span><i></i></button></li>
+        <li><button type="button" data-go="4"><span>Besuch</span><i></i></button></li>
       </ul>
-      <div class="hint" id="hint" aria-hidden="true"><i></i>Scrollen und zusehen</div>
+      <div class="hint" id="hint" aria-hidden="true"><i></i>Scrollen</div>
       <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+      <span class="loading" id="loading" aria-hidden="true">Lädt …</span>
     </div>
   </section>
 
-  <section class="section section--white">
-    <div class="wrap">
-      <div class="facts reveal">
-        <div><strong>7:30</strong><span>Uhr öffnen wir unter der Woche</span></div>
-        <div><strong>200 m</strong><span>bis zur Rösterei unserer Bohnen</span></div>
-        <div><strong>42</strong><span>Plätze drinnen, 20 auf der Terrasse</span></div>
-        <div><strong>täglich</strong><span>frische Kuchen aus der eigenen Backstube</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--white" id="karte" style="padding-top:40px">
+  <section class="section section--white" id="karte">
     <div class="wrap">
       <div class="top reveal">
         <div><span class="kicker">Karte</span><h2>Was es heute gibt</h2></div>
@@ -417,7 +422,7 @@ button { font: inherit; color: inherit; }
       <div><strong>Seiten</strong><nav aria-label="Fußnavigation"><a href="#karte">Karte</a><a href="#reservieren">Reservieren</a><a href="#besuch">Besuch</a></nav></div>
       <div><strong>Rechtliches</strong><nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav></div>
     </div>
-    <p class="foot__bottom">Beispiel-Website: Das „Café Kranich“ ist frei erfunden. Fotos: Pexels. 3D-Szene und Umsetzung: Webdesign Janosch Krause.</p>
+    <p class="foot__bottom">Beispiel-Website: Das „Café Kranich“ ist frei erfunden. Video &amp; Fotos: Pexels. Umsetzung: Webdesign Janosch Krause.</p>
   </div>
 </footer>
 
@@ -433,36 +438,76 @@ button { font: inherit; color: inherit; }
   var burger = $("burger"), nav = $("nav"), head = $("head");
   burger.addEventListener("click", function () { var o = nav.classList.toggle("is-open"); burger.setAttribute("aria-expanded", o); });
   nav.addEventListener("click", function (e) { if (e.target.tagName === "A") { nav.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); } });
-  function headState() { head.classList.toggle("is-solid", window.scrollY > stage.offsetTop + stage.offsetHeight - 90); }
+  function headState() { var unten = window.scrollY > stage.offsetTop + stage.offsetHeight - 90; head.classList.toggle("is-solid", unten); head.classList.toggle("on-dark", !unten); }
 
-  /* Schritte der 3D-Bühne */
+  /* Video-Bühne: 120 Einzelbilder, gesteuert über die Scrollposition */
   var stage = $("stage"), steps = Array.prototype.slice.call(document.querySelectorAll(".step")), rail = Array.prototype.slice.call(document.querySelectorAll("#rail button"));
-  var GRENZEN = [0, .12, .37, .6, .86], aktiv = -1;
-  function zeige(p) {
-    var i = 0; GRENZEN.forEach(function (g, j) { if (p >= g) i = j; });
-    if (reduce) i = 0;
-    if (i !== aktiv) {
-      aktiv = i;
-      steps.forEach(function (s, j) { s.classList.toggle("is-on", j === i); });
-      rail.forEach(function (b, j) { b.classList.toggle("is-on", j === i); });
-    }
-    $("bar").style.width = (p * 100).toFixed(1) + "%";
-    $("hint").style.opacity = p > .04 ? "0" : "1";
+  var GRENZEN = [0, .14, .4, .68, .9], aktiv = -1;
+  var canvas = $("film"), ctx = canvas.getContext("2d"), N = 120, frames = new Array(N), geladen = 0;
+  var set = "gross", zuletzt = -1, ziel = 0, glatt = 0;
+  function pfad(i) { return "frames/" + set + "/" + String(i + 1).padStart(3, "0") + ".webp"; }
+  function lade(i) {
+    var img = new Image(); img.decoding = "async";
+    img.onload = function () { frames[i] = img; geladen++; if (geladen === N) $("loading").style.opacity = "0"; else $("loading").textContent = "Lädt … " + Math.round(geladen / N * 100) + " %"; if (i === 0 || Math.abs(i - Math.round(glatt)) < 3) zeichne(true); };
+    img.src = pfad(i);
   }
-  function eigenerFortschritt() { var span = stage.offsetHeight - window.innerHeight; return span > 0 ? Math.min(1, Math.max(0, (window.scrollY - stage.offsetTop) / span)) : 0; }
-  window.addEventListener("cafe:fortschritt", function (e) { zeige(e.detail); });
-  window.addEventListener("scroll", function () { headState(); if (!document.documentElement.classList.contains("has-3d")) zeige(eigenerFortschritt()); }, { passive: true });
+  // erst jedes 8. Bild für eine schnelle grobe Vorschau, dann den Rest
+  for (var i = 0; i < N; i += 8) lade(i);
+  setTimeout(function () { for (var j = 0; j < N; j++) if (j % 8) lade(j); }, 200);
+  function groesse() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(canvas.clientWidth * dpr); canvas.height = Math.round(canvas.clientHeight * dpr);
+    zeichne(true);
+  }
+  function naechstes(i) { for (var d = 0; d < N; d++) { if (frames[i - d]) return frames[i - d]; if (frames[i + d]) return frames[i + d]; } return null; }
+  function zeichne(force) {
+    var i = Math.max(0, Math.min(N - 1, Math.round(glatt)));
+    if (i === zuletzt && !force) return;
+    var img = naechstes(i); if (!img) return;
+    zuletzt = i;
+    var cw = canvas.width, ch = canvas.height, hoch = ch > cw;
+    ctx.fillStyle = "#17100C"; ctx.fillRect(0, 0, cw, ch);
+    if (hoch) {
+      // Handy: Tasse im oberen Teil, unten Platz für den Text
+      var s = cw / img.width * 1.85, w = img.width * s, h = img.height * s;
+      ctx.drawImage(img, (cw - w) / 2, ch * .1, w, h);
+      var g = ctx.createLinearGradient(0, ch * .1 + h * .8, 0, ch * .1 + h);
+      g.addColorStop(0, "rgba(23,16,12,0)"); g.addColorStop(1, "rgba(23,16,12,1)");
+      ctx.fillStyle = g; ctx.fillRect(0, ch * .1 + h * .8 - 1, cw, h * .2 + 2);
+    } else {
+      var s2 = Math.max(cw / img.width, ch / img.height), w2 = img.width * s2, h2 = img.height * s2;
+      ctx.drawImage(img, window.innerWidth > 900 ? cw - w2 + (w2 - cw) * .25 : (cw - w2) / 2, (ch - h2) / 2, w2, h2);
+    }
+  }
+  function fortschritt() { var span = stage.offsetHeight - window.innerHeight; return span > 0 ? Math.min(1, Math.max(0, (window.scrollY - stage.offsetTop) / span)) : 0; }
+  function zeige(p) {
+    var k = 0; GRENZEN.forEach(function (g, j) { if (p >= g) k = j; });
+    if (reduce) k = 0;
+    if (k !== aktiv) { aktiv = k; steps.forEach(function (s, j) { s.classList.toggle("is-on", j === k); }); rail.forEach(function (b, j) { b.classList.toggle("is-on", j === k); }); }
+    $("bar").style.width = (p * 100).toFixed(1) + "%";
+    $("hint").style.opacity = p > .03 ? "0" : "1";
+  }
+  function schleife() {
+    requestAnimationFrame(schleife);
+    var p = fortschritt();
+    ziel = Math.min(1, p / .9) * (N - 1);             // das letzte Zehntel bleibt beim fertigen Bild
+    glatt += (ziel - glatt) * .18;
+    if (Math.abs(ziel - glatt) < .01) glatt = ziel;
+    zeichne(false); zeige(p); headState();
+  }
+  window.addEventListener("resize", groesse);
   rail.forEach(function (b) {
     b.addEventListener("click", function () {
-      var g = GRENZEN[+b.dataset.go] + (+b.dataset.go ? .08 : 0);
+      var g = GRENZEN[+b.dataset.go] + (+b.dataset.go ? .06 : 0);
       window.scrollTo({ top: stage.offsetTop + (stage.offsetHeight - window.innerHeight) * g, behavior: reduce ? "auto" : "smooth" });
     });
   });
-  zeige(0); headState();
+  if (reduce) { zeige(0); headState(); window.addEventListener("scroll", headState, { passive: true }); }
+  else { groesse(); schleife(); }
 
   /* Karte */
   var KARTE = {
-    kaffee: [["Espresso", "Unsere Hausröstung, schokoladig und kräftig", "2,40", ["Hausröstung"]], ["Cappuccino", "Doppelter Espresso, Mikroschaum, Latte Art", "3,80", []], ["Latte macchiato", "Die drei Schichten aus dem Glas oben", "4,20", ["Beliebt"]], ["Flat White", "Doppelter Ristretto, wenig samtiger Schaum", "4,10", []], ["Filterkaffee", "Wechselnde Sorte, im Handfilter gebrüht", "3,50", ["Single Origin"]], ["Iced Latte", "Espresso auf Eis und kalter Milch", "4,40", []]],
+    kaffee: [["Espresso", "Unsere Hausröstung, schokoladig und kräftig", "2,40", ["Hausröstung"]], ["Cappuccino", "Doppelter Espresso, Mikroschaum, Latte Art", "3,80", ["Beliebt"]], ["Latte macchiato", "Milch, Schaum und Espresso in drei Schichten", "4,20", []], ["Flat White", "Doppelter Ristretto, wenig samtiger Schaum", "4,10", []], ["Filterkaffee", "Wechselnde Sorte, im Handfilter gebrüht", "3,50", ["Single Origin"]], ["Iced Latte", "Espresso auf Eis und kalter Milch", "4,40", []]],
     mehr: [["Chai Latte", "Hausgemachter Gewürzsud mit Milchschaum", "4,30", ["Hausgemacht"]], ["Matcha Latte", "Japanischer Matcha, ungesüßt", "4,60", []], ["Heiße Schokolade", "70 % Kakao, geschmolzen, nicht aus Pulver", "4,20", []], ["Frischer Minztee", "Ein großer Bund Minze, Honig auf Wunsch", "3,40", ["Vegan"]], ["Hauslimonade", "Zitrone-Ingwer oder Rhabarber", "3,90", ["Hausgemacht"]], ["Apfelschorle", "Saft vom Obsthof Brandt", "3,20", []]],
     frueh: [["Butter-Croissant", "Mit Salzbutter und Aprikosenkonfitüre", "3,90", ["Hausgemacht"]], ["Avocado-Brot", "Sauerteig, Avocado, Chili, Limette, Ei", "9,50", ["Beliebt"]], ["Kranich-Frühstück", "Brötchen, Käse, Schinken, Ei, Obst, Kaffee", "13,90", []], ["Granola-Bowl", "Joghurt oder Hafer, Beeren, hausgemachtes Granola", "7,80", ["Vegan möglich"]], ["Shakshuka", "Pfanne mit Tomaten, Paprika, zwei Eiern, Brot", "11,50", []], ["Pfannkuchen", "Drei Stück, Ahornsirup, Beeren", "8,90", []]],
     kuchen: [["Schokotarte", "Dunkle Schokolade, Meersalz", "4,50", ["Hausgemacht"]], ["Käsekuchen", "Ohne Boden, mit Zitronenabrieb", "4,20", ["Beliebt"]], ["Apfelkuchen", "Mit Streuseln, auf Wunsch mit Sahne", "3,90", []], ["Karottenkuchen", "Walnüsse, Frischkäsecreme", "4,40", []], ["Bananenbrot", "Ohne Zucker, mit Datteln gesüßt", "3,60", ["Vegan"]], ["Zimtschnecke", "Frisch aus dem Ofen, ab 8 Uhr", "3,20", ["Hausgemacht"]]]
@@ -523,6 +568,7 @@ button { font: inherit; color: inherit; }
   var offen = min >= h[0] && min < h[1], live = $("live");
   live.classList.toggle("is-closed", !offen);
   live.querySelector("span").textContent = offen ? "Jetzt geöffnet bis " + Math.floor(h[1] / 60) + ":" + String(h[1] % 60).padStart(2, "0") + " Uhr" : "Gerade geschlossen – ab " + Math.floor(h[0] / 60) + ":" + String(h[0] % 60).padStart(2, "0") + " Uhr wieder da";
+  $("stageLive").textContent = offen ? "Jetzt geöffnet bis " + Math.floor(h[1] / 60) + ":" + String(h[1] % 60).padStart(2, "0") + " Uhr" : "Gerade geschlossen";
   var row = document.querySelector('#hours [data-d="' + (d === 0 ? "0" : d === 6 ? "6" : "w") + '"]'); if (row) row.classList.add("is-today");
 
   /* Einblendungen */
@@ -532,6 +578,5 @@ button { font: inherit; color: inherit; }
   els.forEach(function (el) { io.observe(el); });
 })();
 </script>
-<script src="glas3d.bundle.js" defer></script>
 </body>
 </html>
