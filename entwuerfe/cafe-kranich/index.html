@@ -193,10 +193,10 @@ button { font: inherit; color: inherit; }
 .hours tr.is-today td { color: var(--cobalt); font-weight: 600; }
 
 /* Fuß */
-.foot { padding-block: 80px 110px; background: var(--ink); color: rgba(255,255,255,.7); overflow: hidden; }
+.foot { padding-block: 64px 110px; background: var(--ink); color: rgba(255,255,255,.7); overflow: hidden; }
 .foot__word { font-family: var(--display); font-weight: 700; font-size: clamp(4rem, 17vw, 15rem); line-height: .85; letter-spacing: -.06em; color: #fff; }
 .foot__word span { color: var(--cobalt); }
-.foot__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.15); }
+.foot__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; }
 .foot strong { display: block; color: #fff; margin-bottom: 10px; }
 .foot nav { display: grid; gap: 6px; }
 .foot a { text-decoration: none; }
@@ -419,7 +419,6 @@ button { font: inherit; color: inherit; }
 
 <footer class="foot">
   <div class="wrap">
-    <p class="foot__word">Kranich<span>.</span></p>
     <div class="foot__grid">
       <div><strong>Café Kranich</strong>Musterweg 7 · 12345 Musterstadt<br>Telefon 01234 12 12 12</div>
       <div><strong>Seiten</strong><nav aria-label="Fußnavigation"><a href="#karte">Karte</a><a href="#reservieren">Reservieren</a><a href="#besuch">Besuch</a></nav></div>
