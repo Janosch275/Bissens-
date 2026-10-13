@@ -57,8 +57,8 @@ button { font: inherit; color: inherit; }
 .nav a { text-decoration: none; color: var(--muted); }
 .nav a:hover { color: var(--ink); }
 .head .btn { min-height: 44px; padding: 0 20px; font-size: .92rem; }
-.burger { display: none; margin-left: auto; width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--surface); cursor: pointer; }
-.burger span { display: block; width: 16px; height: 1.5px; margin: 4px auto; background: var(--ink); }
+.burger { display: none; margin-left: auto; width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--ink); cursor: pointer; box-shadow: 0 6px 18px -6px rgba(0,0,0,.45); }
+.burger span { display: block; width: 18px; height: 2px; margin: 4px auto; border-radius: 2px; background: #fff; }
 
 /* Video-Bühne: Einzelbilder werden beim Scrollen abgespielt */
 .stage { position: relative; background: var(--espresso); }
@@ -102,8 +102,8 @@ button { font: inherit; color: inherit; }
 /* Kopf auf der dunklen Bühne */
 .head.on-dark .logo, .head.on-dark .nav a { color: var(--cream); }
 .head.on-dark .nav a:hover { color: #fff; }
-.head.on-dark .burger { background: rgba(246,237,226,.14); }
-.head.on-dark .burger span { background: var(--cream); }
+.head.on-dark .burger { background: var(--cobalt); }
+.head.on-dark .burger span { background: #fff; }
 
 /* Abschnitte */
 .section { padding-block: 120px; }
@@ -333,7 +333,7 @@ button { font: inherit; color: inherit; }
   <section class="section section--white" id="karte">
     <div class="wrap">
       <div class="top reveal">
-        <div><span class="kicker">Karte</span><h2>Was es heute gibt</h2></div>
+        <div><span class="kicker">Karte</span><h2>Speisekarte</h2></div>
         <div class="tabs" role="tablist" aria-label="Kategorie">
           <button class="tab" role="tab" type="button" data-cat="kaffee" aria-selected="true">Kaffee</button>
           <button class="tab" role="tab" type="button" data-cat="mehr" aria-selected="false">Tee &amp; mehr</button>
