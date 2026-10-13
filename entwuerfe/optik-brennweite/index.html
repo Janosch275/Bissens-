@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Optik Brennweite</title>
+<meta name="description" content="Beispiel-Website eines frei erfundenen Optikers – erstellt von Webdesign Janosch Krause.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: klares Weiß wie im Messraum, Petrol als Glas-Ton, Serifen-Kursive für Betonung, Messwerte in Mono */
+:root {
+  --bg: #FFFFFF;
+  --paper: #F4F6F7;
+  --ink: #0F1418;
+  --muted: #5B656E;
+  --line: #E1E5E8;
+  --petrol: #0E6E7E;
+  --petrol-soft: #E3F1F3;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans: "Hanken Grotesk", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --wrap: 1220px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; }
+h1 em, h2 em { font-family: var(--serif); font-weight: 400; font-style: italic; letter-spacing: -0.01em; color: var(--petrol); }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 24px; }
+.mono { font-family: var(--mono); font-size: .78rem; color: var(--muted); }
+.label { font-family: var(--mono); font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--petrol); }
+.lead { color: var(--muted); font-size: 1.15rem; max-width: 52ch; }
+:focus-visible { outline: 2px solid var(--petrol); outline-offset: 3px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: #fff; font-weight: 600; text-decoration: none; cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+.btn:hover { background: var(--petrol); border-color: var(--petrol); }
+.btn--line { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn--line:hover { background: transparent; border-color: var(--ink); color: var(--ink); }
+
+/* Kopf */
+.head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: rgba(255,255,255,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.head__in { display: flex; align-items: center; gap: 32px; min-height: 72px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -.02em; font-size: 1.2rem; }
+.logo svg { width: 34px; height: 18px; }
+.logo em { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; color: var(--petrol); }
+.nav { display: flex; gap: 28px; margin-left: auto; font-weight: 500; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+.head .btn { min-height: 42px; padding: 0 18px; font-size: .92rem; }
+.burger { display: none; margin-left: auto; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: var(--bg); cursor: pointer; }
+.burger span { display: block; width: 16px; height: 1.5px; margin: 4px auto; background: var(--ink); }
+
+/* Hero mit Brillenglas */
+.hero { padding-block: 48px 88px; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(2.8rem, 6vw, 5.4rem); margin-block: 18px 24px; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.hero__note { display: flex; align-items: center; gap: 10px; margin-top: 30px; }
+.hero__note i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--petrol); flex: none; }
+.lensbox { position: relative; aspect-ratio: 3 / 2; max-width: 100%; border-radius: 22px; overflow: hidden; background: #F3F3F3; cursor: none; touch-action: pan-y; }
+.lensbox img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.lensbox__blur { filter: blur(9px) saturate(.9); transform: scale(1.06); }
+.lensbox__sharp { --x: 50%; --y: 50%; --r: 96px; clip-path: circle(var(--r) at var(--x) var(--y)); transform: scale(1.14); transform-origin: var(--x) var(--y); }
+.lens { position: absolute; left: 0; top: 0; width: 220px; height: 220px; margin: -110px 0 0 -110px; border-radius: 50%; pointer-events: none;
+  box-shadow: 0 0 0 3px rgba(15,20,24,.9), 0 0 0 9px rgba(255,255,255,.55), 0 24px 50px -12px rgba(15,20,24,.45), inset 0 0 30px rgba(14,110,126,.18);
+  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), rgba(255,255,255,0) 32%); will-change: transform; }
+.lens span { position: absolute; left: 50%; bottom: -44px; transform: translateX(-50%); padding: 5px 10px; border-radius: 999px; background: var(--ink); color: #fff; font: 500 .74rem var(--mono); white-space: nowrap; }
+.lensbox__hint { position: absolute; right: 14px; top: 14px; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.9); font: 500 .74rem var(--mono); color: var(--ink); transition: opacity .4s; }
+
+/* Abschnitte */
+.section { padding-block: 108px; }
+.section--paper { background: var(--paper); }
+.top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; margin-bottom: 48px; }
+.top h2 { font-size: clamp(2.2rem, 4.6vw, 3.8rem); margin-top: 14px; }
+
+/* Sehtest */
+.test { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 20px; align-items: stretch; }
+.chart { padding: 34px 24px; border-radius: 22px; background: var(--bg); border: 1px solid var(--line); display: grid; gap: 6px; justify-items: center; }
+.row { display: grid; grid-template-columns: 70px auto 70px; align-items: center; gap: 16px; width: 100%; padding: 6px 10px; border: 0; border-radius: 12px; background: transparent; cursor: pointer; transition: background .2s; }
+.row:hover { background: var(--paper); }
+.row.is-sel { background: var(--petrol-soft); }
+.row b { font-family: "Arial Narrow", Arial, sans-serif; font-weight: 700; letter-spacing: .28em; text-align: center; line-height: 1; color: var(--ink); }
+.row span { font: 500 .74rem var(--mono); color: var(--muted); }
+.row span:last-child { text-align: right; }
+.res { padding: 32px; border-radius: 22px; background: var(--ink); color: #fff; display: grid; gap: 18px; align-content: start; }
+.res .label { color: #7FC8D3; }
+.res strong { font-size: 4.4rem; font-weight: 600; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.res p { color: rgba(255,255,255,.75); }
+.meter { height: 8px; border-radius: 8px; background: rgba(255,255,255,.12); position: relative; overflow: hidden; }
+.meter i { position: absolute; inset: 0 auto 0 0; border-radius: 8px; background: #7FC8D3; transition: width .5s cubic-bezier(.2,.7,.2,1); }
+.res small { font: 400 .78rem var(--mono); color: rgba(255,255,255,.55); }
+.res .btn { justify-self: start; background: #fff; color: var(--ink); border-color: #fff; }
+.res .btn:hover { background: #7FC8D3; border-color: #7FC8D3; }
+
+/* Fassungen */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; justify-self: end; }
+.chip { min-height: 42px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; font-weight: 600; font-size: .92rem; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.frames { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.frame { display: grid; gap: 12px; }
+.frame[hidden] { display: none; }
+.frame__img { position: relative; aspect-ratio: 4 / 3; max-width: 100%; border-radius: 18px; overflow: hidden; background: var(--paper); }
+.frame__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+.frame:hover .frame__img img { transform: scale(1.05); }
+.frame__meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.frame h3 { font-size: 1.15rem; letter-spacing: -.01em; }
+.frame__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { padding: 3px 10px; border-radius: 999px; background: var(--paper); font: 500 .74rem var(--mono); color: var(--muted); }
+
+/* Leistungen */
+.services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.service { display: grid; gap: 10px; align-content: start; padding: 26px 22px 0 0; }
+.service + .service { padding-left: 22px; border-left: 1px solid var(--line); }
+.service h3 { font-size: 1.3rem; }
+.service p { color: var(--muted); font-size: .98rem; }
+
+/* Termin */
+.booking { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 20px; align-items: start; }
+.panel { padding: 30px; border-radius: 22px; background: var(--bg); border: 1px solid var(--line); display: grid; gap: 22px; }
+.days { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.day { display: grid; gap: 2px; justify-items: center; padding: 10px 4px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; font-weight: 600; }
+.day small { font: 500 .72rem var(--mono); color: var(--muted); }
+.day[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.day[aria-pressed="true"] small { color: rgba(255,255,255,.7); }
+.slots { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.slot { min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); cursor: pointer; font: 500 .9rem var(--mono); }
+.slot:hover:not(:disabled) { border-color: var(--ink); }
+.slot:disabled { background: var(--paper); color: #A7B0B8; text-decoration: line-through; cursor: default; border-color: transparent; }
+.slot[aria-pressed="true"] { background: var(--petrol); border-color: var(--petrol); color: #fff; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.group { display: grid; gap: 10px; }
+.group > span { font-weight: 600; font-size: .95rem; }
+.summary { position: sticky; top: 96px; padding: 30px; border-radius: 22px; background: var(--petrol-soft); display: grid; gap: 16px; }
+.summary h3 { font-size: 1.6rem; }
+.summary dl { margin: 0; display: grid; gap: 10px; }
+.summary dl div { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(14,110,126,.18); }
+.summary dt { color: var(--muted); }
+.summary dd { margin: 0; font-weight: 600; text-align: right; }
+.field { display: grid; gap: 6px; }
+.field label { font-size: .88rem; font-weight: 600; }
+.field input { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid rgba(14,110,126,.25); border-radius: 12px; background: #fff; color: var(--ink); font: inherit; }
+.field input:focus { outline: none; border-color: var(--petrol); }
+.summary .btn { width: 100%; }
+.summary .btn:disabled { opacity: .4; cursor: default; }
+
+/* Fuß */
+.foot { padding-block: 64px 110px; border-top: 1px solid var(--line); color: var(--muted); font-size: .95rem; }
+.foot__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; }
+.foot strong { display: block; color: var(--ink); margin-bottom: 10px; }
+.foot nav { display: grid; gap: 6px; }
+.foot a { text-decoration: none; }
+.foot a:hover { color: var(--ink); }
+.foot__bottom { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); font-size: .85rem; }
+.demo-badge { position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60; padding: 10px 16px; border-radius: 999px; background: var(--ink); color: #fff; font: 600 .78rem var(--sans); text-decoration: none; }
+
+.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+@media (max-width: 1020px) {
+  .hero__grid, .test, .booking, .top { grid-template-columns: minmax(0, 1fr); }
+  .filters { justify-self: start; }
+  .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .services { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+  .service:nth-child(3) { padding-left: 0; border-left: 0; }
+  .summary { position: static; }
+}
+@media (max-width: 760px) {
+  .nav, .head .btn { display: none; }
+  .burger { display: block; }
+  .nav.is-open { display: grid; gap: 0; position: absolute; top: 100%; left: 0; right: 0; padding: 4px 24px 16px; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .nav.is-open a { padding: 13px 0; border-bottom: 1px solid var(--line); color: var(--ink); }
+  .lens { width: 150px; height: 150px; margin: -75px 0 0 -75px; }
+  .lensbox__sharp { --r: 66px; }
+}
+@media (max-width: 600px) {
+  .wrap { padding-inline: 18px; }
+  .section { padding-block: 72px; }
+  .frames, .services, .foot__grid { grid-template-columns: minmax(0, 1fr); }
+  .service, .service + .service { padding-left: 0; border-left: 0; }
+  .days { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .slots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .row { grid-template-columns: 54px auto 54px; gap: 8px; }
+  .panel, .summary, .res { padding: 22px; }
+  .demo-badge { left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap head__in">
+    <a class="logo" href="#start" aria-label="Optik Brennweite – zum Seitenanfang">
+      <svg viewBox="0 0 34 18" aria-hidden="true"><circle cx="8" cy="9" r="6.5" fill="none" stroke="#0F1418" stroke-width="2"/><circle cx="26" cy="9" r="6.5" fill="none" stroke="#0E6E7E" stroke-width="2"/><path d="M14.5 8c1.5-1.4 3.5-1.4 5 0" fill="none" stroke="#0F1418" stroke-width="2"/></svg>
+      <span>Optik <em>Brennweite</em></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <a href="#sehtest">Sehtest</a>
+      <a href="#fassungen">Fassungen</a>
+      <a href="#leistungen">Leistungen</a>
+      <a href="#termin">Termin</a>
+    </nav>
+    <a class="btn" href="#termin">Termin buchen</a>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="start">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="reveal">
+        <p class="label">Augenoptik in Musterstadt</p>
+        <h1>Die Welt ist <em>schärfer,</em> als Sie denken.</h1>
+        <p class="lead">Wir messen Ihre Augen in 20 Minuten, beraten ohne Zeitdruck und schleifen Ihre Gläser in der eigenen Werkstatt.</p>
+        <div class="hero__actions">
+          <a class="btn" href="#termin">Sehtest buchen</a>
+          <a class="btn btn--line" href="#fassungen">Fassungen ansehen</a>
+        </div>
+        <p class="hero__note"><i aria-hidden="true"></i><span class="mono">Fahren Sie mit der Maus über das Bild</span></p>
+      </div>
+      <div class="lensbox" id="lensbox" role="img" aria-label="Verschiedene Brillenfassungen auf weißem Grund – durch das Brillenglas wird das Bild scharf">
+        <img class="lensbox__blur" src="bilder/brillen-flatlay.jpg" alt="" width="2000" height="1335">
+        <img class="lensbox__sharp" id="sharp" src="bilder/brillen-flatlay.jpg" alt="">
+        <div class="lens" id="lens"><span id="dpt">+1,25 dpt</span></div>
+        <span class="lensbox__hint" id="hint">Glas: Einstärke · entspiegelt</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="sehtest">
+    <div class="wrap">
+      <div class="top reveal">
+        <div><p class="label">Kurzer Sehtest</p><h2>Welche Zeile können Sie <em>noch lesen?</em></h2></div>
+        <p class="lead">Setzen Sie sich etwa 50 cm vor den Bildschirm und tippen Sie auf die kleinste Zeile, die Sie sicher lesen können.</p>
+      </div>
+      <div class="test">
+        <div class="chart reveal" id="chart" role="group" aria-label="Sehtafel"></div>
+        <div class="res reveal" aria-live="polite">
+          <span class="label">Ihr Ergebnis</span>
+          <strong id="visus">–</strong>
+          <div class="meter"><i id="meter" style="width:0"></i></div>
+          <p id="verdict">Wählen Sie links eine Zeile aus.</p>
+          <small>Nur eine Orientierung, kein Ersatz für eine Messung. Bildschirmgröße und Abstand beeinflussen das Ergebnis.</small>
+          <a class="btn" href="#termin">Genau messen lassen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fassungen">
+    <div class="wrap">
+      <div class="top reveal">
+        <div><p class="label">Fassungen</p><h2>Über 600 Modelle, <em>eine passt.</em></h2></div>
+        <div class="filters" role="group" aria-label="Fassungen filtern">
+          <button class="chip" type="button" data-f="alle" aria-pressed="true">Alle</button>
+          <button class="chip" type="button" data-f="rund" aria-pressed="false">Rund</button>
+          <button class="chip" type="button" data-f="eckig" aria-pressed="false">Eckig</button>
+          <button class="chip" type="button" data-f="metall" aria-pressed="false">Metall</button>
+        </div>
+      </div>
+      <div class="frames" id="frames">
+        <article class="frame reveal" data-f="eckig"><div class="frame__img"><img src="bilder/eckig.jpg" alt="Eckige Fassung in Schildpatt-Optik" loading="lazy"></div><div class="frame__meta"><h3>Modell Linz</h3><span class="mono">ab 189 €</span></div><div class="frame__tags"><span class="tag">Acetat</span><span class="tag">eckig</span></div></article>
+        <article class="frame reveal" data-f="rund"><div class="frame__img"><img src="bilder/panto.jpg" alt="Panto-Fassung auf einem Schreibtisch" loading="lazy"></div><div class="frame__meta"><h3>Modell Graz</h3><span class="mono">ab 159 €</span></div><div class="frame__tags"><span class="tag">Acetat</span><span class="tag">panto</span></div></article>
+        <article class="frame reveal" data-f="rund metall"><div class="frame__img"><img src="bilder/rund-metall.jpg" alt="Runde Metallbrille auf einer Zeitschrift" loading="lazy"></div><div class="frame__meta"><h3>Modell Bern</h3><span class="mono">ab 219 €</span></div><div class="frame__tags"><span class="tag">Titan</span><span class="tag">rund</span></div></article>
+        <article class="frame reveal" data-f="rund metall"><div class="frame__img"><img src="bilder/rund-dunkel.jpg" alt="Runde Brille auf dunklem Holz" loading="lazy"></div><div class="frame__meta"><h3>Modell Basel</h3><span class="mono">ab 199 €</span></div><div class="frame__tags"><span class="tag">Edelstahl</span><span class="tag">rund</span></div></article>
+        <article class="frame reveal" data-f="eckig metall"><div class="frame__img"><img src="bilder/buch.jpg" alt="Lesebrille auf einem aufgeschlagenen Buch" loading="lazy"></div><div class="frame__meta"><h3>Lesebrille Lyon</h3><span class="mono">ab 89 €</span></div><div class="frame__tags"><span class="tag">Metall</span><span class="tag">halbrand</span></div></article>
+        <article class="frame reveal" data-f="eckig rund"><div class="frame__img"><img src="bilder/regal.jpg" alt="Brillen im Regal unseres Geschäfts" loading="lazy"></div><div class="frame__meta"><h3>Alle im Laden</h3><span class="mono">600+ Modelle</span></div><div class="frame__tags"><span class="tag">anprobieren</span></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="leistungen">
+    <div class="wrap">
+      <div class="top reveal"><div><p class="label">Leistungen</p><h2>Alles rund ums <em>Sehen</em></h2></div></div>
+      <div class="services">
+        <article class="service reveal"><span class="mono">20 min · kostenlos</span><h3>Sehtest</h3><p>Computergestützte Messung beider Augen, auch für Führerschein und Bildschirmarbeit.</p></article>
+        <article class="service reveal"><span class="mono">ab 390 €</span><h3>Gleitsicht</h3><p>Ein Glas für nah und fern. Wir zentrieren mit Videomessung auf den Zehntelmillimeter.</p></article>
+        <article class="service reveal"><span class="mono">Probetragen 14 Tage</span><h3>Kontaktlinsen</h3><p>Tages-, Monats- und formstabile Linsen. Anpassung mit Hornhautvermessung.</p></article>
+        <article class="service reveal"><span class="mono">oft sofort</span><h3>Reparatur</h3><p>Schraube locker, Bügel verbogen, Nasenpad kaputt? Meist erledigt, während Sie warten.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="termin">
+    <div class="wrap">
+      <div class="top reveal">
+        <div><p class="label">Termin</p><h2>Wählen Sie Tag und <em>Uhrzeit</em></h2></div>
+        <p class="lead">Freie Termine sehen Sie sofort. Durchgestrichene Zeiten sind bereits vergeben.</p>
+      </div>
+      <div class="booking">
+        <div class="panel reveal">
+          <div class="group"><span>Worum geht es?</span><div class="seg" id="svc"><button class="chip" type="button" data-v="Sehtest" data-min="20" aria-pressed="true">Sehtest</button><button class="chip" type="button" data-v="Brillenberatung" data-min="40" aria-pressed="false">Brillenberatung</button><button class="chip" type="button" data-v="Kontaktlinsen" data-min="40" aria-pressed="false">Kontaktlinsen</button></div></div>
+          <div class="group"><span>Tag</span><div class="days" id="days"></div></div>
+          <div class="group"><span>Uhrzeit</span><div class="slots" id="slots"></div></div>
+        </div>
+        <aside class="summary reveal" aria-live="polite">
+          <h3>Ihr Termin</h3>
+          <dl>
+            <div><dt>Leistung</dt><dd id="sumSvc">Sehtest · 20 min</dd></div>
+            <div><dt>Tag</dt><dd id="sumDay">–</dd></div>
+            <div><dt>Uhrzeit</dt><dd id="sumTime">–</dd></div>
+          </dl>
+          <div class="field"><label for="b-name">Name</label><input id="b-name" autocomplete="name"></div>
+          <div class="field"><label for="b-tel">Telefon</label><input id="b-tel" type="tel" autocomplete="tel"></div>
+          <button class="btn" type="button" id="book" disabled>Termin verbindlich buchen</button>
+          <p class="mono" id="bNote">Beispiel-Website: Es wird nichts gebucht.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div><strong>Optik Brennweite</strong>Musterweg 7 · 12345 Musterstadt<br>Telefon 01234 44 55 66 · Mo – Fr 9 – 18, Sa 9 – 13 Uhr</div>
+      <div><strong>Seiten</strong><nav aria-label="Fußnavigation"><a href="#sehtest">Sehtest</a><a href="#fassungen">Fassungen</a><a href="#termin">Termin</a></nav></div>
+      <div><strong>Rechtliches</strong><nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav></div>
+    </div>
+    <p class="foot__bottom">Beispiel-Website: „Optik Brennweite“ ist frei erfunden. Fotos: Pexels. Design &amp; Umsetzung: Webdesign Janosch Krause.</p>
+  </div>
+</footer>
+
+<a class="demo-badge" href="../../index.html#arbeiten">Beispiel-Website · erstellt von Janosch Krause</a>
+
+<script>
+(function () {
+  "use strict";
+  function $(id) { return document.getElementById(id); }
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Menü */
+  var burger = $("burger"), nav = $("nav");
+  burger.addEventListener("click", function () { var o = nav.classList.toggle("is-open"); burger.setAttribute("aria-expanded", o); });
+  nav.addEventListener("click", function (e) { if (e.target.tagName === "A") { nav.classList.remove("is-open"); burger.setAttribute("aria-expanded", "false"); } });
+
+  /* ---------- Brillenglas ---------- */
+  var box = $("lensbox"), sharp = $("sharp"), lens = $("lens"), hint = $("hint"), dpt = $("dpt");
+  var pos = { x: .5, y: .5 }, goal = { x: .5, y: .5 }, user = false, t0 = performance.now(), visible = true;
+  function setLens(x, y) {
+    var w = box.clientWidth, h = box.clientHeight;
+    sharp.style.setProperty("--x", (x * 100).toFixed(2) + "%");
+    sharp.style.setProperty("--y", (y * 100).toFixed(2) + "%");
+    lens.style.transform = "translate(" + (x * w).toFixed(1) + "px," + (y * h).toFixed(1) + "px)";
+    dpt.textContent = (x < .5 ? "+" : "−") + (Math.round(Math.abs(x - .5) * 6 * 4) / 4 + .25).toFixed(2).replace(".", ",") + " dpt";
+  }
+  function point(e) {
+    var r = box.getBoundingClientRect();
+    goal.x = Math.min(.97, Math.max(.03, (e.clientX - r.left) / r.width));
+    goal.y = Math.min(.95, Math.max(.05, (e.clientY - r.top) / r.height));
+    if (!user) { user = true; hint.style.opacity = "0"; }
+  }
+  box.addEventListener("pointermove", point);
+  box.addEventListener("pointerdown", point);
+  new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(box);
+  if (reduce) setLens(.5, .5);
+  else (function loop(now) {
+    requestAnimationFrame(loop);
+    if (!visible) return;
+    if (!user) { var t = (now - t0) / 1000; goal.x = .5 + Math.sin(t * .55) * .3; goal.y = .5 + Math.sin(t * 1.1) * .22; }
+    pos.x += (goal.x - pos.x) * .12; pos.y += (goal.y - pos.y) * .12;
+    setLens(pos.x, pos.y);
+  })(t0);
+  window.addEventListener("resize", function () { setLens(pos.x, pos.y); });
+
+  /* ---------- Sehtest ---------- */
+  var ROWS = [["E", .1], ["F P", .2], ["T O Z", .3], ["L P E D", .4], ["P E C F D", .5], ["E D F C Z P", .63], ["F E L O P Z D", .8], ["D E F P O T E C", 1.0], ["L E F O D P C T", 1.25]];
+  var chart = $("chart");
+  ROWS.forEach(function (r, i) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "row";
+    var size = Math.max(9, 76 * Math.pow(.72, i));
+    b.innerHTML = "<span>" + (i + 1) + "</span><b style=\"font-size:" + size.toFixed(1) + "px\">" + r[0].replace(/ /g, "") + "</b><span>" + r[1].toFixed(2).replace(".", ",") + "</span>";
+    b.setAttribute("aria-label", "Zeile " + (i + 1) + " lesbar, Visus " + r[1].toFixed(2).replace(".", ","));
+    b.addEventListener("click", function () {
+      chart.querySelectorAll(".row").forEach(function (x, j) { x.classList.toggle("is-sel", j === i); });
+      var v = r[1];
+      $("visus").textContent = v.toFixed(2).replace(".", ",");
+      $("meter").style.width = Math.min(100, v / 1.25 * 100) + "%";
+      $("verdict").textContent = v >= 1 ? "Sehr gut. Sie sehen in diesem Abstand scharf – ein Kontrolltest alle zwei Jahre genügt." : v >= .63 ? "Leicht eingeschränkt. Eine schwache Brille könnte den Alltag entspannter machen." : "Deutlich eingeschränkt. Lassen Sie Ihre Augen bald genau messen.";
+    });
+    chart.appendChild(b);
+  });
+
+  /* ---------- Fassungen filtern ---------- */
+  document.querySelectorAll("[data-f].chip").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll("[data-f].chip").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+      document.querySelectorAll(".frame").forEach(function (f) { f.hidden = !(b.dataset.f === "alle" || f.dataset.f.split(" ").indexOf(b.dataset.f) > -1); f.classList.add("is-in"); });
+    });
+  });
+
+  /* ---------- Terminbuchung ---------- */
+  var DOW = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+  var today = new Date(), days = [], d = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+  while (days.length < 6) { if (d.getDay() !== 0) days.push(new Date(d)); d.setDate(d.getDate() + 1); }
+  var st = { svc: "Sehtest", min: 20, day: null, time: null };
+  function seed(s) { var h = 7; for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 1000003; return h; }
+  var daysEl = $("days"), slotsEl = $("slots");
+  days.forEach(function (dt, i) {
+    var b = document.createElement("button"); b.type = "button"; b.className = "day"; b.setAttribute("aria-pressed", i === 0);
+    b.innerHTML = DOW[dt.getDay()] + "<small>" + dt.getDate() + "." + (dt.getMonth() + 1) + ".</small>";
+    b.addEventListener("click", function () { st.day = dt; st.time = null; daysEl.querySelectorAll(".day").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); slots(); sum(); });
+    daysEl.appendChild(b);
+  });
+  st.day = days[0];
+  function slots() {
+    var sat = st.day.getDay() === 6, end = sat ? 13 * 60 : 18 * 60, html = "";
+    for (var m = 9 * 60; m + st.min <= end; m += 40) {
+      var label = Math.floor(m / 60) + ":" + String(m % 60).padStart(2, "0");
+      var taken = seed(st.day.toDateString() + label + st.svc) % 3 === 0;
+      html += '<button type="button" class="slot" data-t="' + label + '"' + (taken ? " disabled" : "") + ' aria-pressed="' + (st.time === label) + '">' + label + "</button>";
+    }
+    slotsEl.innerHTML = html;
+  }
+  slotsEl.addEventListener("click", function (e) { var b = e.target.closest(".slot"); if (!b || b.disabled) return; st.time = b.dataset.t; slotsEl.querySelectorAll(".slot").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); sum(); });
+  $("svc").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; st.svc = b.dataset.v; st.min = +b.dataset.min; st.time = null; $("svc").querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); slots(); sum(); });
+  function sum() {
+    $("sumSvc").textContent = st.svc + " · " + st.min + " min";
+    $("sumDay").textContent = st.day.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" });
+    $("sumTime").textContent = st.time ? st.time + " Uhr" : "–";
+    $("book").disabled = !st.time;
+  }
+  slots(); sum();
+  $("book").addEventListener("click", function () {
+    var n = $("b-name").value.trim(), t = $("b-tel").value.trim(), note = $("bNote");
+    if (!n || !t) { note.textContent = "Bitte geben Sie Name und Telefonnummer an."; (n ? $("b-tel") : $("b-name")).focus(); return; }
+    note.textContent = "Gebucht: " + $("sumDay").textContent + ", " + st.time + " Uhr. (Beispiel-Website – es wurde nichts gebucht.)";
+    this.disabled = true; this.textContent = "Termin gebucht";
+  });
+
+  /* ---------- Einblendungen ---------- */
+  var els = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) { els.forEach(function (el) { el.classList.add("is-in"); }); return; }
+  var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("is-in"); io.unobserve(x.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
