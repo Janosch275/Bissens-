@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Malerbetrieb Brandt</title>
+<meta name="description" content="Beispiel-Website eines frei erfundenen Malerbetriebs – erstellt von Webdesign Janosch Krause.">
+<meta name="robots" content="noindex, follow">
+<link rel="stylesheet" href="schriften/schriften.css">
+<style>
+/* Layout: schlichter Onepager – Weiß, ein Salbeigrün aus dem Titelbild als Akzent, eine Schrift, klare Abschnitte */
+:root {
+  --bg: #FFFFFF;
+  --paper: #F4F5F1;
+  --ink: #1B201C;
+  --muted: #5F6862;
+  --line: #E1E5DF;
+  --green: #4A6450;
+  --green-soft: #E7EEE8;
+  --font: "Figtree", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --wrap: 1120px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.65 var(--font); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; text-wrap: balance; }
+p { margin: 0; }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 24px; }
+.label { font-size: .82rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green); }
+.lead { color: var(--muted); font-size: 1.15rem; max-width: 52ch; }
+:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 24px; border-radius: 10px; border: 2px solid var(--green); background: var(--green); color: #fff; font-weight: 700; text-decoration: none; cursor: pointer; font-family: inherit; font-size: 1rem; transition: background .2s, border-color .2s, color .2s; }
+.btn:hover { background: var(--ink); border-color: var(--ink); }
+.btn--line { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn--line:hover { background: transparent; border-color: var(--ink); color: var(--ink); }
+.btn svg { width: 18px; height: 18px; }
+
+/* Kopf */
+.head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(255,255,255,.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.head__in { display: flex; align-items: center; gap: 28px; min-height: 72px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; font-size: 1.15rem; letter-spacing: -.02em; }
+.logo svg { width: 32px; height: 32px; }
+.logo small { display: block; font-weight: 500; font-size: .74rem; color: var(--muted); letter-spacing: 0; }
+.nav { display: flex; gap: 26px; margin-left: auto; font-weight: 600; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+.head .btn { min-height: 42px; padding: 0 16px; font-size: .95rem; }
+
+/* Start */
+.hero { padding-block: 56px 80px; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); margin-block: 16px 20px; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero__list { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 28px 0 0; padding: 0; list-style: none; color: var(--muted); font-weight: 500; }
+.hero__list li { display: flex; align-items: center; gap: 8px; }
+.hero__list svg { width: 18px; height: 18px; color: var(--green); flex: none; }
+.hero__img { border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 4.4; max-width: 100%; background: var(--paper); }
+.hero__img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Abschnitte */
+.section { padding-block: 96px; }
+.section--paper { background: var(--paper); }
+.head2 { max-width: 640px; display: grid; gap: 12px; margin-bottom: 44px; }
+.head2 h2 { font-size: clamp(2rem, 3.6vw, 2.8rem); }
+
+/* Leistungen */
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.service { display: grid; grid-template-rows: auto 1fr; border-radius: 16px; overflow: hidden; background: var(--bg); border: 1px solid var(--line); }
+.service__img { aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; }
+.service__img img { width: 100%; height: 100%; object-fit: cover; }
+.service__body { display: grid; gap: 10px; align-content: start; padding: 22px 22px 26px; }
+.service h3 { font-size: 1.25rem; }
+.service p { color: var(--muted); }
+.service ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: .95rem; }
+.service li { display: flex; gap: 8px; }
+.service li::before { content: ""; width: 6px; height: 6px; margin-top: 10px; border-radius: 50%; background: var(--green); flex: none; }
+
+/* Über uns */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+.about__img { border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 3; max-width: 100%; }
+.about__img img { width: 100%; height: 100%; object-fit: cover; }
+.about__text { display: grid; gap: 18px; }
+.about__text h2 { font-size: clamp(2rem, 3.6vw, 2.8rem); }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+.facts div { padding: 16px; border-radius: 12px; background: var(--green-soft); }
+.facts strong { display: block; font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em; color: var(--green); }
+.facts span { font-size: .9rem; color: var(--muted); }
+
+/* Ablauf */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; padding: 0; margin: 0; list-style: none; counter-reset: s; }
+.steps li { display: grid; gap: 8px; padding: 24px; border-radius: 16px; background: var(--bg); border: 1px solid var(--line); }
+.steps li::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 700; margin-bottom: 6px; }
+.steps h3 { font-size: 1.15rem; }
+.steps p { color: var(--muted); font-size: .98rem; }
+
+/* Kontakt */
+.contact { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 48px; align-items: start; }
+.contact__info { display: grid; gap: 22px; }
+.contact__info h2 { font-size: clamp(2rem, 3.6vw, 2.8rem); }
+.info { display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
+.info li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: center; }
+.info i { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--green-soft); color: var(--green); }
+.info i svg { width: 20px; height: 20px; }
+.info span { display: block; font-size: .85rem; color: var(--muted); }
+.info strong, .info a { font-weight: 600; text-decoration: none; }
+form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 30px; border-radius: 16px; background: var(--paper); }
+.field { display: grid; gap: 6px; min-width: 0; }
+.full { grid-column: 1 / -1; }
+.field label { font-weight: 600; font-size: .92rem; }
+.field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); font: inherit; font-size: 1rem; }
+.field textarea { min-height: 120px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
+.consent { grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; color: var(--muted); }
+.consent input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--green); flex: none; }
+form .btn { justify-self: start; }
+.note { grid-column: 1 / -1; font-size: .85rem; color: var(--muted); }
+.success { grid-column: 1 / -1; display: grid; gap: 6px; padding: 24px; border-radius: 12px; background: var(--green-soft); }
+.success strong { font-size: 1.2rem; }
+
+/* Fuß */
+.foot { padding-block: 40px 100px; border-top: 1px solid var(--line); color: var(--muted); font-size: .95rem; }
+.foot__in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; }
+.foot nav { display: flex; gap: 20px; }
+.foot a { text-decoration: none; }
+.foot a:hover { color: var(--ink); }
+.foot__note { margin-top: 16px; font-size: .85rem; }
+.demo-badge { position: fixed; left: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60; padding: 9px 15px; border-radius: 999px; background: var(--ink); color: #fff; font: 600 .76rem var(--font); text-decoration: none; }
+
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  .hero__grid, .about, .contact { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .hero__img { aspect-ratio: 4 / 3; }
+  .services, .steps { grid-template-columns: minmax(0, 1fr); }
+  .nav { display: none; }
+  .head .btn { margin-left: auto; }
+}
+@media (max-width: 560px) {
+  .wrap { padding-inline: 18px; }
+  .hero { padding-top: 32px; }
+  .section { padding-block: 64px; }
+  form { grid-template-columns: minmax(0, 1fr); padding: 20px; }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .head .btn span { display: none; }
+  .demo-badge { left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap head__in">
+    <a class="logo" href="#start" aria-label="Malerbetrieb Brandt – zum Seitenanfang">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#4A6450"/><rect x="8" y="8" width="16" height="7" rx="2" fill="#fff"/><path d="M22 11.5h3v6h-9v4" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><rect x="14.5" y="21" width="3" height="5" rx="1" fill="#fff"/></svg>
+      <span>Malerbetrieb Brandt<small>Meisterbetrieb in Musterstadt</small></span>
+    </a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#ueber-uns">Über uns</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <a class="btn" href="tel:01234567891"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>01234 56 78 91</span></a>
+  </div>
+</header>
+
+<main id="start">
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="reveal">
+        <p class="label">Malerbetrieb in Musterstadt</p>
+        <h1>Frische Farbe für Ihr Zuhause.</h1>
+        <p class="lead">Wir streichen Wohnungen, Häuser und Fassaden – sauber, pünktlich und zum vereinbarten Preis. Seit über 25 Jahren in Musterstadt und Umgebung.</p>
+        <div class="hero__actions">
+          <a class="btn" href="#kontakt">Kostenloses Angebot</a>
+          <a class="btn btn--line" href="#leistungen">Unsere Leistungen</a>
+        </div>
+        <ul class="hero__list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Festpreis vorab</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Möbel werden abgedeckt</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>Wir räumen auf</li>
+        </ul>
+      </div>
+      <div class="hero__img reveal"><img src="bilder/wand-gruen.jpg" alt="Wand wird mit der Rolle in Salbeigrün gestrichen" width="1400" height="2100"></div>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="leistungen">
+    <div class="wrap">
+      <div class="head2 reveal">
+        <p class="label">Leistungen</p>
+        <h2>Was wir für Sie machen</h2>
+      </div>
+      <div class="services">
+        <article class="service reveal">
+          <div class="service__img"><img src="bilder/innen.jpg" alt="Helle Wand wird mit der Farbrolle gestrichen" loading="lazy"></div>
+          <div class="service__body"><h3>Innenanstrich</h3><p>Wände und Decken in Wohnung, Haus oder Büro.</p><ul><li>Streichen in Wunschfarbe</li><li>Tapezieren &amp; Raufaser</li><li>Spachteln von Rissen</li></ul></div>
+        </article>
+        <article class="service reveal">
+          <div class="service__img"><img src="bilder/fassade.jpg" alt="Weiß gestrichene Hausfassade" loading="lazy"></div>
+          <div class="service__body"><h3>Fassade</h3><p>Schutz und neues Aussehen für Ihr Haus.</p><ul><li>Fassadenanstrich</li><li>Reinigung vorab</li><li>Gerüst organisieren wir</li></ul></div>
+        </article>
+        <article class="service reveal">
+          <div class="service__img"><img src="bilder/lack.jpg" alt="Pinsel und Farbrolle mit orangefarbener Farbe" loading="lazy"></div>
+          <div class="service__body"><h3>Lackierarbeiten</h3><p>Türen, Fenster, Treppengeländer und Heizkörper.</p><ul><li>Abschleifen &amp; Grundieren</li><li>Lackieren in jedem RAL-Ton</li><li>Holzschutz außen</li></ul></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ueber-uns">
+    <div class="wrap about">
+      <div class="about__img reveal"><img src="bilder/material.jpg" alt="Farbeimer, Pinsel und Abdeckfolie bereit für den Einsatz" loading="lazy"></div>
+      <div class="about__text reveal">
+        <p class="label">Über uns</p>
+        <h2>Ein Familienbetrieb, der hinter sich aufräumt.</h2>
+        <p class="lead">Malermeister Jens Brandt hat den Betrieb 1998 gegründet. Heute arbeiten wir mit sechs Leuten in Musterstadt und im Umkreis von 30 Kilometern – für Privatkunden, Vermieter und kleine Firmen.</p>
+        <div class="facts">
+          <div><strong>25+</strong><span>Jahre Erfahrung</span></div>
+          <div><strong>6</strong><span>Mitarbeiter</span></div>
+          <div><strong>30 km</strong><span>Einsatzgebiet</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="wrap">
+      <div class="head2 reveal"><p class="label">So läuft's ab</p><h2>In drei Schritten zur neuen Wand</h2></div>
+      <ol class="steps">
+        <li class="reveal"><h3>Anfrage</h3><p>Sie schreiben uns oder rufen an. Wir melden uns innerhalb von zwei Werktagen.</p></li>
+        <li class="reveal"><h3>Besichtigung &amp; Festpreis</h3><p>Wir schauen uns alles vor Ort an und nennen Ihnen einen festen Preis.</p></li>
+        <li class="reveal"><h3>Streichen</h3><p>Zum vereinbarten Termin – und danach ist alles wieder sauber.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="kontakt">
+    <div class="wrap contact">
+      <div class="contact__info reveal">
+        <p class="label">Kontakt</p>
+        <h2>Jetzt kostenloses Angebot anfragen</h2>
+        <ul class="info">
+          <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></i><div><span>Telefon</span><a href="tel:01234567891">01234 56 78 91</a></div></li>
+          <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></i><div><span>E-Mail</span><strong>info@maler-brandt.example</strong></div></li>
+          <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></i><div><span>Adresse</span><strong>Musterweg 7, 12345 Musterstadt</strong></div></li>
+          <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><div><span>Erreichbar</span><strong>Mo – Fr 7:00 – 17:00 Uhr</strong></div></li>
+        </ul>
+      </div>
+      <form id="form" class="reveal" novalidate>
+        <div class="field"><label for="f-name">Name *</label><input id="f-name" autocomplete="name"></div>
+        <div class="field"><label for="f-tel">Telefon *</label><input id="f-tel" type="tel" autocomplete="tel"></div>
+        <div class="field full"><label for="f-art">Worum geht es?</label><select id="f-art"><option>Innenanstrich</option><option>Fassade</option><option>Lackierarbeiten</option><option>Etwas anderes</option></select></div>
+        <div class="field full"><label for="f-msg">Nachricht</label><textarea id="f-msg" placeholder="z. B. Wohnzimmer und Flur, ca. 45 m², weiß"></textarea></div>
+        <label class="consent"><input type="checkbox" id="f-ok"> Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden.</label>
+        <button class="btn" type="submit">Anfrage senden</button>
+        <p class="note" id="note">Beispiel-Website: Es wird nichts verschickt.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__in">
+      <span>© <span id="jahr">2026</span> Malerbetrieb Brandt · Musterweg 7 · 12345 Musterstadt</span>
+      <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    </div>
+    <p class="foot__note">Beispiel-Website: Der „Malerbetrieb Brandt“ ist frei erfunden. Fotos: Pexels. Design &amp; Umsetzung: Webdesign Janosch Krause.</p>
+  </div>
+</footer>
+
+<a class="demo-badge" href="https://janoschkrause-webdesign.de/#arbeiten">Beispiel-Website · erstellt von Janosch Krause</a>
+
+<script>
+(function () {
+  "use strict";
+  document.getElementById("jahr").textContent = new Date().getFullYear();
+  var form = document.getElementById("form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var n = document.getElementById("f-name").value.trim(), t = document.getElementById("f-tel").value.trim(), note = document.getElementById("note");
+    if (!n || !t) { note.textContent = "Bitte geben Sie Name und Telefonnummer an."; (n ? document.getElementById("f-tel") : document.getElementById("f-name")).focus(); return; }
+    if (!document.getElementById("f-ok").checked) { note.textContent = "Bitte bestätigen Sie die Einwilligung."; return; }
+    form.innerHTML = '<div class="success" role="status"><strong>Danke, ' + n.replace(/[<>&"]/g, "") + '!</strong><span>Wir melden uns innerhalb von zwei Werktagen bei Ihnen.</span><span style="font-size:.85rem;color:var(--muted)">Hinweis: Beispiel-Website, es wurde nichts verschickt.</span></div>';
+  });
+  var els = document.querySelectorAll(".reveal");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { els.forEach(function (el) { el.classList.add("is-in"); }); return; }
+  var io = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("is-in"); io.unobserve(x.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
